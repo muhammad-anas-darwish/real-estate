@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+class {{ class }} extends FormRequest
+{
+    public function rules(): array
+    {
+        return [
+            // Add rules here 
+        ];
+    }
+
+    public function authorize(): bool
+    {
+        return true;
+    }
+}

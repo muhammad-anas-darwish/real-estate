@@ -1,0 +1,23 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Seeder;
+use {{ modelNamespace }};
+use {{ factoryNamespace }};
+
+class {{ class }} extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        // Create 10 records using the factory
+        {{ modelNamespace }}::factory()
+            ->count(10)
+            ->create();
+
+        $this->command->info('{{ class }} seeded successfully!');
+    }
+}

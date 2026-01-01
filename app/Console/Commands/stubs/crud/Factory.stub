@@ -1,0 +1,27 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+use {{ enumNamespace }};
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<{{ modelNamespace }}>
+ */
+class {{ class }} extends Factory
+{
+    protected $model = \{{ modelNamespace }}::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => fake()->word(),
+            // 'type' => fake()->randomElement({{ modelName }}TypeEnum::values()),
+        ];
+    }
+}

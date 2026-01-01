@@ -2,5 +2,5 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    App\Providers\FortifyServiceProvider::class,
+    Modules\Auth\Providers\FortifyServiceProvider::class,
 ];

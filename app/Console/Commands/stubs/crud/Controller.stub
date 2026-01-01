@@ -1,0 +1,51 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Http\Controllers\Controller;
+use {{ dtoNamespace }};
+use {{ resourceNamespace }};
+use {{ namespace }}\Http\Requests\Store{{ model }}Request;
+use {{ namespace }}\Http\Requests\Update{{ model }}Request;
+use {{ serviceNamespace }};
+
+class {{ class }} extends Controller
+{
+    public function __construct(protected readonly {{ model }}Service ${{ modelVariable }}Service)
+    {
+        $this->applyPermissions(
+            '{{ modelPlural }}', 
+            ['index', 'show', 'store', 'update', 'destroy']
+        );
+    }
+
+    public function index()
+    {
+        ${{ modelPlural }} = $this->{{ modelVariable }}Service->all();
+        return $this->paginatedResponse({{ model }}Resource::collection(${{ modelPlural }}));
+    }
+    
+    public function show($id)
+    {
+        ${{ modelVariable }} = $this->{{ modelVariable }}Service->find($id);
+        return $this->successResponse({{ model }}Resource::make(${{ modelVariable }}));
+    }
+
+    public function store(Store{{ model }}Request $request)
+    {
+        ${{ modelVariable }} = $this->{{ modelVariable }}Service->store({{ model }}DTO::fromRequest($request->validated()));
+        return $this->successResponse({{ model }}Resource::make(${{ modelVariable }}))->created('{{ modelVariable }}');
+    }
+
+    public function update(Update{{ model }}Request $request, $id)
+    {
+        ${{ modelVariable }} = $this->{{ modelVariable }}Service->update($id, {{ model }}DTO::fromRequest($request->validated()));
+        return $this->successResponse({{ model }}Resource::make(${{ modelVariable }}))->updated('{{ modelVariable }}');
+    }
+
+    public function destroy($id)
+    {
+        $this->{{ modelVariable }}Service->destroy($id);
+        return $this->successResponse()->deleted('{{ modelVariable }}');
+    }
+}

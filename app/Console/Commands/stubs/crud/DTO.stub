@@ -1,0 +1,18 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Contracts\DTOInterface;
+
+readonly final class {{ class }} implements DTOInterface
+{
+    public function __construct(
+    ) {
+    }
+
+    public static function fromRequest(array $array): self
+    {
+        return new self(
+        );
+    }
+}

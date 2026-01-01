@@ -1,0 +1,48 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
+use {{ modelNamespace }};
+use {{ dtoNamespace }};
+
+class {{ class }}
+{
+    public function all(): LengthAwarePaginator
+    {
+        return {{ model }}::query()
+            ->paginate(request('perPage', 15));
+    }
+
+    public function find($id): {{ model }}
+    {
+        return {{ model }}::findOrFail($id);
+    }
+
+    public function store({{ model }}DTO $dto): {{ model }}
+    {
+        return DB::transaction(function () use ($dto): {{ model }} {
+            return {{ model }}::create([
+                //
+            ]);
+        });
+    }
+
+    public function update({{ model }} ${{ modelVariable }}, {{ model }}DTO $dto): {{ model }}
+    {
+        return DB::transaction(function () use (${{ modelVariable }}, $dto): {{ model }} {
+            ${{ modelVariable }}->update([
+                //
+            ]);
+            return ${{ modelVariable }}->fresh();
+        });
+    }
+
+    public function destroy({{ model }} ${{ modelVariable }}): void
+    {
+        DB::transaction(function () use (${{ modelVariable }}): void {
+            ${{ modelVariable }}->delete();
+        });
+    }
+}

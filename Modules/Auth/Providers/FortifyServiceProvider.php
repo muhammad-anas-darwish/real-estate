@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Providers;
+namespace Modules\Auth\Providers;
 
-use App\Actions\Fortify\CreateNewUser;
-use App\Actions\Fortify\ResetUserPassword;
-use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Fortify\UpdateUserProfileInformation;
+use Modules\Auth\Actions\CreateNewUser;
+use Modules\Auth\Actions\ResetUserPassword;
+use Modules\Auth\Actions\UpdateUserPassword;
+use Modules\Auth\Actions\UpdateUserProfileInformation;
 use App\Traits\ApiResponses;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -67,6 +67,10 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/api.php');
+
+        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);

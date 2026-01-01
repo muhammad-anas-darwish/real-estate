@@ -1,0 +1,9 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use {{ controller }};
+
+Route::middleware({{ middleware }})->group(function () {
+    // {{ modelPlural }} routes
+    Route::apiResource('{{ modelPlural }}', {{ modelSingular }}Controller::class);
+});
