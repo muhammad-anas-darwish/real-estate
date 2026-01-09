@@ -51,4 +51,13 @@ class User extends Authenticatable
     {
         return \Modules\Auth\Database\Factories\UserFactory::new();
     }
+
+
+    // public function sendPasswordResetNotification($token)
+    // {
+        // Generate your frontend reset password URL
+        // $url = config('app.frontend_url') . '/reset-password?token=' . $token . '&email=' . urlencode($this->email);
+
+        // $this->notify(new ResetPasswordNotification($token, $url));
+    // }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Exceptions\CustomHandler;
+use App\Http\Middleware\ForceJsonResponse;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,7 +17,17 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->validateCsrfTokens(except: [
             'api/*',
         ]);
+
+        $middleware->api(prepend: [
+            ForceJsonResponse::class,
+        ]);
+
+        // أو لمجموعة web إذا كنت تستخدمها
+        $middleware->web(prepend: [
+            ForceJsonResponse::class,
+        ]);
     })
+
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->renderable(new CustomHandler);
     })->create();
