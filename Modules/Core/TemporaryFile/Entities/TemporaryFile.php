@@ -8,12 +8,16 @@ class TemporaryFile extends BaseModel
 {
     public $table = 'temporary_files';
 
-    public static $rules = [ 
-        // 'tasks' => [
-        //     'multiple_files' => true,
-        //     'extensions' => null, // you can pass array of extensions
-        //     'max_size' => 2048,
-        // ]
+    public $fillable = [
+        'type',
+    ];
+
+    public static $rules = [
+        'property' => [
+            'multiple_files' => true,
+            'extensions' => ['jpg', 'jpeg', 'png', 'webp', 'gif', 'mp4', 'm4a'], // you can pass array of extensions
+            'max_size' => 10240,
+        ],
     ];
 
     public static function getRules(string $type): array
