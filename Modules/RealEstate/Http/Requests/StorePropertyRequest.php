@@ -55,7 +55,7 @@ class StorePropertyRequest extends FormRequest
         // Auto-set publisher_id from authenticated user if not provided
         if (!$this->has('publisher_id') && auth()->check()) {
             $this->merge([
-                'publisher_id' => auth()->id(),
+                'publisher_id' => \Auth::id(),
             ]);
         }
 
