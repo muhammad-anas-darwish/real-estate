@@ -11,6 +11,7 @@ class MakeCrudCommand extends Command
     protected $signature = 'make:crud
                             {name : Model name}
                             {--module= : Module name}
+                            {--submodule= : SubModule name (optional)}
                             {--cache : Generate service with cache functionality}
                             {--no-cache : Generate service without cache functionality}';
 
@@ -28,47 +29,55 @@ class MakeCrudCommand extends Command
     {
         $modelName = $this->argument('name');
         $moduleName = $this->normalizeModuleName($this->option('module'));
+        $subModuleName = $this->option('submodule') ? $this->normalizeModuleName($this->option('submodule')) : null;
         $withCache = $this->option('cache') || !$this->option('no-cache');
 
         if (empty($moduleName)) {
             $this->error('Module name is required!');
-            $this->info('Usage: php artisan make:crud ModelName --module=ModuleName');
+            $this->info('Usage: php artisan make:crud ModelName --module=ModuleName [--submodule=SubModuleName]');
             return;
         }
 
-        $this->createModel($modelName, $moduleName);
-        $this->createDTO($modelName, $moduleName);
-        $this->createController($modelName, $moduleName);
-        $this->createRequests($modelName, $moduleName);
-        $this->createResource($modelName, $moduleName);
-        $this->createService($modelName, $moduleName, $withCache);
+        // Check if module exists
+        if (!$this->moduleExists($moduleName)) {
+            $this->error("Module '{$moduleName}' does not exist!");
+            $this->info("Please create the module first using: php artisan make:module {$moduleName}");
+            return;
+        }
+
+        $this->info("Creating CRUD for {$modelName} in module {$moduleName}" . ($subModuleName ? " > {$subModuleName}" : ""));
+
+        $this->createModel($modelName, $moduleName, $subModuleName);
+        $this->createDTO($modelName, $moduleName, $subModuleName);
+        $this->createController($modelName, $moduleName, $subModuleName);
+        $this->createRequests($modelName, $moduleName, $subModuleName);
+        $this->createResource($modelName, $moduleName, $subModuleName);
+        $this->createService($modelName, $moduleName, $subModuleName, $withCache);
         $this->createFactory($modelName, $moduleName);
         $this->createSeeder($modelName, $moduleName);
         $this->createMigration($modelName, $moduleName);
-        $this->createRoutes($modelName, $moduleName);
-        $this->createProvider($modelName, $moduleName);
-
-        $this->registerModuleProvider($moduleName);
+        $this->addRoutesToModule($modelName, $moduleName, $subModuleName);
 
         $this->info("CRUD files for {$modelName} created successfully!");
     }
 
-    protected function createModel($modelName, $moduleName = null)
+    protected function moduleExists($moduleName)
+    {
+        return $this->files->isDirectory(base_path("Modules/{$moduleName}"));
+    }
+
+    protected function createModel($modelName, $moduleName, $subModuleName = null)
     {
         $stub = $this->getStub('Model');
-        $path = $this->getFilePath($modelName, 'Entities', $moduleName, "{$modelName}.php");
+        $path = $this->getFilePath($modelName, 'Entities', $moduleName, $subModuleName, "{$modelName}.php");
 
-        // Determine factory namespace
-        if ($moduleName) {
-            $factoryNamespace = "Modules\\{$moduleName}\\Database\\Factories";
-            $factoryClass = "{$modelName}Factory";
-        } else {
-            $factoryNamespace = "Database\\Factories";
-            $factoryClass = "{$modelName}Factory";
-        }
+        $factoryNamespace = "Modules\\{$moduleName}\\Database\\Factories";
+        $factoryClass = "{$modelName}Factory";
+
+        $namespace = $this->getNamespace('Entities', $moduleName, $subModuleName);
 
         $replacements = [
-            '{{ namespace }}' => $moduleName ? "Modules\\{$moduleName}\\Entities" : "App\\Models",
+            '{{ namespace }}' => $namespace,
             '{{ class }}' => $modelName,
             '{{ table }}' => Str::snake(Str::plural($modelName)),
             '{{ factoryNamespace }}' => $factoryNamespace,
@@ -78,86 +87,98 @@ class MakeCrudCommand extends Command
         $this->createFile($path, $stub, $replacements);
     }
 
-    protected function createDTO($modelName, $moduleName = null)
+    protected function createDTO($modelName, $moduleName, $subModuleName = null)
     {
         $stub = $this->getStub('DTO');
-        $path = $this->getFilePath($modelName, 'DTOs', $moduleName, "{$modelName}DTO.php");
+        $path = $this->getFilePath($modelName, 'DTOs', $moduleName, $subModuleName, "{$modelName}DTO.php");
+
+        $namespace = $this->getNamespace('DTOs', $moduleName, $subModuleName);
 
         $replacements = [
-            '{{ namespace }}' => $moduleName ? "Modules\\{$moduleName}\\DTOs" : "App\\DTOs",
+            '{{ namespace }}' => $namespace,
             '{{ class }}' => "{$modelName}DTO",
         ];
 
         $this->createFile($path, $stub, $replacements);
     }
 
-    protected function createController($modelName, $moduleName = null)
+    protected function createController($modelName, $moduleName, $subModuleName = null)
     {
         $stub = $this->getStub('Controller');
-        $path = $this->getFilePath($modelName, 'Http/Controllers', $moduleName, "{$modelName}Controller.php");
+        $path = $this->getFilePath($modelName, 'Http/Controllers', $moduleName, $subModuleName, "{$modelName}Controller.php");
 
         $lowerModel = Str::camel($modelName);
         $pluralModel = Str::plural($lowerModel);
 
+        $baseNamespace = $this->getNamespace('', $moduleName, $subModuleName);
+        $namespace = $this->getNamespace('Http\\Controllers', $moduleName, $subModuleName);
+
         $replacements = [
-            '{{ namespace }}' => $moduleName ? "Modules\\{$moduleName}" : "App\\Http\\Controllers",
+            '{{ namespace }}' => $namespace,
             '{{ class }}' => "{$modelName}Controller",
             '{{ model }}' => $modelName,
             '{{ modelVariable }}' => $lowerModel,
             '{{ modelPlural }}' => $pluralModel,
-            '{{ modelNamespace }}' => $moduleName ? "Modules\\{$moduleName}\\Entities\\{$modelName}" : "App\\Models\\{$modelName}",
-            '{{ dtoNamespace }}' => $moduleName ? "Modules\\{$moduleName}\\DTOs\\{$modelName}DTO" : "App\\DTOs\\{$modelName}DTO",
-            '{{ resourceNamespace }}' => $moduleName ? "Modules\\{$moduleName}\\Http\\Resources\\{$modelName}Resource" : "App\\Http\\Resources\\{$modelName}Resource",
-            '{{ serviceNamespace }}' => $moduleName ? "Modules\\{$moduleName}\\Services\\{$modelName}Service" : "App\\Services\\{$modelName}Service",
+            '{{ modelNamespace }}' => $this->getNamespace('Entities', $moduleName, $subModuleName) . "\\{$modelName}",
+            '{{ dtoNamespace }}' => $this->getNamespace('DTOs', $moduleName, $subModuleName) . "\\{$modelName}DTO",
+            '{{ resourceNamespace }}' => $this->getNamespace('Http\\Resources', $moduleName, $subModuleName) . "\\{$modelName}Resource",
+            '{{ serviceNamespace }}' => $this->getNamespace('Services', $moduleName, $subModuleName) . "\\{$modelName}Service",
+            '{{ requestNamespace }}' => $this->getNamespace('Http\\Requests', $moduleName, $subModuleName),
         ];
 
         $this->createFile($path, $stub, $replacements);
     }
 
-    protected function createRequests($modelName, $moduleName = null)
+    protected function createRequests($modelName, $moduleName, $subModuleName = null)
     {
+        $namespace = $this->getNamespace('Http\\Requests', $moduleName, $subModuleName);
+
         $storeStub = $this->getStub('StoreRequest');
-        $storePath = $this->getFilePath($modelName, 'Http/Requests', $moduleName, "Store{$modelName}Request.php");
+        $storePath = $this->getFilePath($modelName, 'Http/Requests', $moduleName, $subModuleName, "Store{$modelName}Request.php");
 
         $replacements = [
-            '{{ namespace }}' => $moduleName ? "Modules\\{$moduleName}\\Http\\Requests" : "App\\Http\\Requests",
+            '{{ namespace }}' => $namespace,
             '{{ class }}' => "Store{$modelName}Request",
         ];
 
         $this->createFile($storePath, $storeStub, $replacements);
 
         $updateStub = $this->getStub('UpdateRequest');
-        $updatePath = $this->getFilePath($modelName, 'Http/Requests', $moduleName, "Update{$modelName}Request.php");
+        $updatePath = $this->getFilePath($modelName, 'Http/Requests', $moduleName, $subModuleName, "Update{$modelName}Request.php");
 
         $replacements['{{ class }}'] = "Update{$modelName}Request";
         $this->createFile($updatePath, $updateStub, $replacements);
     }
 
-    protected function createResource($modelName, $moduleName = null)
+    protected function createResource($modelName, $moduleName, $subModuleName = null)
     {
         $stub = $this->getStub('Resource');
-        $path = $this->getFilePath($modelName, 'Http/Resources', $moduleName, "{$modelName}Resource.php");
+        $path = $this->getFilePath($modelName, 'Http/Resources', $moduleName, $subModuleName, "{$modelName}Resource.php");
+
+        $namespace = $this->getNamespace('Http\\Resources', $moduleName, $subModuleName);
 
         $replacements = [
-            '{{ namespace }}' => $moduleName ? "Modules\\{$moduleName}\\Http\\Resources" : "App\\Http\\Resources",
+            '{{ namespace }}' => $namespace,
             '{{ class }}' => "{$modelName}Resource",
         ];
 
         $this->createFile($path, $stub, $replacements);
     }
 
-    protected function createService($modelName, $moduleName = null, $withCache = true)
+    protected function createService($modelName, $moduleName, $subModuleName = null, $withCache = true)
     {
         $stubType = $withCache ? 'ServiceWithCache' : 'Service';
         $stub = $this->getStub($stubType);
-        $path = $this->getFilePath($modelName, 'Services', $moduleName, "{$modelName}Service.php");
+        $path = $this->getFilePath($modelName, 'Services', $moduleName, $subModuleName, "{$modelName}Service.php");
+
+        $namespace = $this->getNamespace('Services', $moduleName, $subModuleName);
 
         $replacements = [
-            '{{ namespace }}' => $moduleName ? "Modules\\{$moduleName}\\Services" : "App\\Services",
+            '{{ namespace }}' => $namespace,
             '{{ class }}' => "{$modelName}Service",
             '{{ model }}' => $modelName,
-            '{{ modelNamespace }}' => $moduleName ? "Modules\\{$moduleName}\\Entities\\{$modelName}" : "App\\Models\\{$modelName}",
-            '{{ dtoNamespace }}' => $moduleName ? "Modules\\{$moduleName}\\DTOs\\{$modelName}DTO" : "App\\DTOs\\{$modelName}DTO",
+            '{{ modelNamespace }}' => $this->getNamespace('Entities', $moduleName, $subModuleName) . "\\{$modelName}",
+            '{{ dtoNamespace }}' => $this->getNamespace('DTOs', $moduleName, $subModuleName) . "\\{$modelName}DTO",
             '{{ modelVariable }}' => Str::camel($modelName),
             '{{ cachePrefix }}' => Str::snake(Str::plural($modelName)),
         ];
@@ -165,111 +186,51 @@ class MakeCrudCommand extends Command
         $this->createFile($path, $stub, $replacements);
     }
 
-    protected function createFactory($modelName, $moduleName = null)
+    protected function createFactory($modelName, $moduleName)
     {
         $stub = $this->getStub('Factory');
-        $path = $this->getFactoryPath($modelName, $moduleName);
+        $path = base_path("Modules/{$moduleName}/Database/Factories/{$modelName}Factory.php");
+
+        // Factory should reference the correct model path
+        $modelNamespace = "Modules\\{$moduleName}\\SubModules";
 
         $replacements = [
-            '{{ namespace }}' => $moduleName ? "Database\\Factories\\Modules\\{$moduleName}\\Entities" : "Database\\Factories",
+            '{{ namespace }}' => "Modules\\{$moduleName}\\Database\\Factories",
             '{{ class }}' => "{$modelName}Factory",
-            '{{ modelNamespace }}' => $moduleName ? "Modules\\{$moduleName}\\Entities\\{$modelName}" : "App\\Models\\{$modelName}",
-            '{{ enumNamespace }}' => $moduleName ? "Modules\\{$moduleName}\\Enums\\{$modelName}TypeEnum" : "App\\Enums\\{$modelName}TypeEnum",
+            '{{ modelNamespace }}' => $modelNamespace . "\\*\\Entities\\{$modelName}", // Will be updated manually
+            '{{ enumNamespace }}' => "Modules\\{$moduleName}\\Enums\\{$modelName}TypeEnum",
         ];
 
         $this->createFile($path, $stub, $replacements);
+        $this->warn("Note: Please update the factory's model namespace to point to the correct SubModule");
     }
 
-    protected function getFactoryPath($modelName, $moduleName)
-    {
-        if ($moduleName) {
-            return base_path("Modules/{$moduleName}/Database/factories/{$modelName}Factory.php");
-        }
-
-        return database_path("factories/{$modelName}Factory.php");
-    }
-
-    protected function getStub($type)
-    {
-        $stubPath = __DIR__ . "/stubs/crud/{$type}.stub";
-
-        if (!$this->files->exists($stubPath)) {
-            // Try to use Laravel's built-in stubs for some types
-            switch ($type) {
-                case 'Migration':
-                    return $this->files->get(base_path('vendor/laravel/framework/src/Illuminate/Database/Migrations/stubs/migration.stub'));
-                case 'Seeder':
-                    return $this->files->get(base_path('vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/stubs/seeder.stub'));
-                default:
-                    throw new \Exception("Stub file not found: {$stubPath}");
-            }
-        }
-
-        return $this->files->get($stubPath);
-    }
-
-    protected function registerModuleProvider($moduleName)
-{
-    $configPath = config_path('app.php');
-
-    if (!$this->files->exists($configPath)) {
-        return;
-    }
-
-    $content = $this->files->get($configPath);
-    $providerClass = "Modules\\{$moduleName}\\Providers\\{$moduleName}ServiceProvider::class";
-
-    // Check if provider is already registered
-    if (!str_contains($content, $providerClass)) {
-        // Find the providers array and add the module provider
-        $pattern = '/\'providers\' => \[';
-        $replacement = "'providers' => [\n        {$providerClass},";
-
-        $content = preg_replace($pattern, $replacement, $content, 1);
-        $this->files->put($configPath, $content);
-        $this->info("Registered module provider in config/app.php");
-    }
-}
-
-    protected function createSeeder($modelName, $moduleName = null)
+    protected function createSeeder($modelName, $moduleName)
     {
         $stub = $this->getStub('Seeder');
-        $path = $this->getSeederPath($modelName, $moduleName);
+        $path = base_path("Modules/{$moduleName}/Database/Seeders/{$modelName}Seeder.php");
 
         $replacements = [
-            '{{ namespace }}' => $moduleName ? "Database\\Seeders\\Modules\\{$moduleName}" : "Database\\Seeders",
+            '{{ namespace }}' => "Modules\\{$moduleName}\\Database\\Seeders",
             '{{ class }}' => "{$modelName}Seeder",
             '{{ model }}' => $modelName,
-            '{{ modelNamespace }}' => $moduleName ? "Modules\\{$moduleName}\\Entities\\{$modelName}" : "App\\Models\\{$modelName}",
-            '{{ factoryNamespace }}' => $moduleName ? "Modules\\{$moduleName}\\Database\\Factories\\{$modelName}Factory" : "Database\\Factories\\{$modelName}Factory",
+            '{{ modelNamespace }}' => "Modules\\{$moduleName}\\SubModules\\*\\Entities\\{$modelName}", // Will be updated manually
+            '{{ factoryNamespace }}' => "Modules\\{$moduleName}\\Database\\Factories\\{$modelName}Factory",
             '{{ seederName }}' => Str::snake(Str::plural($modelName)) . '_seeder',
         ];
 
         $this->createFile($path, $stub, $replacements);
+        $this->warn("Note: Please update the seeder's model namespace to point to the correct SubModule");
     }
 
-    protected function getSeederPath($modelName, $moduleName)
+    protected function createMigration($modelName, $moduleName)
     {
-        if ($moduleName) {
-            return base_path("Modules/{$moduleName}/Database/Seeders/{$modelName}Seeder.php");
-        }
-
-        return database_path("seeders/{$modelName}Seeder.php");
-    }
-
-    protected function createMigration($modelName, $moduleName = null)
-    {
-        // We're not creating the actual migration file, just the stub/directory structure
-        $migrationPath = $moduleName
-            ? base_path("Modules/{$moduleName}/Database/Migrations/")
-            : database_path("migrations/");
+        $migrationPath = base_path("Modules/{$moduleName}/Database/Migrations/");
 
         if (!$this->files->exists($migrationPath)) {
             $this->makeDirectory($migrationPath);
-            $this->info("Created migration directory: {$migrationPath}");
         }
 
-        // Create a migration stub file as example
         $stub = $this->getStub('Migration');
         $timestamp = date('Y_m_d_His');
         $tableName = Str::snake(Str::plural($modelName));
@@ -284,163 +245,79 @@ class MakeCrudCommand extends Command
         $this->createFile($path, $stub, $replacements);
     }
 
-    protected function createRoutes($modelName, $moduleName = null)
+    protected function addRoutesToModule($modelName, $moduleName, $subModuleName = null)
     {
-        // Check if routes file already exists
-        $routesPath = $moduleName
-            ? base_path("Modules/{$moduleName}/Routes/api.php")
-            : base_path("routes/api.php");
+        $routesPath = base_path("Modules/{$moduleName}/Routes/api.php");
 
-        $modelPlural = Str::kebab(Str::plural($modelName));
-        $modelSingular = Str::kebab($modelName);
-
-        if ($moduleName) {
-            // Create module-specific routes file
-            if (!$this->files->exists($routesPath)) {
-                $this->createModuleRoutesFile($modelName, $moduleName, $routesPath);
-            } else {
-                // Add routes to existing file
-                $this->addRoutesToFile($modelName, $moduleName, $routesPath);
-            }
-        } else {
-            // Add routes to main api.php
-            $this->addRoutesToFile($modelName, $moduleName, $routesPath);
-        }
-    }
-
-    protected function createModuleRoutesFile($modelName, $moduleName, $routesPath)
-    {
-        $stub = $this->getStub('Routes');
-
-        $controllerName = "{$modelName}Controller";
-        $modelPlural = Str::kebab(Str::plural($modelName));
-        $modelSingular = Str::kebab($modelName);
-
-        if ($moduleName) {
-            $controllerNamespace = "Modules\\{$moduleName}\\Http\\Controllers\\{$controllerName}";
-        } else {
-            $controllerNamespace = "App\\Http\\Controllers\\{$controllerName}";
-        }
-
-        $replacements = [
-            '{{ controller }}' => $controllerNamespace,
-            '{{ modelPlural }}' => $modelPlural,
-            '{{ modelSingular }}' => $modelSingular,
-            '{{ middleware }}' => "['api']",
-        ];
-
-        $this->createFile($routesPath, $stub, $replacements);
-    }
-
-    protected function addRoutesToFile($modelName, $moduleName, $routesPath)
-    {
         if (!$this->files->exists($routesPath)) {
+            $this->error("Routes file not found: {$routesPath}");
             return;
         }
 
         $content = $this->files->get($routesPath);
         $controllerName = "{$modelName}Controller";
         $modelPlural = Str::kebab(Str::plural($modelName));
-        $modelSingular = Str::kebab($modelName);
 
-        if ($moduleName) {
-            $controllerNamespace = "Modules\\{$moduleName}\\Http\\Controllers\\{$controllerName}";
-        } else {
-            $controllerNamespace = "App\\Http\\Controllers\\{$controllerName}";
-        }
+        $controllerNamespace = $this->getNamespace('Http\\Controllers', $moduleName, $subModuleName) . "\\{$controllerName}";
 
         $routesTemplate = <<<EOT
 
+
 // {$modelName} Routes
-Route::apiResource('{$modelPlural}', {$controllerName}::class);
+Route::apiResource('{$modelPlural}', \\{$controllerNamespace}::class);
 EOT;
 
         // Check if routes already exist
         if (!str_contains($content, "Route::apiResource('{$modelPlural}'")) {
-            // Add routes at the end of the file
             $content = rtrim($content) . $routesTemplate;
             $this->files->put($routesPath, $content);
             $this->info("Added routes to: {$routesPath}");
+        } else {
+            $this->warn("Routes already exist for {$modelName}");
         }
     }
 
-    protected function createProvider($modelName, $moduleName = null)
+    protected function getNamespace($subPath, $moduleName, $subModuleName = null)
     {
-        if (!$moduleName) {
-            return; // Only create providers for modules
+        $namespace = "Modules\\{$moduleName}";
+
+        if ($subModuleName) {
+            $namespace .= "\\SubModules\\{$subModuleName}";
         }
 
-        // Check if provider already exists
-        $providerPath = base_path("Modules/{$moduleName}/Providers/{$moduleName}ServiceProvider.php");
-
-        if (!$this->files->exists($providerPath)) {
-            $this->createModuleProvider($moduleName, $providerPath);
+        if (!empty($subPath)) {
+            $namespace .= "\\" . str_replace('/', '\\', $subPath);
         }
 
-        // Add route and migration loading to the provider
-        $this->updateProvider($moduleName, $providerPath);
+        return $namespace;
     }
 
-    protected function createModuleProvider($moduleName, $providerPath)
+    protected function getFilePath($modelName, $subPath, $moduleName, $subModuleName, $fileName)
     {
-        $stub = $this->getStub('Provider');
+        $basePath = base_path("Modules/{$moduleName}");
 
-        $replacements = [
-            '{{ namespace }}' => "Modules\\{$moduleName}\\Providers",
-            '{{ module }}' => $moduleName,
-            '{{ class }}' => "{$moduleName}ServiceProvider",
-        ];
+        if ($subModuleName) {
+            $basePath .= "/SubModules/{$subModuleName}";
+        }
 
-        $this->createFile($providerPath, $stub, $replacements);
+        return "{$basePath}/{$subPath}/{$fileName}";
     }
 
-    protected function updateProvider($moduleName, $providerPath)
+    protected function getStub($type)
     {
-        if (!$this->files->exists($providerPath)) {
-            return;
+        $stubPath = __DIR__ . "/stubs/crud/{$type}.stub";
+
+        if (!$this->files->exists($stubPath)) {
+            throw new \Exception("Stub file not found: {$stubPath}");
         }
 
-        $content = $this->files->get($providerPath);
-
-        // Check if loadRoutesFrom exists
-        if (!str_contains($content, 'loadRoutesFrom')) {
-            // Add loadRoutesFrom to boot method
-            $loadRoutesCode = "\n        \$this->loadRoutesFrom(__DIR__ . '/../Routes/api.php');";
-            $content = preg_replace(
-                '/(public function boot\(\): void\s*\{)/',
-                "$1{$loadRoutesCode}",
-                $content
-            );
-        }
-
-        // Check if loadMigrationsFrom exists
-        if (!str_contains($content, 'loadMigrationsFrom')) {
-            // Add loadMigrationsFrom to boot method
-            $loadMigrationsCode = "\n        \$this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');";
-            $content = preg_replace(
-                '/(public function boot\(\): void\s*\{)/',
-                "$1{$loadMigrationsCode}",
-                $content
-            );
-        }
-
-        $this->files->put($providerPath, $content);
-        $this->info("Updated provider: {$providerPath}");
-    }
-
-    protected function getFilePath($modelName, $subPath, $moduleName, $fileName)
-    {
-        if ($moduleName) {
-            $modulePath = base_path("Modules/{$moduleName}");
-            return "{$modulePath}/{$subPath}/{$fileName}";
-        }
-
-        return app_path("{$subPath}/{$fileName}");
+        return $this->files->get($stubPath);
     }
 
     protected function createFile($path, $stub, $replacements)
     {
         if ($this->fileExists($path)) {
+            $this->warn("File already exists: {$path}");
             return false;
         }
 
@@ -453,6 +330,7 @@ EOT;
         $this->makeDirectory($path);
         $this->files->put($path, $content);
         $this->info("Created: {$path}");
+
         return true;
     }
 
@@ -470,12 +348,13 @@ EOT;
         }
     }
 
-    protected function normalizeModuleName(string $moduleName): string
+    protected function normalizeModuleName($moduleName): string
     {
-        // Replace all types of slashes with backslashes
-        $normalized = str_replace(['/', '\\\\', '\\',], '\\', $moduleName);
+        if (empty($moduleName)) {
+            return '';
+        }
 
-        // Remove any trailing or leading slashes
+        $normalized = str_replace(['/', '\\\\', '\\'], '\\', $moduleName);
         return trim($normalized, '\\');
     }
 }

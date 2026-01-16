@@ -5,8 +5,8 @@ namespace {{ namespace }};
 use App\Http\Controllers\Controller;
 use {{ dtoNamespace }};
 use {{ resourceNamespace }};
-use {{ namespace }}\Http\Requests\Store{{ model }}Request;
-use {{ namespace }}\Http\Requests\Update{{ model }}Request;
+use {{ requestNamespace }}\Store{{ model }}Request;
+use {{ requestNamespace }}\Update{{ model }}Request;
 use {{ serviceNamespace }};
 
 class {{ class }} extends Controller
@@ -14,7 +14,7 @@ class {{ class }} extends Controller
     public function __construct(protected readonly {{ model }}Service ${{ modelVariable }}Service)
     {
         $this->applyPermissions(
-            '{{ modelPlural }}', 
+            '{{ modelPlural }}',
             ['index', 'show', 'store', 'update', 'destroy']
         );
     }
@@ -24,7 +24,7 @@ class {{ class }} extends Controller
         ${{ modelPlural }} = $this->{{ modelVariable }}Service->all();
         return $this->paginatedResponse({{ model }}Resource::collection(${{ modelPlural }}));
     }
-    
+
     public function show($id)
     {
         ${{ modelVariable }} = $this->{{ modelVariable }}Service->find($id);
