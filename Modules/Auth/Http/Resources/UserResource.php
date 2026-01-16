@@ -1,15 +1,15 @@
 <?php
 
-namespace Modules\Core\Category\Http\Resources;
+namespace Modules\Auth\Http\Resources;
 
 use App\Http\Resources\BaseJsonResource;
 
-class CategoryResource extends BaseJsonResource
+class UserResource extends BaseJsonResource
 {
     protected function getRelationMap(): array
     {
         return [
-            // Add relations here
+            // Add relations here if needed
         ];
     }
 
@@ -17,7 +17,7 @@ class CategoryResource extends BaseJsonResource
     {
         return [
             'name' => $this->name,
-            'type' => $this->type,
+            'email' => $this->email,
         ];
     }
 }
