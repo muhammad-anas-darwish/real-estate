@@ -3,14 +3,14 @@
 namespace {{ namespace }};
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use {{ enumNamespace }};
+use {{ modelNamespace }};
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<{{ modelNamespace }}>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\{{ modelNamespace }}>
  */
 class {{ class }} extends Factory
 {
-    protected $model = \{{ modelNamespace }}::class;
+    protected $model = {{ modelName }}::class;
 
     /**
      * Define the model's default state.
@@ -21,7 +21,21 @@ class {{ class }} extends Factory
     {
         return [
             'name' => fake()->word(),
+            // Add your factory fields here
+
+            // Example enum usage:
             // 'type' => fake()->randomElement({{ modelName }}TypeEnum::values()),
+
+            // Common fields examples:
+            // 'title' => fake()->sentence(),
+            // 'description' => fake()->paragraph(),
+            // 'price' => fake()->randomFloat(2, 10, 1000),
+            // 'quantity' => fake()->numberBetween(1, 100),
+            // 'is_active' => fake()->boolean(),
+            // 'status' => fake()->randomElement(['active', 'inactive', 'pending']),
+            // 'email' => fake()->unique()->safeEmail(),
+            // 'phone' => fake()->phoneNumber(),
+            // 'date' => fake()->date(),
         ];
     }
 }

@@ -53,8 +53,8 @@ class MakeCrudCommand extends Command
         $this->createRequests($modelName, $moduleName, $subModuleName);
         $this->createResource($modelName, $moduleName, $subModuleName);
         $this->createService($modelName, $moduleName, $subModuleName, $withCache);
-        $this->createFactory($modelName, $moduleName);
-        $this->createSeeder($modelName, $moduleName);
+        $this->createFactory($modelName, $moduleName, $subModuleName);
+        $this->createSeeder($modelName, $moduleName, $subModuleName);
         $this->createMigration($modelName, $moduleName);
         $this->addRoutesToModule($modelName, $moduleName, $subModuleName);
 
@@ -186,41 +186,51 @@ class MakeCrudCommand extends Command
         $this->createFile($path, $stub, $replacements);
     }
 
-    protected function createFactory($modelName, $moduleName)
+    protected function createFactory($modelName, $moduleName, $subModuleName = null)
     {
         $stub = $this->getStub('Factory');
         $path = base_path("Modules/{$moduleName}/Database/Factories/{$modelName}Factory.php");
 
-        // Factory should reference the correct model path
-        $modelNamespace = "Modules\\{$moduleName}\\SubModules";
+        // Determine model namespace based on submodule
+        if ($subModuleName) {
+            $modelNamespace = "Modules\\{$moduleName}\\SubModules\\{$subModuleName}\\Entities\\{$modelName}";
+        } else {
+            $modelNamespace = "Modules\\{$moduleName}\\Entities\\{$modelName}";
+        }
 
         $replacements = [
             '{{ namespace }}' => "Modules\\{$moduleName}\\Database\\Factories",
             '{{ class }}' => "{$modelName}Factory",
-            '{{ modelNamespace }}' => $modelNamespace . "\\*\\Entities\\{$modelName}", // Will be updated manually
+            '{{ modelNamespace }}' => $modelNamespace,
+            '{{ modelName }}' => $modelName,
             '{{ enumNamespace }}' => "Modules\\{$moduleName}\\Enums\\{$modelName}TypeEnum",
         ];
 
         $this->createFile($path, $stub, $replacements);
-        $this->warn("Note: Please update the factory's model namespace to point to the correct SubModule");
     }
 
-    protected function createSeeder($modelName, $moduleName)
+    protected function createSeeder($modelName, $moduleName, $subModuleName = null)
     {
         $stub = $this->getStub('Seeder');
         $path = base_path("Modules/{$moduleName}/Database/Seeders/{$modelName}Seeder.php");
+
+        // Determine model namespace based on submodule
+        if ($subModuleName) {
+            $modelNamespace = "Modules\\{$moduleName}\\SubModules\\{$subModuleName}\\Entities\\{$modelName}";
+        } else {
+            $modelNamespace = "Modules\\{$moduleName}\\Entities\\{$modelName}";
+        }
 
         $replacements = [
             '{{ namespace }}' => "Modules\\{$moduleName}\\Database\\Seeders",
             '{{ class }}' => "{$modelName}Seeder",
             '{{ model }}' => $modelName,
-            '{{ modelNamespace }}' => "Modules\\{$moduleName}\\SubModules\\*\\Entities\\{$modelName}", // Will be updated manually
+            '{{ modelNamespace }}' => $modelNamespace,
             '{{ factoryNamespace }}' => "Modules\\{$moduleName}\\Database\\Factories\\{$modelName}Factory",
             '{{ seederName }}' => Str::snake(Str::plural($modelName)) . '_seeder',
         ];
 
         $this->createFile($path, $stub, $replacements);
-        $this->warn("Note: Please update the seeder's model namespace to point to the correct SubModule");
     }
 
     protected function createMigration($modelName, $moduleName)
