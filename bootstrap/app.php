@@ -12,6 +12,27 @@ return Application::configure(basePath: dirname(__DIR__))
         api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
+        then: function () {
+            $modulesPath = base_path('Modules');
+
+            if (is_dir($modulesPath)) {
+                /**
+                 * Search pattern for nested submodules:
+                 * Modules/{Main}/SubModules/{Sub}/Routes/api.php
+                 */
+                $pattern = $modulesPath . '/*/SubModules/*/Routes/api.php';
+
+                foreach (glob($pattern) as $file) {
+                    // Extracting the SubModule name for the prefix (e.g., 'location')
+                    // dirname($file, 2) gets us to the "Location" folder
+                    $subModuleName = strtolower(basename(dirname($file, 2)));
+
+                    Route::middleware('api')
+                        ->prefix("api/{$subModuleName}")
+                        ->group($file);
+                }
+            }
+        },
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->validateCsrfTokens(except: [

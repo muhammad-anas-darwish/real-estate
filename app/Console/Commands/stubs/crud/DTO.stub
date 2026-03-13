@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use App\Contracts\DTOInterface;
+use App\Interfaces\DTOInterface;
 
 readonly final class {{ class }} implements DTOInterface
 {

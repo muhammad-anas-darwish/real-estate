@@ -93,3 +93,4 @@ Route::prefix('auth')->middleware(['auth:sanctum'])->group(function () {
     Route::post('/user/two-factor-recovery-codes', [RecoveryCodeController::class, 'store'])
         ->name('two-factor.regenerate-recovery-codes');
 });
+

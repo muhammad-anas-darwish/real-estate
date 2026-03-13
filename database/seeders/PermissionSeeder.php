@@ -13,6 +13,8 @@ class PermissionSeeder extends Seeder
         'training_categories' => ['list', 'show', 'create', 'edit', 'delete'],
         'health_warnings' => ['list', 'show', 'create', 'edit', 'delete'],
         'properties' => ['list', 'show', 'create', 'edit', 'delete', 'approve', 'reject'],
+        'countries' => ['list', 'show', 'create', 'edit', 'delete'],
+        'cities' => ['list', 'show', 'create', 'edit', 'delete'],
     ];
 
     public function run()
