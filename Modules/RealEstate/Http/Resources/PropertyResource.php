@@ -6,6 +6,7 @@ use App\Http\Resources\BaseJsonResource;
 use Modules\Auth\Http\Resources\UserResource;
 use Modules\Core\SubModules\Location\Http\Resources\CityResource;
 use Modules\Core\SubModules\Location\Http\Resources\CountryResource;
+use Modules\Core\TemporaryFile\Http\Resources\TemporaryFileResource;
 
 class PropertyResource extends BaseJsonResource
 {
@@ -14,6 +15,9 @@ class PropertyResource extends BaseJsonResource
         return [
             'publisher' => UserResource::class,
             'approver' => UserResource::class,
+            'media' => TemporaryFileResource::class,
+            'city' => CityResource::class,
+            'country' => CountryResource::class,
         ];
     }
 

@@ -18,14 +18,14 @@ class PropertyService
     public function all(): LengthAwarePaginator
     {
         return Property::query()
-            ->with(['publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')])
+            ->with(['city', 'country', 'publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')])
             ->orderBy(request('sort_by', 'created_at'), request('sort_order', 'desc'))
             ->paginate(request('perPage', 15));
     }
 
     public function find($id): Property
     {
-        return Property::with(['publisher', 'approver', 'media'])->findOrFail($id);
+        return Property::with(['city', 'country', 'publisher', 'approver', 'media'])->findOrFail($id);
     }
 
     public function store(PropertyDTO $dto): Property
