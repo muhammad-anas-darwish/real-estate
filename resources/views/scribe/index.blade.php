@@ -71,20 +71,14 @@
                     <a href="#endpoints">Endpoints</a>
                 </li>
                                     <ul id="tocify-subheader-endpoints" class="tocify-subheader">
-                                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-properties-public">
-                                <a href="#endpoints-GETapi-properties-public">GET api/properties/public</a>
-                            </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-properties-public--id-">
-                                <a href="#endpoints-GETapi-properties-public--id-">GET api/properties/public/{id}</a>
-                            </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-properties">
+                                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-properties">
                                 <a href="#endpoints-GETapi-properties">GET api/properties</a>
-                            </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-properties">
-                                <a href="#endpoints-POSTapi-properties">POST api/properties</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-GETapi-properties--id-">
                                 <a href="#endpoints-GETapi-properties--id-">GET api/properties/{id}</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-properties">
+                                <a href="#endpoints-POSTapi-properties">POST api/properties</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-PUTapi-properties--id-">
                                 <a href="#endpoints-PUTapi-properties--id-">PUT api/properties/{id}</a>
@@ -214,7 +208,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: March 13, 2026</li>
+        <li>Last updated: March 21, 2026</li>
     </ul>
 </div>
 
@@ -237,308 +231,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
     
 
-                                <h2 id="endpoints-GETapi-properties-public">GET api/properties/public</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-
-
-<span id="example-requests-GETapi-properties-public">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8004/api/properties/public" \
-    --header "Authorization: Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8004/api/properties/public"
-);
-
-const headers = {
-    "Authorization": "Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-GETapi-properties-public">
-            <blockquote>
-            <p>Example response (500):</p>
-        </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;exceptions.server_error&quot;,
-    &quot;errors&quot;: null,
-    &quot;data&quot;: null
-}</code>
- </pre>
-    </span>
-<span id="execution-results-GETapi-properties-public" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-properties-public"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-properties-public"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-GETapi-properties-public" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-properties-public">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-GETapi-properties-public" data-method="GET"
-      data-path="api/properties/public"
-      data-authed="1"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-properties-public', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-properties-public"
-                    onclick="tryItOut('GETapi-properties-public');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-properties-public"
-                    onclick="cancelTryOut('GETapi-properties-public');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-properties-public"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/properties/public</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Authorization" class="auth-value"               data-endpoint="GETapi-properties-public"
-               value="Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382"
-               data-component="header">
-    <br>
-<p>Example: <code>Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-properties-public"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-properties-public"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                        </form>
-
-                    <h2 id="endpoints-GETapi-properties-public--id-">GET api/properties/public/{id}</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-
-
-<span id="example-requests-GETapi-properties-public--id-">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8004/api/properties/public/consequatur" \
-    --header "Authorization: Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json"</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8004/api/properties/public/consequatur"
-);
-
-const headers = {
-    "Authorization": "Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-GETapi-properties-public--id-">
-            <blockquote>
-            <p>Example response (500):</p>
-        </blockquote>
-                <details class="annotation">
-            <summary style="cursor: pointer;">
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre></details>         <pre>
-
-<code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;exceptions.server_error&quot;,
-    &quot;errors&quot;: null,
-    &quot;data&quot;: null
-}</code>
- </pre>
-    </span>
-<span id="execution-results-GETapi-properties-public--id-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-properties-public--id-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-properties-public--id-"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-GETapi-properties-public--id-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-properties-public--id-">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-GETapi-properties-public--id-" data-method="GET"
-      data-path="api/properties/public/{id}"
-      data-authed="1"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-properties-public--id-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-properties-public--id-"
-                    onclick="tryItOut('GETapi-properties-public--id-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-properties-public--id-"
-                    onclick="cancelTryOut('GETapi-properties-public--id-');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-properties-public--id-"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/properties/public/{id}</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Authorization" class="auth-value"               data-endpoint="GETapi-properties-public--id-"
-               value="Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382"
-               data-component="header">
-    <br>
-<p>Example: <code>Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="GETapi-properties-public--id-"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="GETapi-properties-public--id-"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="id"                data-endpoint="GETapi-properties-public--id-"
-               value="consequatur"
-               data-component="url">
-    <br>
-<p>The ID of the public. Example: <code>consequatur</code></p>
-            </div>
-                    </form>
-
-                    <h2 id="endpoints-GETapi-properties">GET api/properties</h2>
+                                <h2 id="endpoints-GETapi-properties">GET api/properties</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -599,18 +292,12 @@ access-control-allow-origin: *
             &quot;updated_at&quot;: &quot;2026-01-13 19:33:06&quot;,
             &quot;name&quot;: &quot;vmqeopfuudtdsufvyvddq&quot;,
             &quot;description&quot;: &quot;Dolores dolorum amet iste laborum eius est dolor.&quot;,
-            &quot;country&quot;: &quot;dtdsufvyvddqamniihfqc&quot;,
-            &quot;city&quot;: &quot;oynlazghdtqtqxbajwbpi&quot;,
+            &quot;country_id&quot;: null,
+            &quot;city_id&quot;: null,
             &quot;longitude&quot;: &quot;-180.00000000&quot;,
             &quot;latitude&quot;: &quot;-89.00000000&quot;,
-            &quot;location&quot;: {
-                &quot;country&quot;: &quot;dtdsufvyvddqamniihfqc&quot;,
-                &quot;city&quot;: &quot;oynlazghdtqtqxbajwbpi&quot;,
-                &quot;coordinates&quot;: {
-                    &quot;longitude&quot;: &quot;-180.00000000&quot;,
-                    &quot;latitude&quot;: &quot;-89.00000000&quot;
-                }
-            },
+            &quot;type_of_contract&quot;: null,
+            &quot;property_type&quot;: null,
             &quot;rooms&quot;: 42,
             &quot;bathrooms&quot;: 71,
             &quot;area&quot;: &quot;18.00&quot;,
@@ -730,399 +417,6 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>application/json</code></p>
             </div>
                         </form>
-
-                    <h2 id="endpoints-POSTapi-properties">POST api/properties</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-
-
-<span id="example-requests-POSTapi-properties">
-<blockquote>Example request:</blockquote>
-
-
-<div class="bash-example">
-    <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8004/api/properties" \
-    --header "Authorization: Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382" \
-    --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"name\": \"vmqeopfuudtdsufvyvddq\",
-    \"description\": \"Dolores dolorum amet iste laborum eius est dolor.\",
-    \"country\": \"dtdsufvyvddqamniihfqc\",
-    \"city\": \"oynlazghdtqtqxbajwbpi\",
-    \"longitude\": -180,
-    \"latitude\": -89,
-    \"rooms\": 42,
-    \"bathrooms\": 71,
-    \"area\": 18,
-    \"detailed_info\": \"consequatur\",
-    \"price\": 45,
-    \"currency\": \"qeo\",
-    \"main_image\": {
-        \"id\": 17,
-        \"temporary_folder\": \"consequatur\"
-    },
-    \"gallery\": [
-        {
-            \"id\": 17,
-            \"temporary_folder\": \"consequatur\"
-        }
-    ]
-}"
-</code></pre></div>
-
-
-<div class="javascript-example">
-    <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8004/api/properties"
-);
-
-const headers = {
-    "Authorization": "Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "name": "vmqeopfuudtdsufvyvddq",
-    "description": "Dolores dolorum amet iste laborum eius est dolor.",
-    "country": "dtdsufvyvddqamniihfqc",
-    "city": "oynlazghdtqtqxbajwbpi",
-    "longitude": -180,
-    "latitude": -89,
-    "rooms": 42,
-    "bathrooms": 71,
-    "area": 18,
-    "detailed_info": "consequatur",
-    "price": 45,
-    "currency": "qeo",
-    "main_image": {
-        "id": 17,
-        "temporary_folder": "consequatur"
-    },
-    "gallery": [
-        {
-            "id": 17,
-            "temporary_folder": "consequatur"
-        }
-    ]
-};
-
-fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre></div>
-
-</span>
-
-<span id="example-responses-POSTapi-properties">
-</span>
-<span id="execution-results-POSTapi-properties" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-POSTapi-properties"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-properties"
-      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
-</span>
-<span id="execution-error-POSTapi-properties" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-properties">
-
-Tip: Check that you&#039;re properly connected to the network.
-If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
-You can check the Dev Tools console for debugging information.</code></pre>
-</span>
-<form id="form-POSTapi-properties" data-method="POST"
-      data-path="api/properties"
-      data-authed="1"
-      data-hasfiles="0"
-      data-isarraybody="0"
-      autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-properties', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTapi-properties"
-                    onclick="tryItOut('POSTapi-properties');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTapi-properties"
-                    onclick="cancelTryOut('POSTapi-properties');" hidden>Cancel 🛑
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTapi-properties"
-                    data-initial-text="Send Request 💥"
-                    data-loading-text="⏱ Sending..."
-                    hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-black">POST</small>
-            <b><code>api/properties</code></b>
-        </p>
-                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-properties"
-               value="Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382"
-               data-component="header">
-    <br>
-<p>Example: <code>Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="POSTapi-properties"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <div style="padding-left: 28px; clear: unset;">
-                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
-&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="POSTapi-properties"
-               value="application/json"
-               data-component="header">
-    <br>
-<p>Example: <code>application/json</code></p>
-            </div>
-                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="name"                data-endpoint="POSTapi-properties"
-               value="vmqeopfuudtdsufvyvddq"
-               data-component="body">
-    <br>
-<p>Must not be greater than 255 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="description"                data-endpoint="POSTapi-properties"
-               value="Dolores dolorum amet iste laborum eius est dolor."
-               data-component="body">
-    <br>
-<p>Example: <code>Dolores dolorum amet iste laborum eius est dolor.</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>country</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="country"                data-endpoint="POSTapi-properties"
-               value="dtdsufvyvddqamniihfqc"
-               data-component="body">
-    <br>
-<p>Must not be greater than 100 characters. Example: <code>dtdsufvyvddqamniihfqc</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>city</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="city"                data-endpoint="POSTapi-properties"
-               value="oynlazghdtqtqxbajwbpi"
-               data-component="body">
-    <br>
-<p>Must not be greater than 100 characters. Example: <code>oynlazghdtqtqxbajwbpi</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>longitude</code></b>&nbsp;&nbsp;
-<small>number</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="longitude"                data-endpoint="POSTapi-properties"
-               value="-180"
-               data-component="body">
-    <br>
-<p>Must be between -180 and 180. Example: <code>-180</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>latitude</code></b>&nbsp;&nbsp;
-<small>number</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="latitude"                data-endpoint="POSTapi-properties"
-               value="-89"
-               data-component="body">
-    <br>
-<p>Must be between -90 and 90. Example: <code>-89</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>rooms</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="rooms"                data-endpoint="POSTapi-properties"
-               value="42"
-               data-component="body">
-    <br>
-<p>Must be at least 0. Example: <code>42</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>bathrooms</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="bathrooms"                data-endpoint="POSTapi-properties"
-               value="71"
-               data-component="body">
-    <br>
-<p>Must be at least 0. Example: <code>71</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>area</code></b>&nbsp;&nbsp;
-<small>number</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="area"                data-endpoint="POSTapi-properties"
-               value="18"
-               data-component="body">
-    <br>
-<p>Must be at least 0. Example: <code>18</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>detailed_info</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="detailed_info"                data-endpoint="POSTapi-properties"
-               value="consequatur"
-               data-component="body">
-    <br>
-<p>Example: <code>consequatur</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>price</code></b>&nbsp;&nbsp;
-<small>number</small>&nbsp;
- &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="price"                data-endpoint="POSTapi-properties"
-               value="45"
-               data-component="body">
-    <br>
-<p>Must be at least 0. Example: <code>45</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>currency</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="currency"                data-endpoint="POSTapi-properties"
-               value="qeo"
-               data-component="body">
-    <br>
-<p>Must be 3 characters. Example: <code>qeo</code></p>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-        <details>
-            <summary style="padding-bottom: 10px;">
-                <b style="line-height: 2;"><code>main_image</code></b>&nbsp;&nbsp;
-<small>object</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-<br>
-
-            </summary>
-                                                <div style="margin-left: 14px; clear: unset;">
-                        <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="main_image.id"                data-endpoint="POSTapi-properties"
-               value="17"
-               data-component="body">
-    <br>
-<p>Example: <code>17</code></p>
-                    </div>
-                                                                <div style="margin-left: 14px; clear: unset;">
-                        <b style="line-height: 2;"><code>temporary_folder</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="main_image.temporary_folder"                data-endpoint="POSTapi-properties"
-               value="consequatur"
-               data-component="body">
-    <br>
-<p>Example: <code>consequatur</code></p>
-                    </div>
-                                    </details>
-        </div>
-                <div style=" padding-left: 28px;  clear: unset;">
-        <details>
-            <summary style="padding-bottom: 10px;">
-                <b style="line-height: 2;"><code>gallery</code></b>&nbsp;&nbsp;
-<small>object[]</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-<br>
-
-            </summary>
-                                                <div style="margin-left: 14px; clear: unset;">
-                        <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
-<small>integer</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="number" style="display: none"
-               step="any"               name="gallery.0.id"                data-endpoint="POSTapi-properties"
-               value="17"
-               data-component="body">
-    <br>
-<p>Example: <code>17</code></p>
-                    </div>
-                                                                <div style="margin-left: 14px; clear: unset;">
-                        <b style="line-height: 2;"><code>temporary_folder</code></b>&nbsp;&nbsp;
-<small>string</small>&nbsp;
-<i>optional</i> &nbsp;
- &nbsp;
-                <input type="text" style="display: none"
-                              name="gallery.0.temporary_folder"                data-endpoint="POSTapi-properties"
-               value="consequatur"
-               data-component="body">
-    <br>
-<p>The <code>NULL</code> of an existing record in the temporary_files table. Example: <code>consequatur</code></p>
-                    </div>
-                                    </details>
-        </div>
-        </form>
 
                     <h2 id="endpoints-GETapi-properties--id-">GET api/properties/{id}</h2>
 
@@ -1281,6 +575,431 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                     </form>
 
+                    <h2 id="endpoints-POSTapi-properties">POST api/properties</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-properties">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://127.0.0.1:8004/api/properties" \
+    --header "Authorization: Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"vmqeopfuudtdsufvyvddq\",
+    \"description\": \"Dolores dolorum amet iste laborum eius est dolor.\",
+    \"country_id\": \"consequatur\",
+    \"city_id\": \"consequatur\",
+    \"longitude\": -180,
+    \"latitude\": -89,
+    \"property_type\": \"house\",
+    \"type_of_contract\": \"rent\",
+    \"rooms\": 16,
+    \"bathrooms\": 50,
+    \"area\": 55,
+    \"detailed_info\": \"consequatur\",
+    \"price\": 45,
+    \"currency\": \"qeo\",
+    \"main_image\": {
+        \"id\": 17,
+        \"temporary_folder\": \"consequatur\"
+    },
+    \"gallery\": [
+        {
+            \"id\": 17,
+            \"temporary_folder\": \"consequatur\"
+        }
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8004/api/properties"
+);
+
+const headers = {
+    "Authorization": "Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "vmqeopfuudtdsufvyvddq",
+    "description": "Dolores dolorum amet iste laborum eius est dolor.",
+    "country_id": "consequatur",
+    "city_id": "consequatur",
+    "longitude": -180,
+    "latitude": -89,
+    "property_type": "house",
+    "type_of_contract": "rent",
+    "rooms": 16,
+    "bathrooms": 50,
+    "area": 55,
+    "detailed_info": "consequatur",
+    "price": 45,
+    "currency": "qeo",
+    "main_image": {
+        "id": 17,
+        "temporary_folder": "consequatur"
+    },
+    "gallery": [
+        {
+            "id": 17,
+            "temporary_folder": "consequatur"
+        }
+    ]
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-properties">
+</span>
+<span id="execution-results-POSTapi-properties" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-properties"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-properties"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-properties" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-properties">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-properties" data-method="POST"
+      data-path="api/properties"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-properties', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-properties"
+                    onclick="tryItOut('POSTapi-properties');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-properties"
+                    onclick="cancelTryOut('POSTapi-properties');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-properties"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/properties</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-properties"
+               value="Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-properties"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-properties"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>name</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="name"                data-endpoint="POSTapi-properties"
+               value="vmqeopfuudtdsufvyvddq"
+               data-component="body">
+    <br>
+<p>Must not be greater than 255 characters. Example: <code>vmqeopfuudtdsufvyvddq</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="description"                data-endpoint="POSTapi-properties"
+               value="Dolores dolorum amet iste laborum eius est dolor."
+               data-component="body">
+    <br>
+<p>Example: <code>Dolores dolorum amet iste laborum eius est dolor.</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>country_id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="country_id"                data-endpoint="POSTapi-properties"
+               value="consequatur"
+               data-component="body">
+    <br>
+<p>The <code>id</code> of an existing record in the countries table. Example: <code>consequatur</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>city_id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="city_id"                data-endpoint="POSTapi-properties"
+               value="consequatur"
+               data-component="body">
+    <br>
+<p>The <code>id</code> of an existing record in the cities table. Example: <code>consequatur</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>longitude</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="longitude"                data-endpoint="POSTapi-properties"
+               value="-180"
+               data-component="body">
+    <br>
+<p>Must be between -180 and 180. Example: <code>-180</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>latitude</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="latitude"                data-endpoint="POSTapi-properties"
+               value="-89"
+               data-component="body">
+    <br>
+<p>Must be between -90 and 90. Example: <code>-89</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>property_type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="property_type"                data-endpoint="POSTapi-properties"
+               value="house"
+               data-component="body">
+    <br>
+<p>Example: <code>house</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>apartment</code></li> <li><code>house</code></li> <li><code>villa</code></li> <li><code>land</code></li> <li><code>commercial</code></li> <li><code>office</code></li> <li><code>warehouse</code></li> <li><code>other</code></li></ul>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>type_of_contract</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="type_of_contract"                data-endpoint="POSTapi-properties"
+               value="rent"
+               data-component="body">
+    <br>
+<p>Example: <code>rent</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>sale</code></li> <li><code>rent</code></li></ul>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>rooms</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="rooms"                data-endpoint="POSTapi-properties"
+               value="16"
+               data-component="body">
+    <br>
+<p>Must be at least 0. Example: <code>16</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>bathrooms</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="bathrooms"                data-endpoint="POSTapi-properties"
+               value="50"
+               data-component="body">
+    <br>
+<p>Must be at least 0. Example: <code>50</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>area</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="area"                data-endpoint="POSTapi-properties"
+               value="55"
+               data-component="body">
+    <br>
+<p>Must be at least 0. Example: <code>55</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>detailed_info</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="detailed_info"                data-endpoint="POSTapi-properties"
+               value="consequatur"
+               data-component="body">
+    <br>
+<p>Example: <code>consequatur</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>price</code></b>&nbsp;&nbsp;
+<small>number</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="price"                data-endpoint="POSTapi-properties"
+               value="45"
+               data-component="body">
+    <br>
+<p>Must be at least 0. Example: <code>45</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>currency</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="currency"                data-endpoint="POSTapi-properties"
+               value="qeo"
+               data-component="body">
+    <br>
+<p>Must be 3 characters. Example: <code>qeo</code></p>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>main_image</code></b>&nbsp;&nbsp;
+<small>object</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+<br>
+
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="main_image.id"                data-endpoint="POSTapi-properties"
+               value="17"
+               data-component="body">
+    <br>
+<p>Example: <code>17</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>temporary_folder</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="main_image.temporary_folder"                data-endpoint="POSTapi-properties"
+               value="consequatur"
+               data-component="body">
+    <br>
+<p>Example: <code>consequatur</code></p>
+                    </div>
+                                    </details>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+        <details>
+            <summary style="padding-bottom: 10px;">
+                <b style="line-height: 2;"><code>gallery</code></b>&nbsp;&nbsp;
+<small>object[]</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+<br>
+
+            </summary>
+                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>integer</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="number" style="display: none"
+               step="any"               name="gallery.0.id"                data-endpoint="POSTapi-properties"
+               value="17"
+               data-component="body">
+    <br>
+<p>Example: <code>17</code></p>
+                    </div>
+                                                                <div style="margin-left: 14px; clear: unset;">
+                        <b style="line-height: 2;"><code>temporary_folder</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+<i>optional</i> &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="gallery.0.temporary_folder"                data-endpoint="POSTapi-properties"
+               value="consequatur"
+               data-component="body">
+    <br>
+<p>The <code>NULL</code> of an existing record in the temporary_files table. Example: <code>consequatur</code></p>
+                    </div>
+                                    </details>
+        </div>
+        </form>
+
                     <h2 id="endpoints-PUTapi-properties--id-">PUT api/properties/{id}</h2>
 
 <p>
@@ -1302,17 +1021,17 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --data "{
     \"name\": \"vmqeopfuudtdsufvyvddq\",
     \"description\": \"Dolores dolorum amet iste laborum eius est dolor.\",
-    \"country\": \"dtdsufvyvddqamniihfqc\",
-    \"city\": \"oynlazghdtqtqxbajwbpi\",
     \"longitude\": -180,
     \"latitude\": -89,
-    \"rooms\": 42,
-    \"bathrooms\": 71,
-    \"area\": 18,
+    \"property_type\": \"villa\",
+    \"type_of_contract\": \"rent\",
+    \"rooms\": 13,
+    \"bathrooms\": 65,
+    \"area\": 72,
     \"detailed_info\": \"consequatur\",
     \"price\": 45,
     \"currency\": \"qeo\",
-    \"status\": \"approved\",
+    \"status\": \"pending\",
     \"main_image\": {
         \"id\": 17,
         \"temporary_folder\": \"consequatur\"
@@ -1341,17 +1060,17 @@ const headers = {
 let body = {
     "name": "vmqeopfuudtdsufvyvddq",
     "description": "Dolores dolorum amet iste laborum eius est dolor.",
-    "country": "dtdsufvyvddqamniihfqc",
-    "city": "oynlazghdtqtqxbajwbpi",
     "longitude": -180,
     "latitude": -89,
-    "rooms": 42,
-    "bathrooms": 71,
-    "area": 18,
+    "property_type": "villa",
+    "type_of_contract": "rent",
+    "rooms": 13,
+    "bathrooms": 65,
+    "area": 72,
     "detailed_info": "consequatur",
     "price": 45,
     "currency": "qeo",
-    "status": "approved",
+    "status": "pending",
     "main_image": {
         "id": 17,
         "temporary_folder": "consequatur"
@@ -1500,28 +1219,28 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Example: <code>Dolores dolorum amet iste laborum eius est dolor.</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>country</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>country_id</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
 <i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="country"                data-endpoint="PUTapi-properties--id-"
-               value="dtdsufvyvddqamniihfqc"
+                              name="country_id"                data-endpoint="PUTapi-properties--id-"
+               value=""
                data-component="body">
     <br>
-<p>Must not be greater than 100 characters. Example: <code>dtdsufvyvddqamniihfqc</code></p>
+<p>The <code>id</code> of an existing record in the countries table.</p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
-            <b style="line-height: 2;"><code>city</code></b>&nbsp;&nbsp;
+            <b style="line-height: 2;"><code>city_id</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
 <i>optional</i> &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="city"                data-endpoint="PUTapi-properties--id-"
-               value="oynlazghdtqtqxbajwbpi"
+                              name="city_id"                data-endpoint="PUTapi-properties--id-"
+               value=""
                data-component="body">
     <br>
-<p>Must not be greater than 100 characters. Example: <code>oynlazghdtqtqxbajwbpi</code></p>
+<p>The <code>id</code> of an existing record in the cities table.</p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>longitude</code></b>&nbsp;&nbsp;
@@ -1548,16 +1267,44 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>Must be between -90 and 90. Example: <code>-89</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>property_type</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="property_type"                data-endpoint="PUTapi-properties--id-"
+               value="villa"
+               data-component="body">
+    <br>
+<p>Example: <code>villa</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>apartment</code></li> <li><code>house</code></li> <li><code>villa</code></li> <li><code>land</code></li> <li><code>commercial</code></li> <li><code>office</code></li> <li><code>warehouse</code></li> <li><code>other</code></li></ul>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>type_of_contract</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="type_of_contract"                data-endpoint="PUTapi-properties--id-"
+               value="rent"
+               data-component="body">
+    <br>
+<p>Example: <code>rent</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>sale</code></li> <li><code>rent</code></li></ul>
+        </div>
+                <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>rooms</code></b>&nbsp;&nbsp;
 <small>integer</small>&nbsp;
 <i>optional</i> &nbsp;
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="rooms"                data-endpoint="PUTapi-properties--id-"
-               value="42"
+               value="13"
                data-component="body">
     <br>
-<p>Must be at least 0. Example: <code>42</code></p>
+<p>Must be at least 0. Example: <code>13</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>bathrooms</code></b>&nbsp;&nbsp;
@@ -1566,10 +1313,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="bathrooms"                data-endpoint="PUTapi-properties--id-"
-               value="71"
+               value="65"
                data-component="body">
     <br>
-<p>Must be at least 0. Example: <code>71</code></p>
+<p>Must be at least 0. Example: <code>65</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>area</code></b>&nbsp;&nbsp;
@@ -1578,10 +1325,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="area"                data-endpoint="PUTapi-properties--id-"
-               value="18"
+               value="72"
                data-component="body">
     <br>
-<p>Must be at least 0. Example: <code>18</code></p>
+<p>Must be at least 0. Example: <code>72</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>detailed_info</code></b>&nbsp;&nbsp;
@@ -1626,10 +1373,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="PUTapi-properties--id-"
-               value="approved"
+               value="pending"
                data-component="body">
     <br>
-<p>Example: <code>approved</code></p>
+<p>Example: <code>pending</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>pending</code></li> <li><code>approved</code></li> <li><code>rejected</code></li> <li><code>sold</code></li></ul>
         </div>
@@ -3044,7 +2791,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"name\": \"vmqeopfuudtdsufvyvddq\",
-    \"type\": \"property\"
+    \"type\": \"car\"
 }"
 </code></pre></div>
 
@@ -3062,7 +2809,7 @@ const headers = {
 
 let body = {
     "name": "vmqeopfuudtdsufvyvddq",
-    "type": "property"
+    "type": "car"
 };
 
 fetch(url, {
@@ -3195,10 +2942,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="type"                data-endpoint="PUTapi-categories--id-"
-               value="property"
+               value="car"
                data-component="body">
     <br>
-<p>Example: <code>property</code></p>
+<p>Example: <code>car</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>property</code></li> <li><code>car</code></li></ul>
         </div>
@@ -5730,7 +5477,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-location-cities">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -5742,10 +5489,17 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;exceptions.server_error&quot;,
-    &quot;errors&quot;: null,
-    &quot;data&quot;: null
+    &quot;success&quot;: true,
+    &quot;message&quot;: null,
+    &quot;data&quot;: [],
+    &quot;pagination&quot;: {
+        &quot;total&quot;: 0,
+        &quot;per_page&quot;: 15,
+        &quot;current_page&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;from&quot;: null,
+        &quot;to&quot;: null
+    }
 }</code>
  </pre>
     </span>
@@ -5857,7 +5611,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"country_id\": \"consequatur\",
     \"state_provianc\": \"consequatur\",
     \"postal_code\": \"consequatur\",
-    \"is_active\": false
+    \"is_active\": true
 }"
 </code></pre></div>
 
@@ -5878,7 +5632,7 @@ let body = {
     "country_id": "consequatur",
     "state_provianc": "consequatur",
     "postal_code": "consequatur",
-    "is_active": false
+    "is_active": true
 };
 
 fetch(url, {
@@ -6043,7 +5797,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -6227,7 +5981,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"country_id\": \"consequatur\",
     \"state_provianc\": \"consequatur\",
     \"postal_code\": \"consequatur\",
-    \"is_active\": false
+    \"is_active\": true
 }"
 </code></pre></div>
 
@@ -6248,7 +6002,7 @@ let body = {
     "country_id": "consequatur",
     "state_provianc": "consequatur",
     "postal_code": "consequatur",
-    "is_active": false
+    "is_active": true
 };
 
 fetch(url, {
@@ -6430,7 +6184,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -6612,7 +6366,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-location-countries">
             <blockquote>
-            <p>Example response (500):</p>
+            <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -6624,10 +6378,17 @@ access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;success&quot;: false,
-    &quot;message&quot;: &quot;exceptions.server_error&quot;,
-    &quot;errors&quot;: null,
-    &quot;data&quot;: null
+    &quot;success&quot;: true,
+    &quot;message&quot;: null,
+    &quot;data&quot;: [],
+    &quot;pagination&quot;: {
+        &quot;total&quot;: 0,
+        &quot;per_page&quot;: 15,
+        &quot;current_page&quot;: 1,
+        &quot;last_page&quot;: 1,
+        &quot;from&quot;: null,
+        &quot;to&quot;: null
+    }
 }</code>
  </pre>
     </span>

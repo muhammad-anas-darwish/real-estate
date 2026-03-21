@@ -4,7 +4,11 @@ namespace Modules\RealEstate\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Auth\Entities\User;
+use Modules\Core\SubModules\Location\Entities\City;
+use Modules\Core\SubModules\Location\Entities\Country;
 use Modules\RealEstate\Entities\Property;
+use Modules\RealEstate\Enums\PropertyType;
+use Modules\RealEstate\Enums\TypeOfContract;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\RealEstate\Entities\Property>
@@ -20,20 +24,8 @@ class PropertyFactory extends Factory
      */
     public function definition(): array
     {
-        $countries = ['United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'France', 'Spain', 'Italy'];
-        $cities = [
-            'United States' => ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Miami'],
-            'United Kingdom' => ['London', 'Manchester', 'Birmingham', 'Liverpool', 'Edinburgh'],
-            'Canada' => ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa'],
-            'Australia' => ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide'],
-            'Germany' => ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne'],
-            'France' => ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice'],
-            'Spain' => ['Madrid', 'Barcelona', 'Valencia', 'Seville', 'Bilbao'],
-            'Italy' => ['Rome', 'Milan', 'Naples', 'Turin', 'Florence'],
-        ];
-
-        $country = fake()->randomElement($countries);
-        $city = fake()->randomElement($cities[$country]);
+        $country = Country::inRandomOrder()->first();
+        $city = City::where('country_id', $country->id)->inRandomOrder()->first();
 
         return [
             'name' => fake()->randomElement([
@@ -47,10 +39,10 @@ class PropertyFactory extends Factory
                 'City Loft',
                 'Country Estate',
                 'Urban Condo',
-            ]) . ' in ' . $city,
+            ]) . ' in ' . $city->name,
             'description' => fake()->paragraphs(3, true),
-            'country' => $country,
-            'city' => $city,
+            'country_id' => $country->id,
+            'city_id' => $city->id,
             'longitude' => fake()->longitude(),
             'latitude' => fake()->latitude(),
             'rooms' => fake()->numberBetween(1, 10),
@@ -63,6 +55,8 @@ class PropertyFactory extends Factory
             'approved_by' => null,
             'approved_at' => null,
             'status' => 'pending',
+            'property_type'    => fake()->randomElement(PropertyType::cases()),
+            'type_of_contract' => fake()->randomElement(TypeOfContract::cases()),
         ];
     }
 
@@ -109,6 +103,30 @@ class PropertyFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'publisher_id' => $user->id,
+        ]);
+    }
+
+    /**
+     * Set a specific country and a random city within it.
+     */
+    public function inCountry(Country $country): static
+    {
+        $city = City::where('country_id', $country->id)->inRandomOrder()->first();
+
+        return $this->state(fn (array $attributes) => [
+            'country_id' => $country->id,
+            'city_id' => $city->id,
+        ]);
+    }
+
+    /**
+     * Set a specific city (and its country).
+     */
+    public function inCity(City $city): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'country_id' => $city->country_id,
+            'city_id' => $city->id,
         ]);
     }
 }

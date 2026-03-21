@@ -15,7 +15,7 @@ class PropertyController extends Controller
     {
         $this->applyPermissions(
             'properties',
-            ['index', 'show', 'store', 'update', 'destroy'],
+            ['store', 'update', 'destroy'],
             [
                 'approve' => 'approve',
                 'reject' => 'reject',

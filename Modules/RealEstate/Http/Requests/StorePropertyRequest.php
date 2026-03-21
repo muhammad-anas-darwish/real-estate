@@ -4,7 +4,11 @@ namespace Modules\RealEstate\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Modules\Core\SubModules\Location\Entities\City;
+use Modules\Core\SubModules\Location\Entities\Country;
 use Modules\Core\TemporaryFile\Entities\TemporaryFile;
+use Modules\RealEstate\Enums\PropertyType;
+use Modules\RealEstate\Enums\TypeOfContract;
 
 class StorePropertyRequest extends FormRequest
 {
@@ -16,10 +20,13 @@ class StorePropertyRequest extends FormRequest
             'description' => ['required', 'string'],
 
             // Location
-            'country' => ['required', 'string', 'max:100'],
-            'city' => ['required', 'string', 'max:100'],
+            'country_id' => ['required', Rule::exists(Country::class, 'id')],
+            'city_id' => ['required', Rule::exists(City::class, 'id')->where('country_id', $this->input('country_id'))],
             'longitude' => ['nullable', 'numeric', 'between:-180,180'],
             'latitude' => ['nullable', 'numeric', 'between:-90,90'],
+
+            'property_type'    => ['required', Rule::enum(PropertyType::class)],
+            'type_of_contract' => ['required', Rule::enum(TypeOfContract::class)],
 
             // Property Details
             'rooms' => ['required', 'integer', 'min:0'],
@@ -41,7 +48,7 @@ class StorePropertyRequest extends FormRequest
             // Gallery Images
             'gallery' => ['nullable', 'array'],
             'gallery.*.id' => ['nullable', 'integer'],
-            'gallery.*.temporary_folder' => ['nullable', 'string', Rule::exists(TemporaryFile::class)->where('type', '')],
+            'gallery.*.temporary_folder' => ['nullable', 'string', Rule::exists(TemporaryFile::class, 'folder')->where('type', 'property')],
         ];
     }
 

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Auth\Entities\User;
+use Modules\RealEstate\Enums\PropertyType;
+use Modules\RealEstate\Enums\TypeOfContract;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -20,8 +22,12 @@ class Property extends BaseModel implements HasMedia
     protected $fillable = [
         'name',
         'description',
-        'country',
-        'city',
+        'property_type',
+        'type_of_contract',
+        'country_id',
+        'city_id',
+        'type_of_contract',
+        'property_type',
         'longitude',
         'latitude',
         'rooms',
@@ -37,6 +43,8 @@ class Property extends BaseModel implements HasMedia
     ];
 
     protected $casts = [
+        'property_type' => PropertyType::class,
+        'type_of_contract' => TypeOfContract::class,
         'longitude' => 'decimal:8',
         'latitude' => 'decimal:8',
         'rooms' => 'integer',
@@ -47,8 +55,10 @@ class Property extends BaseModel implements HasMedia
     ];
 
     protected static $filterableColumns = [
-        'country',
-        'city',
+        'property_type',
+        'type_of_contract',
+        'country_id',
+        'city_id',
         'status',
         'rooms',
         'bathrooms',
@@ -58,8 +68,6 @@ class Property extends BaseModel implements HasMedia
     protected static $searchableColumns = [
         'name',
         'description',
-        'country',
-        'city',
     ];
 
     /**
@@ -99,9 +107,16 @@ class Property extends BaseModel implements HasMedia
         return $this->belongsTo(User::class, 'publisher_id');
     }
 
-    /**
-     * Get the user who approved the listing
-     */
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(\Modules\Core\SubModules\Location\Entities\Country::class);
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(\Modules\Core\SubModules\Location\Entities\City::class);
+    }
+
     public function approver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by');

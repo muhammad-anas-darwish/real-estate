@@ -4,6 +4,8 @@ namespace Modules\RealEstate\Http\Resources;
 
 use App\Http\Resources\BaseJsonResource;
 use Modules\Auth\Http\Resources\UserResource;
+use Modules\Core\SubModules\Location\Http\Resources\CityResource;
+use Modules\Core\SubModules\Location\Http\Resources\CountryResource;
 
 class PropertyResource extends BaseJsonResource
 {
@@ -23,18 +25,15 @@ class PropertyResource extends BaseJsonResource
             'description' => $this->description,
 
             // Location
-            'country' => $this->country,
-            'city' => $this->city,
+            'country_id' => $this->country_id,
+            'city_id' => $this->city_id,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
-            'location' => [
-                'country' => $this->country,
-                'city' => $this->city,
-                'coordinates' => [
-                    'longitude' => $this->longitude,
-                    'latitude' => $this->latitude,
-                ],
-            ],
+            'country' => $this->whenLoaded('country', CountryResource::class),
+            'city' => $this->whenLoaded('city', CityResource::class),
+
+            'type_of_contract' => $this->type_of_contract,
+            'property_type' => $this->property_type,
 
             // Property Details
             'rooms' => $this->rooms,

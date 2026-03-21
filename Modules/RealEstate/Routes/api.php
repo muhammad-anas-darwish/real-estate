@@ -5,16 +5,16 @@ use Modules\RealEstate\Http\Controllers\PropertyController;
 
 Route::prefix('api')->group(function () {
     // Public routes - view approved properties
-    Route::get('properties/public', [PropertyController::class, 'index'])
-        ->name('properties.public');
+    Route::get('properties', [PropertyController::class, 'index'])
+        ->name('properties.index');
 
-    Route::get('properties/public/{id}', [PropertyController::class, 'show'])
-        ->name('properties.public.show');
+    Route::get('properties/{id}', [PropertyController::class, 'show'])
+        ->name('properties.show');
 
     // Protected routes
     Route::middleware(['auth:sanctum'])->group(function () {
         // Properties CRUD
-        Route::apiResource('properties', PropertyController::class);
+        Route::apiResource('properties', PropertyController::class)->except(['index', 'show']);
 
         // Property status management
         Route::post('properties/{id}/approve', [PropertyController::class, 'approve'])

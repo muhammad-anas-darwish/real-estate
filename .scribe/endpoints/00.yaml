@@ -5,106 +5,6 @@ endpoints:
     custom: []
     httpMethods:
       - GET
-    uri: api/properties/public
-    metadata:
-      custom: []
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 500
-        content: '{"success":false,"message":"exceptions.server_error","errors":null,"data":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: 'api/properties/public/{id}'
-    metadata:
-      custom: []
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        custom: []
-        name: id
-        description: 'The ID of the public.'
-        required: true
-        example: consequatur
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      id: consequatur
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 500
-        content: '{"success":false,"message":"exceptions.server_error","errors":null,"data":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
     uri: api/properties
     metadata:
       custom: []
@@ -131,7 +31,63 @@ endpoints:
       -
         custom: []
         status: 200
-        content: '{"success":true,"message":null,"data":[{"id":1,"created_at":"2026-01-13 19:33:06","updated_at":"2026-01-13 19:33:06","name":"vmqeopfuudtdsufvyvddq","description":"Dolores dolorum amet iste laborum eius est dolor.","country":"dtdsufvyvddqamniihfqc","city":"oynlazghdtqtqxbajwbpi","longitude":"-180.00000000","latitude":"-89.00000000","location":{"country":"dtdsufvyvddqamniihfqc","city":"oynlazghdtqtqxbajwbpi","coordinates":{"longitude":"-180.00000000","latitude":"-89.00000000"}},"rooms":42,"bathrooms":71,"area":"18.00","detailed_info":"consequatur","price":"45.00","currency":"qeo","formatted_price":"qeo 45.00","status":"pending","main_image":"","main_image_thumb":"","gallery":[],"publisher_id":1,"approved_by":null,"approved_at":null,"publisher":{"id":1,"created_at":"2025-12-26 20:40:12","updated_at":"2025-12-26 20:40:12","name":"Admin","email":"admin@admin.com"},"approver":null}],"pagination":{"total":1,"per_page":15,"current_page":1,"last_page":1,"from":1,"to":1}}'
+        content: '{"success":true,"message":null,"data":[{"id":1,"created_at":"2026-01-13 19:33:06","updated_at":"2026-01-13 19:33:06","name":"vmqeopfuudtdsufvyvddq","description":"Dolores dolorum amet iste laborum eius est dolor.","country_id":null,"city_id":null,"longitude":"-180.00000000","latitude":"-89.00000000","type_of_contract":null,"property_type":null,"rooms":42,"bathrooms":71,"area":"18.00","detailed_info":"consequatur","price":"45.00","currency":"qeo","formatted_price":"qeo 45.00","status":"pending","main_image":"","main_image_thumb":"","gallery":[],"publisher_id":1,"approved_by":null,"approved_at":null,"publisher":{"id":1,"created_at":"2025-12-26 20:40:12","updated_at":"2025-12-26 20:40:12","name":"Admin","email":"admin@admin.com"},"approver":null}],"pagination":{"total":1,"per_page":15,"current_page":1,"last_page":1,"from":1,"to":1}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/properties/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the property.'
+        required: true
+        example: consequatur
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: consequatur
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 500
+        content: '{"success":false,"message":"exceptions.server_error","errors":null,"data":null}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -191,23 +147,23 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      country:
+      country_id:
         custom: []
-        name: country
-        description: 'Must not be greater than 100 characters.'
+        name: country_id
+        description: 'The <code>id</code> of an existing record in the countries table.'
         required: true
-        example: dtdsufvyvddqamniihfqc
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      city:
+      city_id:
         custom: []
-        name: city
-        description: 'Must not be greater than 100 characters.'
+        name: city_id
+        description: 'The <code>id</code> of an existing record in the cities table.'
         required: true
-        example: oynlazghdtqtqxbajwbpi
+        example: consequatur
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -235,12 +191,44 @@ endpoints:
         exampleWasSpecified: false
         nullable: true
         deprecated: false
+      property_type:
+        custom: []
+        name: property_type
+        description: ''
+        required: true
+        example: house
+        type: string
+        enumValues:
+          - apartment
+          - house
+          - villa
+          - land
+          - commercial
+          - office
+          - warehouse
+          - other
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      type_of_contract:
+        custom: []
+        name: type_of_contract
+        description: ''
+        required: true
+        example: rent
+        type: string
+        enumValues:
+          - sale
+          - rent
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
       rooms:
         custom: []
         name: rooms
         description: 'Must be at least 0.'
         required: true
-        example: 42
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -251,7 +239,7 @@ endpoints:
         name: bathrooms
         description: 'Must be at least 0.'
         required: true
-        example: 71
+        example: 50
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -262,7 +250,7 @@ endpoints:
         name: area
         description: 'Must be at least 0.'
         required: true
-        example: 18
+        example: 55
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -370,13 +358,15 @@ endpoints:
     cleanBodyParameters:
       name: vmqeopfuudtdsufvyvddq
       description: 'Dolores dolorum amet iste laborum eius est dolor.'
-      country: dtdsufvyvddqamniihfqc
-      city: oynlazghdtqtqxbajwbpi
+      country_id: consequatur
+      city_id: consequatur
       longitude: -180
       latitude: -89
-      rooms: 42
-      bathrooms: 71
-      area: 18
+      property_type: house
+      type_of_contract: rent
+      rooms: 16
+      bathrooms: 50
+      area: 55
       detailed_info: consequatur
       price: 45
       currency: qeo
@@ -389,62 +379,6 @@ endpoints:
           temporary_folder: consequatur
     fileParameters: []
     responses: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
-    controller: null
-    method: null
-    route: null
-  -
-    custom: []
-    httpMethods:
-      - GET
-    uri: 'api/properties/{id}'
-    metadata:
-      custom: []
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: ''
-      description: ''
-      authenticated: true
-      deprecated: false
-    headers:
-      Authorization: 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        custom: []
-        name: id
-        description: 'The ID of the property.'
-        required: true
-        example: consequatur
-        type: string
-        enumValues: []
-        exampleWasSpecified: false
-        nullable: false
-        deprecated: false
-    cleanUrlParameters:
-      id: consequatur
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        custom: []
-        status: 500
-        content: '{"success":false,"message":"exceptions.server_error","errors":null,"data":null}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
     responseFields: []
     auth:
       - headers
@@ -512,23 +446,23 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      country:
+      country_id:
         custom: []
-        name: country
-        description: 'Must not be greater than 100 characters.'
+        name: country_id
+        description: 'The <code>id</code> of an existing record in the countries table.'
         required: false
-        example: dtdsufvyvddqamniihfqc
+        example: null
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
-      city:
+      city_id:
         custom: []
-        name: city
-        description: 'Must not be greater than 100 characters.'
+        name: city_id
+        description: 'The <code>id</code> of an existing record in the cities table.'
         required: false
-        example: oynlazghdtqtqxbajwbpi
+        example: null
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -556,12 +490,44 @@ endpoints:
         exampleWasSpecified: false
         nullable: true
         deprecated: false
+      property_type:
+        custom: []
+        name: property_type
+        description: ''
+        required: true
+        example: villa
+        type: string
+        enumValues:
+          - apartment
+          - house
+          - villa
+          - land
+          - commercial
+          - office
+          - warehouse
+          - other
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      type_of_contract:
+        custom: []
+        name: type_of_contract
+        description: ''
+        required: true
+        example: rent
+        type: string
+        enumValues:
+          - sale
+          - rent
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
       rooms:
         custom: []
         name: rooms
         description: 'Must be at least 0.'
         required: false
-        example: 42
+        example: 13
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -572,7 +538,7 @@ endpoints:
         name: bathrooms
         description: 'Must be at least 0.'
         required: false
-        example: 71
+        example: 65
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -583,7 +549,7 @@ endpoints:
         name: area
         description: 'Must be at least 0.'
         required: false
-        example: 18
+        example: 72
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -627,7 +593,7 @@ endpoints:
         name: status
         description: ''
         required: false
-        example: approved
+        example: pending
         type: string
         enumValues:
           - pending
@@ -706,17 +672,17 @@ endpoints:
     cleanBodyParameters:
       name: vmqeopfuudtdsufvyvddq
       description: 'Dolores dolorum amet iste laborum eius est dolor.'
-      country: dtdsufvyvddqamniihfqc
-      city: oynlazghdtqtqxbajwbpi
       longitude: -180
       latitude: -89
-      rooms: 42
-      bathrooms: 71
-      area: 18
+      property_type: villa
+      type_of_contract: rent
+      rooms: 13
+      bathrooms: 65
+      area: 72
       detailed_info: consequatur
       price: 45
       currency: qeo
-      status: approved
+      status: pending
       main_image:
         id: 17
         temporary_folder: consequatur
@@ -1236,7 +1202,7 @@ endpoints:
         name: type
         description: ''
         required: false
-        example: property
+        example: car
         type: string
         enumValues:
           - property
@@ -1246,7 +1212,7 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       name: vmqeopfuudtdsufvyvddq
-      type: property
+      type: car
     fileParameters: []
     responses: []
     responseFields: []
@@ -2074,8 +2040,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: '{"success":false,"message":"exceptions.server_error","errors":null,"data":null}'
+        status: 200
+        content: '{"success":true,"message":null,"data":[],"pagination":{"total":0,"per_page":15,"current_page":1,"last_page":1,"from":null,"to":null}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -2162,7 +2128,7 @@ endpoints:
         name: is_active
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -2173,7 +2139,7 @@ endpoints:
       country_id: consequatur
       state_provianc: consequatur
       postal_code: consequatur
-      is_active: false
+      is_active: true
     fileParameters: []
     responses: []
     responseFields: []
@@ -2326,7 +2292,7 @@ endpoints:
         name: is_active
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -2337,7 +2303,7 @@ endpoints:
       country_id: consequatur
       state_provianc: consequatur
       postal_code: consequatur
-      is_active: false
+      is_active: true
     fileParameters: []
     responses: []
     responseFields: []
@@ -2424,8 +2390,8 @@ endpoints:
     responses:
       -
         custom: []
-        status: 500
-        content: '{"success":false,"message":"exceptions.server_error","errors":null,"data":null}'
+        status: 200
+        content: '{"success":true,"message":null,"data":[],"pagination":{"total":0,"per_page":15,"current_page":1,"last_page":1,"from":null,"to":null}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json

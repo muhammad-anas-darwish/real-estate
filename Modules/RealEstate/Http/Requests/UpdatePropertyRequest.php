@@ -4,6 +4,10 @@ namespace Modules\RealEstate\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Modules\Core\SubModules\Location\Entities\City;
+use Modules\Core\SubModules\Location\Entities\Country;
+use Modules\RealEstate\Enums\PropertyType;
+use Modules\RealEstate\Enums\TypeOfContract;
 
 class UpdatePropertyRequest extends FormRequest
 {
@@ -15,10 +19,13 @@ class UpdatePropertyRequest extends FormRequest
             'description' => ['sometimes', 'string'],
 
             // Location
-            'country' => ['sometimes', 'string', 'max:100'],
-            'city' => ['sometimes', 'string', 'max:100'],
+            'country_id' => ['sometimes', Rule::exists(Country::class, 'id')],
+            'city_id' => ['sometimes', Rule::exists(City::class, 'id')],
             'longitude' => ['nullable', 'numeric', 'between:-180,180'],
             'latitude' => ['nullable', 'numeric', 'between:-90,90'],
+
+            'property_type'    => ['required', Rule::enum(PropertyType::class)],
+            'type_of_contract' => ['required', Rule::enum(TypeOfContract::class)],
 
             // Property Details
             'rooms' => ['sometimes', 'integer', 'min:0'],
