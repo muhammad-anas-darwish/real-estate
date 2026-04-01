@@ -16,6 +16,10 @@ class CountryService extends BaseService
 
     public function all(): LengthAwarePaginator
     {
+        if (!config('services.location.country_cache_enabled', false)) {
+            return Country::query()->filter()->paginate($this->getPerPage());
+        }
+
         $cacheKey = $this->generateCacheKey(request()->query(), 'list');
 
         return Cache::tags(self::CACHE_TAG)->remember($cacheKey, self::CACHE_TTL, function () {
@@ -25,6 +29,10 @@ class CountryService extends BaseService
 
     public function find(int $id): Country
     {
+        if (!config('services.location.country_cache_enabled', false)) {
+            return Country::findOrFail($id);
+        }
+
         $cacheKey = $this->generateCacheKey(['id' => $id], 'item');
 
         return Cache::tags(self::CACHE_TAG)->remember($cacheKey, self::CACHE_TTL, function () use ($id) {
@@ -34,6 +42,10 @@ class CountryService extends BaseService
 
     public function findWithoutRelations(int $id): Country
     {
+        if (!config('services.location.country_cache_enabled', false)) {
+            return Country::findOrFail($id);
+        }
+
         $cacheKey = $this->generateCacheKey(['id' => $id], 'item-without-relations');
 
         return Cache::tags(self::CACHE_TAG)->remember($cacheKey, self::CACHE_TTL, fn() => Country::findOrFail($id));
