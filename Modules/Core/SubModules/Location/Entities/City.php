@@ -25,7 +25,7 @@ class City extends BaseModel
 
     protected static $filterableColumns = [
         'name',
-        'country_code',
+        'country_id',
         'state_province',
         'postal_code',
         'is_active',
