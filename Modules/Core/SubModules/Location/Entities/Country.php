@@ -37,4 +37,9 @@ class Country extends BaseModel
     {
         return \Modules\Core\Database\Factories\CountryFactory::new();
     }
+
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
 }

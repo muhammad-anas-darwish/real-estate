@@ -73,4 +73,10 @@ class PropertyController extends Controller
         $property = $this->propertyService->markAsSold($id);
         return $this->successResponse(PropertyResource::make($property), __('messages.property_sold'));
     }
+
+    public function random()
+    {
+        $properties = $this->propertyService->random(10);
+        return $this->successResponse(PropertyResource::collection($properties));
+    }
 }

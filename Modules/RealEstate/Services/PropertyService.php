@@ -137,4 +137,13 @@ class PropertyService
             return $property->fresh(['publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')]);
         });
     }
+
+    public function random(int $count = 10): \Illuminate\Database\Eloquent\Collection
+    {
+        return Property::query()
+            ->with(['city', 'country', 'publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')])
+            ->inRandomOrder()
+            ->limit($count)
+            ->get();
+    }
 }

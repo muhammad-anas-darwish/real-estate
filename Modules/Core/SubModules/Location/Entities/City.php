@@ -39,4 +39,9 @@ class City extends BaseModel
     {
         return \Modules\Core\Database\Factories\CityFactory::new();
     }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 }

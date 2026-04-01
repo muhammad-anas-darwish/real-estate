@@ -8,6 +8,9 @@ Route::prefix('api')->group(function () {
     Route::get('properties', [PropertyController::class, 'index'])
         ->name('properties.index');
 
+    Route::get('properties/random', [PropertyController::class, 'random'])
+        ->name('properties.random');
+
     Route::get('properties/{id}', [PropertyController::class, 'show'])
         ->name('properties.show');
 
