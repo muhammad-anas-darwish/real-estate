@@ -122,6 +122,11 @@ class Property extends BaseModel implements HasMedia
         return $this->belongsTo(User::class, 'approved_by');
     }
 
+    public function favoritedBy(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(\Modules\Auth\Entities\User::class, 'property_user', 'property_id', 'user_id')->withTimestamps();
+    }
+    
     /**
      * Get the main image URL
      */

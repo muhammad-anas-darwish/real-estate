@@ -8,6 +8,7 @@ use Modules\RealEstate\Http\Requests\StorePropertyRequest;
 use Modules\RealEstate\Http\Requests\UpdatePropertyRequest;
 use Modules\RealEstate\Http\Resources\PropertyResource;
 use Modules\RealEstate\Services\PropertyService;
+use Illuminate\Support\Facades\Auth;
 
 class PropertyController extends Controller
 {
@@ -20,19 +21,20 @@ class PropertyController extends Controller
                 'approve' => 'approve',
                 'reject' => 'reject',
                 'markAsSold' => 'edit',
+                'toggleFavorite' => 'list'
             ]
         );
     }
 
     public function index()
     {
-        $properties = $this->propertyService->all();
+        $properties = $this->propertyService->all(Auth::id());
         return $this->paginatedResponse(PropertyResource::collection($properties));
     }
 
     public function show($id)
     {
-        $property = $this->propertyService->find($id);
+        $property = $this->propertyService->find($id, Auth::id());
         return $this->successResponse(PropertyResource::make($property));
     }
 
@@ -58,13 +60,13 @@ class PropertyController extends Controller
 
     public function approve($id)
     {
-        $property = $this->propertyService->approve($id, auth()->id());
+        $property = $this->propertyService->approve($id, Auth::id());
         return $this->successResponse(PropertyResource::make($property), __('messages.property_approved'));
     }
 
     public function reject($id)
     {
-        $property = $this->propertyService->reject($id, auth()->id());
+        $property = $this->propertyService->reject($id, Auth::id());
         return $this->successResponse(PropertyResource::make($property), __('messages.property_rejected'));
     }
 
@@ -74,9 +76,22 @@ class PropertyController extends Controller
         return $this->successResponse(PropertyResource::make($property), __('messages.property_sold'));
     }
 
+    public function toggleFavorite($id)
+    {
+        /** @var \Modules\Auth\Entities\User $user */
+        $user = Auth::user();
+        if (!$user) {
+            return $this->unauthorizedResponse();
+        }
+
+        $user->lovedProperties()->toggle($id);
+
+        return $this->successResponse([], 'Property favorite status updated');
+    }
+
     public function random()
     {
-        $properties = $this->propertyService->random(10);
+        $properties = $this->propertyService->random(10, Auth::id());
         return $this->successResponse(PropertyResource::collection($properties));
     }
 }

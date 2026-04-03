@@ -3,11 +3,12 @@
 namespace Modules\RealEstate\Services;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Support\Facades\Auth;
 use Modules\Core\TemporaryFile\Services\MediaSyncService;
 use Modules\RealEstate\DTOs\PropertyDTO;
 use Modules\RealEstate\Entities\Property;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\UnauthorizedException;
 
 class PropertyService
 {
@@ -15,23 +16,30 @@ class PropertyService
         protected MediaSyncService $mediaSyncService
     ) {}
 
-    public function all(): LengthAwarePaginator
+    public function all(?int $userId = null): LengthAwarePaginator
     {
         return Property::query()
             ->with(['city', 'country', 'publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')])
+            ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            }])
             ->orderBy(request('sort_by', 'created_at'), request('sort_order', 'desc'))
             ->paginate(request('perPage', 15));
     }
 
-    public function find($id): Property
+    public function find(int $id, ?int $userId = null): Property
     {
-        return Property::with(['city', 'country', 'publisher', 'approver', 'media'])->findOrFail($id);
+        return Property::with(['city', 'country', 'publisher', 'approver', 'media'])
+            ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            }])
+            ->findOrFail($id);
     }
 
     public function store(PropertyDTO $dto): Property
     {
         return DB::transaction(function () use ($dto): Property {
-            $property = Property::create(array_merge($dto->toArray(), ['publisher_id' => \Auth::id()]));
+            $property = Property::create(array_merge($dto->toArray(), ['publisher_id' => Auth::id()]));
 
             // Handle main image
             if ($dto->main_image) {
@@ -128,7 +136,8 @@ class PropertyService
         return DB::transaction(function () use ($id): Property {
             $property = Property::findOrFail($id);
 
-            $user = auth()->user();
+            /** @var \Modules\Auth\Entities\User $user */
+            $user = Auth::user();
             if (!$user->can('properties.mark_as_sold') && $property->publisher_id !== $user->id) {
                 throw new UnauthorizedException(__('exceptions.mark_as_sold_unauthorized'), 403);
             }
@@ -138,10 +147,13 @@ class PropertyService
         });
     }
 
-    public function random(int $count = 10): \Illuminate\Database\Eloquent\Collection
+    public function random(int $count = 10, ?int $userId = null): \Illuminate\Database\Eloquent\Collection
     {
         return Property::query()
             ->with(['city', 'country', 'publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')])
+            ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            }])
             ->inRandomOrder()
             ->limit($count)
             ->get();

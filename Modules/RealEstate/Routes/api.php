@@ -28,5 +28,8 @@ Route::prefix('api')->group(function () {
 
         Route::post('properties/{id}/mark-sold', [PropertyController::class, 'markAsSold'])
             ->name('properties.mark-sold');
+        
+        Route::post('properties/{id}/toggle-favorite', [PropertyController::class, 'toggleFavorite'])
+            ->name('properties.toggle-favorite');
     });
 });
