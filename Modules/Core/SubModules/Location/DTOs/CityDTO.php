@@ -18,11 +18,11 @@ readonly final class CityDTO implements DTOInterface
     public static function fromRequest(array $array): self
     {
         return new self(
-            name: $array['name'],
-            country_id: $array['country_id'],
-            state_province: $array['state_province'],
-            postal_code: $array['postal_code'],
-            is_active: $array['is_active'],
+            name: $array['name'] ?? null,
+            country_id: $array['country_id'] ?? null,
+            state_province: $array['state_province'] ?? null,
+            postal_code: $array['postal_code'] ?? null,
+            is_active: $array['is_active'] ?? null,
         );
     }
 }

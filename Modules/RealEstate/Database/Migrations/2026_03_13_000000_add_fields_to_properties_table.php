@@ -9,8 +9,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('properties', function (Blueprint $table) {
-            $table->dropColumn('country');
-            $table->dropColumn('city');
+            // Drop index explicitly if it exists
+            $table->dropIndex(['country', 'city']);
+            
+            if (Schema::hasColumn('properties', 'country')) {
+                $table->dropColumn('country');
+            }
+            if (Schema::hasColumn('properties', 'city')) {
+                $table->dropColumn('city');
+            }
 
             $table->foreignId('country_id')->nullable()->constrained('countries')->onDelete('set null');
             $table->foreignId('city_id')->nullable()->constrained('cities')->onDelete('set null');
