@@ -11,6 +11,10 @@ Route::prefix('api')->group(function () {
     Route::get('properties/random', [PropertyController::class, 'random'])
         ->name('properties.random');
 
+    // Property statistics (must be before {id} route)
+    Route::get('properties/statistics', [PropertyController::class, 'statistics'])
+        ->name('properties.statistics');
+
     Route::get('properties/{id}', [PropertyController::class, 'show'])
         ->name('properties.show');
 
@@ -39,9 +43,6 @@ Route::prefix('api')->group(function () {
             ->name('properties.update-status');
 
         // Property statistics
-        Route::get('properties/statistics', [PropertyController::class, 'statistics'])
-            ->name('properties.statistics');
-
         Route::post('properties/{id}/toggle-favorite', [PropertyController::class, 'toggleFavorite'])
             ->name('properties.toggle-favorite');
     });
