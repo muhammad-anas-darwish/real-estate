@@ -20,6 +20,7 @@ class CountryResource extends BaseJsonResource
             'code' => $this->resource->code,
             'phone_code' => $this->resource->phone_code,
             'is_active' => $this->resource->is_active,
+            'cities_count' => $this->resource->cities_count ?? 0,
         ];
     }
 }

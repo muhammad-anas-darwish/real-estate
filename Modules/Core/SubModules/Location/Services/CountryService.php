@@ -17,13 +17,13 @@ class CountryService extends BaseService
     public function all(): LengthAwarePaginator
     {
         if (!config('services.location.country_cache_enabled', false)) {
-            return Country::query()->filter()->paginate($this->getPerPage());
+            return Country::query()->withCount('cities')->filter()->paginate($this->getPerPage());
         }
 
         $cacheKey = $this->generateCacheKey(request()->query(), 'list');
 
         return Cache::tags(self::CACHE_TAG)->remember($cacheKey, self::CACHE_TTL, function () {
-            return Country::query()->filter()->paginate($this->getPerPage());
+            return Country::query()->withCount('cities')->filter()->paginate($this->getPerPage());
         });
     }
 
