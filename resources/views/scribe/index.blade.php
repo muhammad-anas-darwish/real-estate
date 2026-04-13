@@ -98,6 +98,18 @@
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-POSTapi-properties--id--mark-sold">
                                 <a href="#endpoints-POSTapi-properties--id--mark-sold">POST api/properties/{id}/mark-sold</a>
                             </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-properties--id--archive">
+                                <a href="#endpoints-POSTapi-properties--id--archive">POST api/properties/{id}/archive</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-POSTapi-properties--id--restore">
+                                <a href="#endpoints-POSTapi-properties--id--restore">POST api/properties/{id}/restore</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-PUTapi-properties--id--status">
+                                <a href="#endpoints-PUTapi-properties--id--status">PUT api/properties/{id}/status</a>
+                            </li>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-GETapi-properties-statistics">
+                                <a href="#endpoints-GETapi-properties-statistics">GET api/properties/statistics</a>
+                            </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-POSTapi-properties--id--toggle-favorite">
                                 <a href="#endpoints-POSTapi-properties--id--toggle-favorite">POST api/properties/{id}/toggle-favorite</a>
                             </li>
@@ -214,7 +226,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: April 10, 2026</li>
+        <li>Last updated: April 13, 2026</li>
     </ul>
 </div>
 
@@ -309,7 +321,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;Canada&quot;,
                 &quot;code&quot;: &quot;CAN&quot;,
                 &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 17,
@@ -371,7 +384,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United Kingdom&quot;,
                 &quot;code&quot;: &quot;GBR&quot;,
                 &quot;phone_code&quot;: &quot;+44&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 11,
@@ -433,7 +447,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;Canada&quot;,
                 &quot;code&quot;: &quot;CAN&quot;,
                 &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 15,
@@ -495,7 +510,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;Canada&quot;,
                 &quot;code&quot;: &quot;CAN&quot;,
                 &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 16,
@@ -557,7 +573,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;Australia&quot;,
                 &quot;code&quot;: &quot;AUS&quot;,
                 &quot;phone_code&quot;: &quot;+61&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 21,
@@ -619,7 +636,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;Germany&quot;,
                 &quot;code&quot;: &quot;DEU&quot;,
                 &quot;phone_code&quot;: &quot;+49&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 24,
@@ -681,7 +699,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;France&quot;,
                 &quot;code&quot;: &quot;FRA&quot;,
                 &quot;phone_code&quot;: &quot;+33&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 27,
@@ -743,7 +762,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United States&quot;,
                 &quot;code&quot;: &quot;USA&quot;,
                 &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 3,
@@ -805,7 +825,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United States&quot;,
                 &quot;code&quot;: &quot;USA&quot;,
                 &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 3,
@@ -867,7 +888,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United States&quot;,
                 &quot;code&quot;: &quot;USA&quot;,
                 &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 3,
@@ -929,7 +951,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;Australia&quot;,
                 &quot;code&quot;: &quot;AUS&quot;,
                 &quot;phone_code&quot;: &quot;+61&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 20,
@@ -985,7 +1008,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United Kingdom&quot;,
                 &quot;code&quot;: &quot;GBR&quot;,
                 &quot;phone_code&quot;: &quot;+44&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 11,
@@ -1047,7 +1071,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United States&quot;,
                 &quot;code&quot;: &quot;USA&quot;,
                 &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 3,
@@ -1109,7 +1134,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United States&quot;,
                 &quot;code&quot;: &quot;USA&quot;,
                 &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 3,
@@ -1171,7 +1197,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United Kingdom&quot;,
                 &quot;code&quot;: &quot;GBR&quot;,
                 &quot;phone_code&quot;: &quot;+44&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 10,
@@ -1369,15 +1396,15 @@ access-control-allow-origin: *
     &quot;message&quot;: null,
     &quot;data&quot;: [
         {
-            &quot;id&quot;: 14,
+            &quot;id&quot;: 8,
             &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
             &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-            &quot;name&quot;: &quot;Mountain Retreat in Chicago&quot;,
-            &quot;description&quot;: &quot;Quis et nostrum non blanditiis. Ut modi quibusdam aspernatur sunt. A ipsam quidem tempore. Quia debitis amet sit eos perspiciatis.\n\nAd nihil et et non tempore. Accusantium est amet vero quis. Deleniti ipsam qui atque sed et. Dolorem modi quia consequatur nulla porro.\n\nEx quis animi dolor et eaque quas. Unde rerum rem aut quaerat voluptatum. Et in iste vero non necessitatibus neque sit.&quot;,
+            &quot;name&quot;: &quot;City Loft in Chicago&quot;,
+            &quot;description&quot;: &quot;Suscipit nemo corporis explicabo magni. Dignissimos sunt distinctio tempora rerum sequi. Voluptate impedit porro vero maiores reiciendis natus. Natus ducimus repellendus est consequuntur quo.\n\nEa dolor labore illum doloremque. Magnam et aut dolores provident. Sunt et minima temporibus qui facere unde.\n\nVoluptatibus non culpa facere dolores est. Molestiae nihil non et officia. Aliquid ratione eaque velit ab sunt. Fugit expedita ducimus id.&quot;,
             &quot;country_id&quot;: 1,
             &quot;city_id&quot;: 3,
-            &quot;longitude&quot;: &quot;83.93032800&quot;,
-            &quot;latitude&quot;: &quot;26.82477700&quot;,
+            &quot;longitude&quot;: &quot;-125.60530200&quot;,
+            &quot;latitude&quot;: &quot;28.38886800&quot;,
             &quot;country&quot;: {
                 &quot;id&quot;: 1,
                 &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
@@ -1385,7 +1412,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United States&quot;,
                 &quot;code&quot;: &quot;USA&quot;,
                 &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 3,
@@ -1397,15 +1425,15 @@ access-control-allow-origin: *
                 &quot;postal_code&quot;: null,
                 &quot;is_active&quot;: true
             },
-            &quot;type_of_contract&quot;: &quot;sale&quot;,
-            &quot;property_type&quot;: &quot;office&quot;,
-            &quot;rooms&quot;: 9,
+            &quot;type_of_contract&quot;: &quot;rent&quot;,
+            &quot;property_type&quot;: &quot;apartment&quot;,
+            &quot;rooms&quot;: 2,
             &quot;bathrooms&quot;: 4,
-            &quot;area&quot;: &quot;247.15&quot;,
-            &quot;detailed_info&quot;: &quot;Hic et nemo minima et non qui omnis. Id sit explicabo sunt minima earum dolorem. Et consequatur tempore maiores. Consequatur incidunt temporibus aliquid iure doloribus. Natus architecto cupiditate quidem asperiores rerum.\n\nEst velit necessitatibus quo iure facere accusamus. Ipsa similique labore nemo quia laborum similique quibusdam. Magnam ea eos aut ut error. In libero suscipit consequuntur nulla est dolores.\n\nArchitecto facilis earum fugiat officiis. Voluptatem voluptatum sint sint adipisci et. Autem voluptatibus iusto natus et soluta a. Sed eaque voluptas et quo dignissimos aut sed est.\n\nEt est et officiis consequatur quia odit totam. Ullam doloribus pariatur rem dolores. Aut molestiae itaque et officiis et molestias ut.\n\nDolore eaque voluptates debitis corporis iure. Pariatur quas magni nostrum numquam. At optio qui aperiam numquam. Tempore consectetur est natus debitis sed.&quot;,
-            &quot;price&quot;: &quot;4877447.59&quot;,
+            &quot;area&quot;: &quot;73.24&quot;,
+            &quot;detailed_info&quot;: &quot;Et est illo ab facilis culpa. Nulla in quis ut dolor. Nam ut quis excepturi vel illum. Voluptatem ut dicta illum et.\n\nEt optio rerum laborum eos. Est est quo voluptate vel quae et et. Sunt velit explicabo accusamus tempora id quaerat voluptatum. Commodi id fugiat sed eveniet est accusamus saepe.\n\nDolorem velit accusantium amet suscipit qui. Ea aut sit neque nihil temporibus voluptatem. Qui temporibus magnam quis. Vitae et quas impedit neque.\n\nQuis beatae aspernatur tempore aut natus aliquam dolor. Consequuntur eum est quasi totam voluptatem magnam. Nostrum minus rem quia dolorem sit.\n\nRepellendus nesciunt doloribus perferendis est. Consequatur suscipit dolor omnis aut.&quot;,
+            &quot;price&quot;: &quot;2743120.21&quot;,
             &quot;currency&quot;: &quot;USD&quot;,
-            &quot;formatted_price&quot;: &quot;USD 4,877,447.59&quot;,
+            &quot;formatted_price&quot;: &quot;USD 2,743,120.21&quot;,
             &quot;status&quot;: &quot;approved&quot;,
             &quot;is_loved&quot;: false,
             &quot;main_image&quot;: &quot;&quot;,
@@ -1431,15 +1459,15 @@ access-control-allow-origin: *
             &quot;media&quot;: []
         },
         {
-            &quot;id&quot;: 13,
+            &quot;id&quot;: 9,
             &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
             &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-            &quot;name&quot;: &quot;City Loft in Chicago&quot;,
-            &quot;description&quot;: &quot;Cum aut consequatur minima sapiente qui maiores molestiae. Quia consequatur illum nisi. Quis saepe quae ut iusto.\n\nVoluptatem sed iste mollitia facere error. Eligendi sit qui ab repudiandae fuga quae reprehenderit. Doloremque voluptas corrupti ex odit distinctio. Et ipsam corrupti quo nihil et. Maiores quam nulla non molestiae dicta.\n\nNesciunt fuga et aut omnis. Quisquam quam culpa repellat ab fugit perspiciatis. Enim explicabo et at consequatur sunt commodi. Sunt veniam fugiat non neque.&quot;,
+            &quot;name&quot;: &quot;Mountain Retreat in Chicago&quot;,
+            &quot;description&quot;: &quot;Doloremque quam similique occaecati rerum. Consequatur ut et et nihil pariatur hic.\n\nNemo debitis veniam quia omnis distinctio debitis. Porro ipsum iste at quia eius dolor illum. Qui et quibusdam quo saepe fugit natus aut quos. Libero aut inventore veniam sed voluptatibus laborum a.\n\nId quia tempore enim magni deleniti perferendis doloribus. Omnis dolores distinctio quo et optio repellat atque suscipit. Ut sed corporis cumque qui ut velit placeat.&quot;,
             &quot;country_id&quot;: 1,
             &quot;city_id&quot;: 3,
-            &quot;longitude&quot;: &quot;36.02937900&quot;,
-            &quot;latitude&quot;: &quot;2.45447800&quot;,
+            &quot;longitude&quot;: &quot;151.18271500&quot;,
+            &quot;latitude&quot;: &quot;42.15262900&quot;,
             &quot;country&quot;: {
                 &quot;id&quot;: 1,
                 &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
@@ -1447,7 +1475,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United States&quot;,
                 &quot;code&quot;: &quot;USA&quot;,
                 &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 3,
@@ -1460,14 +1489,77 @@ access-control-allow-origin: *
                 &quot;is_active&quot;: true
             },
             &quot;type_of_contract&quot;: &quot;sale&quot;,
-            &quot;property_type&quot;: &quot;commercial&quot;,
-            &quot;rooms&quot;: 4,
-            &quot;bathrooms&quot;: 1,
-            &quot;area&quot;: &quot;150.30&quot;,
-            &quot;detailed_info&quot;: &quot;Dolor corrupti suscipit blanditiis. Consequatur reprehenderit qui officiis ullam ex. Eos ut dolorem praesentium qui aspernatur saepe et. Impedit odio harum vero ducimus.\n\nPraesentium voluptas ea veritatis non. Officiis ut quas perspiciatis aut et minima fugit id. Consectetur nobis veniam incidunt impedit consequatur. Inventore commodi non repellendus laborum deserunt occaecati.\n\nOdio unde in ut earum ut. Aut et officia esse ut maiores dignissimos. Sit magni ipsa incidunt.\n\nVoluptas consequuntur suscipit cum est aut velit aut quia. Sit voluptatem ad rerum omnis et. Sint illo ut voluptas rerum aut soluta voluptate.\n\nRepellat error at quia numquam aut facilis molestias. Consequatur nulla dolor sequi autem nobis non. Eaque a iste dolores ut voluptatem.&quot;,
-            &quot;price&quot;: &quot;1593610.75&quot;,
+            &quot;property_type&quot;: &quot;office&quot;,
+            &quot;rooms&quot;: 2,
+            &quot;bathrooms&quot;: 5,
+            &quot;area&quot;: &quot;310.63&quot;,
+            &quot;detailed_info&quot;: &quot;Voluptatem distinctio earum nihil minima occaecati nesciunt atque. Assumenda laudantium magni vitae quia blanditiis ad. Quia omnis repellendus aspernatur sint.\n\nQui architecto voluptas minus facilis. Et ducimus ratione beatae et eos accusamus. Omnis et est dolores tempore voluptatibus aut.\n\nAccusamus et tempore ea voluptas laborum voluptate ut. Numquam unde quaerat doloribus sunt ex ex magni. Maxime et omnis asperiores ipsum. Et culpa suscipit vel eveniet et quas.\n\nRerum temporibus ullam rem incidunt vel neque officiis. Eius repellendus enim aut expedita et. Autem ipsa porro quo sed minima voluptatem eos.\n\nDolorem ea fuga nesciunt aut necessitatibus. Nesciunt eligendi illo dolor facere quos et. Et vero animi neque. Autem optio dolor nobis est natus possimus reiciendis.&quot;,
+            &quot;price&quot;: &quot;4967953.50&quot;,
+            &quot;currency&quot;: &quot;AUD&quot;,
+            &quot;formatted_price&quot;: &quot;AUD 4,967,953.50&quot;,
+            &quot;status&quot;: &quot;approved&quot;,
+            &quot;is_loved&quot;: false,
+            &quot;main_image&quot;: &quot;&quot;,
+            &quot;main_image_thumb&quot;: &quot;&quot;,
+            &quot;gallery&quot;: [],
+            &quot;publisher_id&quot;: 1,
+            &quot;approved_by&quot;: 2,
+            &quot;approved_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+            &quot;publisher&quot;: {
+                &quot;id&quot;: 1,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;name&quot;: &quot;Admin&quot;,
+                &quot;email&quot;: &quot;admin@admin.com&quot;
+            },
+            &quot;approver&quot;: {
+                &quot;id&quot;: 2,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;name&quot;: &quot;Prof. Jean Torphy II&quot;,
+                &quot;email&quot;: &quot;mueller.edison@example.org&quot;
+            },
+            &quot;media&quot;: []
+        },
+        {
+            &quot;id&quot;: 12,
+            &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+            &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+            &quot;name&quot;: &quot;Country Estate in Chicago&quot;,
+            &quot;description&quot;: &quot;Facilis qui esse voluptates distinctio voluptas neque nemo provident. Molestiae pariatur accusamus excepturi. Beatae quis eos nemo tenetur quo. Necessitatibus aspernatur aspernatur dolorum ab repellendus quo quo.\n\nOfficia voluptas molestias et autem nostrum. Totam dolorem nemo aperiam doloribus. Minus quia ea magni voluptas laborum quis nam.\n\nDelectus quis provident dolorum nesciunt quibusdam. Fugit quia architecto dicta sapiente quisquam. Ipsam voluptas molestiae eaque eveniet iure odit.&quot;,
+            &quot;country_id&quot;: 1,
+            &quot;city_id&quot;: 3,
+            &quot;longitude&quot;: &quot;146.21953900&quot;,
+            &quot;latitude&quot;: &quot;89.14185600&quot;,
+            &quot;country&quot;: {
+                &quot;id&quot;: 1,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;name&quot;: &quot;United States&quot;,
+                &quot;code&quot;: &quot;USA&quot;,
+                &quot;phone_code&quot;: &quot;+1&quot;,
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
+            },
+            &quot;city&quot;: {
+                &quot;id&quot;: 3,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;name&quot;: &quot;Chicago&quot;,
+                &quot;country_id&quot;: null,
+                &quot;state_provianc&quot;: null,
+                &quot;postal_code&quot;: null,
+                &quot;is_active&quot;: true
+            },
+            &quot;type_of_contract&quot;: &quot;rent&quot;,
+            &quot;property_type&quot;: &quot;villa&quot;,
+            &quot;rooms&quot;: 8,
+            &quot;bathrooms&quot;: 2,
+            &quot;area&quot;: &quot;302.24&quot;,
+            &quot;detailed_info&quot;: &quot;Maiores laboriosam incidunt fuga ex consequuntur. Quis non voluptas nobis quod. Exercitationem in vitae voluptatem qui mollitia tenetur.\n\nEx quae quia voluptatem et. Voluptatem est dicta aut. Itaque dolorem odio facere autem est.\n\nNulla qui rerum error aut dolorem omnis ut. Aspernatur in sed quis rerum quis eius illum. Temporibus sint ratione quia suscipit alias modi et. Cum velit tenetur dolor veritatis. Et incidunt deleniti commodi.\n\nCommodi debitis ut est autem rerum et. Earum voluptates culpa ut dolor at. Commodi assumenda alias autem aspernatur. Corporis cumque possimus veniam sit aut dignissimos veniam possimus. Dolorem in est id magni quos voluptas laudantium.\n\nLaudantium doloremque quasi facilis ut suscipit. Et nesciunt et sunt dolor hic. Debitis unde earum eaque et maiores autem. Molestias et quis officiis eveniet molestiae.&quot;,
+            &quot;price&quot;: &quot;4749314.97&quot;,
             &quot;currency&quot;: &quot;GBP&quot;,
-            &quot;formatted_price&quot;: &quot;GBP 1,593,610.75&quot;,
+            &quot;formatted_price&quot;: &quot;GBP 4,749,314.97&quot;,
             &quot;status&quot;: &quot;approved&quot;,
             &quot;is_loved&quot;: false,
             &quot;main_image&quot;: &quot;&quot;,
@@ -1509,7 +1601,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United Kingdom&quot;,
                 &quot;code&quot;: &quot;GBR&quot;,
                 &quot;phone_code&quot;: &quot;+44&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 10,
@@ -1555,105 +1648,44 @@ access-control-allow-origin: *
             &quot;media&quot;: []
         },
         {
-            &quot;id&quot;: 20,
+            &quot;id&quot;: 6,
             &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
             &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-            &quot;name&quot;: &quot;City Loft in Birmingham&quot;,
-            &quot;description&quot;: &quot;Voluptas cumque sunt qui perspiciatis. Distinctio sed necessitatibus dignissimos. Amet voluptates nulla odio veniam sint adipisci voluptatem. Omnis corporis ut consectetur recusandae illum ducimus et sapiente.\n\nVelit nesciunt at consequatur ut. Voluptatem commodi voluptas possimus nostrum exercitationem qui. Est earum praesentium dolore sit cumque optio quia sunt. Nulla odio rerum repellendus et et facere.\n\nSit rem quo pariatur. Ut nihil dignissimos dolor.&quot;,
-            &quot;country_id&quot;: 2,
-            &quot;city_id&quot;: 11,
-            &quot;longitude&quot;: &quot;0.40157000&quot;,
-            &quot;latitude&quot;: &quot;60.58932400&quot;,
+            &quot;name&quot;: &quot;Mountain Retreat in Berlin&quot;,
+            &quot;description&quot;: &quot;Impedit sint sunt quibusdam accusantium earum nihil. Molestiae voluptatibus autem quos voluptatem. Ad molestiae nesciunt porro quis dolorum voluptatem. Quasi illum qui repudiandae debitis dolor.\n\nTempore sed illo quidem quod et. Quia dolorem explicabo voluptate quis dicta error. Hic maxime numquam quo id.\n\nAut ut qui est corrupti ut tempore doloribus. Animi assumenda incidunt eum praesentium voluptates quia tenetur odit. Quia est perspiciatis aut aut ipsa iusto eum repellendus. Est error quo incidunt totam impedit autem et. Magnam pariatur placeat aliquam nisi ipsum iusto necessitatibus.&quot;,
+            &quot;country_id&quot;: 5,
+            &quot;city_id&quot;: 22,
+            &quot;longitude&quot;: &quot;114.91616800&quot;,
+            &quot;latitude&quot;: &quot;-40.28238400&quot;,
             &quot;country&quot;: {
-                &quot;id&quot;: 2,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;name&quot;: &quot;United Kingdom&quot;,
-                &quot;code&quot;: &quot;GBR&quot;,
-                &quot;phone_code&quot;: &quot;+44&quot;,
-                &quot;is_active&quot;: true
-            },
-            &quot;city&quot;: {
-                &quot;id&quot;: 11,
+                &quot;id&quot;: 5,
                 &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
                 &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;name&quot;: &quot;Birmingham&quot;,
+                &quot;name&quot;: &quot;Germany&quot;,
+                &quot;code&quot;: &quot;DEU&quot;,
+                &quot;phone_code&quot;: &quot;+49&quot;,
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
+            },
+            &quot;city&quot;: {
+                &quot;id&quot;: 22,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+                &quot;name&quot;: &quot;Berlin&quot;,
                 &quot;country_id&quot;: null,
                 &quot;state_provianc&quot;: null,
                 &quot;postal_code&quot;: null,
                 &quot;is_active&quot;: true
             },
             &quot;type_of_contract&quot;: &quot;sale&quot;,
-            &quot;property_type&quot;: &quot;office&quot;,
-            &quot;rooms&quot;: 7,
+            &quot;property_type&quot;: &quot;commercial&quot;,
+            &quot;rooms&quot;: 2,
             &quot;bathrooms&quot;: 1,
-            &quot;area&quot;: &quot;77.48&quot;,
-            &quot;detailed_info&quot;: &quot;In asperiores assumenda voluptatem quia blanditiis. Error id asperiores alias mollitia veritatis. Dignissimos aut ut similique veritatis placeat provident voluptatem.\n\nVoluptas commodi magnam qui repellendus sed. Alias id hic ea porro. Ipsa sit corrupti optio exercitationem.\n\nNam nihil eos exercitationem iste mollitia consequatur. Illo et sunt est velit cumque. Necessitatibus excepturi tenetur voluptates beatae quo excepturi fugit. Rerum quisquam sapiente animi accusantium eum.\n\nNihil repellendus unde et. Nihil quas libero sequi quia voluptatem quae. Cumque vitae laboriosam doloribus.\n\nOccaecati quae saepe quis eos esse cum. Qui officia consectetur a voluptas modi est. Autem doloribus corporis tempora quasi. Quas minus et facere minus impedit possimus. Ullam eos sint nesciunt sed ratione ut.&quot;,
-            &quot;price&quot;: &quot;4046999.51&quot;,
-            &quot;currency&quot;: &quot;AUD&quot;,
-            &quot;formatted_price&quot;: &quot;AUD 4,046,999.51&quot;,
-            &quot;status&quot;: &quot;sold&quot;,
-            &quot;is_loved&quot;: false,
-            &quot;main_image&quot;: &quot;&quot;,
-            &quot;main_image_thumb&quot;: &quot;&quot;,
-            &quot;gallery&quot;: [],
-            &quot;publisher_id&quot;: 1,
-            &quot;approved_by&quot;: 2,
-            &quot;approved_at&quot;: &quot;2026-04-03 16:26:22&quot;,
-            &quot;publisher&quot;: {
-                &quot;id&quot;: 1,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;name&quot;: &quot;Admin&quot;,
-                &quot;email&quot;: &quot;admin@admin.com&quot;
-            },
-            &quot;approver&quot;: {
-                &quot;id&quot;: 2,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;name&quot;: &quot;Prof. Jean Torphy II&quot;,
-                &quot;email&quot;: &quot;mueller.edison@example.org&quot;
-            },
-            &quot;media&quot;: []
-        },
-        {
-            &quot;id&quot;: 15,
-            &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-            &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-            &quot;name&quot;: &quot;Country Estate in Lyon&quot;,
-            &quot;description&quot;: &quot;Error nam enim tempora in explicabo. Ipsa dignissimos nesciunt tempore eum aut. Sed laudantium libero error adipisci natus.\n\nMolestias repellendus quae ipsam sint. Earum exercitationem quasi ut quia vitae ut. Omnis et commodi quidem nemo quibusdam error veritatis harum. Quo praesentium rem et debitis officia.\n\nOmnis quis dolor facilis aliquam ducimus inventore placeat error. Non et sed dolorem et. Sed voluptas libero quas et quae minima. Odit tempore maxime et quo qui sit.&quot;,
-            &quot;country_id&quot;: 6,
-            &quot;city_id&quot;: 27,
-            &quot;longitude&quot;: &quot;33.04282400&quot;,
-            &quot;latitude&quot;: &quot;-41.18907200&quot;,
-            &quot;country&quot;: {
-                &quot;id&quot;: 6,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;name&quot;: &quot;France&quot;,
-                &quot;code&quot;: &quot;FRA&quot;,
-                &quot;phone_code&quot;: &quot;+33&quot;,
-                &quot;is_active&quot;: true
-            },
-            &quot;city&quot;: {
-                &quot;id&quot;: 27,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;name&quot;: &quot;Lyon&quot;,
-                &quot;country_id&quot;: null,
-                &quot;state_provianc&quot;: null,
-                &quot;postal_code&quot;: null,
-                &quot;is_active&quot;: true
-            },
-            &quot;type_of_contract&quot;: &quot;sale&quot;,
-            &quot;property_type&quot;: &quot;warehouse&quot;,
-            &quot;rooms&quot;: 10,
-            &quot;bathrooms&quot;: 4,
-            &quot;area&quot;: &quot;40.17&quot;,
-            &quot;detailed_info&quot;: &quot;Dolores fuga et nemo ullam eveniet est omnis. Consequatur sint autem cum modi earum inventore commodi. Qui corrupti sint tempore et consequatur consectetur adipisci quae. Quia impedit laborum quos illo cupiditate sit commodi.\n\nAt aut voluptatibus ab perspiciatis reiciendis asperiores. Est iste in sint magni voluptatem. Animi in accusamus vel voluptatibus quia modi voluptates. Doloremque sit et laudantium inventore.\n\nQuisquam pariatur ipsum alias. Commodi omnis architecto explicabo aut quo voluptas. Pariatur facere cupiditate at dignissimos sint reprehenderit. Aperiam voluptatem expedita qui iusto veniam porro.\n\nTotam quia ullam rerum vero consequatur quod explicabo. Sunt consectetur veritatis optio nisi. Quos nihil quas ratione itaque deserunt ut. Et debitis cum velit in.\n\nQuam voluptatem aut laborum eum explicabo. Distinctio doloribus repudiandae placeat minus quisquam debitis. Aut deleniti consequatur distinctio voluptas accusamus occaecati facilis. Consequatur culpa quis ipsam saepe dolor hic sint.&quot;,
-            &quot;price&quot;: &quot;3083025.06&quot;,
+            &quot;area&quot;: &quot;211.78&quot;,
+            &quot;detailed_info&quot;: &quot;Et eius eveniet odio ullam. Eius consequatur consequatur molestias similique numquam velit repudiandae. Voluptatum atque quia est commodi corporis sit et. Corporis temporibus ut vitae et omnis. Nemo id ex tempore.\n\nDolores repellendus rem placeat dolores enim similique. Quam saepe qui dolorem ut dolor. Qui reiciendis porro temporibus corrupti.\n\nModi ipsum iure voluptatem maxime blanditiis laborum quia. Ad sit beatae corrupti non minima.\n\nAccusantium labore labore accusantium dolorum. Dolores qui at quo esse laudantium consectetur. Et est inventore corrupti eum architecto voluptatem aut.\n\nDignissimos recusandae vel fuga magnam voluptas molestiae. Autem quia nam repellat ut.&quot;,
+            &quot;price&quot;: &quot;1072674.78&quot;,
             &quot;currency&quot;: &quot;GBP&quot;,
-            &quot;formatted_price&quot;: &quot;GBP 3,083,025.06&quot;,
+            &quot;formatted_price&quot;: &quot;GBP 1,072,674.78&quot;,
             &quot;status&quot;: &quot;approved&quot;,
             &quot;is_loved&quot;: false,
             &quot;main_image&quot;: &quot;&quot;,
@@ -1679,62 +1711,6 @@ access-control-allow-origin: *
             &quot;media&quot;: []
         },
         {
-            &quot;id&quot;: 3,
-            &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-            &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-            &quot;name&quot;: &quot;Cozy Studio in Hamburg&quot;,
-            &quot;description&quot;: &quot;Laborum est cupiditate repellendus quidem quaerat laudantium illum. Possimus et similique quam similique. Corrupti numquam voluptatibus omnis. Aperiam delectus vero consequatur rerum. Et illo alias id tenetur aut et mollitia assumenda.\n\nNam eligendi sunt quis delectus. Illo aliquam est molestiae consequatur itaque impedit at. Qui iure omnis qui. Eum perferendis nulla eveniet et qui ipsum debitis.\n\nVoluptatem non laborum non aspernatur ex. Aut sit minus vel voluptas. Voluptas dolore asperiores et voluptatum est sunt sint.&quot;,
-            &quot;country_id&quot;: 5,
-            &quot;city_id&quot;: 25,
-            &quot;longitude&quot;: &quot;15.83780100&quot;,
-            &quot;latitude&quot;: &quot;1.05935200&quot;,
-            &quot;country&quot;: {
-                &quot;id&quot;: 5,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;name&quot;: &quot;Germany&quot;,
-                &quot;code&quot;: &quot;DEU&quot;,
-                &quot;phone_code&quot;: &quot;+49&quot;,
-                &quot;is_active&quot;: true
-            },
-            &quot;city&quot;: {
-                &quot;id&quot;: 25,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;name&quot;: &quot;Hamburg&quot;,
-                &quot;country_id&quot;: null,
-                &quot;state_provianc&quot;: null,
-                &quot;postal_code&quot;: null,
-                &quot;is_active&quot;: true
-            },
-            &quot;type_of_contract&quot;: &quot;sale&quot;,
-            &quot;property_type&quot;: &quot;house&quot;,
-            &quot;rooms&quot;: 5,
-            &quot;bathrooms&quot;: 1,
-            &quot;area&quot;: &quot;95.97&quot;,
-            &quot;detailed_info&quot;: &quot;Veniam impedit doloremque consequatur dolor. Expedita voluptatum unde sint sed ut. Ipsa provident ut aliquam magnam qui aspernatur.\n\nAutem aperiam non vitae iure est. Hic adipisci nesciunt aut et magnam soluta quam. Quod autem facilis alias omnis. Doloribus ducimus et quisquam quia laborum.\n\nAliquam ad dicta ut facilis odio vel aut ut. Saepe et earum fugiat deserunt occaecati odit enim. Aut rerum consequatur deserunt ratione adipisci mollitia neque.\n\nQuaerat omnis molestiae blanditiis impedit qui eligendi. Omnis est tenetur facilis nisi voluptatem. Fugit suscipit rerum culpa aut.\n\nAutem corporis voluptas itaque aspernatur optio libero. Optio non vitae minima laboriosam blanditiis. Sit et unde similique distinctio voluptatibus impedit aut sit.&quot;,
-            &quot;price&quot;: &quot;2929407.06&quot;,
-            &quot;currency&quot;: &quot;CAD&quot;,
-            &quot;formatted_price&quot;: &quot;CAD 2,929,407.06&quot;,
-            &quot;status&quot;: &quot;pending&quot;,
-            &quot;is_loved&quot;: false,
-            &quot;main_image&quot;: &quot;&quot;,
-            &quot;main_image_thumb&quot;: &quot;&quot;,
-            &quot;gallery&quot;: [],
-            &quot;publisher_id&quot;: 1,
-            &quot;approved_by&quot;: null,
-            &quot;approved_at&quot;: null,
-            &quot;publisher&quot;: {
-                &quot;id&quot;: 1,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;name&quot;: &quot;Admin&quot;,
-                &quot;email&quot;: &quot;admin@admin.com&quot;
-            },
-            &quot;approver&quot;: null,
-            &quot;media&quot;: []
-        },
-        {
             &quot;id&quot;: 10,
             &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
             &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
@@ -1751,7 +1727,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United Kingdom&quot;,
                 &quot;code&quot;: &quot;GBR&quot;,
                 &quot;phone_code&quot;: &quot;+44&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 11,
@@ -1797,105 +1774,44 @@ access-control-allow-origin: *
             &quot;media&quot;: []
         },
         {
-            &quot;id&quot;: 18,
+            &quot;id&quot;: 4,
             &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
             &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-            &quot;name&quot;: &quot;Penthouse Suite in Montreal&quot;,
-            &quot;description&quot;: &quot;Nostrum et debitis temporibus velit qui aut repudiandae. Quam ab praesentium voluptatum sunt nesciunt et voluptatum. Qui autem eum odit modi commodi.\n\nFuga iure alias vitae. Quas voluptate aut provident qui. Vel reprehenderit tempore totam reiciendis excepturi aperiam rerum.\n\nVoluptatem quam nisi omnis aut eos vitae. Voluptatem blanditiis quia saepe autem. Occaecati voluptates recusandae quas officiis aperiam. Rerum tenetur aut aliquid.&quot;,
-            &quot;country_id&quot;: 3,
-            &quot;city_id&quot;: 16,
-            &quot;longitude&quot;: &quot;-37.19481700&quot;,
-            &quot;latitude&quot;: &quot;4.68212600&quot;,
+            &quot;name&quot;: &quot;City Loft in Boston&quot;,
+            &quot;description&quot;: &quot;Et asperiores fugit ratione neque. Aspernatur assumenda doloribus reprehenderit optio laboriosam. Culpa sint suscipit expedita non nemo veniam. Illo repudiandae voluptas beatae voluptatem et quas. Laborum dolores rerum excepturi rerum est inventore voluptatem.\n\nQuae error in temporibus. Quae omnis voluptate aliquam dolore dolor in rerum. Dolorem laborum consequatur sit ut sunt quis molestiae necessitatibus.\n\nTempore eos iste ipsum temporibus aspernatur et commodi. Iure minima voluptas consectetur. Aut assumenda eum quo sapiente rem culpa aliquam. Odit nam consequatur non sint quaerat eligendi unde accusamus.&quot;,
+            &quot;country_id&quot;: 1,
+            &quot;city_id&quot;: 8,
+            &quot;longitude&quot;: &quot;-136.46901500&quot;,
+            &quot;latitude&quot;: &quot;-2.58875800&quot;,
             &quot;country&quot;: {
-                &quot;id&quot;: 3,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;name&quot;: &quot;Canada&quot;,
-                &quot;code&quot;: &quot;CAN&quot;,
-                &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
-            },
-            &quot;city&quot;: {
-                &quot;id&quot;: 16,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;name&quot;: &quot;Montreal&quot;,
-                &quot;country_id&quot;: null,
-                &quot;state_provianc&quot;: null,
-                &quot;postal_code&quot;: null,
-                &quot;is_active&quot;: true
-            },
-            &quot;type_of_contract&quot;: &quot;rent&quot;,
-            &quot;property_type&quot;: &quot;commercial&quot;,
-            &quot;rooms&quot;: 4,
-            &quot;bathrooms&quot;: 1,
-            &quot;area&quot;: &quot;482.81&quot;,
-            &quot;detailed_info&quot;: &quot;Iusto enim omnis nostrum velit et. Et nemo illo qui animi quas iste illum blanditiis. Dolores excepturi reprehenderit fuga perspiciatis cumque unde.\n\nEnim numquam culpa repellat non voluptate itaque. Eligendi voluptate earum sed modi neque voluptates asperiores. Ab quaerat quis accusantium consequuntur at. Quia sed delectus nobis tempore.\n\nEst molestias modi rerum veritatis commodi. Minima blanditiis odit occaecati doloribus enim et facere amet. Omnis maiores nobis quidem ut animi suscipit quia consequatur. Consequatur id harum aut omnis ullam.\n\nVoluptatem sapiente eius inventore facilis ea dolor velit. Ex est vitae ratione et voluptate rerum aut. Id voluptatem tempora odit dolores molestias beatae. Nobis aspernatur laboriosam rerum similique error hic. Magnam commodi magni et non.\n\nVoluptatem nostrum asperiores et. Tenetur perferendis rem consequatur omnis placeat sapiente sunt cumque. In et excepturi nostrum voluptas.&quot;,
-            &quot;price&quot;: &quot;3847707.75&quot;,
-            &quot;currency&quot;: &quot;EUR&quot;,
-            &quot;formatted_price&quot;: &quot;EUR 3,847,707.75&quot;,
-            &quot;status&quot;: &quot;sold&quot;,
-            &quot;is_loved&quot;: false,
-            &quot;main_image&quot;: &quot;&quot;,
-            &quot;main_image_thumb&quot;: &quot;&quot;,
-            &quot;gallery&quot;: [],
-            &quot;publisher_id&quot;: 1,
-            &quot;approved_by&quot;: 2,
-            &quot;approved_at&quot;: &quot;2026-03-19 16:26:22&quot;,
-            &quot;publisher&quot;: {
                 &quot;id&quot;: 1,
                 &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
                 &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;name&quot;: &quot;Admin&quot;,
-                &quot;email&quot;: &quot;admin@admin.com&quot;
-            },
-            &quot;approver&quot;: {
-                &quot;id&quot;: 2,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;name&quot;: &quot;Prof. Jean Torphy II&quot;,
-                &quot;email&quot;: &quot;mueller.edison@example.org&quot;
-            },
-            &quot;media&quot;: []
-        },
-        {
-            &quot;id&quot;: 5,
-            &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-            &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-            &quot;name&quot;: &quot;Urban Condo in Liverpool&quot;,
-            &quot;description&quot;: &quot;Amet est voluptate aspernatur et. Voluptatem labore minima animi aut libero vel voluptas. Omnis quod nesciunt atque sit. Accusantium quia expedita consequuntur aut ad labore ipsam.\n\nQuisquam a earum sint facere id expedita harum reprehenderit. Delectus in quia ut qui consequatur. Rerum odit ullam reprehenderit est quo.\n\nDeserunt soluta quae quibusdam quis cum voluptatum adipisci. Hic voluptatem sint numquam saepe. Fugit ut quidem occaecati rerum sapiente.&quot;,
-            &quot;country_id&quot;: 2,
-            &quot;city_id&quot;: 13,
-            &quot;longitude&quot;: &quot;-112.70221600&quot;,
-            &quot;latitude&quot;: &quot;83.76797600&quot;,
-            &quot;country&quot;: {
-                &quot;id&quot;: 2,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
-                &quot;name&quot;: &quot;United Kingdom&quot;,
-                &quot;code&quot;: &quot;GBR&quot;,
-                &quot;phone_code&quot;: &quot;+44&quot;,
-                &quot;is_active&quot;: true
+                &quot;name&quot;: &quot;United States&quot;,
+                &quot;code&quot;: &quot;USA&quot;,
+                &quot;phone_code&quot;: &quot;+1&quot;,
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
-                &quot;id&quot;: 13,
-                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-                &quot;name&quot;: &quot;Liverpool&quot;,
+                &quot;id&quot;: 8,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;name&quot;: &quot;Boston&quot;,
                 &quot;country_id&quot;: null,
                 &quot;state_provianc&quot;: null,
                 &quot;postal_code&quot;: null,
                 &quot;is_active&quot;: true
             },
             &quot;type_of_contract&quot;: &quot;sale&quot;,
-            &quot;property_type&quot;: &quot;land&quot;,
-            &quot;rooms&quot;: 9,
-            &quot;bathrooms&quot;: 2,
-            &quot;area&quot;: &quot;458.18&quot;,
-            &quot;detailed_info&quot;: &quot;Nam autem qui alias aut ut ut nemo incidunt. Reprehenderit cum provident reiciendis aut nesciunt voluptatum earum asperiores. Cum voluptatum dolores architecto consectetur sed voluptatem vel nostrum.\n\nVel expedita cumque dolores ut aspernatur sint nam. Aliquid sint quasi ut temporibus dolor rem.\n\nProvident dignissimos aut nostrum necessitatibus. Repudiandae qui nisi voluptatem consequuntur qui consequatur quaerat. Quae cupiditate soluta cumque. Repellendus vitae minus quasi consectetur ut quod.\n\nDucimus quis reprehenderit pariatur excepturi cumque. Voluptatum at sint porro qui voluptas aspernatur consequatur. Magni est dolorem expedita nulla. Provident quam nobis voluptatem blanditiis quisquam unde blanditiis.\n\nSint tenetur et pariatur vel dolor. Earum eius suscipit dignissimos qui. Est maiores sapiente earum voluptas aperiam et eaque. Voluptatem fugit maiores porro ducimus ipsam at.&quot;,
-            &quot;price&quot;: &quot;4134389.26&quot;,
-            &quot;currency&quot;: &quot;AUD&quot;,
-            &quot;formatted_price&quot;: &quot;AUD 4,134,389.26&quot;,
+            &quot;property_type&quot;: &quot;commercial&quot;,
+            &quot;rooms&quot;: 7,
+            &quot;bathrooms&quot;: 5,
+            &quot;area&quot;: &quot;222.04&quot;,
+            &quot;detailed_info&quot;: &quot;Iure id voluptas natus eaque. Iusto nobis officiis blanditiis recusandae provident illo autem. Pariatur dolor quas nihil sed vitae. Eligendi ex omnis est.\n\nSit natus quos possimus praesentium consectetur. Impedit id nesciunt ut totam id dolore. Voluptates magni doloribus enim.\n\nDolor labore hic sit dolor vel est. Quia qui dolorum est dolore ipsum consequatur qui. Voluptatum qui distinctio minima molestiae. Ipsa dicta tempora perferendis.\n\nIste nulla totam odio. Veritatis inventore suscipit dolorum. Amet fugiat nemo nihil ut. Qui itaque libero quae aut.\n\nEveniet voluptas et accusamus. Qui nemo enim soluta laborum a placeat. Praesentium culpa esse dolorum et doloribus. Expedita magnam laborum laborum tempora.&quot;,
+            &quot;price&quot;: &quot;1600249.09&quot;,
+            &quot;currency&quot;: &quot;CAD&quot;,
+            &quot;formatted_price&quot;: &quot;CAD 1,600,249.09&quot;,
             &quot;status&quot;: &quot;pending&quot;,
             &quot;is_loved&quot;: false,
             &quot;main_image&quot;: &quot;&quot;,
@@ -1915,15 +1831,78 @@ access-control-allow-origin: *
             &quot;media&quot;: []
         },
         {
-            &quot;id&quot;: 12,
+            &quot;id&quot;: 11,
             &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
             &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
-            &quot;name&quot;: &quot;Country Estate in Chicago&quot;,
-            &quot;description&quot;: &quot;Facilis qui esse voluptates distinctio voluptas neque nemo provident. Molestiae pariatur accusamus excepturi. Beatae quis eos nemo tenetur quo. Necessitatibus aspernatur aspernatur dolorum ab repellendus quo quo.\n\nOfficia voluptas molestias et autem nostrum. Totam dolorem nemo aperiam doloribus. Minus quia ea magni voluptas laborum quis nam.\n\nDelectus quis provident dolorum nesciunt quibusdam. Fugit quia architecto dicta sapiente quisquam. Ipsam voluptas molestiae eaque eveniet iure odit.&quot;,
+            &quot;name&quot;: &quot;Modern Apartment in Calgary&quot;,
+            &quot;description&quot;: &quot;Voluptate sit quas voluptatem eos. Non nulla ut voluptatem qui. Qui quae iusto porro harum quisquam delectus beatae quasi. Non repellendus sequi expedita similique inventore molestias. Aut enim hic sit deleniti.\n\nSunt ex mollitia aspernatur voluptates deserunt non recusandae. Voluptas non consequatur fugit vitae debitis sequi nemo. Eius aut et ab accusantium vel.\n\nNon quasi provident aut provident nihil ut natus maxime. Quia vero laborum ipsam qui autem deleniti iste non. Officia itaque et voluptas itaque vel aut accusantium. Voluptate expedita error est ut officia.&quot;,
+            &quot;country_id&quot;: 3,
+            &quot;city_id&quot;: 17,
+            &quot;longitude&quot;: &quot;-144.34732400&quot;,
+            &quot;latitude&quot;: &quot;-29.02671800&quot;,
+            &quot;country&quot;: {
+                &quot;id&quot;: 3,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+                &quot;name&quot;: &quot;Canada&quot;,
+                &quot;code&quot;: &quot;CAN&quot;,
+                &quot;phone_code&quot;: &quot;+1&quot;,
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
+            },
+            &quot;city&quot;: {
+                &quot;id&quot;: 17,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+                &quot;name&quot;: &quot;Calgary&quot;,
+                &quot;country_id&quot;: null,
+                &quot;state_provianc&quot;: null,
+                &quot;postal_code&quot;: null,
+                &quot;is_active&quot;: true
+            },
+            &quot;type_of_contract&quot;: &quot;rent&quot;,
+            &quot;property_type&quot;: &quot;land&quot;,
+            &quot;rooms&quot;: 2,
+            &quot;bathrooms&quot;: 2,
+            &quot;area&quot;: &quot;309.30&quot;,
+            &quot;detailed_info&quot;: &quot;Quo ad vero consequatur nihil. Id eos expedita qui sed velit et. Quibusdam sapiente harum eligendi.\n\nNesciunt cumque ut occaecati veniam aspernatur voluptas a. Voluptatum ipsa deleniti ullam dolores. Porro et rerum id voluptatem reiciendis sint sit. Sit nulla ipsum aspernatur incidunt libero adipisci.\n\nIure laborum eveniet et incidunt voluptas magni expedita. Est unde a iure et. Quos voluptas aut et autem voluptas ex. Placeat nihil est exercitationem. Est quasi sed quis nostrum reprehenderit veritatis voluptate.\n\nIn in quia optio nemo doloribus eos. Non magni aperiam eos minima alias illum. Iusto quisquam et sequi quis ipsa.\n\nIllum eligendi sint quod quae. Dolorem quis unde optio. Voluptatem voluptatem cumque officia animi et amet fugit.&quot;,
+            &quot;price&quot;: &quot;1125331.50&quot;,
+            &quot;currency&quot;: &quot;CAD&quot;,
+            &quot;formatted_price&quot;: &quot;CAD 1,125,331.50&quot;,
+            &quot;status&quot;: &quot;approved&quot;,
+            &quot;is_loved&quot;: false,
+            &quot;main_image&quot;: &quot;&quot;,
+            &quot;main_image_thumb&quot;: &quot;&quot;,
+            &quot;gallery&quot;: [],
+            &quot;publisher_id&quot;: 1,
+            &quot;approved_by&quot;: 2,
+            &quot;approved_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+            &quot;publisher&quot;: {
+                &quot;id&quot;: 1,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;name&quot;: &quot;Admin&quot;,
+                &quot;email&quot;: &quot;admin@admin.com&quot;
+            },
+            &quot;approver&quot;: {
+                &quot;id&quot;: 2,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;name&quot;: &quot;Prof. Jean Torphy II&quot;,
+                &quot;email&quot;: &quot;mueller.edison@example.org&quot;
+            },
+            &quot;media&quot;: []
+        },
+        {
+            &quot;id&quot;: 13,
+            &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+            &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+            &quot;name&quot;: &quot;City Loft in Chicago&quot;,
+            &quot;description&quot;: &quot;Cum aut consequatur minima sapiente qui maiores molestiae. Quia consequatur illum nisi. Quis saepe quae ut iusto.\n\nVoluptatem sed iste mollitia facere error. Eligendi sit qui ab repudiandae fuga quae reprehenderit. Doloremque voluptas corrupti ex odit distinctio. Et ipsam corrupti quo nihil et. Maiores quam nulla non molestiae dicta.\n\nNesciunt fuga et aut omnis. Quisquam quam culpa repellat ab fugit perspiciatis. Enim explicabo et at consequatur sunt commodi. Sunt veniam fugiat non neque.&quot;,
             &quot;country_id&quot;: 1,
             &quot;city_id&quot;: 3,
-            &quot;longitude&quot;: &quot;146.21953900&quot;,
-            &quot;latitude&quot;: &quot;89.14185600&quot;,
+            &quot;longitude&quot;: &quot;36.02937900&quot;,
+            &quot;latitude&quot;: &quot;2.45447800&quot;,
             &quot;country&quot;: {
                 &quot;id&quot;: 1,
                 &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
@@ -1931,7 +1910,8 @@ access-control-allow-origin: *
                 &quot;name&quot;: &quot;United States&quot;,
                 &quot;code&quot;: &quot;USA&quot;,
                 &quot;phone_code&quot;: &quot;+1&quot;,
-                &quot;is_active&quot;: true
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
             },
             &quot;city&quot;: {
                 &quot;id&quot;: 3,
@@ -1943,15 +1923,15 @@ access-control-allow-origin: *
                 &quot;postal_code&quot;: null,
                 &quot;is_active&quot;: true
             },
-            &quot;type_of_contract&quot;: &quot;rent&quot;,
-            &quot;property_type&quot;: &quot;villa&quot;,
-            &quot;rooms&quot;: 8,
-            &quot;bathrooms&quot;: 2,
-            &quot;area&quot;: &quot;302.24&quot;,
-            &quot;detailed_info&quot;: &quot;Maiores laboriosam incidunt fuga ex consequuntur. Quis non voluptas nobis quod. Exercitationem in vitae voluptatem qui mollitia tenetur.\n\nEx quae quia voluptatem et. Voluptatem est dicta aut. Itaque dolorem odio facere autem est.\n\nNulla qui rerum error aut dolorem omnis ut. Aspernatur in sed quis rerum quis eius illum. Temporibus sint ratione quia suscipit alias modi et. Cum velit tenetur dolor veritatis. Et incidunt deleniti commodi.\n\nCommodi debitis ut est autem rerum et. Earum voluptates culpa ut dolor at. Commodi assumenda alias autem aspernatur. Corporis cumque possimus veniam sit aut dignissimos veniam possimus. Dolorem in est id magni quos voluptas laudantium.\n\nLaudantium doloremque quasi facilis ut suscipit. Et nesciunt et sunt dolor hic. Debitis unde earum eaque et maiores autem. Molestias et quis officiis eveniet molestiae.&quot;,
-            &quot;price&quot;: &quot;4749314.97&quot;,
+            &quot;type_of_contract&quot;: &quot;sale&quot;,
+            &quot;property_type&quot;: &quot;commercial&quot;,
+            &quot;rooms&quot;: 4,
+            &quot;bathrooms&quot;: 1,
+            &quot;area&quot;: &quot;150.30&quot;,
+            &quot;detailed_info&quot;: &quot;Dolor corrupti suscipit blanditiis. Consequatur reprehenderit qui officiis ullam ex. Eos ut dolorem praesentium qui aspernatur saepe et. Impedit odio harum vero ducimus.\n\nPraesentium voluptas ea veritatis non. Officiis ut quas perspiciatis aut et minima fugit id. Consectetur nobis veniam incidunt impedit consequatur. Inventore commodi non repellendus laborum deserunt occaecati.\n\nOdio unde in ut earum ut. Aut et officia esse ut maiores dignissimos. Sit magni ipsa incidunt.\n\nVoluptas consequuntur suscipit cum est aut velit aut quia. Sit voluptatem ad rerum omnis et. Sint illo ut voluptas rerum aut soluta voluptate.\n\nRepellat error at quia numquam aut facilis molestias. Consequatur nulla dolor sequi autem nobis non. Eaque a iste dolores ut voluptatem.&quot;,
+            &quot;price&quot;: &quot;1593610.75&quot;,
             &quot;currency&quot;: &quot;GBP&quot;,
-            &quot;formatted_price&quot;: &quot;GBP 4,749,314.97&quot;,
+            &quot;formatted_price&quot;: &quot;GBP 1,593,610.75&quot;,
             &quot;status&quot;: &quot;approved&quot;,
             &quot;is_loved&quot;: false,
             &quot;main_image&quot;: &quot;&quot;,
@@ -1960,6 +1940,69 @@ access-control-allow-origin: *
             &quot;publisher_id&quot;: 1,
             &quot;approved_by&quot;: 2,
             &quot;approved_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+            &quot;publisher&quot;: {
+                &quot;id&quot;: 1,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;name&quot;: &quot;Admin&quot;,
+                &quot;email&quot;: &quot;admin@admin.com&quot;
+            },
+            &quot;approver&quot;: {
+                &quot;id&quot;: 2,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:21&quot;,
+                &quot;name&quot;: &quot;Prof. Jean Torphy II&quot;,
+                &quot;email&quot;: &quot;mueller.edison@example.org&quot;
+            },
+            &quot;media&quot;: []
+        },
+        {
+            &quot;id&quot;: 19,
+            &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+            &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+            &quot;name&quot;: &quot;Cozy Studio in Vancouver&quot;,
+            &quot;description&quot;: &quot;Quo incidunt esse et aut. Et expedita impedit rerum dolor. Et quos iure sed aut sit.\n\nSed id et dolores et. Soluta et expedita eveniet aliquid et quis. Quasi ut autem fugit aut id. Architecto natus aspernatur est laudantium.\n\nOmnis ipsum excepturi minus omnis eum reprehenderit omnis sunt. Iste rerum est maiores blanditiis aut omnis. Temporibus quis rerum aut ea nesciunt dolor tenetur.&quot;,
+            &quot;country_id&quot;: 3,
+            &quot;city_id&quot;: 15,
+            &quot;longitude&quot;: &quot;176.01889900&quot;,
+            &quot;latitude&quot;: &quot;50.72217400&quot;,
+            &quot;country&quot;: {
+                &quot;id&quot;: 3,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+                &quot;name&quot;: &quot;Canada&quot;,
+                &quot;code&quot;: &quot;CAN&quot;,
+                &quot;phone_code&quot;: &quot;+1&quot;,
+                &quot;is_active&quot;: true,
+                &quot;cities_count&quot;: 0
+            },
+            &quot;city&quot;: {
+                &quot;id&quot;: 15,
+                &quot;created_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+                &quot;updated_at&quot;: &quot;2026-04-10 16:26:22&quot;,
+                &quot;name&quot;: &quot;Vancouver&quot;,
+                &quot;country_id&quot;: null,
+                &quot;state_provianc&quot;: null,
+                &quot;postal_code&quot;: null,
+                &quot;is_active&quot;: true
+            },
+            &quot;type_of_contract&quot;: &quot;sale&quot;,
+            &quot;property_type&quot;: &quot;office&quot;,
+            &quot;rooms&quot;: 4,
+            &quot;bathrooms&quot;: 5,
+            &quot;area&quot;: &quot;191.85&quot;,
+            &quot;detailed_info&quot;: &quot;Voluptas natus praesentium error earum debitis ut voluptas libero. Eius eligendi aut ipsa et exercitationem ut vitae.\n\nAliquam reprehenderit voluptatem aspernatur qui totam. Voluptates error nihil placeat impedit. Voluptatum quasi sed necessitatibus consectetur magni. Pariatur adipisci tenetur non nulla.\n\nPerspiciatis nisi voluptatem eum accusantium aperiam saepe. Rerum velit dolorem esse omnis odit. Laudantium molestiae vero qui.\n\nEt eveniet optio id rerum omnis natus. Impedit quo repudiandae ipsa ad neque et voluptas libero. Animi doloribus quidem accusantium recusandae quia voluptatem corporis.\n\nAdipisci est cupiditate odio molestias. Impedit commodi a quia laboriosam porro in. Voluptates illo perspiciatis rerum optio voluptatem tempora quod. Nemo dolores fuga ut vel nobis vel aut est.&quot;,
+            &quot;price&quot;: &quot;3227799.53&quot;,
+            &quot;currency&quot;: &quot;USD&quot;,
+            &quot;formatted_price&quot;: &quot;USD 3,227,799.53&quot;,
+            &quot;status&quot;: &quot;sold&quot;,
+            &quot;is_loved&quot;: false,
+            &quot;main_image&quot;: &quot;&quot;,
+            &quot;main_image_thumb&quot;: &quot;&quot;,
+            &quot;gallery&quot;: [],
+            &quot;publisher_id&quot;: 1,
+            &quot;approved_by&quot;: 2,
+            &quot;approved_at&quot;: &quot;2026-03-14 16:26:22&quot;,
             &quot;publisher&quot;: {
                 &quot;id&quot;: 1,
                 &quot;created_at&quot;: &quot;2026-04-10 16:26:21&quot;,
@@ -2247,8 +2290,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"city_id\": \"consequatur\",
     \"longitude\": -180,
     \"latitude\": -89,
-    \"property_type\": \"apartment\",
-    \"type_of_contract\": \"rent\",
+    \"property_type\": \"land\",
+    \"type_of_contract\": \"sale\",
     \"rooms\": 16,
     \"bathrooms\": 50,
     \"area\": 55,
@@ -2287,8 +2330,8 @@ let body = {
     "city_id": "consequatur",
     "longitude": -180,
     "latitude": -89,
-    "property_type": "apartment",
-    "type_of_contract": "rent",
+    "property_type": "land",
+    "type_of_contract": "sale",
     "rooms": 16,
     "bathrooms": 50,
     "area": 55,
@@ -2480,10 +2523,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="property_type"                data-endpoint="POSTapi-properties"
-               value="apartment"
+               value="land"
                data-component="body">
     <br>
-<p>Example: <code>apartment</code></p>
+<p>Example: <code>land</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>apartment</code></li> <li><code>house</code></li> <li><code>villa</code></li> <li><code>land</code></li> <li><code>commercial</code></li> <li><code>office</code></li> <li><code>warehouse</code></li> <li><code>other</code></li></ul>
         </div>
@@ -2494,10 +2537,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="type_of_contract"                data-endpoint="POSTapi-properties"
-               value="rent"
+               value="sale"
                data-component="body">
     <br>
-<p>Example: <code>rent</code></p>
+<p>Example: <code>sale</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>sale</code></li> <li><code>rent</code></li></ul>
         </div>
@@ -2670,15 +2713,15 @@ Must be one of:
     \"description\": \"Dolores dolorum amet iste laborum eius est dolor.\",
     \"longitude\": -180,
     \"latitude\": -89,
-    \"property_type\": \"office\",
-    \"type_of_contract\": \"rent\",
+    \"property_type\": \"warehouse\",
+    \"type_of_contract\": \"sale\",
     \"rooms\": 13,
     \"bathrooms\": 65,
     \"area\": 72,
     \"detailed_info\": \"consequatur\",
     \"price\": 45,
     \"currency\": \"qeo\",
-    \"status\": \"approved\",
+    \"status\": \"pending\",
     \"main_image\": {
         \"id\": 17,
         \"temporary_folder\": \"consequatur\"
@@ -2709,15 +2752,15 @@ let body = {
     "description": "Dolores dolorum amet iste laborum eius est dolor.",
     "longitude": -180,
     "latitude": -89,
-    "property_type": "office",
-    "type_of_contract": "rent",
+    "property_type": "warehouse",
+    "type_of_contract": "sale",
     "rooms": 13,
     "bathrooms": 65,
     "area": 72,
     "detailed_info": "consequatur",
     "price": 45,
     "currency": "qeo",
-    "status": "approved",
+    "status": "pending",
     "main_image": {
         "id": 17,
         "temporary_folder": "consequatur"
@@ -2920,10 +2963,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="property_type"                data-endpoint="PUTapi-properties--id-"
-               value="office"
+               value="warehouse"
                data-component="body">
     <br>
-<p>Example: <code>office</code></p>
+<p>Example: <code>warehouse</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>apartment</code></li> <li><code>house</code></li> <li><code>villa</code></li> <li><code>land</code></li> <li><code>commercial</code></li> <li><code>office</code></li> <li><code>warehouse</code></li> <li><code>other</code></li></ul>
         </div>
@@ -2934,10 +2977,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="type_of_contract"                data-endpoint="PUTapi-properties--id-"
-               value="rent"
+               value="sale"
                data-component="body">
     <br>
-<p>Example: <code>rent</code></p>
+<p>Example: <code>sale</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>sale</code></li> <li><code>rent</code></li></ul>
         </div>
@@ -3020,12 +3063,12 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="PUTapi-properties--id-"
-               value="approved"
+               value="pending"
                data-component="body">
     <br>
-<p>Example: <code>approved</code></p>
+<p>Example: <code>pending</code></p>
 Must be one of:
-<ul style="list-style-type: square;"><li><code>pending</code></li> <li><code>approved</code></li> <li><code>rejected</code></li> <li><code>sold</code></li></ul>
+<ul style="list-style-type: square;"><li><code>pending</code></li> <li><code>approved</code></li> <li><code>rejected</code></li> <li><code>sold</code></li> <li><code>archived</code></li></ul>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
         <details>
@@ -3652,6 +3695,588 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <p>The ID of the property. Example: <code>consequatur</code></p>
             </div>
                     </form>
+
+                    <h2 id="endpoints-POSTapi-properties--id--archive">POST api/properties/{id}/archive</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-properties--id--archive">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://127.0.0.1:8000/api/properties/consequatur/archive" \
+    --header "Authorization: Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/properties/consequatur/archive"
+);
+
+const headers = {
+    "Authorization": "Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-properties--id--archive">
+</span>
+<span id="execution-results-POSTapi-properties--id--archive" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-properties--id--archive"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-properties--id--archive"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-properties--id--archive" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-properties--id--archive">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-properties--id--archive" data-method="POST"
+      data-path="api/properties/{id}/archive"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-properties--id--archive', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-properties--id--archive"
+                    onclick="tryItOut('POSTapi-properties--id--archive');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-properties--id--archive"
+                    onclick="cancelTryOut('POSTapi-properties--id--archive');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-properties--id--archive"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/properties/{id}/archive</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-properties--id--archive"
+               value="Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-properties--id--archive"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-properties--id--archive"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="POSTapi-properties--id--archive"
+               value="consequatur"
+               data-component="url">
+    <br>
+<p>The ID of the property. Example: <code>consequatur</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="endpoints-POSTapi-properties--id--restore">POST api/properties/{id}/restore</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-POSTapi-properties--id--restore">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://127.0.0.1:8000/api/properties/consequatur/restore" \
+    --header "Authorization: Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/properties/consequatur/restore"
+);
+
+const headers = {
+    "Authorization": "Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-properties--id--restore">
+</span>
+<span id="execution-results-POSTapi-properties--id--restore" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-properties--id--restore"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-properties--id--restore"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-POSTapi-properties--id--restore" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-properties--id--restore">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-POSTapi-properties--id--restore" data-method="POST"
+      data-path="api/properties/{id}/restore"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-properties--id--restore', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-properties--id--restore"
+                    onclick="tryItOut('POSTapi-properties--id--restore');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-properties--id--restore"
+                    onclick="cancelTryOut('POSTapi-properties--id--restore');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-properties--id--restore"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/properties/{id}/restore</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="POSTapi-properties--id--restore"
+               value="Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="POSTapi-properties--id--restore"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="POSTapi-properties--id--restore"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="POSTapi-properties--id--restore"
+               value="consequatur"
+               data-component="url">
+    <br>
+<p>The ID of the property. Example: <code>consequatur</code></p>
+            </div>
+                    </form>
+
+                    <h2 id="endpoints-PUTapi-properties--id--status">PUT api/properties/{id}/status</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-PUTapi-properties--id--status">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://127.0.0.1:8000/api/properties/consequatur/status" \
+    --header "Authorization: Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"status\": \"archived\"
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/properties/consequatur/status"
+);
+
+const headers = {
+    "Authorization": "Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "status": "archived"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-properties--id--status">
+</span>
+<span id="execution-results-PUTapi-properties--id--status" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-properties--id--status"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-properties--id--status"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-PUTapi-properties--id--status" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-properties--id--status">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-PUTapi-properties--id--status" data-method="PUT"
+      data-path="api/properties/{id}/status"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-properties--id--status', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-properties--id--status"
+                    onclick="tryItOut('PUTapi-properties--id--status');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-properties--id--status"
+                    onclick="cancelTryOut('PUTapi-properties--id--status');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-properties--id--status"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/properties/{id}/status</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-properties--id--status"
+               value="Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="PUTapi-properties--id--status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="PUTapi-properties--id--status"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>id</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="id"                data-endpoint="PUTapi-properties--id--status"
+               value="consequatur"
+               data-component="url">
+    <br>
+<p>The ID of the property. Example: <code>consequatur</code></p>
+            </div>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <div style=" padding-left: 28px;  clear: unset;">
+            <b style="line-height: 2;"><code>status</code></b>&nbsp;&nbsp;
+<small>string</small>&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="status"                data-endpoint="PUTapi-properties--id--status"
+               value="archived"
+               data-component="body">
+    <br>
+<p>Example: <code>archived</code></p>
+Must be one of:
+<ul style="list-style-type: square;"><li><code>pending</code></li> <li><code>approved</code></li> <li><code>rejected</code></li> <li><code>sold</code></li> <li><code>archived</code></li></ul>
+        </div>
+        </form>
+
+                    <h2 id="endpoints-GETapi-properties-statistics">GET api/properties/statistics</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<span id="example-requests-GETapi-properties-statistics">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://127.0.0.1:8000/api/properties/statistics" \
+    --header "Authorization: Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://127.0.0.1:8000/api/properties/statistics"
+);
+
+const headers = {
+    "Authorization": "Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-properties-statistics">
+            <blockquote>
+            <p>Example response (500):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary style="cursor: pointer;">
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre></details>         <pre>
+
+<code class="language-json" style="max-height: 300px;">{
+    &quot;success&quot;: false,
+    &quot;message&quot;: &quot;exceptions.server_error&quot;,
+    &quot;errors&quot;: null,
+    &quot;data&quot;: null
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-properties-statistics" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-properties-statistics"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-properties-statistics"
+      data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
+</span>
+<span id="execution-error-GETapi-properties-statistics" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-properties-statistics">
+
+Tip: Check that you&#039;re properly connected to the network.
+If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
+You can check the Dev Tools console for debugging information.</code></pre>
+</span>
+<form id="form-GETapi-properties-statistics" data-method="GET"
+      data-path="api/properties/statistics"
+      data-authed="1"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-properties-statistics', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-properties-statistics"
+                    onclick="tryItOut('GETapi-properties-statistics');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-properties-statistics"
+                    onclick="cancelTryOut('GETapi-properties-statistics');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-properties-statistics"
+                    data-initial-text="Send Request 💥"
+                    data-loading-text="⏱ Sending..."
+                    hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/properties/statistics</code></b>
+        </p>
+                <h4 class="fancy-heading-panel"><b>Headers</b></h4>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Authorization</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Authorization" class="auth-value"               data-endpoint="GETapi-properties-statistics"
+               value="Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382"
+               data-component="header">
+    <br>
+<p>Example: <code>Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Content-Type</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Content-Type"                data-endpoint="GETapi-properties-statistics"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                                <div style="padding-left: 28px; clear: unset;">
+                <b style="line-height: 2;"><code>Accept</code></b>&nbsp;&nbsp;
+&nbsp;
+ &nbsp;
+ &nbsp;
+                <input type="text" style="display: none"
+                              name="Accept"                data-endpoint="GETapi-properties-statistics"
+               value="application/json"
+               data-component="header">
+    <br>
+<p>Example: <code>application/json</code></p>
+            </div>
+                        </form>
 
                     <h2 id="endpoints-POSTapi-properties--id--toggle-favorite">POST api/properties/{id}/toggle-favorite</h2>
 
@@ -4576,7 +5201,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"name\": \"vmqeopfuudtdsufvyvddq\",
-    \"type\": \"property\"
+    \"type\": \"car\"
 }"
 </code></pre></div>
 
@@ -4594,7 +5219,7 @@ const headers = {
 
 let body = {
     "name": "vmqeopfuudtdsufvyvddq",
-    "type": "property"
+    "type": "car"
 };
 
 fetch(url, {
@@ -4727,10 +5352,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="type"                data-endpoint="PUTapi-categories--id-"
-               value="property"
+               value="car"
                data-component="body">
     <br>
-<p>Example: <code>property</code></p>
+<p>Example: <code>car</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>property</code></li> <li><code>car</code></li></ul>
         </div>
@@ -7399,7 +8024,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"country_id\": \"consequatur\",
     \"state_provianc\": \"consequatur\",
     \"postal_code\": \"consequatur\",
-    \"is_active\": true
+    \"is_active\": false
 }"
 </code></pre></div>
 
@@ -7420,7 +8045,7 @@ let body = {
     "country_id": "consequatur",
     "state_provianc": "consequatur",
     "postal_code": "consequatur",
-    "is_active": true
+    "is_active": false
 };
 
 fetch(url, {
@@ -7585,7 +8210,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
         </form>
 
@@ -8280,7 +8905,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"name\": \"vmqeopfuudtdsufvyvddq\",
     \"code\": \"amn\",
     \"phone_code\": \"iihf\",
-    \"is_active\": false
+    \"is_active\": true
 }"
 </code></pre></div>
 
@@ -8300,7 +8925,7 @@ let body = {
     "name": "vmqeopfuudtdsufvyvddq",
     "code": "amn",
     "phone_code": "iihf",
-    "is_active": false
+    "is_active": true
 };
 
 fetch(url, {
@@ -8453,7 +9078,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>false</code></p>
+<p>Example: <code>true</code></p>
         </div>
         </form>
 
@@ -8636,7 +9261,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
     \"name\": \"vmqeopfuudtdsufvyvddq\",
     \"code\": \"amn\",
     \"phone_code\": \"iihf\",
-    \"is_active\": true
+    \"is_active\": false
 }"
 </code></pre></div>
 
@@ -8656,7 +9281,7 @@ let body = {
     "name": "vmqeopfuudtdsufvyvddq",
     "code": "amn",
     "phone_code": "iihf",
-    "is_active": true
+    "is_active": false
 };
 
 fetch(url, {
@@ -8826,7 +9451,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
             <code>false</code>
         </label>
     <br>
-<p>Example: <code>true</code></p>
+<p>Example: <code>false</code></p>
         </div>
         </form>
 
