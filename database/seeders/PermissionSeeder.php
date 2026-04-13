@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\Auth\Entities\User;
 use Spatie\Permission\Models\Permission as SpatiePermission;
 use Spatie\Permission\Models\Role as SpatieRole;
 
@@ -13,7 +12,7 @@ class PermissionSeeder extends Seeder
         'roles' => ['list', 'show', 'create', 'edit', 'delete', 'get-all-permissions'],
         'training_categories' => ['list', 'show', 'create', 'edit', 'delete'],
         'health_warnings' => ['list', 'show', 'create', 'edit', 'delete'],
-        'properties' => ['list', 'show', 'create', 'edit', 'delete', 'approve', 'reject'],
+        'properties' => ['list', 'show', 'create', 'edit', 'delete', 'approve', 'reject', 'archive', 'restore'],
         'countries' => ['list', 'show', 'create', 'edit', 'delete'],
         'cities' => ['list', 'show', 'create', 'edit', 'delete'],
     ];
@@ -28,7 +27,7 @@ class PermissionSeeder extends Seeder
             foreach ($permissions as $permission) {
                 $permission = SpatiePermission::firstOrCreate([
                     'name' => "{$group}.{$permission}",
-                    'guard_name' => 'web'
+                    'guard_name' => 'web',
                 ]);
             }
         }
@@ -42,7 +41,7 @@ class PermissionSeeder extends Seeder
         // Super Admin - gets all permissions for this guard
         $superAdmin = SpatieRole::firstOrCreate([
             'name' => 'super-admin',
-            'guard_name' => 'web'
+            'guard_name' => 'web',
         ]);
 
         // Assign only permissions that belong to this guard

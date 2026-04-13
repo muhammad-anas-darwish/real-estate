@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Auth\Entities\User;
+use Modules\RealEstate\Enums\PropertyStatus;
 use Modules\RealEstate\Enums\PropertyType;
 use Modules\RealEstate\Enums\TypeOfContract;
 use Spatie\MediaLibrary\HasMedia;
@@ -15,7 +16,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Property extends BaseModel implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, SoftDeletes;
 
     protected $table = 'properties';
 
@@ -45,6 +46,7 @@ class Property extends BaseModel implements HasMedia
     protected $casts = [
         'property_type' => PropertyType::class,
         'type_of_contract' => TypeOfContract::class,
+        'status' => PropertyStatus::class,
         'longitude' => 'decimal:8',
         'latitude' => 'decimal:8',
         'rooms' => 'integer',
@@ -86,7 +88,7 @@ class Property extends BaseModel implements HasMedia
     /**
      * Register media conversions
      */
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(300)
@@ -126,7 +128,7 @@ class Property extends BaseModel implements HasMedia
     {
         return $this->belongsToMany(\Modules\Auth\Entities\User::class, 'property_user', 'property_id', 'user_id')->withTimestamps();
     }
-    
+
     /**
      * Get the main image URL
      */
@@ -185,6 +187,7 @@ class Property extends BaseModel implements HasMedia
         if ($max !== null) {
             $query->where('price', '<=', $max);
         }
+
         return $query;
     }
 
@@ -199,6 +202,7 @@ class Property extends BaseModel implements HasMedia
         if ($max !== null) {
             $query->where('area', '<=', $max);
         }
+
         return $query;
     }
 

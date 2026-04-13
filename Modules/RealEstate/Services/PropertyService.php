@@ -4,11 +4,12 @@ namespace Modules\RealEstate\Services;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\UnauthorizedException;
 use Modules\Core\TemporaryFile\Services\MediaSyncService;
 use Modules\RealEstate\DTOs\PropertyDTO;
 use Modules\RealEstate\Entities\Property;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\UnauthorizedException;
+use Modules\RealEstate\Enums\PropertyStatus;
 
 class PropertyService
 {
@@ -19,7 +20,7 @@ class PropertyService
     public function all(?int $userId = null): LengthAwarePaginator
     {
         return Property::query()
-            ->with(['city', 'country', 'publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')])
+            ->with(['city', 'country', 'publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')])
             ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             }])
@@ -61,7 +62,7 @@ class PropertyService
                 );
             }
 
-            return $property->fresh(['publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')]);
+            return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
         });
     }
 
@@ -91,7 +92,7 @@ class PropertyService
                 );
             }
 
-            return $property->fresh(['publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')]);
+            return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
         });
     }
 
@@ -114,7 +115,8 @@ class PropertyService
                 'approved_by' => $approverId,
                 'approved_at' => now(),
             ]);
-            return $property->fresh(['publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')]);
+
+            return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
         });
     }
 
@@ -127,7 +129,8 @@ class PropertyService
                 'approved_by' => $approverId,
                 'approved_at' => now(),
             ]);
-            return $property->fresh(['publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')]);
+
+            return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
         });
     }
 
@@ -138,24 +141,77 @@ class PropertyService
 
             /** @var \Modules\Auth\Entities\User $user */
             $user = Auth::user();
-            if (!$user->can('properties.mark_as_sold') && $property->publisher_id !== $user->id) {
+            if (! $user->can('properties.mark_as_sold') && $property->publisher_id !== $user->id) {
                 throw new UnauthorizedException(__('exceptions.mark_as_sold_unauthorized'), 403);
             }
 
             $property->update(['status' => 'sold']);
-            return $property->fresh(['publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')]);
+
+            return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
         });
     }
 
     public function random(int $count = 10, ?int $userId = null): \Illuminate\Database\Eloquent\Collection
     {
         return Property::query()
-            ->with(['city', 'country', 'publisher', 'approver', 'media' => fn($query) => $query->where('collection_name', 'main_image')])
+            ->with(['city', 'country', 'publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')])
             ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             }])
             ->inRandomOrder()
             ->limit($count)
             ->get();
+    }
+
+    public function archive(int $id): Property
+    {
+        $property = Property::findOrFail($id);
+        $property->update(['status' => PropertyStatus::ARCHIVED]);
+
+        return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
+    }
+
+    public function restore(int $id): Property
+    {
+        $property = Property::withTrashed()->findOrFail($id);
+        $property->restore();
+
+        return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
+    }
+
+    public function updateStatus(int $id, string $status): Property
+    {
+        $property = Property::findOrFail($id);
+
+        if (! in_array($status, PropertyStatus::values())) {
+            throw new \InvalidArgumentException("Invalid status: {$status}");
+        }
+
+        $property->update(['status' => $status]);
+
+        return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
+    }
+
+    public function statistics(): array
+    {
+        $statistics = Property::select('status')
+            ->selectRaw('COUNT(*) as count')
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
+
+        $statuses = PropertyStatus::values();
+        $result = [];
+        $total = 0;
+
+        foreach ($statuses as $status) {
+            $count = $statistics[$status] ?? 0;
+            $result[$status] = $count;
+            $total += $count;
+        }
+
+        $result['all'] = $total;
+
+        return $result;
     }
 }

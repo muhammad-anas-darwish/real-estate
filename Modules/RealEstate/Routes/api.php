@@ -28,7 +28,20 @@ Route::prefix('api')->group(function () {
 
         Route::post('properties/{id}/mark-sold', [PropertyController::class, 'markAsSold'])
             ->name('properties.mark-sold');
-        
+
+        Route::post('properties/{id}/archive', [PropertyController::class, 'archive'])
+            ->name('properties.archive');
+
+        Route::post('properties/{id}/restore', [PropertyController::class, 'restore'])
+            ->name('properties.restore');
+
+        Route::put('properties/{id}/status', [PropertyController::class, 'updateStatus'])
+            ->name('properties.update-status');
+
+        // Property statistics
+        Route::get('properties/statistics', [PropertyController::class, 'statistics'])
+            ->name('properties.statistics');
+
         Route::post('properties/{id}/toggle-favorite', [PropertyController::class, 'toggleFavorite'])
             ->name('properties.toggle-favorite');
     });

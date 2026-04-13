@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Modules\Core\SubModules\Location\Entities\City;
 use Modules\Core\SubModules\Location\Entities\Country;
+use Modules\RealEstate\Enums\PropertyStatus;
 use Modules\RealEstate\Enums\PropertyType;
 use Modules\RealEstate\Enums\TypeOfContract;
 
@@ -24,7 +25,7 @@ class UpdatePropertyRequest extends FormRequest
             'longitude' => ['nullable', 'numeric', 'between:-180,180'],
             'latitude' => ['nullable', 'numeric', 'between:-90,90'],
 
-            'property_type'    => ['required', Rule::enum(PropertyType::class)],
+            'property_type' => ['required', Rule::enum(PropertyType::class)],
             'type_of_contract' => ['required', Rule::enum(TypeOfContract::class)],
 
             // Property Details
@@ -40,7 +41,7 @@ class UpdatePropertyRequest extends FormRequest
             'currency' => ['nullable', 'string', 'size:3'],
 
             // Status (only for admins)
-            'status' => ['sometimes', Rule::in(['pending', 'approved', 'rejected', 'sold'])],
+            'status' => ['sometimes', Rule::in(PropertyStatus::values())],
 
             // Main Image
             'main_image' => ['nullable', 'array'],
