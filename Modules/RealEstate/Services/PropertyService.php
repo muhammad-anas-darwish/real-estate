@@ -19,6 +19,32 @@ class PropertyService
     public function all(?int $userId = null): LengthAwarePaginator
     {
         return Property::query()
+            ->filter()
+            ->with(['city', 'country', 'publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')])
+            ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            }])
+            ->orderBy(request('sort_by', 'created_at'), request('sort_order', 'desc'))
+            ->paginate(request('perPage', 15));
+    }
+
+    public function publicProperties(?int $userId = null): LengthAwarePaginator
+    {
+        return Property::query()
+            ->whereIn('status', [PropertyStatus::APPROVED, PropertyStatus::SOLD])
+            ->filter()
+            ->with(['city', 'country', 'publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')])
+            ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            }])
+            ->orderBy(request('sort_by', 'created_at'), request('sort_order', 'desc'))
+            ->paginate(request('perPage', 15));
+    }
+
+    public function dashboardProperties(?int $userId = null): LengthAwarePaginator
+    {
+        return Property::query()
+            ->filter()
             ->with(['city', 'country', 'publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')])
             ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);
@@ -28,6 +54,25 @@ class PropertyService
     }
 
     public function find(int $id, ?int $userId = null): Property
+    {
+        return Property::with(['city', 'country', 'publisher', 'approver', 'media'])
+            ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            }])
+            ->findOrFail($id);
+    }
+
+    public function findPublic(int $id, ?int $userId = null): Property
+    {
+        return Property::whereIn('status', [PropertyStatus::APPROVED, PropertyStatus::SOLD])
+            ->with(['city', 'country', 'publisher', 'approver', 'media'])
+            ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            }])
+            ->findOrFail($id);
+    }
+
+    public function findDashboard(int $id, ?int $userId = null): Property
     {
         return Property::with(['city', 'country', 'publisher', 'approver', 'media'])
             ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
@@ -108,6 +153,7 @@ class PropertyService
     public function random(int $count = 10, ?int $userId = null): \Illuminate\Database\Eloquent\Collection
     {
         return Property::query()
+            ->whereIn('status', [PropertyStatus::APPROVED, PropertyStatus::SOLD])
             ->with(['city', 'country', 'publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')])
             ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);

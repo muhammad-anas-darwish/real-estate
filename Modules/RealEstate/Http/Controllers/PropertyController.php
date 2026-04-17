@@ -30,16 +30,30 @@ class PropertyController extends Controller
         );
     }
 
-    public function index()
+    public function indexPublic()
     {
-        $properties = $this->propertyService->all(Auth::id());
+        $properties = $this->propertyService->publicProperties(Auth::id());
 
         return $this->paginatedResponse(PropertyResource::collection($properties));
     }
 
-    public function show($id)
+    public function showPublic($id)
     {
-        $property = $this->propertyService->find($id, Auth::id());
+        $property = $this->propertyService->findPublic($id, Auth::id());
+
+        return $this->successResponse(PropertyResource::make($property));
+    }
+
+    public function indexDashboard()
+    {
+        $properties = $this->propertyService->dashboardProperties(Auth::id());
+
+        return $this->paginatedResponse(PropertyResource::collection($properties));
+    }
+
+    public function showDashboard($id)
+    {
+        $property = $this->propertyService->findDashboard($id, Auth::id());
 
         return $this->successResponse(PropertyResource::make($property));
     }
@@ -94,7 +108,7 @@ class PropertyController extends Controller
 
     public function updateStatus(UpdatePropertyStatusRequest $request, $id)
     {
-        $property = $this->propertyService->find($id);
+        $property = $this->propertyService->findDashboard($id);
         $newStatus = PropertyStatus::from($request->validated()['status']);
 
         $this->authorize('updateStatus', [$property, $newStatus]);
