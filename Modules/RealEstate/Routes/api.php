@@ -11,15 +11,15 @@ Route::prefix('api')->group(function () {
     Route::get('properties/random', [PropertyController::class, 'random'])
         ->name('properties.random');
 
-    // Property statistics (must be before {id} route)
-    Route::get('properties/statistics', [PropertyController::class, 'statistics'])
-        ->name('properties.statistics');
-
     Route::get('properties/{id}', [PropertyController::class, 'show'])
         ->name('properties.show');
 
     // Protected routes
     Route::middleware(['auth:sanctum'])->group(function () {
+        // Property statistics (must be before {id} route)
+        Route::get('properties/statistics', [PropertyController::class, 'statistics'])
+            ->name('properties.statistics');
+
         // Properties CRUD
         Route::apiResource('properties', PropertyController::class)->except(['index', 'show']);
 
