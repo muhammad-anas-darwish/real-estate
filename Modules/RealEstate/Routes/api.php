@@ -16,16 +16,16 @@ Route::prefix('api')->group(function () {
 
     // Protected routes - Dashboard
     Route::middleware(['auth:sanctum'])->prefix('dashboard')->group(function () {
+        // Property statistics
+        Route::get('properties/statistics', [PropertyController::class, 'statistics'])
+            ->name('dashboard.properties.statistics');
+
         // Dashboard properties (all statuses)
         Route::get('properties', [PropertyController::class, 'indexDashboard'])
             ->name('dashboard.properties.index');
 
         Route::get('properties/{id}', [PropertyController::class, 'showDashboard'])
             ->name('dashboard.properties.show');
-
-        // Property statistics
-        Route::get('properties/statistics', [PropertyController::class, 'statistics'])
-            ->name('dashboard.properties.statistics');
 
         // Properties CRUD
         Route::apiResource('properties', PropertyController::class)->except(['index', 'show']);
