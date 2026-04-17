@@ -11,9 +11,6 @@ Route::prefix('api')->group(function () {
     Route::get('properties/random', [PropertyController::class, 'random'])
         ->name('properties.random');
 
-    Route::get('properties/{id}', [PropertyController::class, 'show'])
-        ->name('properties.show');
-
     // Protected routes
     Route::middleware(['auth:sanctum'])->group(function () {
         // Property statistics (must be before {id} route)
@@ -31,4 +28,8 @@ Route::prefix('api')->group(function () {
         Route::post('properties/{id}/toggle-favorite', [PropertyController::class, 'toggleFavorite'])
             ->name('properties.toggle-favorite');
     });
+
+    // Public route must be after protected to avoid auth middleware issues
+    Route::get('properties/{id}', [PropertyController::class, 'show'])
+        ->name('properties.show');
 });
