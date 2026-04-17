@@ -5,27 +5,26 @@ namespace Modules\RealEstate\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\RealEstate\DTOs\PropertyDTO;
+use Modules\RealEstate\Enums\PropertyStatus;
 use Modules\RealEstate\Http\Requests\StorePropertyRequest;
 use Modules\RealEstate\Http\Requests\UpdatePropertyRequest;
 use Modules\RealEstate\Http\Requests\UpdatePropertyStatusRequest;
 use Modules\RealEstate\Http\Resources\PropertyResource;
 use Modules\RealEstate\Services\PropertyService;
+use Modules\RealEstate\Services\PropertyStatusService;
 
 class PropertyController extends Controller
 {
-    public function __construct(protected readonly PropertyService $propertyService)
-    {
+    public function __construct(
+        protected readonly PropertyService $propertyService,
+        protected readonly PropertyStatusService $statusService
+    ) {
         $this->applyPermissions(
             'properties',
             ['store', 'update', 'destroy'],
             [
-                'approve' => 'approve',
-                'reject' => 'reject',
-                'markAsSold' => 'edit',
                 'toggleFavorite' => 'list',
                 'statistics' => 'list',
-                'archive' => 'archive',
-                'restore' => 'restore',
                 'updateStatus' => 'edit',
             ]
         );
@@ -68,27 +67,6 @@ class PropertyController extends Controller
         return $this->successResponse()->deleted('property');
     }
 
-    public function approve($id)
-    {
-        $property = $this->propertyService->approve($id, Auth::id());
-
-        return $this->successResponse(PropertyResource::make($property), __('messages.property_approved'));
-    }
-
-    public function reject($id)
-    {
-        $property = $this->propertyService->reject($id, Auth::id());
-
-        return $this->successResponse(PropertyResource::make($property), __('messages.property_rejected'));
-    }
-
-    public function markAsSold($id)
-    {
-        $property = $this->propertyService->markAsSold($id);
-
-        return $this->successResponse(PropertyResource::make($property), __('messages.property_sold'));
-    }
-
     public function toggleFavorite($id)
     {
         /** @var \Modules\Auth\Entities\User $user */
@@ -114,24 +92,18 @@ class PropertyController extends Controller
         return $this->successResponse($this->propertyService->statistics());
     }
 
-    public function archive($id)
-    {
-        $property = $this->propertyService->archive($id);
-
-        return $this->successResponse(PropertyResource::make($property), __('messages.property_archived'));
-    }
-
-    public function restore($id)
-    {
-        $property = $this->propertyService->restore($id);
-
-        return $this->successResponse(PropertyResource::make($property), __('messages.property_restored'));
-    }
-
     public function updateStatus(UpdatePropertyStatusRequest $request, $id)
     {
-        $property = $this->propertyService->updateStatus($id, $request->validated()['status']);
+        $property = $this->propertyService->find($id);
+        $newStatus = PropertyStatus::from($request->validated()['status']);
 
-        return $this->successResponse(PropertyResource::make($property), __('messages.property_status_updated'));
+        $this->authorize('updateStatus', [$property, $newStatus]);
+
+        $this->statusService->handle($property, $newStatus);
+
+        return $this->successResponse(
+            PropertyResource::make($property->fresh(['publisher', 'approver', 'media'])),
+            __('messages.property_status_updated')
+        );
     }
 }

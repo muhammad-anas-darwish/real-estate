@@ -12,7 +12,7 @@ class PermissionSeeder extends Seeder
         'roles' => ['list', 'show', 'create', 'edit', 'delete', 'get-all-permissions'],
         'training_categories' => ['list', 'show', 'create', 'edit', 'delete'],
         'health_warnings' => ['list', 'show', 'create', 'edit', 'delete'],
-        'properties' => ['list', 'show', 'create', 'edit', 'delete', 'approve', 'reject', 'archive', 'restore'],
+        'properties' => ['list', 'show', 'create', 'edit', 'delete'],
         'countries' => ['list', 'show', 'create', 'edit', 'delete'],
         'cities' => ['list', 'show', 'create', 'edit', 'delete'],
     ];

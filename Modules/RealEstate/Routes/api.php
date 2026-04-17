@@ -24,22 +24,7 @@ Route::prefix('api')->group(function () {
         Route::apiResource('properties', PropertyController::class)->except(['index', 'show']);
 
         // Property status management
-        Route::post('properties/{id}/approve', [PropertyController::class, 'approve'])
-            ->name('properties.approve');
-
-        Route::post('properties/{id}/reject', [PropertyController::class, 'reject'])
-            ->name('properties.reject');
-
-        Route::post('properties/{id}/mark-sold', [PropertyController::class, 'markAsSold'])
-            ->name('properties.mark-sold');
-
-        Route::post('properties/{id}/archive', [PropertyController::class, 'archive'])
-            ->name('properties.archive');
-
-        Route::post('properties/{id}/restore', [PropertyController::class, 'restore'])
-            ->name('properties.restore');
-
-        Route::put('properties/{id}/status', [PropertyController::class, 'updateStatus'])
+        Route::patch('properties/{id}/status', [PropertyController::class, 'updateStatus'])
             ->name('properties.update-status');
 
         // Property statistics

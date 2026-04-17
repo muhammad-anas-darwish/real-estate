@@ -5,7 +5,6 @@ namespace Modules\RealEstate\Services;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\UnauthorizedException;
 use Modules\Core\TemporaryFile\Services\MediaSyncService;
 use Modules\RealEstate\DTOs\PropertyDTO;
 use Modules\RealEstate\Entities\Property;
@@ -106,51 +105,6 @@ class PropertyService
         });
     }
 
-    public function approve(int $id, int $approverId): Property
-    {
-        return DB::transaction(function () use ($id, $approverId): Property {
-            $property = Property::findOrFail($id);
-            $property->update([
-                'status' => 'approved',
-                'approved_by' => $approverId,
-                'approved_at' => now(),
-            ]);
-
-            return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
-        });
-    }
-
-    public function reject(int $id, int $approverId): Property
-    {
-        return DB::transaction(function () use ($id, $approverId): Property {
-            $property = Property::findOrFail($id);
-            $property->update([
-                'status' => 'rejected',
-                'approved_by' => $approverId,
-                'approved_at' => now(),
-            ]);
-
-            return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
-        });
-    }
-
-    public function markAsSold(int $id): Property
-    {
-        return DB::transaction(function () use ($id): Property {
-            $property = Property::findOrFail($id);
-
-            /** @var \Modules\Auth\Entities\User $user */
-            $user = Auth::user();
-            if (! $user->can('properties.mark_as_sold') && $property->publisher_id !== $user->id) {
-                throw new UnauthorizedException(__('exceptions.mark_as_sold_unauthorized'), 403);
-            }
-
-            $property->update(['status' => 'sold']);
-
-            return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
-        });
-    }
-
     public function random(int $count = 10, ?int $userId = null): \Illuminate\Database\Eloquent\Collection
     {
         return Property::query()
@@ -163,31 +117,23 @@ class PropertyService
             ->get();
     }
 
-    public function archive(int $id): Property
-    {
-        $property = Property::findOrFail($id);
-        $property->update(['status' => PropertyStatus::ARCHIVED]);
-
-        return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
-    }
-
-    public function restore(int $id): Property
-    {
-        $property = Property::withTrashed()->findOrFail($id);
-        $property->restore();
-
-        return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
-    }
-
     public function updateStatus(int $id, string $status): Property
     {
         $property = Property::findOrFail($id);
 
-        if (! in_array($status, PropertyStatus::values())) {
+        $statusEnum = PropertyStatus::tryFrom($status);
+        if (! $statusEnum) {
             throw new \InvalidArgumentException("Invalid status: {$status}");
         }
 
-        $property->update(['status' => $status]);
+        $updateData = ['status' => $statusEnum->value];
+
+        if ($statusEnum === PropertyStatus::APPROVED) {
+            $updateData['approved_by'] = Auth::id();
+            $updateData['approved_at'] = now();
+        }
+
+        $property->update($updateData);
 
         return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
     }

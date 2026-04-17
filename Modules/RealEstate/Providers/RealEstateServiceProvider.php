@@ -2,7 +2,9 @@
 
 namespace Modules\RealEstate\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Modules\RealEstate\Entities\Property;
+use Modules\RealEstate\Policies\PropertyPolicy;
 
 class RealEstateServiceProvider extends ServiceProvider
 {
@@ -19,7 +21,11 @@ class RealEstateServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadRoutesFrom(__DIR__ . '/../Routes/api.php');
-        $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        $this->loadRoutesFrom(__DIR__.'/../Routes/api.php');
+        $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
+
+        $this->registerPolicies([
+            Property::class => PropertyPolicy::class,
+        ]);
     }
 }
