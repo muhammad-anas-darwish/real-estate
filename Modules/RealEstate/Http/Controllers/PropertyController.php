@@ -4,6 +4,7 @@ namespace Modules\RealEstate\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Modules\RealEstate\DTOs\PropertyDTO;
 use Modules\RealEstate\Enums\PropertyStatus;
 use Modules\RealEstate\Http\Requests\StorePropertyRequest;
@@ -111,7 +112,12 @@ class PropertyController extends Controller
         $property = $this->propertyService->findDashboard($id);
         $newStatus = PropertyStatus::from($request->validated()['status']);
 
-        $this->authorize('updateStatus', [$property, $newStatus]);
+        if (! Gate::allows('updateStatus', [
+            'property' => $property,
+            'newStatus' => $newStatus,
+        ])) {
+            return $this->forbiddenResponse();
+        }
 
         $this->statusService->handle($property, $newStatus);
 
