@@ -32,7 +32,7 @@ class SearchService
             ->get(['id', 'name']);
     }
 
-    public function call(string $method): \Illuminate\Database\Eloquent\Collection
+    public function call(string $method): \Illuminate\Support\Collection
     {
         if (method_exists($this, $method) && str_starts_with($method, 'search')) {
             return $this->$method();
