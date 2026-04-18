@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Support\ResponseBuilder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -16,7 +17,7 @@ trait ApiResponses
      * Send a success response with data
      */
     protected function successResponse(
-        array|JsonResource|Model|Collection $data = [],
+        array|JsonResource|Model|Collection|SupportCollection $data = [],
         ?string $message = null,
         int $statusCode = 200
     ): ResponseBuilder {
@@ -57,7 +58,7 @@ trait ApiResponses
         string $message,
         int $statusCode = 400,
         ?array $errors = null,
-        array|JsonResource|Model|Collection $data = null
+        array|JsonResource|Model|Collection|SupportCollection $data = null
     ): JsonResponse {
         return response()->json([
             'success' => false,
@@ -72,7 +73,7 @@ trait ApiResponses
      */
     protected function notFoundResponse(
         string $message = 'exceptions.not_found',
-        array|JsonResource|Model|Collection $data = null
+        array|JsonResource|Model|Collection|SupportCollection $data = null
     ): JsonResponse {
         return $this->failedResponse(__($message), 404, null, $data);
     }
@@ -82,7 +83,7 @@ trait ApiResponses
      */
     protected function unauthorizedResponse(
         string $message = 'exceptions.unauthenticated',
-        array|JsonResource|Model|Collection $data = null
+        array|JsonResource|Model|Collection|SupportCollection $data = null
     ): JsonResponse {
         return $this->failedResponse(__($message), 401, null, $data);
     }
