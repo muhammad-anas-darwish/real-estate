@@ -112,10 +112,10 @@ class PropertyController extends Controller
         $property = $this->propertyService->findDashboard($id);
         $newStatus = PropertyStatus::from($request->validated()['status']);
 
-        if (! Gate::allows('updateStatus', [
-            'property' => $property,
-            'newStatus' => $newStatus,
-        ])) {
+        $user = Auth::user();
+        $policy = Gate::getPolicyFor($property);
+
+        if ($policy && ! $policy->updateStatus($user, $property, $newStatus)) {
             return $this->forbiddenResponse();
         }
 
