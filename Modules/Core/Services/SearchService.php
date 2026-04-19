@@ -2,6 +2,7 @@
 
 namespace Modules\Core\Services;
 
+use Illuminate\Support\Str;
 use Modules\Auth\Entities\User;
 use Modules\Core\SubModules\Location\Entities\City;
 use Modules\Core\SubModules\Location\Entities\Country;
@@ -32,9 +33,11 @@ class SearchService
             ->get(['id', 'name']);
     }
 
-    public function call(string $method): \Illuminate\Support\Collection
+    public function call(string $type): \Illuminate\Support\Collection
     {
-        if (method_exists($this, $method) && str_starts_with($method, 'search')) {
+        $method = 'search' . Str::studly($type);
+
+        if (method_exists($this, $method)) {
             return $this->$method();
         }
 
