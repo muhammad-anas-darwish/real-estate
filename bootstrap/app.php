@@ -23,12 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 $pattern = $modulesPath . '/*/SubModules/*/Routes/api.php';
 
                 foreach (glob($pattern) as $file) {
-                    // Extracting the SubModule name for the prefix (e.g., 'location')
-                    // dirname($file, 2) gets us to the "Location" folder
-                    $subModuleName = strtolower(basename(dirname($file, 2)));
-
                     Route::middleware('api')
-                        ->prefix("api/{$subModuleName}")
                         ->group($file);
                 }
             }
