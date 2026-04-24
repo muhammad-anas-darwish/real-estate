@@ -4,6 +4,7 @@ namespace Modules\Communication\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\Communication\Http\Requests\StoreMessageRequest;
 use Modules\Communication\Http\Resources\MessageResource;
 use Modules\Communication\Services\ChatService;
 use Modules\Communication\Services\MessageService;
