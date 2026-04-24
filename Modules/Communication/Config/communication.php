@@ -37,4 +37,17 @@ return [
         'max_file_size_mb' => 10,
         'attachment_disk' => env('CHAT_ATTACHMENT_DISK', 'local'),
     ],
+
+    'queue' => [
+        'notifications_high' => 'notifications-high',
+        'notifications_low' => 'notifications-low',
+        'chat' => 'chat',
+    ],
+
+    'jobs' => [
+        'fcm_retry_attempts' => 3,
+        'fcm_backoff' => 10,
+        'fcm_timeout' => 30,
+        'cleanup_read_days' => 30,
+    ],
 ];

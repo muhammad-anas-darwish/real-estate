@@ -4,6 +4,7 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Console\Scheduling\Schedule;
 use Modules\Communication\Jobs\CleanExpiredFcmTokensJob;
+use Modules\Communication\Jobs\CleanReadNotificationsJob;
 
 Artisan::command('inspire', function () {
     $this->line(Inspiring::quote());
@@ -20,3 +21,7 @@ Schedule::job(new CleanExpiredFcmTokensJob(60))
     ->weekly()
     ->sundays()
     ->at('03:00');
+
+Schedule::job(new CleanReadNotificationsJob())
+    ->daily()
+    ->at('02:00');

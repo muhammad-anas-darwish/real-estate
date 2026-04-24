@@ -1,0 +1,91 @@
+<?php
+
+return [
+    'local' => [
+        'supervisor-notifications-high' => [
+            'connection' => 'redis',
+            'queue' => 'notifications-high',
+            'balance' => 'auto',
+            'maxTries' => 3,
+            'maxTime' => 60,
+            'minProcesses' => 1,
+            'maxProcesses' => 2,
+            'memory' => 256,
+            'tries' => 3,
+            'timeout' => 30,
+        ],
+        'supervisor-notifications-low' => [
+            'connection' => 'redis',
+            'queue' => 'notifications-low',
+            'balance' => 'auto',
+            'maxTries' => 3,
+            'maxTime' => 120,
+            'minProcesses' => 1,
+            'maxProcesses' => 1,
+            'memory' => 256,
+            'tries' => 3,
+            'timeout' => 120,
+        ],
+        'supervisor-chat' => [
+            'connection' => 'redis',
+            'queue' => 'chat',
+            'balance' => 'auto',
+            'maxTries' => 0,
+            'maxTime' => 30,
+            'minProcesses' => 1,
+            'maxProcesses' => 2,
+            'memory' => 128,
+            'tries' => 0,
+            'timeout' => 30,
+        ],
+    ],
+
+    'production' => [
+        'supervisor-notifications-high' => [
+            'connection' => 'redis',
+            'queue' => 'notifications-high',
+            'balance' => 'auto',
+            'maxTries' => 3,
+            'maxTime' => 60,
+            'minProcesses' => 2,
+            'maxProcesses' => 4,
+            'memory' => 256,
+            'tries' => 3,
+            'timeout' => 30,
+        ],
+        'supervisor-notifications-low' => [
+            'connection' => 'redis',
+            'queue' => 'notifications-low',
+            'balance' => 'auto',
+            'maxTries' => 3,
+            'maxTime' => 180,
+            'minProcesses' => 1,
+            'maxProcesses' => 2,
+            'memory' => 256,
+            'tries' => 3,
+            'timeout' => 120,
+        ],
+        'supervisor-chat' => [
+            'connection' => 'redis',
+            'queue' => 'chat',
+            'balance' => 'auto',
+            'maxTries' => 0,
+            'maxTime' => 30,
+            'minProcesses' => 2,
+            'maxProcesses' => 4,
+            'memory' => 128,
+            'tries' => 0,
+            'timeout' => 30,
+        ],
+    ],
+
+    'environments' => [
+        'local' => ['local'],
+        'production' => ['production'],
+    ],
+
+    'defaults' => [
+        'retry_after' => 300,
+        'block_for' => 5,
+    ],
+];
