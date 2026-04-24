@@ -7,6 +7,7 @@ use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Facades\Notification;
 use Modules\Communication\Services\Chat\ConversationService;
 use Modules\Communication\Services\Chat\MessageService;
+use Modules\Communication\Services\Broadcasting\PusherNotificationChannel;
 use Modules\Communication\Services\Fcm\FcmService;
 use Modules\Communication\Services\Fcm\FcmChannel;
 use Modules\Communication\Services\Fcm\FcmTokenService;
@@ -59,7 +60,7 @@ class CommunicationServiceProvider extends ServiceProvider
 
         Notification::resolved(function (ChannelManager $channelManager) {
             $channelManager->extend('pusher', function ($app) {
-                return $app->make(PusherNotificationService::class);
+                return $app->make(PusherNotificationChannel::class);
             });
 
             $channelManager->extend('fcm', function ($app) {
