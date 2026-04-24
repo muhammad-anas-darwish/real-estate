@@ -11,17 +11,31 @@ class MessageResource extends BaseJsonResource
     {
         return [
             'sender' => UserResource::class,
-            'conversation' => ConversationResource::class,
+            'parent' => MessageResource::class,
         ];
     }
 
     protected function getCustomData(): array
     {
+        $authUser = auth()->user();
+
         return [
-            'conversation_id' => $this->conversation_id,
-            'sender_id' => $this->sender_id,
-            'content' => $this->content,
-            'is_read' => $this->is_read,
+            'room_id' => $this->room_id,
+            'body' => $this->body,
+            'type' => $this->type->value,
+            'is_mine' => $authUser && $this->sender_id === $authUser->id,
+            'is_read' => $this->read_at !== null,
+            'attachment_url' => $this->getAttachmentUrl(),
+            'parent_message' => $this->when($this->parent_id && $this->relationLoaded('parent'), function () {
+                return new MessageResource($this->parent);
+            }),
+            'created_at' => $this->formatDate($this->created_at),
+            'read_at' => $this->formatDate($this->read_at),
         ];
+    }
+
+    protected function getAttachmentUrl(): ?string
+    {
+        return null;
     }
 }

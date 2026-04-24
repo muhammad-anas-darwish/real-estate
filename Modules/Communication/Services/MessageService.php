@@ -2,47 +2,100 @@
 
 namespace Modules\Communication\Services;
 
-use App\Services\BaseService;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
-use Modules\Communication\DTOs\MessageDTO;
+use Modules\Auth\Entities\User;
+use Modules\Communication\Entities\ChatRoom;
 use Modules\Communication\Entities\Message;
 
-class MessageService extends BaseService
+class MessageService
 {
-    public const CACHE_TAG = 'messages';
-
-    public function all(int $conversationId): LengthAwarePaginator
+    public function replyToMessage(User $sender, int $parentId, array $data): Message
     {
-        return Message::where('conversation_id', $conversationId)
-            ->with(['sender'])
-            ->orderBy('created_at', 'asc')
-            ->paginate($this->getPerPage(50));
+        $parentMessage = Message::findOrFail($parentId);
+
+        return Message::create([
+            'room_id' => $parentMessage->room_id,
+            'sender_id' => $sender->id,
+            'body' => $data['body'],
+            'type' => $data['type'] ?? 'text',
+            'parent_id' => $parentId,
+        ]);
     }
 
-    public function find(int $id): Message
+    public function markRoomAsRead(User $user, int $roomId): void
     {
-        return Message::with(['sender', 'conversation'])->findOrFail($id);
+        $this->authorizeParticipant($user, $roomId);
+
+        Message::where('room_id', $roomId)
+            ->where('sender_id', '!=', $user->id)
+            ->whereNull('read_at')
+            ->update(['read_at' => now()]);
+
+        $this->updateLastRead($roomId, $user->id);
     }
 
-    public function store(MessageDTO $dto): Message
+    public function getUnreadCountPerRoom(User $user): array
     {
-        return DB::transaction(function () use ($dto): Message {
-            return Message::create($dto->toArray());
-        });
+        $rooms = ChatRoom::whereHas('participants', fn($q) => $q->where('user_id', $user->id))
+            ->with('participants')
+            ->get();
+
+        $result = [];
+
+        foreach ($rooms as $room) {
+            $lastReadAt = $room->participants
+                ->firstWhere('id', $user->id)?->pivot->last_read_at;
+
+            $unreadCount = Message::where('room_id', $room->id)
+                ->where('sender_id', '!=', $user->id)
+                ->when($lastReadAt, fn($q) => $q->where('created_at', '>', $lastReadAt))
+                ->count();
+
+            $result[$room->id] = $unreadCount;
+        }
+
+        return $result;
     }
 
-    public function markAsRead(int $conversationId, int $userId): void
+    public function getRoomMessages(int $roomId, User $user, int $perPage = 50): LengthAwarePaginator
     {
-        Message::where('conversation_id', $conversationId)
-            ->where('recipient_id', '!=', $userId)
-            ->where('is_read', false)
-            ->update(['is_read' => true]);
+        $this->authorizeParticipant($user, $roomId);
+
+        return Message::where('room_id', $roomId)
+            ->with(['sender:id,name', 'parent:id,body,sender_id,created_at'])
+            ->withExists(['parent as has_parent' => function ($query) use ($roomId) {
+                $query->where('room_id', $roomId);
+            }])
+            ->orderByDesc('created_at')
+            ->paginate($perPage);
     }
 
-    public function destroy(int $id): void
+    public function getMessagesWithReplies(int $roomId, User $user, int $perPage = 50): LengthAwarePaginator
     {
-        $message = Message::findOrFail($id);
-        $message->delete();
+        $this->authorizeParticipant($user, $roomId);
+
+        return Message::where('room_id', $roomId)
+            ->with(['sender:id,name', 'replies.sender:id,name'])
+            ->orderByDesc('created_at')
+            ->paginate($perPage);
+    }
+
+    protected function authorizeParticipant(User $user, int $roomId): void
+    {
+        $isParticipant = ChatRoom::where('id', $roomId)
+            ->whereHas('participants', fn($q) => $q->where('user_id', $user->id))
+            ->exists();
+
+        if (! $isParticipant) {
+            throw new \Modules\Communication\Exceptions\ChatAuthorizationException('Not a participant');
+        }
+    }
+
+    protected function updateLastRead(int $roomId, int $userId): void
+    {
+        \Illuminate\Support\Facades\DB::table('chat_room_participants')
+            ->where('room_id', $roomId)
+            ->where('user_id', $userId)
+            ->update(['last_read_at' => now()]);
     }
 }

@@ -13,7 +13,7 @@ class NotificationController extends Controller
         $notifications = Auth::user()
             ->notifications()
             ->orderByDesc('created_at')
-            ->orderByRaw('read_at ASC NULLS FIRST')
+            ->orderByRaw('CASE WHEN read_at IS NULL THEN 0 ELSE 1 END')
             ->paginate(15);
 
         return $this->paginatedResponse(

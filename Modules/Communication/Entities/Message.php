@@ -21,6 +21,7 @@ class Message extends BaseModel
         'type',
         'parent_id',
         'read_at',
+        'attachment_path',
     ];
 
     protected $casts = [
@@ -66,6 +67,24 @@ class Message extends BaseModel
     public function scopeForUser($query, int $userId)
     {
         return $query->where('sender_id', '!=', $userId)->whereNull('read_at');
+    }
+
+    public function getAttachmentUrlAttribute(): ?string
+    {
+        if (! $this->attachment_path) {
+            return null;
+        }
+
+        $disk = config('communication.chat.attachment_disk', 'local');
+
+        if ($disk === 's3') {
+            return \Illuminate\Support\Facades\Storage::disk($disk)->temporaryUrl(
+                $this->attachment_path,
+                now()->addMinutes(60)
+            );
+        }
+
+        return \Illuminate\Support\Facades\Storage::disk($disk)->url($this->attachment_path);
     }
 
     protected static function newFactory()
