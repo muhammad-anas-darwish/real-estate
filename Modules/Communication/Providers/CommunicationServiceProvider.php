@@ -75,6 +75,9 @@ class CommunicationServiceProvider extends ServiceProvider
             });
         });
 
-        $this->registerPolicies();
+        $this->registerPolicies([
+            \Modules\Communication\Entities\ChatRoom::class => \Modules\Communication\Policies\ChatRoomPolicy::class,
+            \Modules\Communication\Entities\Message::class => \Modules\Communication\Policies\MessagePolicy::class,
+        ]);
     }
 }
