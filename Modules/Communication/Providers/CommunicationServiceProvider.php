@@ -6,6 +6,8 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Facades\Notification;
 use Modules\Communication\Services\Chat\ConversationService;
+use Modules\Communication\Services\ChatService;
+use Modules\Communication\Services\UserPresenceService;
 use Modules\Communication\Services\Broadcasting\PusherNotificationChannel;
 use Modules\Communication\Services\Fcm\FcmService;
 use Modules\Communication\Services\Fcm\FcmChannel;
@@ -21,6 +23,14 @@ class CommunicationServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ChatRepositoryInterface::class, function ($app) {
             return new ConversationService();
+        });
+
+        $this->app->singleton(UserPresenceService::class);
+        $this->app->singleton(ChatService::class, function ($app) {
+            return new ChatService(
+                $app->make(UserPresenceService::class),
+                $app->make(NotificationService::class)
+            );
         });
 
         $this->app->singleton(NotificationPreferenceService::class);
