@@ -2,33 +2,46 @@
 
 namespace Modules\Communication\Events;
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Modules\Auth\Entities\User;
 
-class NotificationReceivedEvent implements ShouldBroadcast
+class UserTypingEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public function __construct(
         public readonly User $user,
-        public readonly array $payload,
+        public readonly int $roomId,
     ) {}
 
     public function broadcastOn(): array
     {
-        return ['user.' . $this->user->id];
+        return [
+            new PrivateChannel('chat.' . $this->roomId),
+        ];
     }
 
     public function broadcastAs(): string
     {
-        return 'notification.received';
+        return 'user.typing';
     }
 
     public function broadcastWith(): array
     {
-        return $this->payload;
+        return [
+            'user_id' => $this->user->id,
+            'user_name' => $this->user->name,
+            'is_typing' => true,
+        ];
+    }
+
+    public function broadcastQueue(): string
+    {
+        return 'broadcast';
     }
 }
