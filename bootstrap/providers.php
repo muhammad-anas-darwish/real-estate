@@ -7,4 +7,5 @@ return [
     Modules\RealEstate\Providers\RealEstateServiceProvider::class,
     Modules\Core\Category\Providers\CategoryServiceProvider::class,
     Modules\Communication\Providers\CommunicationServiceProvider::class,
+    Modules\Communication\Providers\BroadcastServiceProvider::class,
 ];
