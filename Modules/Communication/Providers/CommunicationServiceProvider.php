@@ -7,6 +7,8 @@ use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Facades\Notification;
 use Modules\Communication\Services\Chat\ConversationService;
 use Modules\Communication\Services\Chat\MessageService;
+use Modules\Communication\Services\Fcm\FcmService;
+use Modules\Communication\Services\Fcm\FcmTokenService;
 use Modules\Communication\Services\Notification\FcmPushService;
 use Modules\Communication\Services\Notification\NotificationService;
 use Modules\Communication\Services\Notification\PusherNotificationService;
@@ -20,6 +22,14 @@ class CommunicationServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ChatRepositoryInterface::class, function ($app) {
             return new ConversationService();
+        });
+
+        $this->app->singleton(FcmTokenService::class);
+        $this->app->singleton(FcmService::class, function ($app) {
+            return new FcmService(
+                $app->make(\Kreait\Firebase\Messaging::class),
+                $app->make(FcmTokenService::class)
+            );
         });
 
         $this->app->singleton(NotificationServiceInterface::class, function ($app) {
