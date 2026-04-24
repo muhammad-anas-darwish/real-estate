@@ -4,6 +4,7 @@ namespace Modules\Communication\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\Communication\Http\Requests\StoreChatRoomRequest;
 use Modules\Communication\Http\Resources\ChatRoomResource;
 use Modules\Communication\Services\ChatService;
 
@@ -22,7 +23,18 @@ class ChatRoomController extends Controller
         );
     }
 
-    public function store(StoreChatRoomRequest $request)
+    /**
+ * Store a new chat room.
+ *
+ * Creates a private chat between two users or a property-based chat with the property's agent.
+ *
+ * @bodyParam type string required Type: "private" or "property"
+ * @bodyParam recipient_id integer required if type=private - User ID to chat with
+ * @bodyParam property_id integer required if type=property - Property ID
+ *
+ * @response 201 {"success": true, "message": "chat_room created", "data": {...}}
+ */
+public function store(StoreChatRoomRequest $request)
     {
         $type = $request->validated('type');
 

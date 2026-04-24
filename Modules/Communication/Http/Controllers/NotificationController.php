@@ -8,6 +8,13 @@ use Modules\Communication\Http\Resources\NotificationResource;
 
 class NotificationController extends Controller
 {
+    /**
+     * Get paginated notifications list.
+     *
+     * Returns notifications ordered by unread first, then by creation date.
+     *
+     * @response 200 {"success": true, "data": [...], "pagination": {...}}
+     */
     public function index()
     {
         $notifications = Auth::user()

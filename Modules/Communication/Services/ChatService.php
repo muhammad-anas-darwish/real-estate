@@ -130,6 +130,14 @@ class ChatService
             ->paginate(15);
     }
 
+    public function getRoom(int $roomId, User $user): ChatRoom
+    {
+        $this->authorizeParticipant($user, $roomId);
+
+        return ChatRoom::with(['participants:id,name', 'property'])
+            ->findOrFail($roomId);
+    }
+
     protected function getExistingPrivateRoom(int $userId1, int $userId2): ?ChatRoom
     {
         $rooms = ChatRoom::where('type', RoomTypeEnum::PRIVATE)

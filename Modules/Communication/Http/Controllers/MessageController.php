@@ -28,7 +28,17 @@ class MessageController extends Controller
         );
     }
 
-    public function store(StoreMessageRequest $request, int $roomId)
+    /**
+ * Send a message to a chat room.
+ *
+ * @bodyParam body string required Message text content
+ * @bodyParam type string optional Message type: "text", "image", "file"
+ * @bodyParam parent_id integer optional ID of message being replied to
+ * @bodyParam attachment file optional File attachment (max 20MB)
+ *
+ * @response 201 {"success": true, "message": "message created", "data": {...}}
+ */
+public function store(StoreMessageRequest $request, int $roomId)
     {
         $data = $request->validated();
 
