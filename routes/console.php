@@ -2,7 +2,21 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Console\Scheduling\Schedule;
+use Modules\Communication\Jobs\CleanExpiredFcmTokensJob;
 
 Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
+    $this->line(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('communication:clean-fcm-tokens', function () {
+    $deleted = app(\Modules\Communication\Services\Fcm\FcmTokenService::class)
+        ->removeOldTokens(60);
+
+    $this->info("Removed {$deleted} expired FCM tokens.");
+})->purpose('Clean expired FCM tokens older than 60 days');
+
+Schedule::job(new CleanExpiredFcmTokensJob(60))
+    ->weekly()
+    ->sundays()
+    ->at('03:00');

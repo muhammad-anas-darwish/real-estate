@@ -48,6 +48,7 @@ class CommunicationServiceProvider extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/../Routes/chat.php');
         $this->loadRoutesFrom(__DIR__ . '/../Routes/notification.php');
+        $this->loadRoutesFrom(__DIR__ . '/../Routes/fcm.php');
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         $this->mergeConfigFrom(
