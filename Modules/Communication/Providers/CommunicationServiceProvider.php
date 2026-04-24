@@ -41,7 +41,7 @@ class CommunicationServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../../config/communication.php',
+            __DIR__ . '/../Config/communication.php',
             'communication'
         );
 
