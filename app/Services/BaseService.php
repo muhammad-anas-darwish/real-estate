@@ -23,9 +23,11 @@ abstract class BaseService
     /**
      * Get per page value from request
      */
-    protected function getPerPage(): int
+    protected function getPerPage(int $perPage = 15): int
     {
-        return (int) request('perPage', 15);
+        return (int) (request('perPage') 
+            ?? request('per_page') 
+            ?? $perPage);
     }
 
     /**

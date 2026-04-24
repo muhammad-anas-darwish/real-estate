@@ -2,6 +2,7 @@
 
 namespace Modules\RealEstate\Services;
 
+use App\Services\BaseService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +11,7 @@ use Modules\RealEstate\DTOs\PropertyDTO;
 use Modules\RealEstate\Entities\Property;
 use Modules\RealEstate\Enums\PropertyStatus;
 
-class PropertyService
+class PropertyService extends BaseService
 {
     public function __construct(
         protected MediaSyncService $mediaSyncService
@@ -25,7 +26,7 @@ class PropertyService
                 $query->where('user_id', $userId);
             }])
             ->orderBy(request('sort_by', 'created_at'), request('sort_order', 'desc'))
-            ->paginate(request('perPage', 15));
+            ->paginate($this->getPerPage());
     }
 
     public function publicProperties(?int $userId = null): LengthAwarePaginator
@@ -38,7 +39,7 @@ class PropertyService
                 $query->where('user_id', $userId);
             }])
             ->orderBy(request('sort_by', 'created_at'), request('sort_order', 'desc'))
-            ->paginate(request('perPage', 15));
+            ->paginate($this->getPerPage());
     }
 
     public function dashboardProperties(?int $userId = null): LengthAwarePaginator

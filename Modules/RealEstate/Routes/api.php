@@ -8,11 +8,11 @@ Route::prefix('api')->group(function () {
     Route::get('properties', [PropertyController::class, 'indexPublic'])
         ->name('properties.index');
 
-    Route::get('properties/{id}', [PropertyController::class, 'showPublic'])
-        ->name('properties.show');
-
     Route::get('properties/random', [PropertyController::class, 'random'])
         ->name('properties.random');
+
+    Route::get('properties/{id}', [PropertyController::class, 'showPublic'])
+        ->name('properties.show');
 
     // Protected routes - Dashboard
     Route::middleware(['auth:sanctum'])->prefix('dashboard')->group(function () {
