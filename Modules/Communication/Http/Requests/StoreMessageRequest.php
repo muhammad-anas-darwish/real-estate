@@ -3,6 +3,7 @@
 namespace Modules\Communication\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Modules\Communication\Enums\MessageTypeEnum;
 
 class StoreMessageRequest extends FormRequest

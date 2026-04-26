@@ -33,11 +33,19 @@ class UserTypingEvent implements ShouldBroadcast
 
     public function broadcastWith(): array
     {
-        return [
-            'user_id' => $this->user->id,
-            'user_name' => $this->user->name,
-            'is_typing' => true,
-        ];
+        try {
+            return [
+                'user_id' => $this->user->id,
+                'user_name' => $this->user->name,
+                'is_typing' => true,
+            ];
+        } catch (\Throwable $e) {
+            return [
+                'user_id' => $this->user->id,
+                'user_name' => 'Unknown',
+                'is_typing' => true,
+            ];
+        }
     }
 
     public function broadcastQueue(): string

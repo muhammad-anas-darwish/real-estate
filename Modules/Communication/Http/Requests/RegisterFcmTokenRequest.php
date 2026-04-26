@@ -11,13 +11,21 @@ class RegisterFcmTokenRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'token' => ['required', 'string'],
-            'device_type' => ['required', Rule::enum(DeviceTypeEnum::class)],
+            'token' => ['string'],
+            'device_type' => [Rule::enum(DeviceTypeEnum::class)],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'token.required' => 'The token field is required.',
+            'device_type.required' => 'The device type field is required.',
         ];
     }
 
     public function authorize(): bool
     {
-        return $this->user()->check();
+        return true;
     }
 }

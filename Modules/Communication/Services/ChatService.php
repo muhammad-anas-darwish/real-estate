@@ -87,7 +87,11 @@ class ChatService
 
             $this->updateLastRead($roomId, $sender->id);
 
-            $this->broadcastMessage($message);
+            try {
+                $this->broadcastMessage($message);
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::warning('Broadcast failed: ' . $e->getMessage());
+            }
 
             $this->notifyOfflineParticipants($message);
 
@@ -182,21 +186,29 @@ class ChatService
 
     protected function notifyOfflineParticipants(Message $message): void
     {
-        $room = $message->room;
-        $participants = $room->participants;
+        try {
+            $room = $message->room;
+            $participants = $room->participants;
 
-        foreach ($participants as $participant) {
-            if ($participant->id === $message->sender_id) {
-                continue;
-            }
+            foreach ($participants as $participant) {
+                if ($participant->id === $message->sender_id) {
+                    continue;
+                }
 
-            if (! $this->presenceService->isOnline($participant->id)) {
-                $participant->notify(new NewMessageNotification(
-                    senderName: $message->sender->name,
-                    messagePreview: substr($message->body, 0, 50),
-                    roomId: $room->id,
-                ));
+                if (! $this->presenceService->isOnline($participant->id)) {
+                    try {
+                        $participant->notify(new NewMessageNotification(
+                            senderName: $message->sender->name ?? 'Unknown',
+                            messagePreview: substr($message->body ?? '', 0, 50),
+                            roomId: $room->id,
+                        ));
+                    } catch (\Throwable $e) {
+                        \Illuminate\Support\Facades\Log::warning('Notification failed: ' . $e->getMessage());
+                    }
+                }
             }
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('_notifyOfflineParticipants: ' . $e->getMessage());
         }
     }
 

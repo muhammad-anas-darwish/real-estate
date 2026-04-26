@@ -38,29 +38,37 @@ public function store(StoreChatRoomRequest $request)
     {
         $type = $request->validated('type');
 
-        if ($type === 'property' && $request->has('property_id')) {
-            $property = \Modules\RealEstate\Entities\Property::findOrFail(
-                $request->validated('property_id')
-            );
+        try {
+            if ($type === 'property' && $request->has('property_id')) {
+                $property = \Modules\RealEstate\Entities\Property::findOrFail(
+                    $request->validated('property_id')
+                );
 
-            $room = $this->chatService->startPropertyChat(
-                Auth::user(),
-                $property
-            );
-        } else {
-            $recipient = \Modules\Auth\Entities\User::findOrFail(
-                $request->validated('recipient_id')
-            );
+                $room = $this->chatService->startPropertyChat(
+                    Auth::user(),
+                    $property
+                );
+            } else {
+                $recipient = \Modules\Auth\Entities\User::findOrFail(
+                    $request->validated('recipient_id')
+                );
 
-            $room = $this->chatService->startPrivateChat(
-                Auth::user(),
-                $recipient
-            );
+                $room = $this->chatService->startPrivateChat(
+                    Auth::user(),
+                    $recipient
+                );
+            }
+
+            return $this->successResponse(
+                ChatRoomResource::make($room)
+            )->created('chat_room');
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+                'data' => null
+            ], 404);
         }
-
-        return $this->successResponse(
-            ChatRoomResource::make($room)
-        )->created('chat_room');
     }
 
     public function show(int $roomId)

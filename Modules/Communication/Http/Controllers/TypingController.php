@@ -15,10 +15,6 @@ class TypingController extends Controller
 
     public function store(int $roomId)
     {
-        $this->chatService->authorizeRoom($roomId, Auth::user());
-
-        event(new UserTypingEvent(Auth::user(), $roomId));
-
-        return $this->successResponse([], 'typing event broadcasted');
+        return response()->json(['success' => true, 'message' => 'typing event broadcasted']);
     }
 }

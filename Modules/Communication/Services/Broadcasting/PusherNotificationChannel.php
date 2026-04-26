@@ -2,12 +2,11 @@
 
 namespace Modules\Communication\Services\Broadcasting;
 
-use Illuminate\Notifications\Channels\Channel;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Event;
 use Modules\Auth\Entities\User;
 
-class PusherNotificationChannel extends Channel
+class PusherNotificationChannel
 {
     public function send($notifiable, Notification $notification): void
     {

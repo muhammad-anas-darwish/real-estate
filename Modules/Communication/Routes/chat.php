@@ -25,6 +25,5 @@ Route::middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
         ->name('chat.rooms.messages.destroy');
 
     Route::post('chat/rooms/{roomId}/typing', [TypingController::class, 'store'])
-        ->name('chat.rooms.typing')
-        ->middleware('throttle:1,1');
+        ->name('chat.rooms.typing');
 });

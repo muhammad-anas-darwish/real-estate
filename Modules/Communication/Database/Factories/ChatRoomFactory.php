@@ -14,7 +14,7 @@ class ChatRoomFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => fake()->randomElement(RoomTypeEnum::cases()),
+            'type' => RoomTypeEnum::PRIVATE,
             'name' => null,
             'property_id' => null,
         ];
@@ -23,36 +23,40 @@ class ChatRoomFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (ChatRoom $room) {
-            if (!$room->participants()->exists()) {
-                $room->participants()->attach([
-                    User::factory()->id => ['joined_at' => now()],
-                    User::factory()->id => ['joined_at' => now()],
+            if (!$room->participants()->count()) {
+                $user1 = User::factory()->create();
+                $user2 = User::factory()->create();
+                
+                \Illuminate\Support\Facades\DB::table('chat_room_participants')->insert([
+                    'room_id' => $room->id,
+                    'user_id' => $user1->id,
+                    'joined_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+                
+                \Illuminate\Support\Facades\DB::table('chat_room_participants')->insert([
+                    'room_id' => $room->id,
+                    'user_id' => $user2->id,
+                    'joined_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
             }
         });
-    }
-
-    public function private(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'type' => RoomTypeEnum::PRIVATE,
-            'property_id' => null,
-        ]);
-    }
-
-    public function group(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'type' => RoomTypeEnum::GROUP,
-            'name' => fake()->sentence(3),
-        ]);
     }
 
     public function withParticipants(array $userIds): static
     {
         return $this->afterCreating(function (ChatRoom $room) use ($userIds) {
             foreach ($userIds as $userId) {
-                $room->participants()->attach($userId, ['joined_at' => now()]);
+                \Illuminate\Support\Facades\DB::table('chat_room_participants')->insert([
+                    'room_id' => $room->id,
+                    'user_id' => $userId,
+                    'joined_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
             }
         });
     }

@@ -4,8 +4,9 @@ namespace Modules\Communication\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Auth\Entities\User;
-use Modules\Communication\Entities\Conversation;
+use Modules\Communication\Entities\ChatRoom;
 use Modules\Communication\Entities\Message;
+use Modules\Communication\Enums\MessageTypeEnum;
 
 class MessageFactory extends Factory
 {
@@ -14,10 +15,10 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'conversation_id' => Conversation::factory(),
+            'room_id' => ChatRoom::factory(),
             'sender_id' => User::factory(),
-            'content' => fake()->paragraphs(1, true),
-            'is_read' => fake()->boolean(),
+            'body' => fake()->paragraphs(1, true),
+            'type' => MessageTypeEnum::TEXT,
         ];
     }
 }

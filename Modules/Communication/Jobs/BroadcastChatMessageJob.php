@@ -27,13 +27,13 @@ class BroadcastChatMessageJob implements ShouldQueue
         event(new MessageSentEvent($this->message));
     }
 
-    public function failed(\Throwable $exception): void
+    public function failed(mixed $exception): void
     {
         $message = 'Broadcast message failed';
 
         logger()->error($message, [
             'message_id' => $this->message->id,
-            'error' => $exception->getMessage(),
+            'error' => is_object($exception) && method_exists($exception, 'getMessage') ? $exception->getMessage() : 'Unknown error',
         ]);
     }
 }

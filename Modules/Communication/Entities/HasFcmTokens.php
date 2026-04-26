@@ -2,22 +2,25 @@
 
 namespace Modules\Communication\Entities;
 
-use Illuminate\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Communication\Enums\DeviceTypeEnum;
 use Modules\Communication\Entities\UserFcmToken;
 
 trait HasFcmTokens
 {
-    abstract public function fcmTokens(): \Illuminate\Database\Eloquent\Relations\HasMany;
+    public function fcmTokens(): HasMany
+    {
+        return $this->hasMany(UserFcmToken::class);
+    }
 
-    public function routeNotificationForFcm(): Collection
+    public function routeNotificationForFcm(): \Illuminate\Support\Collection
     {
         return $this->fcmTokens()
             ->active()
             ->pluck('token');
     }
 
-    public function routeNotificationForFcmByDevice(?DeviceTypeEnum $deviceType = null): Collection
+    public function routeNotificationForFcmByDevice(?DeviceTypeEnum $deviceType = null): \Illuminate\Support\Collection
     {
         $query = $this->fcmTokens()->active();
 

@@ -32,16 +32,38 @@ class MessageSentEvent implements ShouldBroadcastNow
 
     public function broadcastWith(): array
     {
+        $sender = null;
+        $type = null;
+        $createdAt = null;
+        
+        try {
+            if ($this->message->relationLoaded('sender')) {
+                $sender = $this->message->sender;
+            }
+            if ($this->message->type) {
+                $type = $this->message->type instanceof \Modules\Communication\Enums\MessageTypeEnum 
+                    ? $this->message->type->value 
+                    : (is_string($this->message->type) ? $this->message->type : null);
+            }
+            if ($this->message->created_at) {
+                $createdAt = $this->message->created_at instanceof \Carbon\Carbon 
+                    ? $this->message->created_at->toIso8601String() 
+                    : date('c');
+            }
+        } catch (\Throwable $e) {
+            // Ignore relation loading errors
+        }
+        
         return [
             'message_id' => $this->message->id,
             'room_id' => $this->message->room_id,
             'sender' => [
-                'id' => $this->message->sender->id,
-                'name' => $this->message->sender->name,
+                'id' => $sender?->id,
+                'name' => $sender?->name ?? 'Unknown',
             ],
             'body' => $this->message->body,
-            'type' => $this->message->type->value,
-            'created_at' => $this->message->created_at->toIso8601String(),
+            'type' => $type,
+            'created_at' => $createdAt,
         ];
     }
 }

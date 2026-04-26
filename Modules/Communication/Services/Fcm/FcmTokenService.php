@@ -20,9 +20,22 @@ class FcmTokenService
         );
     }
 
-    public function revokeToken(string $token): bool
+    public function revokeToken(string $token, ?string $deviceType = null): bool
     {
-        return UserFcmToken::where('token', $token)->delete();
+        $query = UserFcmToken::where('token', $token);
+
+        if ($deviceType) {
+            $query->where('device_type', DeviceTypeEnum::tryFrom($deviceType));
+        }
+
+        return $query->delete();
+    }
+
+    public function revokeAllForUserByDeviceType(User $user, string $deviceType): int
+    {
+        return UserFcmToken::where('user_id', $user->id)
+            ->where('device_type', DeviceTypeEnum::tryFrom($deviceType))
+            ->delete();
     }
 
     public function revokeAllForUser(User $user): int

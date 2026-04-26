@@ -38,9 +38,8 @@ class ChatRoom extends BaseModel
 
     public function participants(): BelongsToMany
     {
-        return $this->belongsToMany(\Modules\Auth\Entities\User::class, 'chat_room_participants')
-            ->withPivot(['joined_at', 'last_read_at'])
-            ->withTimestamps();
+        return $this->belongsToMany(\Modules\Auth\Entities\User::class, 'chat_room_participants', 'room_id', 'user_id')
+            ->withPivot(['joined_at', 'last_read_at']);
     }
 
     public function messages(): HasMany

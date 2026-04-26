@@ -39,7 +39,9 @@ public function store(RegisterFcmTokenRequest $request)
         $user = Auth::user();
 
         if ($request->has('token')) {
-            $this->tokenService->revokeToken($request->validated('token'));
+            $this->tokenService->revokeToken($request->validated('token'), $request->validated('device_type'));
+        } elseif ($request->has('device_type')) {
+            $this->tokenService->revokeAllForUserByDeviceType($user, $request->validated('device_type'));
         } else {
             $this->tokenService->revokeAllForUser($user);
         }
