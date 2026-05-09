@@ -47,9 +47,9 @@ class ChatRoom extends BaseModel
         return $this->hasMany(Message::class);
     }
 
-    public function lastMessage(): HasMany
+    public function lastMessage(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasMany(Message::class)->latest()->limit(1);
+        return $this->hasOne(Message::class, 'room_id')->latestOfMany();
     }
 
     public function scopeForUser($query, int $userId)

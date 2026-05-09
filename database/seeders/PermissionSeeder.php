@@ -10,6 +10,7 @@ class PermissionSeeder extends Seeder
 {
     private $permissionGroups = [
         'roles' => ['list', 'show', 'create', 'edit', 'delete', 'get-all-permissions'],
+        'users' => ['list', 'show', 'create', 'edit', 'delete', 'toggle-status'],
         'training_categories' => ['list', 'show', 'create', 'edit', 'delete'],
         'health_warnings' => ['list', 'show', 'create', 'edit', 'delete'],
         'properties' => ['list', 'show', 'create', 'edit', 'delete'],

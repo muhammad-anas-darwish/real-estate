@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Communication\Http\Controllers\NotificationController;
 
-Route::middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
+Route::prefix('api')->middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
     Route::get('notifications', [NotificationController::class, 'index'])
         ->name('notifications.index');
 

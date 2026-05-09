@@ -30,22 +30,24 @@ class MakeCrudCommand extends Command
         $modelName = $this->argument('name');
         $moduleName = $this->normalizeModuleName($this->option('module'));
         $subModuleName = $this->option('submodule') ? $this->normalizeModuleName($this->option('submodule')) : null;
-        $withCache = $this->option('cache') || !$this->option('no-cache');
+        $withCache = $this->option('cache') || ! $this->option('no-cache');
 
         if (empty($moduleName)) {
             $this->error('Module name is required!');
             $this->info('Usage: php artisan make:crud ModelName --module=ModuleName [--submodule=SubModuleName]');
+
             return;
         }
 
         // Check if module exists
-        if (!$this->moduleExists($moduleName)) {
+        if (! $this->moduleExists($moduleName)) {
             $this->error("Module '{$moduleName}' does not exist!");
             $this->info("Please create the module first using: php artisan make:module {$moduleName}");
+
             return;
         }
 
-        $this->info("Creating CRUD for {$modelName} in module {$moduleName}" . ($subModuleName ? " > {$subModuleName}" : ""));
+        $this->info("Creating CRUD for {$modelName} in module {$moduleName}".($subModuleName ? " > {$subModuleName}" : ''));
 
         $this->createModel($modelName, $moduleName, $subModuleName);
         $this->createDTO($modelName, $moduleName, $subModuleName);
@@ -119,10 +121,10 @@ class MakeCrudCommand extends Command
             '{{ model }}' => $modelName,
             '{{ modelVariable }}' => $lowerModel,
             '{{ modelPlural }}' => $pluralModel,
-            '{{ modelNamespace }}' => $this->getNamespace('Entities', $moduleName, $subModuleName) . "\\{$modelName}",
-            '{{ dtoNamespace }}' => $this->getNamespace('DTOs', $moduleName, $subModuleName) . "\\{$modelName}DTO",
-            '{{ resourceNamespace }}' => $this->getNamespace('Http\\Resources', $moduleName, $subModuleName) . "\\{$modelName}Resource",
-            '{{ serviceNamespace }}' => $this->getNamespace('Services', $moduleName, $subModuleName) . "\\{$modelName}Service",
+            '{{ modelNamespace }}' => $this->getNamespace('Entities', $moduleName, $subModuleName)."\\{$modelName}",
+            '{{ dtoNamespace }}' => $this->getNamespace('DTOs', $moduleName, $subModuleName)."\\{$modelName}DTO",
+            '{{ resourceNamespace }}' => $this->getNamespace('Http\\Resources', $moduleName, $subModuleName)."\\{$modelName}Resource",
+            '{{ serviceNamespace }}' => $this->getNamespace('Services', $moduleName, $subModuleName)."\\{$modelName}Service",
             '{{ requestNamespace }}' => $this->getNamespace('Http\\Requests', $moduleName, $subModuleName),
         ];
 
@@ -177,8 +179,8 @@ class MakeCrudCommand extends Command
             '{{ namespace }}' => $namespace,
             '{{ class }}' => "{$modelName}Service",
             '{{ model }}' => $modelName,
-            '{{ modelNamespace }}' => $this->getNamespace('Entities', $moduleName, $subModuleName) . "\\{$modelName}",
-            '{{ dtoNamespace }}' => $this->getNamespace('DTOs', $moduleName, $subModuleName) . "\\{$modelName}DTO",
+            '{{ modelNamespace }}' => $this->getNamespace('Entities', $moduleName, $subModuleName)."\\{$modelName}",
+            '{{ dtoNamespace }}' => $this->getNamespace('DTOs', $moduleName, $subModuleName)."\\{$modelName}DTO",
             '{{ modelVariable }}' => Str::camel($modelName),
             '{{ cachePrefix }}' => Str::snake(Str::plural($modelName)),
         ];
@@ -227,7 +229,7 @@ class MakeCrudCommand extends Command
             '{{ model }}' => $modelName,
             '{{ modelNamespace }}' => $modelNamespace,
             '{{ factoryNamespace }}' => "Modules\\{$moduleName}\\Database\\Factories\\{$modelName}Factory",
-            '{{ seederName }}' => Str::snake(Str::plural($modelName)) . '_seeder',
+            '{{ seederName }}' => Str::snake(Str::plural($modelName)).'_seeder',
         ];
 
         $this->createFile($path, $stub, $replacements);
@@ -237,7 +239,7 @@ class MakeCrudCommand extends Command
     {
         $migrationPath = base_path("Modules/{$moduleName}/Database/Migrations/");
 
-        if (!$this->files->exists($migrationPath)) {
+        if (! $this->files->exists($migrationPath)) {
             $this->makeDirectory($migrationPath);
         }
 
@@ -245,10 +247,10 @@ class MakeCrudCommand extends Command
         $timestamp = date('Y_m_d_His');
         $tableName = Str::snake(Str::plural($modelName));
         $fileName = "{$timestamp}_create_{$tableName}_table.php";
-        $path = $migrationPath . $fileName;
+        $path = $migrationPath.$fileName;
 
         $replacements = [
-            '{{ class }}' => "Create" . Str::studly($tableName) . "Table",
+            '{{ class }}' => 'Create'.Str::studly($tableName).'Table',
             '{{ table }}' => $tableName,
         ];
 
@@ -259,8 +261,9 @@ class MakeCrudCommand extends Command
     {
         $routesPath = base_path("Modules/{$moduleName}/Routes/api.php");
 
-        if (!$this->files->exists($routesPath)) {
+        if (! $this->files->exists($routesPath)) {
             $this->error("Routes file not found: {$routesPath}");
+
             return;
         }
 
@@ -268,7 +271,7 @@ class MakeCrudCommand extends Command
         $controllerName = "{$modelName}Controller";
         $modelPlural = Str::kebab(Str::plural($modelName));
 
-        $controllerNamespace = $this->getNamespace('Http\\Controllers', $moduleName, $subModuleName) . "\\{$controllerName}";
+        $controllerNamespace = $this->getNamespace('Http\\Controllers', $moduleName, $subModuleName)."\\{$controllerName}";
 
         $routesTemplate = <<<EOT
 
@@ -278,8 +281,8 @@ Route::apiResource('{$modelPlural}', \\{$controllerNamespace}::class);
 EOT;
 
         // Check if routes already exist
-        if (!str_contains($content, "Route::apiResource('{$modelPlural}'")) {
-            $content = rtrim($content) . $routesTemplate;
+        if (! str_contains($content, "Route::apiResource('{$modelPlural}'")) {
+            $content = rtrim($content).$routesTemplate;
             $this->files->put($routesPath, $content);
             $this->info("Added routes to: {$routesPath}");
         } else {
@@ -295,8 +298,8 @@ EOT;
             $namespace .= "\\SubModules\\{$subModuleName}";
         }
 
-        if (!empty($subPath)) {
-            $namespace .= "\\" . str_replace('/', '\\', $subPath);
+        if (! empty($subPath)) {
+            $namespace .= '\\'.str_replace('/', '\\', $subPath);
         }
 
         return $namespace;
@@ -315,9 +318,9 @@ EOT;
 
     protected function getStub($type)
     {
-        $stubPath = __DIR__ . "/stubs/crud/{$type}.stub";
+        $stubPath = __DIR__."/stubs/crud/{$type}.stub";
 
-        if (!$this->files->exists($stubPath)) {
+        if (! $this->files->exists($stubPath)) {
             throw new \Exception("Stub file not found: {$stubPath}");
         }
 
@@ -328,6 +331,7 @@ EOT;
     {
         if ($this->fileExists($path)) {
             $this->warn("File already exists: {$path}");
+
             return false;
         }
 
@@ -353,7 +357,7 @@ EOT;
     {
         $dir = dirname($path);
 
-        if (!$this->files->isDirectory($dir)) {
+        if (! $this->files->isDirectory($dir)) {
             $this->files->makeDirectory($dir, 0755, true, true);
         }
     }
@@ -365,6 +369,7 @@ EOT;
         }
 
         $normalized = str_replace(['/', '\\\\', '\\'], '\\', $moduleName);
+
         return trim($normalized, '\\');
     }
 }

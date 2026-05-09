@@ -12,8 +12,7 @@ class ConversationController extends Controller
 {
     public function __construct(
         protected readonly ConversationService $conversationService
-    ) {
-    }
+    ) {}
 
     public function index()
     {

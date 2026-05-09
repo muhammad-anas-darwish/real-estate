@@ -4,7 +4,6 @@ namespace Modules\Communication\Entities;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Communication\Enums\DeviceTypeEnum;
-use Modules\Communication\Entities\UserFcmToken;
 
 trait HasFcmTokens
 {
@@ -33,7 +32,7 @@ trait HasFcmTokens
 
     public function routeNotificationForPusher(): string
     {
-        return 'user_' . $this->id;
+        return 'user_'.$this->id;
     }
 
     public function hasFcmToken(string $token): bool

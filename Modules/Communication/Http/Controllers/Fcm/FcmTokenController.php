@@ -14,14 +14,14 @@ class FcmTokenController extends Controller
     ) {}
 
     /**
- * Register a new FCM token for push notifications.
- *
- * @bodyParam token string required Firebase device token
- * @bodyParam device_type string required "android", "ios", or "web"
- *
- * @response 200 {"success": true, "message": "FCM token registered"}
- */
-public function store(RegisterFcmTokenRequest $request)
+     * Register a new FCM token for push notifications.
+     *
+     * @bodyParam token string required Firebase device token
+     * @bodyParam device_type string required "android", "ios", or "web"
+     *
+     * @response 200 {"success": true, "message": "FCM token registered"}
+     */
+    public function store(RegisterFcmTokenRequest $request)
     {
         $user = Auth::user();
 

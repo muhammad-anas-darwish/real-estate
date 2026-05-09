@@ -25,7 +25,7 @@ class StoreMessageRequest extends FormRequest
 
     protected function prepareForValidation(): void
     {
-        if (!$this->has('type')) {
+        if (! $this->has('type')) {
             $this->merge(['type' => 'text']);
         }
     }

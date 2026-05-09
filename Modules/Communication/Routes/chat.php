@@ -5,7 +5,7 @@ use Modules\Communication\Http\Controllers\ChatRoomController;
 use Modules\Communication\Http\Controllers\MessageController;
 use Modules\Communication\Http\Controllers\TypingController;
 
-Route::middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
+Route::prefix('api')->middleware(['auth:sanctum', 'throttle:60,1'])->group(function () {
     Route::get('chat/rooms', [ChatRoomController::class, 'index'])
         ->name('chat.rooms.index');
 

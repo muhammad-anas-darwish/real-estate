@@ -10,16 +10,17 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Modules\Auth\Entities\User;
 use Modules\Communication\Notifications\BaseNotification;
-use Modules\Communication\Services\Fcm\FcmService;
 use Modules\Communication\Services\Fcm\FcmPayload;
-use Modules\Communication\Enums\NotificationTypeEnum;
+use Modules\Communication\Services\Fcm\FcmService;
 
 class SendFcmNotificationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public int $tries = 3;
+
     public int $backoff = 10;
+
     public int $timeout = 30;
 
     public function __construct(
@@ -63,7 +64,7 @@ class SendFcmNotificationJob implements ShouldQueue
         foreach ($admins as $admin) {
             $admin->notify(new \Modules\Communication\Notifications\AdminAlertNotification(
                 'FCM Queue Failed',
-                "Failed to send notification to user {$this->user->id}: " . $exception->getMessage()
+                "Failed to send notification to user {$this->user->id}: ".$exception->getMessage()
             ));
         }
     }

@@ -21,11 +21,15 @@ class PropertyService extends BaseService
     {
         return Property::query()
             ->filter()
+            ->priceRange(request('price_min'), request('price_max'))
+            ->areaRange(request('area_min'), request('area_max'))
+            ->roomsRange(request('rooms_min'), request('rooms_max'))
+            ->bathroomsRange(request('bathrooms_min'), request('bathrooms_max'))
             ->with(['city', 'country', 'publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')])
             ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             }])
-            ->orderBy(request('sort_by', 'created_at'), request('sort_order', 'desc'))
+            ->orderBy($this->resolveSortBy(), request('sort_order', 'desc'))
             ->paginate($this->getPerPage());
     }
 
@@ -34,11 +38,15 @@ class PropertyService extends BaseService
         return Property::query()
             ->whereIn('status', [PropertyStatus::APPROVED, PropertyStatus::SOLD])
             ->filter()
+            ->priceRange(request('price_min'), request('price_max'))
+            ->areaRange(request('area_min'), request('area_max'))
+            ->roomsRange(request('rooms_min'), request('rooms_max'))
+            ->bathroomsRange(request('bathrooms_min'), request('bathrooms_max'))
             ->with(['city', 'country', 'publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')])
             ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             }])
-            ->orderBy(request('sort_by', 'created_at'), request('sort_order', 'desc'))
+            ->orderBy($this->resolveSortBy(), request('sort_order', 'desc'))
             ->paginate($this->getPerPage());
     }
 
@@ -46,11 +54,15 @@ class PropertyService extends BaseService
     {
         return Property::query()
             ->filter()
+            ->priceRange(request('price_min'), request('price_max'))
+            ->areaRange(request('area_min'), request('area_max'))
+            ->roomsRange(request('rooms_min'), request('rooms_max'))
+            ->bathroomsRange(request('bathrooms_min'), request('bathrooms_max'))
             ->with(['city', 'country', 'publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')])
             ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             }])
-            ->orderBy(request('sort_by', 'created_at'), request('sort_order', 'desc'))
+            ->orderBy($this->resolveSortBy(), request('sort_order', 'desc'))
             ->paginate(request('perPage', 15));
     }
 
@@ -65,21 +77,29 @@ class PropertyService extends BaseService
 
     public function findPublic(int $id, ?int $userId = null): Property
     {
-        return Property::whereIn('status', [PropertyStatus::APPROVED, PropertyStatus::SOLD])
+        $property = Property::whereIn('status', [PropertyStatus::APPROVED, PropertyStatus::SOLD])
             ->with(['city', 'country', 'publisher', 'approver', 'media'])
             ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             }])
             ->findOrFail($id);
+
+        $property->incrementViews();
+
+        return $property;
     }
 
     public function findDashboard(int $id, ?int $userId = null): Property
     {
-        return Property::with(['city', 'country', 'publisher', 'approver', 'media'])
+        $property = Property::with(['city', 'country', 'publisher', 'approver', 'media'])
             ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             }])
             ->findOrFail($id);
+
+        $property->incrementViews();
+
+        return $property;
     }
 
     public function store(PropertyDTO $dto): Property
@@ -151,6 +171,23 @@ class PropertyService extends BaseService
         });
     }
 
+    public function myProperties(int $userId): LengthAwarePaginator
+    {
+        return Property::query()
+            ->byPublisher($userId)
+            ->filter()
+            ->priceRange(request('price_min'), request('price_max'))
+            ->areaRange(request('area_min'), request('area_max'))
+            ->roomsRange(request('rooms_min'), request('rooms_max'))
+            ->bathroomsRange(request('bathrooms_min'), request('bathrooms_max'))
+            ->with(['city', 'country', 'publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')])
+            ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            }])
+            ->orderBy($this->resolveSortBy(), request('sort_order', 'desc'))
+            ->paginate(request('perPage', 15));
+    }
+
     public function random(int $count = 10, ?int $userId = null): \Illuminate\Database\Eloquent\Collection
     {
         return Property::query()
@@ -206,5 +243,13 @@ class PropertyService extends BaseService
         $result['all'] = $total;
 
         return $result;
+    }
+
+    private function resolveSortBy(): string
+    {
+        $allowed = ['price', 'area', 'rooms', 'bathrooms', 'created_at', 'views'];
+        $sortBy = request('sort_by', 'created_at');
+
+        return in_array($sortBy, $allowed) ? $sortBy : 'created_at';
     }
 }

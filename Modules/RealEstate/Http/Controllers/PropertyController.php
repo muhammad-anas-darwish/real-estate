@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Modules\RealEstate\DTOs\PropertyDTO;
 use Modules\RealEstate\Enums\PropertyStatus;
+use Modules\RealEstate\Http\Requests\AdvancedPropertyFilterRequest;
 use Modules\RealEstate\Http\Requests\StorePropertyRequest;
 use Modules\RealEstate\Http\Requests\UpdatePropertyRequest;
 use Modules\RealEstate\Http\Requests\UpdatePropertyStatusRequest;
@@ -31,7 +32,7 @@ class PropertyController extends Controller
         );
     }
 
-    public function indexPublic()
+    public function indexPublic(AdvancedPropertyFilterRequest $request)
     {
         $properties = $this->propertyService->publicProperties(Auth::id());
 
@@ -82,6 +83,13 @@ class PropertyController extends Controller
         return $this->successResponse()->deleted('property');
     }
 
+    public function myProperties()
+    {
+        $properties = $this->propertyService->myProperties(Auth::id());
+
+        return $this->paginatedResponse(PropertyResource::collection($properties));
+    }
+
     public function toggleFavorite($id)
     {
         /** @var \Modules\Auth\Entities\User $user */
@@ -110,7 +118,9 @@ class PropertyController extends Controller
     public function updateStatus(UpdatePropertyStatusRequest $request, $id)
     {
         $property = $this->propertyService->findDashboard($id);
-        $newStatus = PropertyStatus::from($request->validated()['status']);
+        $validated = $request->validated();
+        $newStatus = PropertyStatus::from($validated['status']);
+        $rejectionReason = $validated['rejection_reason'] ?? null;
 
         $user = Auth::user();
         $policy = Gate::getPolicyFor($property);
@@ -119,7 +129,7 @@ class PropertyController extends Controller
             return $this->forbiddenResponse();
         }
 
-        $this->statusService->handle($property, $newStatus);
+        $this->statusService->handle($property, $newStatus, $rejectionReason);
 
         return $this->successResponse(
             PropertyResource::make($property->fresh(['publisher', 'approver', 'media'])),

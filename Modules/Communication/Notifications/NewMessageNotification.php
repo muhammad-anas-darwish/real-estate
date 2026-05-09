@@ -3,7 +3,6 @@
 namespace Modules\Communication\Notifications;
 
 use Modules\Communication\Enums\NotificationTypeEnum;
-use Modules\Communication\Services\Fcm\FcmPayload;
 use Modules\Communication\Services\Fcm\FcmPriority;
 
 class NewMessageNotification extends BaseNotification
@@ -21,7 +20,7 @@ class NewMessageNotification extends BaseNotification
 
     protected function getTitle(): string
     {
-        return 'رسالة جديدة من ' . $this->senderName;
+        return 'رسالة جديدة من '.$this->senderName;
     }
 
     protected function getBody(): string

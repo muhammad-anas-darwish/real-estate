@@ -9,7 +9,7 @@ class UserResource extends BaseJsonResource
     protected function getRelationMap(): array
     {
         return [
-            // Add relations here if needed
+            'roles' => RoleResource::class,
         ];
     }
 
@@ -18,6 +18,7 @@ class UserResource extends BaseJsonResource
         return [
             'name' => $this->name,
             'email' => $this->email,
+            'status' => $this->status,
         ];
     }
 }

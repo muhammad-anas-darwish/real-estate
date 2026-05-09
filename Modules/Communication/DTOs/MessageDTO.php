@@ -4,14 +4,13 @@ namespace Modules\Communication\DTOs;
 
 use App\Interfaces\DTOInterface;
 
-readonly final class MessageDTO implements DTOInterface
+final readonly class MessageDTO implements DTOInterface
 {
     public function __construct(
         public ?int $conversation_id = null,
         public ?int $sender_id = null,
         public ?string $content = null,
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(array $array): self
     {
@@ -28,6 +27,6 @@ readonly final class MessageDTO implements DTOInterface
             'conversation_id' => $this->conversation_id,
             'sender_id' => $this->sender_id,
             'content' => $this->content,
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }

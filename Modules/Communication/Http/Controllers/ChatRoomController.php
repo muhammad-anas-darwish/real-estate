@@ -24,17 +24,17 @@ class ChatRoomController extends Controller
     }
 
     /**
- * Store a new chat room.
- *
- * Creates a private chat between two users or a property-based chat with the property's agent.
- *
- * @bodyParam type string required Type: "private" or "property"
- * @bodyParam recipient_id integer required if type=private - User ID to chat with
- * @bodyParam property_id integer required if type=property - Property ID
- *
- * @response 201 {"success": true, "message": "chat_room created", "data": {...}}
- */
-public function store(StoreChatRoomRequest $request)
+     * Store a new chat room.
+     *
+     * Creates a private chat between two users or a property-based chat with the property's agent.
+     *
+     * @bodyParam type string required Type: "private" or "property"
+     * @bodyParam recipient_id integer required if type=private - User ID to chat with
+     * @bodyParam property_id integer required if type=property - Property ID
+     *
+     * @response 201 {"success": true, "message": "chat_room created", "data": {...}}
+     */
+    public function store(StoreChatRoomRequest $request)
     {
         $type = $request->validated('type');
 
@@ -66,7 +66,7 @@ public function store(StoreChatRoomRequest $request)
             return response()->json([
                 'success' => false,
                 'message' => 'User not found',
-                'data' => null
+                'data' => null,
             ], 404);
         }
     }

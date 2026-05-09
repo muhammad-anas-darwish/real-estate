@@ -3,7 +3,6 @@
 namespace Modules\Communication\Notifications;
 
 use Modules\Communication\Enums\NotificationTypeEnum;
-use Modules\Communication\Services\Fcm\FcmPayload;
 use Modules\Communication\Services\Fcm\FcmPriority;
 
 class NewOfferNotification extends BaseNotification
@@ -22,12 +21,12 @@ class NewOfferNotification extends BaseNotification
 
     protected function getTitle(): string
     {
-        return 'عرض جديد على ' . $this->propertyTitle;
+        return 'عرض جديد على '.$this->propertyTitle;
     }
 
     protected function getBody(): string
     {
-        return $this->agentName . ' قدم عرض بـ ' . $this->offerAmount;
+        return $this->agentName.' قدم عرض بـ '.$this->offerAmount;
     }
 
     protected function toFcmData(): array

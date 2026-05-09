@@ -54,7 +54,9 @@ class PropertyResource extends BaseJsonResource
 
             // Status
             'status' => $this->status,
+            'rejection_reason' => $this->rejection_reason,
             'is_loved' => (bool)($this->is_loved ?? false),
+            'views' => $this->views,
 
             // Images
             'main_image' => $this->main_image_url,

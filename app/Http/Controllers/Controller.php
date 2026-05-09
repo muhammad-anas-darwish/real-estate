@@ -8,5 +8,5 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class Controller extends \Illuminate\Routing\Controller
 {
-    use ValidatesRequests, ApiResponses, ApplyPermissions;
+    use ApiResponses, ApplyPermissions, ValidatesRequests;
 }

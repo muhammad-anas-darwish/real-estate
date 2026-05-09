@@ -3,7 +3,6 @@
 namespace Modules\Communication\Notifications;
 
 use Modules\Communication\Enums\NotificationTypeEnum;
-use Modules\Communication\Services\Fcm\FcmPayload;
 use Modules\Communication\Services\Fcm\FcmPriority;
 
 class BookingConfirmedNotification extends BaseNotification
@@ -27,7 +26,7 @@ class BookingConfirmedNotification extends BaseNotification
 
     protected function getBody(): string
     {
-        return 'تم تأكيد حجزك للعقار ' . $this->propertyTitle . ' في ' . $this->bookingDate;
+        return 'تم تأكيد حجزك للعقار '.$this->propertyTitle.' في '.$this->bookingDate;
     }
 
     protected function toFcmData(): array

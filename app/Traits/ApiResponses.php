@@ -4,12 +4,12 @@ namespace App\Traits;
 
 use App\Support\ResponseBuilder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection as SupportCollection;
 
 trait ApiResponses
 {
@@ -24,7 +24,7 @@ trait ApiResponses
         return new ResponseBuilder([
             'success' => true,
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ], $statusCode);
     }
 
@@ -46,8 +46,8 @@ trait ApiResponses
                 'current_page' => $paginatedData->currentPage(),
                 'last_page' => $paginatedData->lastPage(),
                 'from' => $paginatedData->firstItem(),
-                'to' => $paginatedData->lastItem()
-            ]
+                'to' => $paginatedData->lastItem(),
+            ],
         ], $statusCode);
     }
 
@@ -58,13 +58,13 @@ trait ApiResponses
         string $message,
         int $statusCode = 400,
         ?array $errors = null,
-        array|JsonResource|Model|Collection|SupportCollection $data = null
+        array|JsonResource|Model|Collection|SupportCollection|null $data = null
     ): JsonResponse {
         return response()->json([
             'success' => false,
             'message' => $message,
             'errors' => $errors,
-            'data' => $data
+            'data' => $data,
         ], $statusCode);
     }
 
@@ -73,7 +73,7 @@ trait ApiResponses
      */
     protected function notFoundResponse(
         string $message = 'exceptions.not_found',
-        array|JsonResource|Model|Collection|SupportCollection $data = null
+        array|JsonResource|Model|Collection|SupportCollection|null $data = null
     ): JsonResponse {
         return $this->failedResponse(__($message), 404, null, $data);
     }
@@ -83,7 +83,7 @@ trait ApiResponses
      */
     protected function unauthorizedResponse(
         string $message = 'exceptions.unauthenticated',
-        array|JsonResource|Model|Collection|SupportCollection $data = null
+        array|JsonResource|Model|Collection|SupportCollection|null $data = null
     ): JsonResponse {
         return $this->failedResponse(__($message), 401, null, $data);
     }
@@ -98,7 +98,8 @@ trait ApiResponses
         return $this->failedResponse(__($message), 422, $errors);
     }
 
-    protected function serverErrorResponse(): JsonResponse {
+    protected function serverErrorResponse(): JsonResponse
+    {
         return $this->failedResponse(__('exceptions.server_error'), 500);
     }
 }

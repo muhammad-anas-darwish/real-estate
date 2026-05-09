@@ -63,8 +63,12 @@ abstract class BaseNotification extends Notification
     }
 
     abstract protected function getTitle(): string;
+
     abstract protected function getBody(): string;
+
     abstract protected function toFcmData(): array;
+
     abstract protected function toArrayData(): array;
+
     abstract protected function getPriority(): \Modules\Communication\Services\Fcm\FcmPriority;
 }

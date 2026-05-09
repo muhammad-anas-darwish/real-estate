@@ -3,7 +3,6 @@
 namespace Modules\Communication\Notifications;
 
 use Modules\Communication\Enums\NotificationTypeEnum;
-use Modules\Communication\Services\Fcm\FcmPayload;
 use Modules\Communication\Services\Fcm\FcmPriority;
 
 class PropertyStatusChangedNotification extends BaseNotification
@@ -13,6 +12,7 @@ class PropertyStatusChangedNotification extends BaseNotification
         public readonly string $oldStatus,
         public readonly string $newStatus,
         public readonly int $propertyId,
+        public readonly ?string $rejectionReason = null,
     ) {}
 
     public function getNotificationType(): NotificationTypeEnum
@@ -22,12 +22,26 @@ class PropertyStatusChangedNotification extends BaseNotification
 
     protected function getTitle(): string
     {
-        return 'تحديث حالة العقار';
+        if ($this->newStatus === 'rejected') {
+            return 'Property Rejected';
+        }
+
+        if ($this->newStatus === 'approved') {
+            return 'Property Approved';
+        }
+
+        return 'Property Status Updated';
     }
 
     protected function getBody(): string
     {
-        return $this->propertyTitle . ': ' . $this->oldStatus . ' → ' . $this->newStatus;
+        $body = $this->propertyTitle.': '.$this->oldStatus.' → '.$this->newStatus;
+
+        if ($this->rejectionReason) {
+            $body .= '. Reason: '.$this->rejectionReason;
+        }
+
+        return $body;
     }
 
     protected function toFcmData(): array
@@ -38,6 +52,7 @@ class PropertyStatusChangedNotification extends BaseNotification
             'property_title' => $this->propertyTitle,
             'old_status' => $this->oldStatus,
             'new_status' => $this->newStatus,
+            'rejection_reason' => $this->rejectionReason,
         ];
     }
 
@@ -48,6 +63,7 @@ class PropertyStatusChangedNotification extends BaseNotification
             'property_title' => $this->propertyTitle,
             'old_status' => $this->oldStatus,
             'new_status' => $this->newStatus,
+            'rejection_reason' => $this->rejectionReason,
         ];
     }
 

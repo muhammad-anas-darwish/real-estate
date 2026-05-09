@@ -12,6 +12,7 @@ class UpdatePropertyStatusRequest extends FormRequest
     {
         return [
             'status' => ['required', Rule::in(PropertyStatus::values())],
+            'rejection_reason' => ['required_if:status,rejected', 'string', 'max:1000', 'nullable'],
         ];
     }
 

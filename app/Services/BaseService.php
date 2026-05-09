@@ -11,10 +11,10 @@ abstract class BaseService
      */
     protected function generateCacheKey(array $params, string $prefix = ''): string
     {
-        $key = static::CACHE_TAG . ':' . $prefix;
+        $key = static::CACHE_TAG.':'.$prefix;
 
-        if (!empty($params)) {
-            $key .= ':' . md5(json_encode($params));
+        if (! empty($params)) {
+            $key .= ':'.md5(json_encode($params));
         }
 
         return $key;
@@ -25,8 +25,8 @@ abstract class BaseService
      */
     protected function getPerPage(int $perPage = 15): int
     {
-        return (int) (request('perPage') 
-            ?? request('per_page') 
+        return (int) (request('perPage')
+            ?? request('per_page')
             ?? $perPage);
     }
 

@@ -20,7 +20,7 @@ return [
             'new_message' => ['pusher', 'database'],
             'new_offer' => ['pusher', 'fcm', 'database'],
             'booking_confirmed' => ['fcm', 'database'],
-            'property_update' => ['pusher', 'database'],
+            'property_update' => ['pusher', 'fcm', 'database'],
             'admin_alert' => ['fcm', 'pusher', 'database'],
         ],
     ],

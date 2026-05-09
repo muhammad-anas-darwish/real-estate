@@ -23,17 +23,17 @@ class NotificationFormatter
 
     public function formatForPusher(Notification $notification, int $userId): array
     {
-        return $this->format($notification, 'user.' . $userId);
+        return $this->format($notification, 'user.'.$userId);
     }
 
     public function formatForChat(Notification $notification, int $roomId): array
     {
-        return $this->format($notification, 'chat.' . $roomId);
+        return $this->format($notification, 'chat.'.$roomId);
     }
 
     public function formatForProperty(Notification $notification, int $propertyId): array
     {
-        return $this->format($notification, 'property.' . $propertyId);
+        return $this->format($notification, 'property.'.$propertyId);
     }
 
     public function getNotificationType(Notification $notification): string

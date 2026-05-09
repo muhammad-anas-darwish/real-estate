@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use App\Traits\ApiResponses;
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler;
 use Illuminate\Http\JsonResponse;
 use Throwable;
@@ -14,7 +13,7 @@ class CustomHandler // extends Handler
 
     public function __invoke(Throwable $e)
     {
-        return $this->handleApiException( $e);
+        return $this->handleApiException($e);
     }
 
     protected function handleApiException(Throwable $exception): JsonResponse
@@ -43,7 +42,7 @@ class CustomHandler // extends Handler
             'exception' => get_class($exception),
             'file' => $exception->getFile(),
             'line' => $exception->getLine(),
-            'trace' => $exception->getTrace()
+            'trace' => $exception->getTrace(),
         ], 500) : $this->serverErrorResponse();
     }
 }

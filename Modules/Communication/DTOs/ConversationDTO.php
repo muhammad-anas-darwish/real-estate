@@ -4,15 +4,14 @@ namespace Modules\Communication\DTOs;
 
 use App\Interfaces\DTOInterface;
 
-readonly final class ConversationDTO implements DTOInterface
+final readonly class ConversationDTO implements DTOInterface
 {
     public function __construct(
         public ?int $property_id = null,
         public ?string $type = null,
         public ?int $initiator_id = null,
         public ?int $recipient_id = null,
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(array $array): self
     {
@@ -31,6 +30,6 @@ readonly final class ConversationDTO implements DTOInterface
             'type' => $this->type,
             'initiator_id' => $this->initiator_id,
             'recipient_id' => $this->recipient_id,
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }

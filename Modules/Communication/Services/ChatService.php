@@ -129,7 +129,7 @@ class ChatService
     public function getRoomsForUser(User $user)
     {
         return ChatRoom::whereHas('participants', fn($q) => $q->where('user_id', $user->id))
-            ->with(['lastMessage', 'participants' => fn($q) => $q->select('users.id', 'name')])
+            ->with(['participants' => fn($q) => $q->select('users.id', 'name')])
             ->orderByDesc('created_at')
             ->paginate(15);
     }

@@ -23,10 +23,10 @@ class ChatRoomFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (ChatRoom $room) {
-            if (!$room->participants()->count()) {
+            if (! $room->participants()->count()) {
                 $user1 = User::factory()->create();
                 $user2 = User::factory()->create();
-                
+
                 \Illuminate\Support\Facades\DB::table('chat_room_participants')->insert([
                     'room_id' => $room->id,
                     'user_id' => $user1->id,
@@ -34,7 +34,7 @@ class ChatRoomFactory extends Factory
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
-                
+
                 \Illuminate\Support\Facades\DB::table('chat_room_participants')->insert([
                     'room_id' => $room->id,
                     'user_id' => $user2->id,

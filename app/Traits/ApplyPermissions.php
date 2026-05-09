@@ -15,11 +15,11 @@ trait ApplyPermissions
     /**
      * Apply permissions to controller methods with guard support
      *
-     * @param string $name The permission name prefix
-     * @param array $guards Array of guards to apply (e.g., ['web', 'api'])
-     * @param array $crudMethods Array of CRUD methods to apply
-     * @param array $additionalMethods Additional methods with permissions
-     * @param array $multiplePermissions Methods requiring multiple permissions
+     * @param  string  $name  The permission name prefix
+     * @param  array  $guards  Array of guards to apply (e.g., ['web', 'api'])
+     * @param  array  $crudMethods  Array of CRUD methods to apply
+     * @param  array  $additionalMethods  Additional methods with permissions
+     * @param  array  $multiplePermissions  Methods requiring multiple permissions
      */
     public function applyPermissions(
         string $name,
@@ -32,7 +32,7 @@ trait ApplyPermissions
 
         // Apply single permissions
         foreach ($allMethods as $method => $permission) {
-            if (!isset($multiplePermissions[$method])) {
+            if (! isset($multiplePermissions[$method])) {
                 $this->applySinglePermission($name, $method, $permission);
             }
         }

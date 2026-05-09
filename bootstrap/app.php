@@ -21,7 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
                  * Search pattern for nested submodules:
                  * Modules/{Main}/SubModules/{Sub}/Routes/api.php
                  */
-                $pattern = $modulesPath . '/*/SubModules/*/Routes/api.php';
+                $pattern = $modulesPath.'/*/SubModules/*/Routes/api.php';
 
                 foreach (glob($pattern) as $file) {
                     Route::middleware('api')
@@ -47,7 +47,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
-            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         ]);
     })
 

@@ -5,6 +5,7 @@ namespace Modules\Communication\Services\Broadcasting;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Event;
 use Modules\Auth\Entities\User;
+use Modules\Communication\Events\NotificationReceivedEvent;
 
 class PusherNotificationChannel
 {
@@ -15,7 +16,7 @@ class PusherNotificationChannel
         }
 
         $eventClass = get_class($notification);
-        $channel = 'user.' . $notifiable->id;
+        $channel = 'user.'.$notifiable->id;
 
         if (method_exists($notification, 'toBroadcastPayload')) {
             $payload = $notification->toBroadcastPayload($notifiable);

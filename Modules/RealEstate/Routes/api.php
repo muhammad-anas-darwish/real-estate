@@ -34,6 +34,10 @@ Route::prefix('api')->group(function () {
         Route::patch('properties/{id}/status', [PropertyController::class, 'updateStatus'])
             ->name('dashboard.properties.update-status');
 
+        // My properties (user's own listings)
+        Route::get('my-properties', [PropertyController::class, 'myProperties'])
+            ->name('dashboard.my-properties');
+
         // Property favorite
         Route::post('properties/{id}/toggle-favorite', [PropertyController::class, 'toggleFavorite'])
             ->name('dashboard.properties.toggle-favorite');

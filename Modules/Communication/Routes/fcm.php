@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Communication\Http\Controllers\Fcm\FcmTokenController;
 
-Route::middleware(['auth:sanctum'])->prefix('fcm')->group(function () {
+Route::prefix('api/fcm')->middleware(['auth:sanctum'])->group(function () {
     Route::post('/register', [FcmTokenController::class, 'store'])
         ->name('fcm.register');
 

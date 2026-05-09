@@ -46,6 +46,7 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200);
         $this->assertDatabaseMissing('personal_access_tokens', ['tokenable_id' => $user->id]);
     }
+
     public function test_user_can_request_password_reset_link()
     {
         $user = User::factory()->create();
@@ -57,4 +58,3 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200);
     }
 }
-

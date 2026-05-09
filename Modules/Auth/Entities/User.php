@@ -13,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens, HasRoles, Filterable, HasFcmTokens;
+    use Filterable, HasApiTokens, HasFactory, HasFcmTokens, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +24,16 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'status',
+    ];
+
+    protected static $filterableColumns = [
+        'status',
+    ];
+
+    protected static $searchableColumns = [
+        'name',
+        'email',
     ];
 
     /**
@@ -51,6 +61,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'status' => 'string',
         ];
     }
 
@@ -59,12 +70,11 @@ class User extends Authenticatable
         return \Modules\Auth\Database\Factories\UserFactory::new();
     }
 
-
     // public function sendPasswordResetNotification($token)
     // {
-        // Generate your frontend reset password URL
-        // $url = config('app.frontend_url') . '/reset-password?token=' . $token . '&email=' . urlencode($this->email);
+    // Generate your frontend reset password URL
+    // $url = config('app.frontend_url') . '/reset-password?token=' . $token . '&email=' . urlencode($this->email);
 
-        // $this->notify(new ResetPasswordNotification($token, $url));
+    // $this->notify(new ResetPasswordNotification($token, $url));
     // }
 }

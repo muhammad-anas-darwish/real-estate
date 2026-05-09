@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Auth\Entities\User;
+use Illuminate\Support\Facades\Request;
 use Modules\RealEstate\Enums\PropertyStatus;
 use Modules\RealEstate\Enums\PropertyType;
 use Modules\RealEstate\Enums\TypeOfContract;
@@ -41,6 +42,8 @@ class Property extends BaseModel implements HasMedia
         'approved_by',
         'approved_at',
         'status',
+        'rejection_reason',
+        'views',
     ];
 
     protected $casts = [
@@ -53,6 +56,7 @@ class Property extends BaseModel implements HasMedia
         'bathrooms' => 'integer',
         'area' => 'decimal:2',
         'price' => 'decimal:2',
+        'views' => 'integer',
         'approved_at' => 'datetime',
     ];
 
@@ -192,6 +196,14 @@ class Property extends BaseModel implements HasMedia
     }
 
     /**
+     * Scope for filtering by publisher (user who created the listing)
+     */
+    public function scopeByPublisher($query, int $userId)
+    {
+        return $query->where('publisher_id', $userId);
+    }
+
+    /**
      * Scope for filtering by area range
      */
     public function scopeAreaRange($query, $min = null, $max = null)
@@ -204,6 +216,66 @@ class Property extends BaseModel implements HasMedia
         }
 
         return $query;
+    }
+
+    /**
+     * Scope for filtering by rooms range
+     */
+    public function scopeRoomsRange($query, $min = null, $max = null)
+    {
+        if ($min !== null) {
+            $query->where('rooms', '>=', $min);
+        }
+        if ($max !== null) {
+            $query->where('rooms', '<=', $max);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Scope for filtering by bathrooms range
+     */
+    public function scopeBathroomsRange($query, $min = null, $max = null)
+    {
+        if ($min !== null) {
+            $query->where('bathrooms', '>=', $min);
+        }
+        if ($max !== null) {
+            $query->where('bathrooms', '<=', $max);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Relationship to track property views
+     */
+    public function views(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(PropertyView::class);
+    }
+
+    /**
+     * Increment view counter and record the visit
+     */
+    public function incrementViews(): void
+    {
+        $this->increment('views');
+
+        $this->views()->create([
+            'user_id' => auth()->id(),
+            'ip_address' => Request::ip(),
+            'created_at' => now(),
+        ]);
+    }
+
+    /**
+     * Scope for most viewed properties
+     */
+    public function scopeMostViewed($query, int $limit = 10)
+    {
+        return $query->orderBy('views', 'desc')->limit($limit);
     }
 
     protected static function newFactory()

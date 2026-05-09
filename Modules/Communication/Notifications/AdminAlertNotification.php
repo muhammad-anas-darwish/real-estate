@@ -3,7 +3,6 @@
 namespace Modules\Communication\Notifications;
 
 use Modules\Communication\Enums\NotificationTypeEnum;
-use Modules\Communication\Services\Fcm\FcmPayload;
 use Modules\Communication\Services\Fcm\FcmPriority;
 
 class AdminAlertNotification extends BaseNotification

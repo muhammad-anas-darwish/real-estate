@@ -9,10 +9,13 @@ trait Filterable
 {
     // filterableColumns
     protected static array $defaultFilterableColumns = [];
+
     // multiFilterableColumns
     protected static array $defaultMultiFilterableColumns = ['id'];
+
     // searchableColumns
     protected static array $defaultSearchableColumns = [];
+
     // dateFilterableColumns
     protected static array $defaultDateFilterableColumns = ['created_at'];
 

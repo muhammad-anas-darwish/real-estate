@@ -35,7 +35,7 @@ class MakeModuleCommand extends Command
         $this->registerModuleProvider($moduleName);
 
         $this->info("Module {$moduleName} created successfully!");
-        $this->info("Module path: " . base_path("Modules/{$moduleName}"));
+        $this->info('Module path: '.base_path("Modules/{$moduleName}"));
     }
 
     protected function createModuleStructure($moduleName)
@@ -55,7 +55,7 @@ class MakeModuleCommand extends Command
         foreach ($directories as $directory) {
             $path = "{$basePath}/{$directory}";
 
-            if (!$this->files->isDirectory($path)) {
+            if (! $this->files->isDirectory($path)) {
                 $this->files->makeDirectory($path, 0755, true, true);
                 $this->info("Created: {$path}");
 
@@ -111,9 +111,10 @@ class MakeModuleCommand extends Command
     {
         $configPath = config_path('app.php');
 
-        if (!$this->files->exists($configPath)) {
-            $this->warn("config/app.php not found. Please register the provider manually:");
+        if (! $this->files->exists($configPath)) {
+            $this->warn('config/app.php not found. Please register the provider manually:');
             $this->line("Modules\\{$moduleName}\\Providers\\{$moduleName}ServiceProvider::class");
+
             return;
         }
 
@@ -122,7 +123,8 @@ class MakeModuleCommand extends Command
 
         // Check if provider is already registered
         if (str_contains($content, $providerClass)) {
-            $this->info("Provider already registered in config/app.php");
+            $this->info('Provider already registered in config/app.php');
+
             return;
         }
 
@@ -133,9 +135,9 @@ class MakeModuleCommand extends Command
         if (preg_match($pattern, $content)) {
             $content = preg_replace($pattern, $replacement, $content, 1);
             $this->files->put($configPath, $content);
-            $this->info("Registered module provider in config/app.php");
+            $this->info('Registered module provider in config/app.php');
         } else {
-            $this->warn("Could not automatically register provider. Please add manually:");
+            $this->warn('Could not automatically register provider. Please add manually:');
             $this->line($providerClass);
         }
     }
@@ -197,7 +199,7 @@ return [
 ];',
         ];
 
-        if (!isset($stubs[$type])) {
+        if (! isset($stubs[$type])) {
             throw new \Exception("Stub type not found: {$type}");
         }
 
@@ -208,6 +210,7 @@ return [
     {
         if ($this->files->exists($path)) {
             $this->warn("File already exists: {$path}");
+
             return false;
         }
 
@@ -228,7 +231,7 @@ return [
     {
         $dir = dirname($path);
 
-        if (!$this->files->isDirectory($dir)) {
+        if (! $this->files->isDirectory($dir)) {
             $this->files->makeDirectory($dir, 0755, true, true);
         }
     }
