@@ -26,7 +26,7 @@ class CountriesAndCitiesSeeder extends Seeder
                     ['name' => 'San Francisco', 'state_province' => 'California'],
                     ['name' => 'Seattle', 'state_province' => 'Washington'],
                     ['name' => 'Boston', 'state_province' => 'Massachusetts'],
-                ]
+                ],
             ],
             [
                 'name' => 'United Kingdom',
@@ -38,7 +38,7 @@ class CountriesAndCitiesSeeder extends Seeder
                     ['name' => 'Birmingham', 'state_province' => 'England'],
                     ['name' => 'Edinburgh', 'state_province' => 'Scotland'],
                     ['name' => 'Liverpool', 'state_province' => 'England'],
-                ]
+                ],
             ],
             [
                 'name' => 'Canada',
@@ -49,7 +49,7 @@ class CountriesAndCitiesSeeder extends Seeder
                     ['name' => 'Vancouver', 'state_province' => 'British Columbia'],
                     ['name' => 'Montreal', 'state_province' => 'Quebec'],
                     ['name' => 'Calgary', 'state_province' => 'Alberta'],
-                ]
+                ],
             ],
             [
                 'name' => 'Australia',
@@ -60,7 +60,7 @@ class CountriesAndCitiesSeeder extends Seeder
                     ['name' => 'Melbourne', 'state_province' => 'Victoria'],
                     ['name' => 'Brisbane', 'state_province' => 'Queensland'],
                     ['name' => 'Perth', 'state_province' => 'Western Australia'],
-                ]
+                ],
             ],
             [
                 'name' => 'Germany',
@@ -71,7 +71,7 @@ class CountriesAndCitiesSeeder extends Seeder
                     ['name' => 'Munich', 'state_province' => 'Bavaria'],
                     ['name' => 'Frankfurt', 'state_province' => 'Hesse'],
                     ['name' => 'Hamburg', 'state_province' => 'Hamburg'],
-                ]
+                ],
             ],
             [
                 'name' => 'France',
@@ -82,7 +82,7 @@ class CountriesAndCitiesSeeder extends Seeder
                     ['name' => 'Lyon', 'state_province' => 'Auvergne-Rhône-Alpes'],
                     ['name' => 'Marseille', 'state_province' => 'Provence-Alpes-Côte d\'Azur'],
                     ['name' => 'Nice', 'state_province' => 'Provence-Alpes-Côte d\'Azur'],
-                ]
+                ],
             ],
         ];
 

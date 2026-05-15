@@ -2,8 +2,6 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-use Modules\Communication\Jobs\CleanExpiredFcmTokensJob;
-use Modules\Communication\Jobs\CleanReadNotificationsJob;
 
 Artisan::command('inspire', function () {
     $this->line(Inspiring::quote());
@@ -15,9 +13,9 @@ Artisan::command('communication:clean-fcm-tokens', function () {
 
     $this->info("Removed {$deleted} expired FCM tokens.");
 })->purpose('Clean expired FCM tokens older than 60 days')
-  ->weekly()
-  ->sundays()
-  ->at('03:00');
+    ->weekly()
+    ->sundays()
+    ->at('03:00');
 
 Artisan::command('communication:clean-notifications', function () {
     $days = 30;
@@ -36,5 +34,5 @@ Artisan::command('communication:clean-notifications', function () {
 
     $this->info("Cleaned {$deleted} old read notifications.");
 })->purpose('Clean old read notifications')
-  ->daily()
-  ->at('02:00');
+    ->daily()
+    ->at('02:00');

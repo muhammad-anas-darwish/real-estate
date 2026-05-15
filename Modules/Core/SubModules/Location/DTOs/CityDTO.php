@@ -4,7 +4,7 @@ namespace Modules\Core\SubModules\Location\DTOs;
 
 use App\Interfaces\DTOInterface;
 
-readonly final class CityDTO implements DTOInterface
+final readonly class CityDTO implements DTOInterface
 {
     public function __construct(
         public ?string $name = null,
@@ -12,8 +12,7 @@ readonly final class CityDTO implements DTOInterface
         public ?string $state_province = null,
         public ?string $postal_code = null,
         public ?bool $is_active = null,
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(array $array): self
     {

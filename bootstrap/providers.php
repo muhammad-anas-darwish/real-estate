@@ -9,5 +9,6 @@ return [
     Modules\Communication\Providers\CommunicationServiceProvider::class,
     Modules\Communication\Providers\EventServiceProvider::class,
     Modules\Core\Category\Providers\CategoryServiceProvider::class,
+    Modules\Core\SubModules\Location\Providers\LocationServiceProvider::class,
     Modules\RealEstate\Providers\RealEstateServiceProvider::class,
 ];

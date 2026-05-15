@@ -12,6 +12,7 @@ use Modules\Core\Category\Entities\Category;
 class CategoryService extends BaseService
 {
     public const CACHE_TAG = 'categories';
+
     private const CACHE_TTL = 86400; // 1 day
 
     public function all(): LengthAwarePaginator
@@ -40,6 +41,7 @@ class CategoryService extends BaseService
             $category = Category::create($dto->toArray());
 
             $this->clearCache();
+
             return $category;
         });
     }
@@ -51,6 +53,7 @@ class CategoryService extends BaseService
             $category->update($dto->toArray());
 
             $this->clearCache();
+
             return $category->fresh();
         });
     }

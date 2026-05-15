@@ -30,6 +30,7 @@ class BroadcastChatMessageJob implements ShouldQueue
 
         if ($message->trashed()) {
             Log::warning('BroadcastChatMessageJob: message was deleted', ['message_id' => $message->id]);
+
             return;
         }
 
@@ -37,11 +38,12 @@ class BroadcastChatMessageJob implements ShouldQueue
 
         if (! $message->room_id) {
             Log::warning('BroadcastChatMessageJob: message has no room_id', ['message_id' => $message->id]);
+
             return;
         }
 
         $event = new MessageSentEvent($message);
-        $channel = 'private-chat.' . $message->room_id;
+        $channel = 'private-chat.'.$message->room_id;
 
         $config = config('broadcasting.connections.pusher');
         $pusher = new Pusher(

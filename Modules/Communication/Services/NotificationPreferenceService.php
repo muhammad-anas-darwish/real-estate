@@ -9,11 +9,12 @@ use Modules\Communication\Entities\UserNotificationPreference;
 class NotificationPreferenceService
 {
     private const CACHE_PREFIX = 'notification_preference:';
+
     private const CACHE_TTL = 3600;
 
     public function getEnabledChannels(User $user): array
     {
-        $cached = Cache::get(self::CACHE_PREFIX . $user->id);
+        $cached = Cache::get(self::CACHE_PREFIX.$user->id);
 
         if ($cached !== null) {
             return $cached;
@@ -24,7 +25,7 @@ class NotificationPreferenceService
             ->pluck('channel')
             ->toArray();
 
-        Cache::put(self::CACHE_PREFIX . $user->id, $preferences, self::CACHE_TTL);
+        Cache::put(self::CACHE_PREFIX.$user->id, $preferences, self::CACHE_TTL);
 
         return $preferences;
     }
@@ -41,7 +42,7 @@ class NotificationPreferenceService
             ]
         );
 
-        Cache::forget(self::CACHE_PREFIX . $user->id);
+        Cache::forget(self::CACHE_PREFIX.$user->id);
     }
 
     public function disableAll(User $user): void
@@ -49,7 +50,7 @@ class NotificationPreferenceService
         UserNotificationPreference::where('user_id', $user->id)
             ->update(['enabled' => false]);
 
-        Cache::forget(self::CACHE_PREFIX . $user->id);
+        Cache::forget(self::CACHE_PREFIX.$user->id);
     }
 
     public function enableAll(User $user): void
@@ -66,7 +67,7 @@ class NotificationPreferenceService
             );
         }
 
-        Cache::forget(self::CACHE_PREFIX . $user->id);
+        Cache::forget(self::CACHE_PREFIX.$user->id);
     }
 
     public function isChannelEnabled(User $user, string $channel): bool
@@ -78,6 +79,6 @@ class NotificationPreferenceService
 
     public function clearCache(int $userId): void
     {
-        Cache::forget(self::CACHE_PREFIX . $userId);
+        Cache::forget(self::CACHE_PREFIX.$userId);
     }
 }

@@ -35,7 +35,7 @@ class SearchService
 
     public function call(string $type): \Illuminate\Support\Collection
     {
-        $method = 'search' . Str::studly($type);
+        $method = 'search'.Str::studly($type);
 
         if (method_exists($this, $method)) {
             return $this->$method();

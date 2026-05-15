@@ -50,12 +50,12 @@ class PropertyResource extends BaseJsonResource
             // Price
             'price' => $this->price,
             'currency' => $this->currency,
-            'formatted_price' => $this->currency . ' ' . number_format($this->price, 2),
+            'formatted_price' => $this->currency.' '.number_format($this->price, 2),
 
             // Status
             'status' => $this->status,
             'rejection_reason' => $this->rejection_reason,
-            'is_loved' => (bool)($this->is_loved ?? false),
+            'is_loved' => (bool) ($this->is_loved ?? false),
             'views' => $this->views,
 
             // Images

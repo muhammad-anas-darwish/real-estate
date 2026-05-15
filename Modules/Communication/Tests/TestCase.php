@@ -11,7 +11,7 @@ abstract class ModuleTestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->artisan('migrate', ['--force' => true]);
     }
 }

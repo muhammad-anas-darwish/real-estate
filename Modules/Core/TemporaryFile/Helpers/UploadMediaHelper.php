@@ -8,10 +8,10 @@ use Illuminate\Support\Str;
 class UploadMediaHelper
 {
     public static array $allowedImageExtensions = [
-        ".png",
-        ".jpg",
-        ".jpeg",
-        ".svg"
+        '.png',
+        '.jpg',
+        '.jpeg',
+        '.svg',
     ];
 
     public static array $imageMimeTypes = [
@@ -80,15 +80,16 @@ class UploadMediaHelper
 
     public static function imageRules(): array
     {
-        if (request()->isMethod("PUT")) {
+        if (request()->isMethod('PUT')) {
             return [
-                "nullable",
-                "mimetypes:" . implode(",", self::$imageMimeTypes)
+                'nullable',
+                'mimetypes:'.implode(',', self::$imageMimeTypes),
             ];
         }
+
         return [
-            "required",
-            "mimetypes:" . implode(",", self::$imageMimeTypes)
+            'required',
+            'mimetypes:'.implode(',', self::$imageMimeTypes),
         ];
     }
 
@@ -103,13 +104,14 @@ class UploadMediaHelper
         foreach ($model->getMedia($collection) as $media) {
             $images[] = $media->getUrl();
         }
+
         return $images;
     }
 
-    public static function upload(?UploadedFile $media = null, $model, $collectionName): void
+    public static function upload(?UploadedFile $media, $model, $collectionName): void
     {
         if ($media) {
-            $fileName = Str::uuid() . "-" . Str::slug($collectionName) . "." . $media->extension();
+            $fileName = Str::uuid().'-'.Str::slug($collectionName).'.'.$media->extension();
             $model->addMedia($media)->usingFileName($fileName)->toMediaCollection($collectionName);
         }
     }

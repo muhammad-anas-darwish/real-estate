@@ -6,8 +6,8 @@ use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Auth\Entities\User;
 use Illuminate\Support\Facades\Request;
+use Modules\Auth\Entities\User;
 use Modules\RealEstate\Enums\PropertyStatus;
 use Modules\RealEstate\Enums\PropertyType;
 use Modules\RealEstate\Enums\TypeOfContract;
@@ -131,6 +131,11 @@ class Property extends BaseModel implements HasMedia
     public function favoritedBy(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(\Modules\Auth\Entities\User::class, 'property_user', 'property_id', 'user_id')->withTimestamps();
+    }
+
+    public function ads(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Ad::class);
     }
 
     /**

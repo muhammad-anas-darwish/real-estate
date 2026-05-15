@@ -5,7 +5,6 @@ namespace Modules\Communication\Services;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
 use Modules\Auth\Entities\User;
-use Modules\Communication\Entities\UserFcmToken;
 use Modules\Communication\Notifications\BaseNotification;
 
 class NotificationService
@@ -21,7 +20,7 @@ class NotificationService
                 $channels = $notification->getNotificationType()->channels();
 
                 if (in_array('fcm', $channels)) {
-                    $channels = array_filter($channels, fn($ch) => $ch !== 'fcm');
+                    $channels = array_filter($channels, fn ($ch) => $ch !== 'fcm');
                 }
 
                 if (empty($channels)) {
@@ -44,7 +43,7 @@ class NotificationService
 
     public function notifyMany(\Illuminate\Support\Collection $users, Notification $notification): void
     {
-        $users->each(fn(User $user) => $this->notify($user, $notification));
+        $users->each(fn (User $user) => $this->notify($user, $notification));
     }
 
     public function notifyAdmins(Notification $notification): void

@@ -3,7 +3,6 @@
 namespace Modules\Core\Contracts\Chat;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
 
 interface ChatRepositoryInterface
 {

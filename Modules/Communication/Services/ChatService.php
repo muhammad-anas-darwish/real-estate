@@ -10,8 +10,8 @@ use Modules\Communication\Enums\MessageTypeEnum;
 use Modules\Communication\Enums\RoomTypeEnum;
 use Modules\Communication\Events\MessageSentEvent;
 use Modules\Communication\Exceptions\ChatAuthorizationException;
-use Modules\RealEstate\Entities\Property;
 use Modules\Communication\Notifications\NewMessageNotification;
+use Modules\RealEstate\Entities\Property;
 
 class ChatService
 {
@@ -90,7 +90,7 @@ class ChatService
             try {
                 $this->broadcastMessage($message);
             } catch (\Throwable $e) {
-                \Illuminate\Support\Facades\Log::warning('Broadcast failed: ' . $e->getMessage());
+                \Illuminate\Support\Facades\Log::warning('Broadcast failed: '.$e->getMessage());
             }
 
             $this->notifyOfflineParticipants($message);
@@ -128,8 +128,8 @@ class ChatService
 
     public function getRoomsForUser(User $user)
     {
-        return ChatRoom::whereHas('participants', fn($q) => $q->where('user_id', $user->id))
-            ->with(['participants' => fn($q) => $q->select('users.id', 'name')])
+        return ChatRoom::whereHas('participants', fn ($q) => $q->where('user_id', $user->id))
+            ->with(['participants' => fn ($q) => $q->select('users.id', 'name')])
             ->orderByDesc('created_at')
             ->paginate(15);
     }
@@ -146,7 +146,7 @@ class ChatService
     {
         $rooms = ChatRoom::where('type', RoomTypeEnum::PRIVATE)
             ->whereNull('property_id')
-            ->whereHas('participants', fn($q) => $q->where('user_id', $userId1))
+            ->whereHas('participants', fn ($q) => $q->where('user_id', $userId1))
             ->get();
 
         foreach ($rooms as $room) {
@@ -163,15 +163,15 @@ class ChatService
     protected function getExistingPropertyRoom(int $propertyId, int $userId, int $agentId): ?ChatRoom
     {
         return ChatRoom::where('property_id', $propertyId)
-            ->whereHas('participants', fn($q) => $q->where('user_id', $userId))
-            ->whereHas('participants', fn($q) => $q->where('user_id', $agentId))
+            ->whereHas('participants', fn ($q) => $q->where('user_id', $userId))
+            ->whereHas('participants', fn ($q) => $q->where('user_id', $agentId))
             ->first();
     }
 
     protected function authorizeParticipant(User $user, int $roomId): void
     {
         $isParticipant = ChatRoom::where('id', $roomId)
-            ->whereHas('participants', fn($q) => $q->where('user_id', $user->id))
+            ->whereHas('participants', fn ($q) => $q->where('user_id', $user->id))
             ->exists();
 
         if (! $isParticipant) {
@@ -203,12 +203,12 @@ class ChatService
                             roomId: $room->id,
                         ));
                     } catch (\Throwable $e) {
-                        \Illuminate\Support\Facades\Log::warning('Notification failed: ' . $e->getMessage());
+                        \Illuminate\Support\Facades\Log::warning('Notification failed: '.$e->getMessage());
                     }
                 }
             }
         } catch (\Throwable $e) {
-            \Illuminate\Support\Facades\Log::warning('_notifyOfflineParticipants: ' . $e->getMessage());
+            \Illuminate\Support\Facades\Log::warning('_notifyOfflineParticipants: '.$e->getMessage());
         }
     }
 

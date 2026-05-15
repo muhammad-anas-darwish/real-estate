@@ -4,14 +4,13 @@ namespace Modules\Communication\Services\Fcm;
 
 use App\Interfaces\DTOInterface;
 
-readonly final class FcmResult implements DTOInterface
+final readonly class FcmResult implements DTOInterface
 {
     public function __construct(
         public int $successCount = 0,
         public int $failureCount = 0,
         public array $failedTokens = [],
-    ) {
-    }
+    ) {}
 
     public function totalSent(): int
     {

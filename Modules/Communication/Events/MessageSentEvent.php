@@ -2,10 +2,6 @@
 
 namespace Modules\Communication\Events;
 
-<?php
-
-namespace Modules\Communication\Events;
-
 use Illuminate\Foundation\Events\Dispatchable;
 use Modules\Communication\Entities\Message;
 

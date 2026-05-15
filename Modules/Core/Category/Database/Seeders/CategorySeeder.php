@@ -50,6 +50,6 @@ class CategorySeeder extends Seeder
             ]);
         }
 
-        $this->command->info('CategorySeeder: ' . count($propertyCategories) . ' property categories and ' . count($carCategories) . ' car categories seeded successfully!');
+        $this->command->info('CategorySeeder: '.count($propertyCategories).' property categories and '.count($carCategories).' car categories seeded successfully!');
     }
 }

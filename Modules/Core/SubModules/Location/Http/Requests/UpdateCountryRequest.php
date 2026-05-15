@@ -3,7 +3,6 @@
 namespace Modules\Core\SubModules\Location\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateCountryRequest extends FormRequest
 {

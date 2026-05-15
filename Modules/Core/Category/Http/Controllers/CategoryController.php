@@ -22,12 +22,14 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = $this->categoryService->all();
+
         return $this->paginatedResponse(CategoryResource::collection($categories));
     }
 
     public function show($id)
     {
         $category = $this->categoryService->find($id);
+
         return $this->successResponse(CategoryResource::make($category));
     }
 
@@ -35,6 +37,7 @@ class CategoryController extends Controller
     {
         $dto = CategoryDTO::fromRequest($request->validated());
         $category = $this->categoryService->store($dto);
+
         return $this->successResponse(CategoryResource::make($category))->created('category');
     }
 
@@ -42,12 +45,14 @@ class CategoryController extends Controller
     {
         $dto = CategoryDTO::fromRequest($request->validated());
         $category = $this->categoryService->update($id, $dto);
+
         return $this->successResponse(CategoryResource::make($category))->updated('category');
     }
 
     public function destroy($id)
     {
         $this->categoryService->destroy($id);
+
         return $this->successResponse()->deleted('category');
     }
 }

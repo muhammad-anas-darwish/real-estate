@@ -18,13 +18,15 @@ class PropertyTest extends TestCase
     use RefreshDatabase;
 
     protected $user;
+
     protected $country;
+
     protected $city;
 
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $role = Role::create(['name' => 'admin']);
         $permissions = [
             'properties.list',
@@ -41,7 +43,7 @@ class PropertyTest extends TestCase
 
         $this->user = User::factory()->create();
         $this->user->assignRole($role);
-        
+
         $this->country = Country::factory()->create();
         $this->city = City::factory()->create(['country_id' => $this->country->id]);
     }

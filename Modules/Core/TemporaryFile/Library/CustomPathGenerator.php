@@ -13,7 +13,7 @@ class CustomPathGenerator implements PathGenerator
     public function getPath(Media $media): string
     {
         // Use the UUID instead of the ID
-        return $media->uuid . '/';
+        return $media->uuid.'/';
     }
 
     /*
@@ -21,7 +21,7 @@ class CustomPathGenerator implements PathGenerator
      */
     public function getPathForConversions(Media $media): string
     {
-        return $media->uuid . '/conversions/';
+        return $media->uuid.'/conversions/';
     }
 
     /*
@@ -29,6 +29,6 @@ class CustomPathGenerator implements PathGenerator
      */
     public function getPathForResponsiveImages(Media $media): string
     {
-        return $media->uuid . '/responsive-images/';
+        return $media->uuid.'/responsive-images/';
     }
 }

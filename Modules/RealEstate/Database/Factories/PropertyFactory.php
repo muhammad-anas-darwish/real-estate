@@ -39,7 +39,7 @@ class PropertyFactory extends Factory
                 'City Loft',
                 'Country Estate',
                 'Urban Condo',
-            ]) . ' in ' . $city->name,
+            ]).' in '.$city->name,
             'description' => fake()->paragraphs(3, true),
             'country_id' => $country->id,
             'city_id' => $city->id,
@@ -55,7 +55,7 @@ class PropertyFactory extends Factory
             'approved_by' => null,
             'approved_at' => null,
             'status' => 'pending',
-            'property_type'    => fake()->randomElement(PropertyType::cases()),
+            'property_type' => fake()->randomElement(PropertyType::cases()),
             'type_of_contract' => fake()->randomElement(TypeOfContract::cases()),
         ];
     }

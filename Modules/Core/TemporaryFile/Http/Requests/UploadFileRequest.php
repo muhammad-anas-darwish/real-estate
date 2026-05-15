@@ -13,7 +13,7 @@ class UploadFileRequest extends FormRequest
     {
         $type = $this->input('type');
 
-        if (!$type || !array_key_exists($type, TemporaryFile::$rules)) {
+        if (! $type || ! array_key_exists($type, TemporaryFile::$rules)) {
             throw ValidationException::withMessages([
                 'type' => [__('The selected type is invalid.')],
             ]);

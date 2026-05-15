@@ -14,6 +14,8 @@ class PermissionSeeder extends Seeder
         'training_categories' => ['list', 'show', 'create', 'edit', 'delete'],
         'health_warnings' => ['list', 'show', 'create', 'edit', 'delete'],
         'properties' => ['list', 'show', 'create', 'edit', 'delete'],
+        'ad_groups' => ['list', 'show', 'create', 'edit', 'delete', 'archive', 'restore', 'set-default'],
+        'ads' => ['list', 'show', 'create', 'edit', 'delete', 'archive', 'restore', 'set-status', 'link-property', 'view-analytics', 'export'],
         'countries' => ['list', 'show', 'create', 'edit', 'delete'],
         'cities' => ['list', 'show', 'create', 'edit', 'delete'],
     ];

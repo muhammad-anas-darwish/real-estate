@@ -4,7 +4,7 @@ namespace Modules\RealEstate\DTOs;
 
 use App\Interfaces\DTOInterface;
 
-readonly final class PropertyDTO implements DTOInterface
+final readonly class PropertyDTO implements DTOInterface
 {
     public function __construct(
         public ?string $name = null,
@@ -26,8 +26,7 @@ readonly final class PropertyDTO implements DTOInterface
         public ?string $status = null,
         public ?array $main_image = null,
         public ?array $gallery = null,
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(array $array): self
     {
@@ -74,6 +73,6 @@ readonly final class PropertyDTO implements DTOInterface
             'publisher_id' => $this->publisher_id,
             'approved_by' => $this->approved_by,
             'status' => $this->status,
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }

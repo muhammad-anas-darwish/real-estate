@@ -17,7 +17,7 @@ class NotificationApiTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->user = User::factory()->create();
     }
 
@@ -35,7 +35,7 @@ class NotificationApiTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->getJson('/notifications');
+            ->getJson('/api/notifications');
 
         $response->assertStatus(200);
     }
@@ -55,7 +55,7 @@ class NotificationApiTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->getJson('/notifications');
+            ->getJson('/api/notifications');
 
         $response->assertStatus(200);
         $data = $response->json('data');
@@ -76,7 +76,7 @@ class NotificationApiTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->getJson('/notifications/unread-count');
+            ->getJson('/api/notifications/unread-count');
 
         $response->assertStatus(200);
         $response->assertJsonPath('data.unread_count', 2);
@@ -91,7 +91,7 @@ class NotificationApiTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->patchJson('/notifications/mark-read-test/read');
+            ->patchJson('/api/notifications/mark-read-test/read');
 
         $response->assertStatus(200);
     }
@@ -103,7 +103,7 @@ class NotificationApiTest extends TestCase
         $this->user->notifications()->create(['id' => 'all-3', 'type' => 'test', 'data' => []]);
 
         $response = $this->actingAs($this->user)
-            ->patchJson('/notifications/read-all');
+            ->patchJson('/api/notifications/read-all');
 
         $response->assertStatus(200);
         $this->assertEquals(0, $this->user->unreadNotifications()->count());
@@ -118,7 +118,7 @@ class NotificationApiTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->deleteJson('/notifications/delete-test');
+            ->deleteJson('/api/notifications/delete-test');
 
         $response->assertStatus(200);
     }
@@ -133,7 +133,7 @@ class NotificationApiTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->getJson('/notifications');
+            ->getJson('/api/notifications');
 
         $response->assertStatus(200);
         $response->assertJsonCount(0, 'data');
@@ -142,7 +142,7 @@ class NotificationApiTest extends TestCase
     public function test_can_register_fcm_token()
     {
         $response = $this->actingAs($this->user)
-            ->postJson('/fcm/register', [
+            ->postJson('/api/fcm/register', [
                 'token' => 'test_device_token',
                 'device_type' => 'android',
             ]);
@@ -157,7 +157,7 @@ class NotificationApiTest extends TestCase
     public function test_cannot_register_with_invalid_device_type()
     {
         $response = $this->actingAs($this->user)
-            ->postJson('/fcm/register', [
+            ->postJson('/api/fcm/register', [
                 'token' => 'test_token',
                 'device_type' => 'invalid',
             ]);
@@ -174,7 +174,7 @@ class NotificationApiTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->deleteJson('/fcm/revoke', [
+            ->deleteJson('/api/fcm/revoke', [
                 'token' => 'revoke_test_token',
             ]);
 
@@ -186,7 +186,7 @@ class NotificationApiTest extends TestCase
         UserFcmToken::factory()->count(3)->create(['user_id' => $this->user->id]);
 
         $response = $this->actingAs($this->user)
-            ->deleteJson('/fcm/revoke');
+            ->deleteJson('/api/fcm/revoke');
 
         $response->assertStatus(200);
         $this->assertEquals(0, $this->user->fcmTokens()->count());

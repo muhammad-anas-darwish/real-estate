@@ -40,7 +40,7 @@ class MediaSyncService
     {
         $temporaryFolders = $files->pluck('temporary_folder')->filter()->toArray();
 
-        if (!empty($temporaryFolders)) {
+        if (! empty($temporaryFolders)) {
             $this->temporaryFileService->moveTemporaryFilesToMedia(
                 folders: $temporaryFolders,
                 model: $model,

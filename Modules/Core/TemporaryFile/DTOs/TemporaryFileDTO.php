@@ -5,15 +5,15 @@ namespace Modules\Core\TemporaryFile\DTOs;
 use App\Interfaces\DTOInterface\DTOInterface;
 use Illuminate\Http\UploadedFile;
 
-readonly final class TemporaryFileDTO implements DTOInterface
+final readonly class TemporaryFileDTO implements DTOInterface
 {
     public function __construct(
-        public ?int          $id = null,
-        public ?string       $type = null,
-        public ?array        $files = [],
+        public ?int $id = null,
+        public ?string $type = null,
+        public ?array $files = [],
         public ?UploadedFile $file = null,
-        public ?string       $created_at = null,
-        public ?string       $updated_at = null,
+        public ?string $created_at = null,
+        public ?string $updated_at = null,
     ) {}
 
     public static function fromRequest(array $array): TemporaryFileDTO
@@ -22,6 +22,7 @@ readonly final class TemporaryFileDTO implements DTOInterface
         if ($array['file']) {
             $currentFiles[] = $array['file'];
         }
+
         return new self(
             id: $array['id'] ?? null,
             type: $array['type'] ?? null,

@@ -37,8 +37,18 @@ class CustomHandler // extends Handler
             return $this->notFoundResponse();
         }
 
+        if ($exception instanceof \Modules\Communication\Exceptions\ChatAuthorizationException) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage(),
+                'data' => null,
+            ], 403);
+        }
+
+        $message = mb_convert_encoding($exception->getMessage(), 'UTF-8', 'UTF-8');
+
         return config('app.debug') ? response()->json([
-            'message' => $exception->getMessage(),
+            'message' => $message,
             'exception' => get_class($exception),
             'file' => $exception->getFile(),
             'line' => $exception->getLine(),

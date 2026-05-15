@@ -4,7 +4,6 @@ namespace Modules\Communication\Services;
 
 use App\Services\BaseService;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Modules\Communication\DTOs\ConversationDTO;
 use Modules\Communication\Entities\Conversation;

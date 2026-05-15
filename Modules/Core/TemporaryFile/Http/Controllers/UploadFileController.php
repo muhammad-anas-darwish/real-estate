@@ -30,6 +30,7 @@ class UploadFileController extends Controller
             return $this->failedResponse($exception->getMessage());
 
         }
+
         return $this->successResponse(TemporaryFileResource::collection($files), message: __('Files uploaded successfully.'));
     }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::table('properties', function (Blueprint $table) {
             // Drop index explicitly if it exists
             $table->dropIndex(['country', 'city']);
-            
+
             if (Schema::hasColumn('properties', 'country')) {
                 $table->dropColumn('country');
             }

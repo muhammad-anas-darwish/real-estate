@@ -25,7 +25,7 @@ class StorePropertyRequest extends FormRequest
             'longitude' => ['nullable', 'numeric', 'between:-180,180'],
             'latitude' => ['nullable', 'numeric', 'between:-90,90'],
 
-            'property_type'    => ['required', Rule::enum(PropertyType::class)],
+            'property_type' => ['required', Rule::enum(PropertyType::class)],
             'type_of_contract' => ['required', Rule::enum(TypeOfContract::class)],
 
             // Property Details
@@ -60,14 +60,14 @@ class StorePropertyRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         // Auto-set publisher_id from authenticated user if not provided
-        if (!$this->has('publisher_id') && auth()->check()) {
+        if (! $this->has('publisher_id') && auth()->check()) {
             $this->merge([
                 'publisher_id' => \Auth::id(),
             ]);
         }
 
         // Set default currency if not provided
-        if (!$this->has('currency')) {
+        if (! $this->has('currency')) {
             $this->merge([
                 'currency' => 'USD',
             ]);

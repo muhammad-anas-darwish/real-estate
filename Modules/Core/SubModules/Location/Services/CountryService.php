@@ -6,17 +6,18 @@ use App\Services\BaseService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Modules\Core\SubModules\Location\Entities\Country;
 use Modules\Core\SubModules\Location\DTOs\CountryDTO;
+use Modules\Core\SubModules\Location\Entities\Country;
 
 class CountryService extends BaseService
 {
     public const CACHE_TAG = 'countries';
+
     private const CACHE_TTL = 86400; // 1 day
 
     public function all(): LengthAwarePaginator
     {
-        if (!config('services.location.country_cache_enabled', false)) {
+        if (! config('services.location.country_cache_enabled', false)) {
             return Country::query()->withCount('cities')->filter()->paginate($this->getPerPage());
         }
 
@@ -29,7 +30,7 @@ class CountryService extends BaseService
 
     public function find(int $id): Country
     {
-        if (!config('services.location.country_cache_enabled', false)) {
+        if (! config('services.location.country_cache_enabled', false)) {
             return Country::findOrFail($id);
         }
 
@@ -42,13 +43,13 @@ class CountryService extends BaseService
 
     public function findWithoutRelations(int $id): Country
     {
-        if (!config('services.location.country_cache_enabled', false)) {
+        if (! config('services.location.country_cache_enabled', false)) {
             return Country::findOrFail($id);
         }
 
         $cacheKey = $this->generateCacheKey(['id' => $id], 'item-without-relations');
 
-        return Cache::tags(self::CACHE_TAG)->remember($cacheKey, self::CACHE_TTL, fn() => Country::findOrFail($id));
+        return Cache::tags(self::CACHE_TAG)->remember($cacheKey, self::CACHE_TTL, fn () => Country::findOrFail($id));
     }
 
     public function store(CountryDTO $dto): Country
@@ -62,6 +63,7 @@ class CountryService extends BaseService
             ]);
 
             $this->clearCache();
+
             return $country;
         });
     }
@@ -77,6 +79,7 @@ class CountryService extends BaseService
             ]);
 
             $this->clearCache();
+
             return $country->fresh();
         });
     }

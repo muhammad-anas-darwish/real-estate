@@ -94,7 +94,7 @@ class PropertyStatusService
 
             $this->notificationService->notify($publisher, $notification);
         } catch (\Throwable $e) {
-            Log::warning('Property status notification failed: ' . $e->getMessage());
+            Log::warning('Property status notification failed: '.$e->getMessage());
         }
     }
 }

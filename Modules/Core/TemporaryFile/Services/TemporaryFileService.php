@@ -28,7 +28,7 @@ class TemporaryFileService
             $filename = $file->getClientOriginalName();
             $folder = $this->generateUniqueFolder();
 
-            $file->storeAs('files/tmp/' . $folder, $filename);
+            $file->storeAs('files/tmp/'.$folder, $filename);
 
             $storedFiles[] = TemporaryFile::query()->create([
                 'folder' => $folder,
@@ -42,7 +42,7 @@ class TemporaryFileService
 
     private function generateUniqueFolder()
     {
-        return uniqid() . '-' . now()->timestamp;
+        return uniqid().'-'.now()->timestamp;
     }
 
     public function moveTemporaryFilesToMedia(array $folders, $model, $ruleName, string $collectionName = 'default'): void

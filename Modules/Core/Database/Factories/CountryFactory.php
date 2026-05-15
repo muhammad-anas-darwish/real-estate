@@ -22,7 +22,7 @@ class CountryFactory extends Factory
         return [
             'name' => fake()->country(),
             'code' => fake()->countryCode(),
-            'phone_code' => '+' . fake()->randomNumber(2),
+            'phone_code' => '+'.fake()->randomNumber(2),
             'is_active' => fake()->boolean(),
         ];
     }

@@ -9,8 +9,11 @@ use Illuminate\Support\Str;
 class MessageAttachmentService
 {
     private const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
+
     private const MAX_FILE_SIZE = 20 * 1024 * 1024;
+
     private const IMAGE_MIMETYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
     private const FILE_MIMETYPES = [
         'application/pdf',
         'application/msword',
@@ -29,7 +32,7 @@ class MessageAttachmentService
         $folder = $type === 'image' ? 'chat/images' : 'chat/files';
         $disk = config('communication.chat.attachment_disk', 'local');
 
-        $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+        $filename = Str::uuid().'.'.$file->getClientOriginalExtension();
 
         return $file->storeAs($folder, $filename, $disk);
     }

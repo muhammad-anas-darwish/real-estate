@@ -3,21 +3,19 @@
 namespace Modules\Communication\Services\Fcm;
 
 use Illuminate\Collections\Collection;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Kreait\Firebase\Messaging;
 use Kreait\Firebase\Messaging\MulticastSendReport;
 use Kreait\Firebase\Messaging\Notification;
 use Modules\Auth\Entities\User;
-use Modules\Communication\Entities\UserFcmToken;
 
 class FcmService
 {
     public function __construct(
         protected readonly Messaging $messaging,
         protected readonly FcmTokenService $tokenService,
-    ) {
-    }
+    ) {}
 
     public function sendToUser(User $user, FcmPayload $payload): FcmResult
     {
@@ -45,20 +43,20 @@ class FcmService
     {
         $topicMessage = $this->messaging->createTopicMessage();
 
-        $topicMessage-> jsonSerialize()['message'] = array_merge(
+        $topicMessage->jsonSerialize()['message'] = array_merge(
             $payload->toFcmMessage(),
             ['topic' => $topic]
         );
 
         if (App::hasDebugModeEnabled()) {
-            Log::info("FCM topic message prepared", ['topic' => $topic, 'payload' => $payload->toArray()]);
+            Log::info('FCM topic message prepared', ['topic' => $topic, 'payload' => $payload->toArray()]);
         }
     }
 
     protected function sendToTokens(array $tokens, FcmPayload $payload): FcmResult
     {
         if (empty($tokens)) {
-            return new FcmResult();
+            return new FcmResult;
         }
 
         try {

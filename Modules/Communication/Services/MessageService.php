@@ -36,7 +36,7 @@ class MessageService
 
     public function getUnreadCountPerRoom(User $user): array
     {
-        $rooms = ChatRoom::whereHas('participants', fn($q) => $q->where('user_id', $user->id))
+        $rooms = ChatRoom::whereHas('participants', fn ($q) => $q->where('user_id', $user->id))
             ->with('participants')
             ->get();
 
@@ -48,7 +48,7 @@ class MessageService
 
             $unreadCount = Message::where('room_id', $room->id)
                 ->where('sender_id', '!=', $user->id)
-                ->when($lastReadAt, fn($q) => $q->where('created_at', '>', $lastReadAt))
+                ->when($lastReadAt, fn ($q) => $q->where('created_at', '>', $lastReadAt))
                 ->count();
 
             $result[$room->id] = $unreadCount;
@@ -83,7 +83,7 @@ class MessageService
     protected function authorizeParticipant(User $user, int $roomId): void
     {
         $isParticipant = ChatRoom::where('id', $roomId)
-            ->whereHas('participants', fn($q) => $q->where('user_id', $user->id))
+            ->whereHas('participants', fn ($q) => $q->where('user_id', $user->id))
             ->exists();
 
         if (! $isParticipant) {

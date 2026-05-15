@@ -28,6 +28,7 @@ class TemporaryFile extends BaseModel
     public static function supportsMultipleFiles(string $type): bool
     {
         $rules = self::getRules($type);
+
         return isset($rules['multiple_files']) && $rules['multiple_files'] === true;
     }
 }

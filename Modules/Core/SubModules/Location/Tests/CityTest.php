@@ -19,7 +19,7 @@ class CityTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $role = Role::create(['name' => 'admin']);
         $permissions = [
             'cities.list',

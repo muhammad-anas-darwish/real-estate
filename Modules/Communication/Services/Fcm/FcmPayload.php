@@ -4,7 +4,7 @@ namespace Modules\Communication\Services\Fcm;
 
 use App\Interfaces\DTOInterface;
 
-readonly final class FcmPayload implements DTOInterface
+final readonly class FcmPayload implements DTOInterface
 {
     public function __construct(
         public string $title,
@@ -13,8 +13,7 @@ readonly final class FcmPayload implements DTOInterface
         public ?string $imageUrl = null,
         public FcmPriority $priority = FcmPriority::HIGH,
         public ?string $clickAction = null,
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(array $array): self
     {

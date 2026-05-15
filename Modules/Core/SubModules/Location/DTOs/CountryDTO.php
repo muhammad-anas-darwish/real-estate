@@ -4,15 +4,14 @@ namespace Modules\Core\SubModules\Location\DTOs;
 
 use App\Interfaces\DTOInterface;
 
-readonly final class CountryDTO implements DTOInterface
+final readonly class CountryDTO implements DTOInterface
 {
     public function __construct(
         public ?string $name = null,
         public ?string $code = null,
         public ?string $phone_code = null,
         public ?bool $is_active = null,
-    ) {
-    }
+    ) {}
 
     public static function fromRequest(array $array): self
     {

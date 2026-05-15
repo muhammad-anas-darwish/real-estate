@@ -7,11 +7,7 @@ use Illuminate\Support\Facades\Event;
 use Modules\Auth\Entities\User;
 use Modules\Communication\Entities\ChatRoom;
 use Modules\Communication\Entities\Message;
-use Modules\Communication\Enums\RoomTypeEnum;
 use Modules\Communication\Events\MessageSentEvent;
-use Modules\Communication\Events\UserTypingEvent;
-use Modules\Communication\Services\ChatService;
-use Modules\RealEstate\Entities\Property;
 use Tests\TestCase;
 
 class ChatApiTest extends TestCase
@@ -19,12 +15,13 @@ class ChatApiTest extends TestCase
     use RefreshDatabase;
 
     protected User $user;
+
     protected User $recipient;
 
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->user = User::factory()->create();
         $this->recipient = User::factory()->create();
     }
@@ -34,7 +31,7 @@ class ChatApiTest extends TestCase
         ChatRoom::factory()->count(3)->create();
 
         $response = $this->actingAs($this->user)
-            ->getJson('/chat/rooms');
+            ->getJson('/api/chat/rooms');
 
         $response->assertStatus(200);
     }
@@ -42,7 +39,7 @@ class ChatApiTest extends TestCase
     public function test_can_create_private_chat_room()
     {
         $response = $this->actingAs($this->user)
-            ->postJson('/chat/rooms', [
+            ->postJson('/api/chat/rooms', [
                 'type' => 'private',
                 'recipient_id' => $this->recipient->id,
             ]);
@@ -56,7 +53,7 @@ class ChatApiTest extends TestCase
     public function test_cannot_create_chat_with_non_existent_user()
     {
         $response = $this->actingAs($this->user)
-            ->postJson('/chat/rooms', [
+            ->postJson('/api/chat/rooms', [
                 'type' => 'private',
                 'recipient_id' => 9999,
             ]);
@@ -68,14 +65,14 @@ class ChatApiTest extends TestCase
     {
         $country = \Modules\Core\SubModules\Location\Entities\Country::factory()->create();
         $city = \Modules\Core\SubModules\Location\Entities\City::factory()->create(['country_id' => $country->id]);
-        
+
         $property = \Modules\RealEstate\Entities\Property::factory()->create([
             'publisher_id' => $this->recipient->id,
             'city_id' => $city->id,
         ]);
 
         $response = $this->actingAs($this->user)
-            ->postJson('/chat/rooms', [
+            ->postJson('/api/chat/rooms', [
                 'type' => 'property',
                 'property_id' => $property->id,
             ]);
@@ -89,7 +86,7 @@ class ChatApiTest extends TestCase
         $room->participants()->attach([$this->user->id, $this->recipient->id]);
 
         $response = $this->actingAs($this->user)
-            ->getJson("/chat/rooms/{$room->id}");
+            ->getJson("/api/chat/rooms/{$room->id}");
 
         $response->assertStatus(200);
     }
@@ -101,7 +98,7 @@ class ChatApiTest extends TestCase
         Message::factory()->count(5)->create(['room_id' => $room->id]);
 
         $response = $this->actingAs($this->user)
-            ->getJson("/chat/rooms/{$room->id}/messages");
+            ->getJson("/api/chat/rooms/{$room->id}/messages");
 
         $response->assertStatus(200);
     }
@@ -112,7 +109,7 @@ class ChatApiTest extends TestCase
         $room->participants()->attach([$this->user->id, $this->recipient->id]);
 
         $response = $this->actingAs($this->user)
-            ->postJson("/chat/rooms/{$room->id}/messages", [
+            ->postJson("/api/chat/rooms/{$room->id}/messages", [
                 'body' => 'Test message',
                 'type' => 'text',
             ]);
@@ -130,7 +127,7 @@ class ChatApiTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->deleteJson("/chat/rooms/{$room->id}/messages/{$message->id}");
+            ->deleteJson("/api/chat/rooms/{$room->id}/messages/{$message->id}");
 
         $response->assertStatus(200);
     }
@@ -145,7 +142,7 @@ class ChatApiTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->deleteJson("/chat/rooms/{$room->id}/messages/{$message->id}");
+            ->deleteJson("/api/chat/rooms/{$room->id}/messages/{$message->id}");
 
         $response->assertStatus(403);
     }
@@ -156,7 +153,7 @@ class ChatApiTest extends TestCase
         $room->participants()->attach([$this->user->id, $this->recipient->id]);
 
         $response = $this->actingAs($this->user)
-            ->postJson("/chat/rooms/{$room->id}/typing");
+            ->postJson("/api/chat/rooms/{$room->id}/typing");
 
         $response->assertStatus(200);
     }
@@ -169,7 +166,7 @@ class ChatApiTest extends TestCase
         Event::fake([MessageSentEvent::class]);
 
         $this->actingAs($this->user)
-            ->postJson("/chat/rooms/{$room->id}/messages", [
+            ->postJson("/api/chat/rooms/{$room->id}/messages", [
                 'body' => 'Test broadcast',
                 'type' => 'text',
             ]);
@@ -183,7 +180,7 @@ class ChatApiTest extends TestCase
         $room->participants()->attach([$this->recipient->id]);
 
         $response = $this->actingAs($this->user)
-            ->getJson("/chat/rooms/{$room->id}/messages");
+            ->getJson("/api/chat/rooms/{$room->id}/messages");
 
         $response->assertStatus(403);
     }
@@ -194,7 +191,7 @@ class ChatApiTest extends TestCase
         $room->participants()->attach([$this->recipient->id]);
 
         $response = $this->actingAs($this->user)
-            ->postJson("/chat/rooms/{$room->id}/messages", [
+            ->postJson("/api/chat/rooms/{$room->id}/messages", [
                 'body' => 'Test',
                 'type' => 'text',
             ]);
