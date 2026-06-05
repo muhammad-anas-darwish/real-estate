@@ -25,6 +25,9 @@ class User extends Authenticatable
         'email',
         'password',
         'status',
+        'is_expert',
+        'expert_type',
+        'max_users',
     ];
 
     protected static $filterableColumns = [
@@ -49,6 +52,16 @@ class User extends Authenticatable
     public function lovedProperties(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(\Modules\RealEstate\Entities\Property::class, 'property_user', 'user_id', 'property_id')->withTimestamps();
+    }
+
+    public function expertRelationships(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\Modules\RealEstate\Expert\Entities\ExpertRelationship::class);
+    }
+
+    public function expertClients(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\Modules\RealEstate\Expert\Entities\ExpertRelationship::class, 'expert_id');
     }
 
     /**

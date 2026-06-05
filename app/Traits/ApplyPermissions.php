@@ -28,6 +28,7 @@ trait ApplyPermissions
         array $multiplePermissions = []
     ) {
         $mergedMethods = $this->filterCrudMethods($crudMethods);
+        $additionalMethods = $this->normalizeAdditionalMethods($additionalMethods);
         $allMethods = array_merge($mergedMethods, $additionalMethods);
 
         // Apply single permissions
@@ -79,6 +80,22 @@ trait ApplyPermissions
         $middleware = "permission:$permission";
 
         return $middleware;
+    }
+
+    /**
+     * Normalize additional methods so list values become key-value pairs
+     */
+    private function normalizeAdditionalMethods(array $methods): array
+    {
+        $result = [];
+        foreach ($methods as $key => $value) {
+            if (is_int($key)) {
+                $result[$value] = $value;
+            } else {
+                $result[$key] = $value;
+            }
+        }
+        return $result;
     }
 
     /**

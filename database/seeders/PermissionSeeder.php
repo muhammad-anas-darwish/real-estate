@@ -18,6 +18,8 @@ class PermissionSeeder extends Seeder
         'ads' => ['list', 'show', 'create', 'edit', 'delete', 'archive', 'restore', 'set-status', 'link-property', 'view-analytics', 'export'],
         'countries' => ['list', 'show', 'create', 'edit', 'delete'],
         'cities' => ['list', 'show', 'create', 'edit', 'delete'],
+        'expert_requests' => ['list', 'show', 'create', 'cancel'],
+        'expert_relationships' => ['list', 'show', 'cancel', 'complete'],
     ];
 
     public function run()
@@ -25,13 +27,15 @@ class PermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Create permissions
+        // Create permissions for both web and sanctum guards
         foreach ($this->permissionGroups as $group => $permissions) {
             foreach ($permissions as $permission) {
-                $permission = SpatiePermission::firstOrCreate([
-                    'name' => "{$group}.{$permission}",
-                    'guard_name' => 'web',
-                ]);
+                foreach (['web', 'sanctum'] as $guardName) {
+                    $permission = SpatiePermission::firstOrCreate([
+                        'name' => "{$group}.{$permission}",
+                        'guard_name' => $guardName,
+                    ]);
+                }
             }
         }
 
@@ -41,15 +45,17 @@ class PermissionSeeder extends Seeder
 
     protected function createRolesWithPermissions()
     {
-        // Super Admin - gets all permissions for this guard
-        $superAdmin = SpatieRole::firstOrCreate([
-            'name' => 'super-admin',
-            'guard_name' => 'web',
-        ]);
+        // Super Admin - gets all permissions for both guards
+        foreach (['web', 'sanctum'] as $guardName) {
+            $superAdmin = SpatieRole::firstOrCreate([
+                'name' => 'super-admin',
+                'guard_name' => $guardName,
+            ]);
 
-        // Assign only permissions that belong to this guard
-        $superAdmin->givePermissionTo(
-            SpatiePermission::all()
-        );
+            // Assign only permissions that belong to this guard
+            $superAdmin->givePermissionTo(
+                SpatiePermission::where('guard_name', $guardName)->get()
+            );
+        }
     }
 }

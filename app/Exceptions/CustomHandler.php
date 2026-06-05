@@ -26,6 +26,22 @@ class CustomHandler // extends Handler
             return $this->unauthorizedResponse();
         }
 
+        if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage(),
+                'data' => null,
+            ], 403);
+        }
+
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage(),
+                'data' => null,
+            ], $exception->getStatusCode());
+        }
+
         if ($exception instanceof \Illuminate\Validation\ValidationException) {
             return $this->validationErrorResponse(
                 $exception->errors(),

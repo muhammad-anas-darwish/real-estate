@@ -44,4 +44,14 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function expert(string $expertType = 'photographer', int $maxUsers = -1): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_expert' => true,
+            'expert_type' => $expertType,
+            'max_users' => $maxUsers,
+            'status' => 'active',
+        ]);
+    }
 }

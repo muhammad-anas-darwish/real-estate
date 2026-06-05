@@ -6,6 +6,8 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Modules\RealEstate\Entities\Ad;
 use Modules\RealEstate\Entities\AdGroup;
 use Modules\RealEstate\Entities\Property;
+use Modules\RealEstate\Expert\Services\ExpertRelationshipService;
+use Modules\RealEstate\Expert\Services\ExpertRequestService;
 use Modules\RealEstate\Policies\AdGroupPolicy;
 use Modules\RealEstate\Policies\AdPolicy;
 use Modules\RealEstate\Policies\PropertyPolicy;
@@ -17,7 +19,8 @@ class RealEstateServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Register module services
+        $this->app->singleton(ExpertRequestService::class);
+        $this->app->singleton(ExpertRelationshipService::class);
     }
 
     /**
@@ -26,12 +29,7 @@ class RealEstateServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadRoutesFrom(__DIR__.'/../Routes/api.php');
+        $this->loadRoutesFrom(__DIR__.'/../Expert/Routes/api.php');
         $this->loadMigrationsFrom(__DIR__.'/../Database/Migrations');
-
-        $this->registerPolicies([
-            Property::class => PropertyPolicy::class,
-            AdGroup::class => AdGroupPolicy::class,
-            Ad::class => AdPolicy::class,
-        ]);
     }
 }
