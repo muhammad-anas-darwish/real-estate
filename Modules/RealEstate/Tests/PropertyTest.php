@@ -52,7 +52,7 @@ class PropertyTest extends TestCase
     {
         Property::factory()->count(3)->create(['publisher_id' => $this->user->id]);
 
-        $response = $this->actingAs($this->user)->getJson('/api/properties');
+        $response = $this->actingAs($this->user)->getJson('/api/dashboard/properties');
 
         $response->assertStatus(200);
         $response->assertJsonCount(3, 'data');
@@ -74,7 +74,7 @@ class PropertyTest extends TestCase
             'currency' => 'USD',
         ];
 
-        $response = $this->actingAs($this->user)->postJson('/api/properties', $payload);
+        $response = $this->actingAs($this->user)->postJson('/api/dashboard/properties', $payload);
 
         $response->assertStatus(201);
         $this->assertDatabaseHas('properties', ['name' => 'Test Property']);

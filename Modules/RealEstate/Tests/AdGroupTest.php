@@ -42,7 +42,7 @@ class AdGroupTest extends TestCase
     {
         AdGroup::factory()->count(3)->create();
 
-        $response = $this->actingAs($this->user)->getJson('/api/ad-groups');
+        $response = $this->actingAs($this->user)->getJson('/api/dashboard/ad-groups');
 
         $response->assertStatus(200);
         $response->assertJsonCount(3, 'data');
@@ -55,7 +55,7 @@ class AdGroupTest extends TestCase
             'description' => 'A test ad group description.',
         ];
 
-        $response = $this->actingAs($this->user)->postJson('/api/ad-groups', $payload);
+        $response = $this->actingAs($this->user)->postJson('/api/dashboard/ad-groups', $payload);
 
         $response->assertStatus(201);
         $this->assertDatabaseHas('ad_groups', ['name' => 'Test Ad Group']);
@@ -65,7 +65,7 @@ class AdGroupTest extends TestCase
     {
         $group = AdGroup::factory()->create();
 
-        $response = $this->actingAs($this->user)->getJson("/api/ad-groups/{$group->id}");
+        $response = $this->actingAs($this->user)->getJson("/api/dashboard/ad-groups/{$group->id}");
 
         $response->assertStatus(200);
         $response->assertJsonPath('data.id', $group->id);
@@ -76,7 +76,7 @@ class AdGroupTest extends TestCase
         $group = AdGroup::factory()->create();
 
         $response = $this->actingAs($this->user)
-            ->patchJson("/api/ad-groups/{$group->id}", [
+            ->patchJson("/api/dashboard/ad-groups/{$group->id}", [
                 'name' => 'Updated Group Name',
             ]);
 
@@ -88,7 +88,7 @@ class AdGroupTest extends TestCase
     {
         $group = AdGroup::factory()->create();
 
-        $response = $this->actingAs($this->user)->deleteJson("/api/ad-groups/{$group->id}");
+        $response = $this->actingAs($this->user)->deleteJson("/api/dashboard/ad-groups/{$group->id}");
 
         $response->assertStatus(200);
         $this->assertSoftDeleted($group);
@@ -100,7 +100,7 @@ class AdGroupTest extends TestCase
         $group->delete();
 
         $response = $this->actingAs($this->user)
-            ->postJson("/api/ad-groups/{$group->id}/restore");
+            ->postJson("/api/dashboard/ad-groups/{$group->id}/restore");
 
         $response->assertStatus(200);
         $this->assertNotSoftDeleted($group);
@@ -111,7 +111,7 @@ class AdGroupTest extends TestCase
         AdGroup::factory()->create(['name' => 'Duplicate Name']);
 
         $response = $this->actingAs($this->user)
-            ->postJson('/api/ad-groups', [
+            ->postJson('/api/dashboard/ad-groups', [
                 'name' => 'Duplicate Name',
             ]);
 
@@ -121,7 +121,7 @@ class AdGroupTest extends TestCase
     public function test_create_ad_group_requires_name()
     {
         $response = $this->actingAs($this->user)
-            ->postJson('/api/ad-groups', [
+            ->postJson('/api/dashboard/ad-groups', [
                 'description' => 'Missing name',
             ]);
 
@@ -134,7 +134,7 @@ class AdGroupTest extends TestCase
         $ad = Ad::factory()->create(['ad_group_id' => $group->id]);
 
         $response = $this->actingAs($this->user)
-            ->postJson("/api/ad-groups/{$group->id}/set-default", [
+            ->postJson("/api/dashboard/ad-groups/{$group->id}/set-default", [
                 'ad_id' => $ad->id,
                 'ad_group_id' => $group->id,
             ]);
@@ -155,7 +155,7 @@ class AdGroupTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->deleteJson("/api/ad-groups/{$group->id}/default");
+            ->deleteJson("/api/dashboard/ad-groups/{$group->id}/default");
 
         $response->assertStatus(200);
         $this->assertDatabaseMissing('ads', [
