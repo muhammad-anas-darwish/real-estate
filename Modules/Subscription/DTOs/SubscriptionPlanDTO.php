@@ -15,6 +15,7 @@ final readonly class SubscriptionPlanDTO implements DTOInterface
         public ?int $duration_days = null,
         public ?bool $is_active = null,
         public ?int $sort_order = null,
+        public ?string $publisher_type = null,
     ) {}
 
     public static function fromRequest(array $array): self
@@ -28,6 +29,7 @@ final readonly class SubscriptionPlanDTO implements DTOInterface
             duration_days: $array['duration_days'] ?? null,
             is_active: $array['is_active'] ?? null,
             sort_order: $array['sort_order'] ?? null,
+            publisher_type: $array['publisher_type'] ?? null,
         );
     }
 
@@ -42,6 +44,7 @@ final readonly class SubscriptionPlanDTO implements DTOInterface
             'duration_days' => $this->duration_days,
             'is_active' => $this->is_active,
             'sort_order' => $this->sort_order,
+            'publisher_type' => $this->publisher_type,
         ], fn ($value) => $value !== null);
     }
 }

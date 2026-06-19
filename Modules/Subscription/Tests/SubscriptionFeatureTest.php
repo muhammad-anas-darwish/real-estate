@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Auth\Entities\User;
 use Modules\Subscription\Entities\SubscriptionFeature;
 use Modules\Subscription\Enums\FeatureType;
-use Modules\Subscription\Services\FeatureService;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;

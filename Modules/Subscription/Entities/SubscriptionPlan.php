@@ -23,6 +23,7 @@ class SubscriptionPlan extends BaseModel
         'duration_days',
         'is_active',
         'sort_order',
+        'publisher_type',
     ];
 
     protected $casts = [
@@ -30,11 +31,13 @@ class SubscriptionPlan extends BaseModel
         'is_active' => 'boolean',
         'sort_order' => 'integer',
         'duration_days' => 'integer',
+        'publisher_type' => \Modules\Auth\Enums\PublisherType::class,
     ];
 
     protected static $filterableColumns = [
         'is_active',
         'currency',
+        'publisher_type',
     ];
 
     protected static $searchableColumns = [

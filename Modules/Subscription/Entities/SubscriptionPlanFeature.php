@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class SubscriptionPlanFeature extends BaseModel
 {
     use HasFactory;
+
     protected $table = 'subscription_plan_features';
 
     protected $fillable = [

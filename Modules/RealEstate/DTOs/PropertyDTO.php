@@ -22,6 +22,7 @@ final readonly class PropertyDTO implements DTOInterface
         public ?float $price = null,
         public ?string $currency = null,
         public ?int $publisher_id = null,
+        public ?string $publisher_type = null,
         public ?int $approved_by = null,
         public ?string $status = null,
         public ?array $main_image = null,
@@ -46,6 +47,7 @@ final readonly class PropertyDTO implements DTOInterface
             price: $array['price'] ?? null,
             currency: $array['currency'] ?? null,
             publisher_id: $array['publisher_id'] ?? null,
+            publisher_type: $array['publisher_type'] ?? null,
             approved_by: $array['approved_by'] ?? null,
             status: $array['status'] ?? null,
             main_image: $array['main_image'] ?? null,
@@ -71,6 +73,7 @@ final readonly class PropertyDTO implements DTOInterface
             'price' => $this->price,
             'currency' => $this->currency,
             'publisher_id' => $this->publisher_id,
+            'publisher_type' => $this->publisher_type,
             'approved_by' => $this->approved_by,
             'status' => $this->status,
         ], fn ($value) => $value !== null);

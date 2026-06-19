@@ -33,6 +33,7 @@ class PlanService extends BaseService
     {
         return SubscriptionPlan::query()
             ->active()
+            ->filter()
             ->with(['features'])
             ->ordered()
             ->get();

@@ -12,7 +12,7 @@ class StripeEventFactory extends Factory
     public function definition(): array
     {
         return [
-            'stripe_event_id' => 'evt_' . fake()->unique()->regexify('[a-zA-Z0-9]{20}'),
+            'stripe_event_id' => 'evt_'.fake()->unique()->regexify('[a-zA-Z0-9]{20}'),
             'type' => fake()->randomElement([
                 'checkout.session.completed',
                 'checkout.session.expired',

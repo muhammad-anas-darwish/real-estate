@@ -1,12 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Auth\Http\Controllers\PublisherController;
 use Modules\RealEstate\Http\Controllers\AdAnalyticsController;
 use Modules\RealEstate\Http\Controllers\AdController;
 use Modules\RealEstate\Http\Controllers\AdDisplayController;
 use Modules\RealEstate\Http\Controllers\AdGroupController;
 use Modules\RealEstate\Http\Controllers\AdTrackingController;
 use Modules\RealEstate\Http\Controllers\PropertyController;
+use Modules\RealEstate\Http\Controllers\ReviewController;
 
 // Public ad display routes
 Route::prefix('api/ads/display')->group(function () {
@@ -16,7 +18,7 @@ Route::prefix('api/ads/display')->group(function () {
         ->name('api.ads.display');
 });
 
-    Route::prefix('api')->group(function () {
+Route::prefix('api')->group(function () {
     // Public - standalone route without group
     Route::get('ads/display', [AdDisplayController::class, 'displayAll'])
         ->name('api.ads.display-all');
@@ -34,6 +36,16 @@ Route::prefix('api/ads/display')->group(function () {
         ->name('api.properties.random');
     Route::get('properties/{id}/details', [PropertyController::class, 'showPublic'])
         ->name('api.properties.public.show');
+
+    // Public publisher routes
+    Route::get('publishers/offices', [PublisherController::class, 'listOffices'])
+        ->name('api.publishers.offices.index');
+    Route::get('publishers/offices/{id}', [PublisherController::class, 'showOffice'])
+        ->name('api.publishers.offices.show');
+
+    // Public review routes
+    Route::get('offices/{officeId}/reviews', [ReviewController::class, 'listForOffice'])
+        ->name('api.offices.reviews.index');
 
     // Protected routes
     Route::middleware(['auth:sanctum'])->group(function () {

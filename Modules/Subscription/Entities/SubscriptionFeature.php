@@ -10,6 +10,7 @@ use Modules\Subscription\Enums\FeatureType;
 class SubscriptionFeature extends BaseModel
 {
     use HasFactory;
+
     protected $table = 'subscription_features';
 
     protected $fillable = [

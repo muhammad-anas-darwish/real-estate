@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class SubscriptionStatusLog extends BaseModel
 {
     use HasFactory;
+
     protected $table = 'subscription_status_logs';
 
     protected $fillable = [

@@ -18,7 +18,7 @@ class SubscriptionFactory extends Factory
             'user_id' => User::factory(),
             'plan_id' => SubscriptionPlan::factory(),
             'discount_id' => null,
-            'stripe_checkout_session_id' => 'cs_' . fake()->unique()->regexify('[a-zA-Z0-9]{30}'),
+            'stripe_checkout_session_id' => 'cs_'.fake()->unique()->regexify('[a-zA-Z0-9]{30}'),
             'currency' => 'USD',
             'status' => SubscriptionStatus::ACTIVE,
             'starts_at' => now(),

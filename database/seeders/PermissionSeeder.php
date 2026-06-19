@@ -22,6 +22,9 @@ class PermissionSeeder extends Seeder
         'subscription_features' => ['list', 'show', 'create', 'edit', 'delete'],
         'subscription_plan_features' => ['list', 'show', 'create', 'edit', 'delete'],
         'subscription_discounts' => ['list', 'show', 'create', 'edit', 'delete'],
+        'offices' => ['list', 'show', 'verify', 'unverify', 'list-upgrade-requests', 'approve-upgrade', 'reject-upgrade'],
+        'publishers' => ['list', 'show'],
+        'reviews' => ['list', 'show', 'delete'],
     ];
 
     public function run()

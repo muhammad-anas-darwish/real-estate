@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class StripeEvent extends BaseModel
 {
     use HasFactory;
+
     protected $table = 'stripe_events';
 
     protected $fillable = [

@@ -65,6 +65,7 @@ class PropertyResource extends BaseJsonResource
 
             // Foreign Keys
             'publisher_id' => $this->publisher_id,
+            'publisher_type' => $this->publisher_type,
             'approved_by' => $this->approved_by,
             'approved_at' => $this->formatDate($this->approved_at),
         ];

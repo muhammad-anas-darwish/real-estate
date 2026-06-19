@@ -11,6 +11,7 @@ use Modules\Subscription\Enums\DiscountType;
 class SubscriptionDiscount extends BaseModel
 {
     use HasFactory;
+
     protected $table = 'subscription_discounts';
 
     protected $fillable = [

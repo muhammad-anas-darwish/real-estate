@@ -39,6 +39,7 @@ class Property extends BaseModel implements HasMedia
         'price',
         'currency',
         'publisher_id',
+        'publisher_type',
         'approved_by',
         'approved_at',
         'status',
@@ -69,6 +70,7 @@ class Property extends BaseModel implements HasMedia
         'rooms',
         'bathrooms',
         'publisher_id',
+        'publisher_type',
     ];
 
     protected static $searchableColumns = [

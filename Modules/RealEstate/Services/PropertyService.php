@@ -6,10 +6,13 @@ use App\Services\BaseService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Modules\Auth\Entities\User;
+use Modules\Auth\Enums\PublisherType;
 use Modules\Core\TemporaryFile\Services\MediaSyncService;
 use Modules\RealEstate\DTOs\PropertyDTO;
 use Modules\RealEstate\Entities\Property;
 use Modules\RealEstate\Enums\PropertyStatus;
+use Modules\Subscription\Services\SubscriptionAccess;
 
 class PropertyService extends BaseService
 {
@@ -105,7 +108,46 @@ class PropertyService extends BaseService
     public function store(PropertyDTO $dto): Property
     {
         return DB::transaction(function () use ($dto): Property {
-            $property = Property::create(array_merge($dto->toArray(), ['publisher_id' => Auth::id()]));
+            $user = Auth::user();
+
+            if (! $user instanceof User) {
+                throw new \RuntimeException('User not authenticated');
+            }
+
+            $access = app(SubscriptionAccess::class);
+
+            if (! $access->hasFeature($user, 'property_listing')) {
+                throw new \RuntimeException('Your subscription does not include the property listing feature.');
+            }
+
+            $listingLimit = $access->getFeatureLimit($user, 'property_listing_limit');
+            if ($listingLimit !== null) {
+                $currentCount = Property::where('publisher_id', $user->id)
+                    ->whereIn('status', ['pending', 'approved'])
+                    ->count();
+
+                if ($currentCount >= $listingLimit) {
+                    throw new \RuntimeException("You have reached the maximum number of active properties ({$listingLimit}).");
+                }
+            }
+
+            $imageLimit = $access->getFeatureLimit($user, 'property_images');
+            if ($imageLimit !== null && $dto->gallery && count($dto->gallery) > $imageLimit) {
+                throw new \RuntimeException("You can only upload {$imageLimit} images per property.");
+            }
+
+            $propertyData = array_merge($dto->toArray(), [
+                'publisher_id' => Auth::id(),
+                'publisher_type' => $user->publisher_type?->value,
+            ]);
+
+            if ($user->publisher_type === PublisherType::OFFICE && $user->is_verified) {
+                $propertyData['status'] = PropertyStatus::APPROVED->value;
+                $propertyData['approved_by'] = Auth::id();
+                $propertyData['approved_at'] = now();
+            }
+
+            $property = Property::create($propertyData);
 
             // Handle main image
             if ($dto->main_image) {
