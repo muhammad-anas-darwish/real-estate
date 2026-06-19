@@ -155,6 +155,10 @@ class ServiceRequestService extends BaseService
                 'provider_notes' => $providerNotes,
             ]);
 
+            if ($request->price && $request->price > 0 && ! $request->is_paid) {
+                app(ProviderBillingService::class)->settlePayment($request);
+            }
+
             if ($request->service_type === ServiceType::INSPECTION && $request->property_id) {
                 $property = Property::find($request->property_id);
                 if ($property) {

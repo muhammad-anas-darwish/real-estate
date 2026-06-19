@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Modules\ServiceProvider\Http\Controllers\AdminServiceRequestController;
 use Modules\ServiceProvider\Http\Controllers\ClientServiceRequestController;
+use Modules\ServiceProvider\Http\Controllers\ProviderBillingController;
 use Modules\ServiceProvider\Http\Controllers\ProviderServiceRequestController;
 use Modules\ServiceProvider\Http\Controllers\ServiceProviderController;
 
@@ -38,6 +39,14 @@ Route::prefix('api/service-provider')->middleware(['auth:sanctum'])->group(funct
         ->name('api.service-provider.requests.complete');
     Route::post('service-request-tasks/{taskId}/complete', [ProviderServiceRequestController::class, 'completeTask'])
         ->name('api.service-provider.tasks.complete');
+
+    // Billing — Provider perspective
+    Route::get('balance', [ProviderBillingController::class, 'balance'])
+        ->name('api.service-provider.balance');
+    Route::get('earnings', [ProviderBillingController::class, 'earnings'])
+        ->name('api.service-provider.earnings');
+    Route::post('withdraw', [ProviderBillingController::class, 'withdraw'])
+        ->name('api.service-provider.withdraw');
 });
 
 Route::prefix('api/service-requests')->middleware(['auth:sanctum'])->group(function () {
