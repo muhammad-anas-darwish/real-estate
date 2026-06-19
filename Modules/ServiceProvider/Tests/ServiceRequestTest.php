@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Auth\Entities\User;
 use Modules\Core\SubModules\Location\Entities\City;
 use Modules\Core\SubModules\Location\Entities\Country;
+use Modules\RealEstate\Entities\Property;
+use Modules\RealEstate\Enums\PropertyStatus;
 use Modules\ServiceProvider\Entities\ServiceProviderProfile;
 use Modules\ServiceProvider\Enums\ServiceRequestStatus;
 use Spatie\Permission\Models\Permission;
@@ -226,5 +228,52 @@ class ServiceRequestTest extends TestCase
         $response = $this->actingAs($this->client)->getJson('/api/service-provider/service-requests');
 
         $response->assertStatus(403);
+    }
+
+    public function test_inspection_request_updates_property_status()
+    {
+        $property = Property::create([
+            'name' => 'Villa for Inspection',
+            'description' => 'A villa needing inspection.',
+            'country_id' => $this->city->country_id,
+            'city_id' => $this->city->id,
+            'property_type' => 'villa',
+            'type_of_contract' => 'sale',
+            'rooms' => 4,
+            'bathrooms' => 3,
+            'area' => 250.0,
+            'price' => 500000.00,
+            'currency' => 'USD',
+            'publisher_id' => $this->client->id,
+            'status' => PropertyStatus::PENDING,
+        ]);
+
+        $req = $this->actingAs($this->client)->postJson('/api/service-requests', [
+            'service_type' => 'inspection',
+            'property_id' => $property->id,
+            'provider_id' => $this->providerProfile->id,
+        ]);
+
+        $req->assertStatus(201);
+
+        $this->assertDatabaseHas('properties', [
+            'id' => $property->id,
+            'status' => PropertyStatus::UNDER_INSPECTION->value,
+        ]);
+
+        $id = $req->json('data.id');
+
+        $this->actingAs($this->providerUser)->postJson("/api/service-provider/service-requests/{$id}/accept");
+        $this->actingAs($this->providerUser)->postJson("/api/service-provider/service-requests/{$id}/start");
+
+        $this->actingAs($this->providerUser)
+            ->postJson("/api/service-provider/service-requests/{$id}/complete", [
+                'provider_notes' => 'Property matches description.',
+            ]);
+
+        $this->assertDatabaseHas('properties', [
+            'id' => $property->id,
+            'status' => PropertyStatus::PENDING->value,
+        ]);
     }
 }

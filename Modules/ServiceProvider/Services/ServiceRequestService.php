@@ -5,6 +5,8 @@ namespace Modules\ServiceProvider\Services;
 use App\Services\BaseService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Modules\RealEstate\Entities\Property;
+use Modules\RealEstate\Enums\PropertyStatus;
 use Modules\ServiceProvider\DTOs\ServiceRequestDTO;
 use Modules\ServiceProvider\Entities\ServiceProviderProfile;
 use Modules\ServiceProvider\Entities\ServiceRequest;
@@ -30,7 +32,19 @@ class ServiceRequestService extends BaseService
                 }
             }
 
-            return ServiceRequest::create($data)->load(['client:id,name,email,phone', 'provider.user', 'property']);
+            $request = ServiceRequest::create($data);
+
+            if ($dto->service_type === ServiceType::INSPECTION->value && $dto->property_id) {
+                $property = Property::find($dto->property_id);
+                if ($property) {
+                    $property->update([
+                        'status' => PropertyStatus::UNDER_INSPECTION,
+                        'inspection_requested_at' => now(),
+                    ]);
+                }
+            }
+
+            return $request->load(['client:id,name,email,phone', 'provider.user', 'property']);
         });
     }
 
@@ -140,6 +154,16 @@ class ServiceRequestService extends BaseService
                 'completed_at' => now(),
                 'provider_notes' => $providerNotes,
             ]);
+
+            if ($request->service_type === ServiceType::INSPECTION && $request->property_id) {
+                $property = Property::find($request->property_id);
+                if ($property) {
+                    $property->update([
+                        'inspection_completed_at' => now(),
+                        'status' => PropertyStatus::PENDING,
+                    ]);
+                }
+            }
 
             $this->updateProviderStats($providerId);
 

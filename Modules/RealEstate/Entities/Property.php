@@ -45,6 +45,11 @@ class Property extends BaseModel implements HasMedia
         'status',
         'rejection_reason',
         'views',
+        'is_physically_verified',
+        'inspection_requested_at',
+        'inspection_completed_at',
+        'inspection_score',
+        'inspection_report',
     ];
 
     protected $casts = [
@@ -59,6 +64,11 @@ class Property extends BaseModel implements HasMedia
         'price' => 'decimal:2',
         'views' => 'integer',
         'approved_at' => 'datetime',
+        'is_physically_verified' => 'boolean',
+        'inspection_requested_at' => 'datetime',
+        'inspection_completed_at' => 'datetime',
+        'inspection_score' => 'integer',
+        'inspection_report' => 'array',
     ];
 
     protected static $filterableColumns = [
@@ -283,6 +293,21 @@ class Property extends BaseModel implements HasMedia
     public function scopeMostViewed($query, int $limit = 10)
     {
         return $query->orderBy('views', 'desc')->limit($limit);
+    }
+
+    public function scopeUnderInspection($query)
+    {
+        return $query->where('status', PropertyStatus::UNDER_INSPECTION);
+    }
+
+    public function scopePhysicallyVerified($query)
+    {
+        return $query->where('is_physically_verified', true);
+    }
+
+    public function serviceRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\Modules\ServiceProvider\Entities\ServiceRequest::class, 'property_id');
     }
 
     protected static function newFactory()

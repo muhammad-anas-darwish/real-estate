@@ -26,6 +26,7 @@ class PropertyStatusService
             PropertyStatus::SOLD => $this->handleSold($property, $oldStatus),
             PropertyStatus::ARCHIVED => $this->handleArchived($property, $oldStatus),
             PropertyStatus::PENDING => $this->handlePending($property, $oldStatus),
+            PropertyStatus::UNDER_INSPECTION => $this->handleUnderInspection($property, $oldStatus),
         };
     }
 
@@ -73,6 +74,16 @@ class PropertyStatusService
     protected function handlePending(Property $property, string $oldStatus): void
     {
         $property->update(['status' => PropertyStatus::PENDING]);
+    }
+
+    protected function handleUnderInspection(Property $property, string $oldStatus): void
+    {
+        $property->update([
+            'status' => PropertyStatus::UNDER_INSPECTION,
+            'inspection_requested_at' => now(),
+        ]);
+
+        $this->notifyPublisher($property, $oldStatus, PropertyStatus::UNDER_INSPECTION->value);
     }
 
     protected function notifyPublisher(Property $property, string $oldStatus, string $newStatus, ?string $rejectionReason = null): void
