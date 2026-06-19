@@ -12,5 +12,6 @@ return [
     Modules\Core\SubModules\Location\Providers\LocationServiceProvider::class,
     Modules\Ledger\Providers\LedgerServiceProvider::class,
     Modules\RealEstate\Providers\RealEstateServiceProvider::class,
+    Modules\ServiceProvider\Providers\ServiceProviderServiceProvider::class,
     Modules\Subscription\Providers\SubscriptionServiceProvider::class,
 ];

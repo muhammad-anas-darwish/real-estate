@@ -38,12 +38,16 @@ class User extends Authenticatable implements HasMedia
         'employees_count',
         'contact_preference',
         'average_rating',
+        'is_service_provider',
+        'service_provider_type',
     ];
 
     protected static $filterableColumns = [
         'status',
         'publisher_type',
         'is_verified',
+        'is_service_provider',
+        'service_provider_type',
     ];
 
     protected static $searchableColumns = [
@@ -119,6 +123,11 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(PublisherUpgradeRequest::class);
     }
 
+    public function serviceProviderProfile(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(\Modules\ServiceProvider\Entities\ServiceProviderProfile::class);
+    }
+
     public function scopeOffices($query)
     {
         return $query->where('publisher_type', PublisherType::OFFICE->value);
@@ -150,6 +159,7 @@ class User extends Authenticatable implements HasMedia
             'is_verified' => 'boolean',
             'contact_preference' => ContactPreference::class,
             'average_rating' => 'decimal:2',
+            'is_service_provider' => 'boolean',
         ];
     }
 
