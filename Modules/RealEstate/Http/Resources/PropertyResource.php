@@ -68,6 +68,9 @@ class PropertyResource extends BaseJsonResource
             'publisher_type' => $this->publisher_type,
             'approved_by' => $this->approved_by,
             'approved_at' => $this->formatDate($this->approved_at),
+
+            // Verified Badge
+            'publisher_is_verified' => $this->publisher ? $this->publisher->hasVerifiedBadge() : false,
         ];
     }
 }

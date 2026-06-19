@@ -22,7 +22,7 @@ class OfficeResource extends BaseJsonResource
             'website_url' => $this->website_url,
             'social_links' => $this->social_links,
             'description' => $this->description,
-            'is_verified' => $this->is_verified,
+            'is_verified' => $this->hasVerifiedBadge(),
             'employees_count' => $this->employees_count,
             'contact_preference' => $this->contact_preference,
             'average_rating' => $this->average_rating,

@@ -108,6 +108,21 @@ class User extends Authenticatable implements HasMedia
         return (float) ($this->ledgerAccount?->available_balance ?? 0);
     }
 
+    public function hasVerifiedBadge(): bool
+    {
+        if (! $this->is_verified) {
+            return false;
+        }
+
+        $subscription = $this->activeSubscription();
+        if (! $subscription) {
+            return false;
+        }
+
+        return app(\Modules\Subscription\Services\SubscriptionAccess::class)
+            ->hasFeature($this, 'verified_badge');
+    }
+
     public function reviewsReceived(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\Modules\RealEstate\Entities\Review::class, 'reviewed_id');

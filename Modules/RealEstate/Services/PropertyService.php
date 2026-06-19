@@ -38,7 +38,7 @@ class PropertyService extends BaseService
 
     public function publicProperties(?int $userId = null): LengthAwarePaginator
     {
-        return Property::query()
+        $query = Property::query()
             ->whereIn('status', [PropertyStatus::APPROVED, PropertyStatus::SOLD])
             ->filter()
             ->priceRange(request('price_min'), request('price_max'))
@@ -49,8 +49,15 @@ class PropertyService extends BaseService
             ->withExists(['favoritedBy as is_loved' => function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             }])
-            ->orderBy($this->resolveSortBy(), request('sort_order', 'desc'))
-            ->paginate($this->getPerPage());
+            ->orderBy($this->resolveSortBy(), request('sort_order', 'desc'));
+
+        if (request('verified_only') === 'true') {
+            $query->whereHas('publisher', function ($q) {
+                $q->where('is_verified', true);
+            });
+        }
+
+        return $query->paginate($this->getPerPage());
     }
 
     public function dashboardProperties(?int $userId = null): LengthAwarePaginator
