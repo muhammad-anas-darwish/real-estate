@@ -18,6 +18,10 @@ class PermissionSeeder extends Seeder
         'ads' => ['list', 'show', 'create', 'edit', 'delete', 'archive', 'restore', 'set-status', 'link-property', 'view-analytics', 'export'],
         'countries' => ['list', 'show', 'create', 'edit', 'delete'],
         'cities' => ['list', 'show', 'create', 'edit', 'delete'],
+        'subscription_plans' => ['list', 'show', 'create', 'edit', 'delete'],
+        'subscription_features' => ['list', 'show', 'create', 'edit', 'delete'],
+        'subscription_plan_features' => ['list', 'show', 'create', 'edit', 'delete'],
+        'subscription_discounts' => ['list', 'show', 'create', 'edit', 'delete'],
     ];
 
     public function run()

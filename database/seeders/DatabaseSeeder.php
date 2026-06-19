@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Modules\Auth\Database\Seeders\UserSeeder;
 use Modules\Core\Database\Seeders\CountriesAndCitiesSeeder;
 use Modules\RealEstate\Database\Seeders\PropertySeeder;
+use Modules\Subscription\Database\Seeders\SubscriptionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CountriesAndCitiesSeeder::class,
             PropertySeeder::class,
+            SubscriptionSeeder::class,
         ]);
     }
 }

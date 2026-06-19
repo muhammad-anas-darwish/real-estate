@@ -3,8 +3,8 @@
 namespace App\Exceptions;
 
 use App\Traits\ApiResponses;
-use Illuminate\Foundation\Exceptions\Handler;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class CustomHandler // extends Handler
@@ -33,7 +33,8 @@ class CustomHandler // extends Handler
             );
         }
 
-        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException
+            || $exception instanceof NotFoundHttpException) {
             return $this->notFoundResponse();
         }
 

@@ -9,6 +9,7 @@ enum NotificationTypeEnum: string
     case PROPERTY_UPDATE = 'property_update';
     case BOOKING_CONFIRMED = 'booking_confirmed';
     case ADMIN_ALERT = 'admin_alert';
+    case SUBSCRIPTION_EXPIRING = 'subscription_expiring';
 
     public function label(): string
     {
@@ -18,6 +19,7 @@ enum NotificationTypeEnum: string
             self::PROPERTY_UPDATE => 'تحديث عقار',
             self::BOOKING_CONFIRMED => 'تأكيد الحجز',
             self::ADMIN_ALERT => 'تنبيه الإدارة',
+            self::SUBSCRIPTION_EXPIRING => 'اشتراك على وشك الانتهاء',
         };
     }
 
@@ -29,6 +31,7 @@ enum NotificationTypeEnum: string
             self::PROPERTY_UPDATE => 'Property Update',
             self::BOOKING_CONFIRMED => 'Booking Confirmed',
             self::ADMIN_ALERT => 'Admin Alert',
+            self::SUBSCRIPTION_EXPIRING => 'Subscription Expiring Soon',
         };
     }
 

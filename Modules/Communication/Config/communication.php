@@ -22,6 +22,7 @@ return [
             'booking_confirmed' => ['fcm', 'database'],
             'property_update' => ['pusher', 'fcm', 'database'],
             'admin_alert' => ['fcm', 'pusher', 'database'],
+            'subscription_expiring' => ['pusher', 'database'],
         ],
     ],
     'chat' => [

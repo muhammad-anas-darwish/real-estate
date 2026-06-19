@@ -51,6 +51,16 @@ class User extends Authenticatable
         return $this->belongsToMany(\Modules\RealEstate\Entities\Property::class, 'property_user', 'user_id', 'property_id')->withTimestamps();
     }
 
+    public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\Modules\Subscription\Entities\Subscription::class);
+    }
+
+    public function activeSubscription(): ?\Modules\Subscription\Entities\Subscription
+    {
+        return $this->subscriptions()->where('status', 'active')->latest('ends_at')->first();
+    }
+
     /**
      * Get the attributes that should be cast.
      *
