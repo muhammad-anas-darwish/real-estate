@@ -54,7 +54,7 @@ class AdAnalyticsTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->getJson('/api/analytics/dashboard');
+            ->getJson('/api/dashboard/analytics/dashboard');
 
         $response->assertStatus(200);
         $response->assertJsonPath('data.total_ads', 2);
@@ -69,7 +69,7 @@ class AdAnalyticsTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->getJson("/api/analytics/groups/{$group->id}");
+            ->getJson("/api/dashboard/analytics/groups/{$group->id}");
 
         $response->assertStatus(200);
         $response->assertJsonPath('data.group_id', $group->id);
@@ -80,7 +80,7 @@ class AdAnalyticsTest extends TestCase
         $group = AdGroup::factory()->create(['created_by' => $this->otherUser->id]);
 
         $response = $this->actingAs($this->user)
-            ->getJson("/api/analytics/groups/{$group->id}");
+            ->getJson("/api/dashboard/analytics/groups/{$group->id}");
 
         $response->assertStatus(403);
     }
@@ -102,7 +102,7 @@ class AdAnalyticsTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->getJson("/api/analytics/ads/{$ad->id}");
+            ->getJson("/api/dashboard/analytics/ads/{$ad->id}");
 
         $response->assertStatus(200);
         $response->assertJsonPath('data.ad_id', $ad->id);
@@ -118,7 +118,7 @@ class AdAnalyticsTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->getJson('/api/analytics/export');
+            ->getJson('/api/dashboard/analytics/export');
 
         $response->assertStatus(200);
     }

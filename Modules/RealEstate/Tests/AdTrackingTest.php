@@ -26,7 +26,7 @@ class AdTrackingTest extends TestCase
 
     public function test_can_record_ad_view()
     {
-        $response = $this->postJson("/api/ads/{$this->ad->id}/track/view");
+        $response = $this->postJson("/api/public/ads/{$this->ad->id}/track/view");
 
         $response->assertStatus(200);
         $this->assertDatabaseHas('ad_views', [
@@ -41,7 +41,7 @@ class AdTrackingTest extends TestCase
             'external_url' => 'https://example.com',
         ]);
 
-        $response = $this->postJson("/api/ads/{$ad->id}/track/visit");
+        $response = $this->postJson("/api/public/ads/{$ad->id}/track/visit");
 
         $response->assertStatus(200);
         $this->assertDatabaseHas('ad_visits', [
@@ -51,7 +51,7 @@ class AdTrackingTest extends TestCase
 
     public function test_visit_without_external_url_not_recorded()
     {
-        $response = $this->postJson("/api/ads/{$this->ad->id}/track/visit");
+        $response = $this->postJson("/api/public/ads/{$this->ad->id}/track/visit");
 
         $response->assertStatus(200);
         $this->assertDatabaseMissing('ad_visits', [

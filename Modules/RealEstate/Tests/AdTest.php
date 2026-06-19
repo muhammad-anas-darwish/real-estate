@@ -55,7 +55,7 @@ class AdTest extends TestCase
             'ad_group_id' => $this->group->id,
         ]);
 
-        $response = $this->actingAs($this->user)->getJson('/api/ads');
+        $response = $this->actingAs($this->user)->getJson('/api/dashboard/ads');
 
         $response->assertStatus(200);
         $response->assertJsonCount(3, 'data');
@@ -71,7 +71,7 @@ class AdTest extends TestCase
             'status' => 'draft',
         ];
 
-        $response = $this->actingAs($this->user)->postJson('/api/ads', $payload);
+        $response = $this->actingAs($this->user)->postJson('/api/dashboard/ads', $payload);
 
         $response->assertStatus(201);
         $this->assertDatabaseHas('ads', ['title' => 'Test Ad']);
@@ -84,7 +84,7 @@ class AdTest extends TestCase
             'ad_group_id' => $this->group->id,
         ]);
 
-        $response = $this->actingAs($this->user)->getJson("/api/ads/{$ad->id}");
+        $response = $this->actingAs($this->user)->getJson("/api/dashboard/ads/{$ad->id}");
 
         $response->assertStatus(200);
         $response->assertJsonPath('data.id', $ad->id);
@@ -97,7 +97,7 @@ class AdTest extends TestCase
             'ad_group_id' => $this->group->id,
         ]);
 
-        $response = $this->actingAs($this->user)->getJson("/api/ads/{$ad->id}");
+        $response = $this->actingAs($this->user)->getJson("/api/dashboard/ads/{$ad->id}");
 
         $response->assertStatus(403);
     }
@@ -110,7 +110,7 @@ class AdTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->patchJson("/api/ads/{$ad->id}", [
+            ->patchJson("/api/dashboard/ads/{$ad->id}", [
                 'title' => 'Updated Ad Title',
             ]);
 
@@ -126,7 +126,7 @@ class AdTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->patchJson("/api/ads/{$ad->id}", [
+            ->patchJson("/api/dashboard/ads/{$ad->id}", [
                 'title' => 'Hacked Title',
             ]);
 
@@ -140,7 +140,7 @@ class AdTest extends TestCase
             'ad_group_id' => $this->group->id,
         ]);
 
-        $response = $this->actingAs($this->user)->deleteJson("/api/ads/{$ad->id}");
+        $response = $this->actingAs($this->user)->deleteJson("/api/dashboard/ads/{$ad->id}");
 
         $response->assertStatus(200);
         $this->assertSoftDeleted($ad);
@@ -153,7 +153,7 @@ class AdTest extends TestCase
             'ad_group_id' => $this->group->id,
         ]);
 
-        $response = $this->actingAs($this->user)->deleteJson("/api/ads/{$ad->id}");
+        $response = $this->actingAs($this->user)->deleteJson("/api/dashboard/ads/{$ad->id}");
 
         $response->assertStatus(403);
     }
@@ -167,7 +167,7 @@ class AdTest extends TestCase
         $ad->delete();
 
         $response = $this->actingAs($this->user)
-            ->postJson("/api/ads/{$ad->id}/restore");
+            ->postJson("/api/dashboard/ads/{$ad->id}/restore");
 
         $response->assertStatus(200);
         $this->assertNotSoftDeleted($ad);
@@ -182,7 +182,7 @@ class AdTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->postJson("/api/ads/{$ad->id}/status", [
+            ->postJson("/api/dashboard/ads/{$ad->id}/status", [
                 'status' => 'active',
             ]);
 
@@ -198,7 +198,7 @@ class AdTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->postJson("/api/ads/{$ad->id}/status", [
+            ->postJson("/api/dashboard/ads/{$ad->id}/status", [
                 'status' => 'invalid_status',
             ]);
 
@@ -219,7 +219,7 @@ class AdTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->postJson("/api/ads/{$ad->id}/link-property", [
+            ->postJson("/api/dashboard/ads/{$ad->id}/link-property", [
                 'property_id' => $property->id,
             ]);
 
@@ -242,7 +242,7 @@ class AdTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->deleteJson("/api/ads/{$ad->id}/property");
+            ->deleteJson("/api/dashboard/ads/{$ad->id}/property");
 
         $response->assertStatus(200);
         $this->assertDatabaseHas('ads', ['id' => $ad->id, 'property_id' => null]);
@@ -251,7 +251,7 @@ class AdTest extends TestCase
     public function test_create_ad_fails_with_missing_title()
     {
         $response = $this->actingAs($this->user)
-            ->postJson('/api/ads', [
+            ->postJson('/api/dashboard/ads', [
                 'media_type' => AdMediaType::IMAGE->value,
             ]);
 
@@ -261,7 +261,7 @@ class AdTest extends TestCase
     public function test_create_ad_fails_with_invalid_media_type()
     {
         $response = $this->actingAs($this->user)
-            ->postJson('/api/ads', [
+            ->postJson('/api/dashboard/ads', [
                 'title' => 'Test Ad',
                 'media_type' => 'invalid_type',
             ]);
@@ -277,7 +277,7 @@ class AdTest extends TestCase
         ]);
 
         $response = $this->actingAs($this->user)
-            ->postJson("/api/ads/{$ad->id}/status", [
+            ->postJson("/api/dashboard/ads/{$ad->id}/status", [
                 'status' => 'active',
             ]);
 
@@ -293,7 +293,7 @@ class AdTest extends TestCase
         $ad->delete();
 
         $response = $this->actingAs($this->user)
-            ->postJson("/api/ads/{$ad->id}/restore");
+            ->postJson("/api/dashboard/ads/{$ad->id}/restore");
 
         $response->assertStatus(403);
     }

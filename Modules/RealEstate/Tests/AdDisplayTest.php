@@ -21,7 +21,7 @@ class AdDisplayTest extends TestCase
             'ad_group_id' => 1,
         ]);
 
-        $response = $this->getJson('/api/ads/display');
+        $response = $this->getJson('/api/public/ads/display');
 
         $response->assertStatus(200);
     }
@@ -34,7 +34,7 @@ class AdDisplayTest extends TestCase
             'ad_group_id' => null,
         ]);
 
-        $response = $this->getJson('/api/ads/display/standalone');
+        $response = $this->getJson('/api/public/ads/display/standalone');
 
         $response->assertStatus(200);
     }
@@ -48,14 +48,14 @@ class AdDisplayTest extends TestCase
             'start_date' => now()->subDay()->format('Y-m-d'),
         ]);
 
-        $response = $this->getJson("/api/ads/display/{$group->id}");
+        $response = $this->getJson("/api/public/ads/display/{$group->id}");
 
         $response->assertStatus(200);
     }
 
     public function test_non_existent_group_returns_no_ads()
     {
-        $response = $this->getJson('/api/ads/display/99999');
+        $response = $this->getJson('/api/public/ads/display/99999');
 
         $response->assertStatus(200);
     }
@@ -68,7 +68,7 @@ class AdDisplayTest extends TestCase
             'start_date' => now()->subDay()->format('Y-m-d'),
         ]);
 
-        $response = $this->getJson('/api/ads/display/standalone');
+        $response = $this->getJson('/api/public/ads/display/standalone');
 
         $response->assertStatus(200);
         $this->assertEmpty($response->json('data'));
@@ -82,7 +82,7 @@ class AdDisplayTest extends TestCase
             'start_date' => now()->addDay()->format('Y-m-d'),
         ]);
 
-        $response = $this->getJson('/api/ads/display/standalone');
+        $response = $this->getJson('/api/public/ads/display/standalone');
 
         $response->assertStatus(200);
         $this->assertEmpty($response->json('data'));
