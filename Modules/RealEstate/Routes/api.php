@@ -24,12 +24,6 @@ Route::prefix('api/public')->group(function () {
         Route::get('/', [AdDisplayController::class, 'displayAll'])
             ->name('api.ads.display-all');
     });
-// Public ad display routes
-Route::prefix('api/ads/display')->group(function () {
-    Route::get('standalone', [AdDisplayController::class, 'displayStandalone'])
-        ->name('api.ads.display-standalone');
-    Route::get('/{groupId}', [AdDisplayController::class, 'display'])
-        ->name('api.ads.display');
 });
 
 Route::prefix('api')->group(function () {
