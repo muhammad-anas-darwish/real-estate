@@ -21,6 +21,7 @@ class Subscription extends BaseModel
         'plan_id',
         'discount_id',
         'stripe_checkout_session_id',
+        'payment_reference',
         'currency',
         'status',
         'starts_at',

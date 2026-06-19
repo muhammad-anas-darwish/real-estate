@@ -23,6 +23,9 @@ class SubscriptionSeeder extends Seeder
             'verified_badge' => ['is_enabled' => false, 'limit_value' => null],
             'external_contact' => ['is_enabled' => false, 'limit_value' => null],
             'priority_support' => ['is_enabled' => false, 'limit_value' => null],
+            'sponsored_ads' => ['is_enabled' => true, 'limit_value' => null],
+            'sponsored_ads_limit' => ['is_enabled' => true, 'limit_value' => 2],
+            'sponsored_ads_discount_pct' => ['is_enabled' => true, 'limit_value' => 0],
         ], $features);
 
         $this->createPlan('Individual Pro', 'individual-pro', 29.99, 30, 1, 'individual', [
@@ -34,6 +37,9 @@ class SubscriptionSeeder extends Seeder
             'verified_badge' => ['is_enabled' => false, 'limit_value' => null],
             'external_contact' => ['is_enabled' => true, 'limit_value' => null],
             'priority_support' => ['is_enabled' => false, 'limit_value' => null],
+            'sponsored_ads' => ['is_enabled' => true, 'limit_value' => null],
+            'sponsored_ads_limit' => ['is_enabled' => true, 'limit_value' => 5],
+            'sponsored_ads_discount_pct' => ['is_enabled' => true, 'limit_value' => 5],
         ], $features);
 
         // Office Plans
@@ -46,6 +52,9 @@ class SubscriptionSeeder extends Seeder
             'verified_badge' => ['is_enabled' => false, 'limit_value' => null],
             'external_contact' => ['is_enabled' => true, 'limit_value' => null],
             'priority_support' => ['is_enabled' => false, 'limit_value' => null],
+            'sponsored_ads' => ['is_enabled' => true, 'limit_value' => null],
+            'sponsored_ads_limit' => ['is_enabled' => true, 'limit_value' => 10],
+            'sponsored_ads_discount_pct' => ['is_enabled' => true, 'limit_value' => 10],
         ], $features);
 
         $this->createPlan('Office Pro', 'office-pro', 99.99, 30, 3, 'office', [
@@ -57,6 +66,9 @@ class SubscriptionSeeder extends Seeder
             'verified_badge' => ['is_enabled' => true, 'limit_value' => null],
             'external_contact' => ['is_enabled' => true, 'limit_value' => null],
             'priority_support' => ['is_enabled' => false, 'limit_value' => null],
+            'sponsored_ads' => ['is_enabled' => true, 'limit_value' => null],
+            'sponsored_ads_limit' => ['is_enabled' => true, 'limit_value' => 25],
+            'sponsored_ads_discount_pct' => ['is_enabled' => true, 'limit_value' => 15],
         ], $features);
 
         $this->createPlan('Office Enterprise', 'office-enterprise', 199.99, 30, 4, 'office', [
@@ -68,6 +80,9 @@ class SubscriptionSeeder extends Seeder
             'verified_badge' => ['is_enabled' => true, 'limit_value' => null],
             'external_contact' => ['is_enabled' => true, 'limit_value' => null],
             'priority_support' => ['is_enabled' => true, 'limit_value' => null],
+            'sponsored_ads' => ['is_enabled' => true, 'limit_value' => null],
+            'sponsored_ads_limit' => ['is_enabled' => true, 'limit_value' => null],
+            'sponsored_ads_discount_pct' => ['is_enabled' => true, 'limit_value' => 25],
         ], $features);
 
         $this->command->info('SubscriptionSeeder: plans and features seeded successfully!');
@@ -84,6 +99,9 @@ class SubscriptionSeeder extends Seeder
             ['verified_badge', 'Verified Badge', FeatureType::TOGGLE, 'Verified office badge display'],
             ['external_contact', 'External Contact', FeatureType::TOGGLE, 'Show external contact methods'],
             ['priority_support', 'Priority Support', FeatureType::TOGGLE, 'Priority customer support'],
+            ['sponsored_ads', 'Sponsored Ads', FeatureType::TOGGLE, 'Ability to create paid sponsored ads'],
+            ['sponsored_ads_limit', 'Sponsored Ads Limit', FeatureType::LIMIT, 'Maximum number of active sponsored ads'],
+            ['sponsored_ads_discount_pct', 'Sponsored Ads Discount %', FeatureType::LIMIT, 'Percentage discount on sponsored ad prices'],
         ];
 
         $features = [];

@@ -9,6 +9,7 @@ use Modules\RealEstate\Http\Controllers\AdGroupController;
 use Modules\RealEstate\Http\Controllers\AdTrackingController;
 use Modules\RealEstate\Http\Controllers\PropertyController;
 use Modules\RealEstate\Http\Controllers\ReviewController;
+use Modules\RealEstate\Http\Controllers\SponsoredAdController;
 
 // Public ad display routes
 Route::prefix('api/ads/display')->group(function () {
@@ -28,6 +29,12 @@ Route::prefix('api')->group(function () {
         ->name('api.ads.track.view');
     Route::post('ads/{id}/track/visit', [AdTrackingController::class, 'recordVisit'])
         ->name('api.ads.track.visit');
+
+    // Public sponsored ad routes
+    Route::get('sponsored-ads/pricing', [SponsoredAdController::class, 'pricing'])
+        ->name('api.sponsored-ads.pricing');
+    Route::get('sponsored-ads/active', [SponsoredAdController::class, 'active'])
+        ->name('api.sponsored-ads.active');
 
     // Public property routes
     Route::get('properties/browse', [PropertyController::class, 'indexPublic'])
@@ -118,5 +125,15 @@ Route::prefix('api')->group(function () {
             ->name('api.analytics.ads');
         Route::get('analytics/export', [AdAnalyticsController::class, 'export'])
             ->name('api.analytics.export');
+
+        // Sponsored Ads (user-facing)
+        Route::get('sponsored-ads', [SponsoredAdController::class, 'index'])
+            ->name('api.sponsored-ads.index');
+        Route::post('sponsored-ads', [SponsoredAdController::class, 'store'])
+            ->name('api.sponsored-ads.store');
+        Route::get('sponsored-ads/{id}', [SponsoredAdController::class, 'show'])
+            ->name('api.sponsored-ads.show');
+        Route::post('sponsored-ads/{id}/cancel', [SponsoredAdController::class, 'cancel'])
+            ->name('api.sponsored-ads.cancel');
     });
 });

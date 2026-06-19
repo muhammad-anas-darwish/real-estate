@@ -93,6 +93,17 @@ class User extends Authenticatable implements HasMedia
         return $this->subscriptions()->where('status', 'active')->latest('ends_at')->first();
     }
 
+    public function ledgerAccount(): ?\Modules\Ledger\Entities\Account
+    {
+        return $this->morphOne(\Modules\Ledger\Entities\Account::class, 'owner')
+            ->where('type', \Modules\Ledger\Enums\AccountType::USER_BALANCE);
+    }
+
+    public function balance(): float
+    {
+        return (float) ($this->ledgerAccount?->available_balance ?? 0);
+    }
+
     public function reviewsReceived(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\Modules\RealEstate\Entities\Review::class, 'reviewed_id');

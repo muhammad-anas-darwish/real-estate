@@ -16,6 +16,7 @@ class CheckoutRequest extends FormRequest
         return [
             'plan_id' => ['required', 'integer', 'exists:subscription_plans,id'],
             'coupon_code' => ['nullable', 'string', 'max:255'],
+            'payment_method' => ['string', 'in:stripe,balance'],
         ];
     }
 }

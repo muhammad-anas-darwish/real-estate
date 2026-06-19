@@ -20,7 +20,8 @@ class CheckoutController extends Controller
         $result = $this->checkoutService->createCheckoutSession(
             userId: $request->user()->id,
             planId: $validated['plan_id'],
-            couponCode: $validated['coupon_code'] ?? null
+            couponCode: $validated['coupon_code'] ?? null,
+            paymentMethod: $validated['payment_method'] ?? 'stripe',
         );
 
         if (! $result['success']) {

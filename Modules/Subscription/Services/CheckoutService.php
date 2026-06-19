@@ -3,6 +3,9 @@
 namespace Modules\Subscription\Services;
 
 use App\Services\BaseService;
+use Modules\Ledger\Enums\AccountType;
+use Modules\Ledger\Services\AccountService;
+use Modules\Ledger\Services\LedgerService;
 use Modules\Subscription\Entities\Subscription;
 use Modules\Subscription\Entities\SubscriptionPlan;
 use Modules\Subscription\Enums\SubscriptionStatus;
@@ -13,10 +16,12 @@ class CheckoutService extends BaseService
     const CACHE_TAG = 'subscription-checkouts';
 
     public function __construct(
-        private readonly DiscountService $discountService
+        private readonly DiscountService $discountService,
+        private readonly LedgerService $ledgerService,
+        private readonly AccountService $accountService,
     ) {}
 
-    public function createCheckoutSession(int $userId, int $planId, ?string $couponCode = null): array
+    public function createCheckoutSession(int $userId, int $planId, ?string $couponCode = null, string $paymentMethod = 'stripe'): array
     {
         $plan = SubscriptionPlan::active()->findOrFail($planId);
 
@@ -37,6 +42,67 @@ class CheckoutService extends BaseService
             $pricing = $result['pricing'];
         }
 
+        $finalPrice = $pricing ? $pricing['final_price'] : (float) $plan->price;
+        $currency = strtolower($plan->currency ?? 'usd');
+
+        if ($paymentMethod === 'balance') {
+            return $this->checkoutWithBalance($userId, $planId, $plan, $discount, $finalPrice, $currency);
+        }
+
+        return $this->checkoutWithStripe($userId, $planId, $plan, $discount, $pricing, $couponCode, $finalPrice, $currency);
+    }
+
+    private function checkoutWithBalance(int $userId, int $planId, SubscriptionPlan $plan, $discount, float $finalPrice, string $currency): array
+    {
+        $user = \Modules\Auth\Entities\User::findOrFail($userId);
+        $userAccount = $this->accountService->getUserAccount($user, strtoupper($currency));
+        $revenueAccount = $this->accountService->getSystemAccount(AccountType::REVENUE, strtoupper($currency));
+
+        $subscription = Subscription::create([
+            'user_id' => $userId,
+            'plan_id' => $planId,
+            'discount_id' => $discount?->id,
+            'currency' => strtoupper($currency),
+            'status' => SubscriptionStatus::ACTIVE->value,
+            'starts_at' => now(),
+            'ends_at' => now()->addDays($plan->duration_days),
+        ]);
+
+        try {
+            $idempotencyKey = 'sub_'.$subscription->id.'_'.\Illuminate\Support\Str::uuid();
+            $result = $this->ledgerService->transfer(
+                from: $userAccount,
+                to: $revenueAccount,
+                amount: $finalPrice,
+                currency: strtoupper($currency),
+                referenceType: 'subscription_payment',
+                referenceId: $subscription->id,
+                description: "Subscription: {$plan->name}",
+                idempotencyKey: $idempotencyKey,
+            );
+
+            $subscription->update(['payment_reference' => $result['batch_id']]);
+        } catch (\RuntimeException $e) {
+            $subscription->update(['status' => SubscriptionStatus::CANCELLED->value]);
+
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        return [
+            'success' => true,
+            'subscription_id' => $subscription->id,
+            'plan' => $plan,
+            'pricing' => $this->buildPricingWithoutDiscount($plan),
+            'discount' => $discount,
+            'payment_method' => 'balance',
+        ];
+    }
+
+    private function checkoutWithStripe(int $userId, int $planId, SubscriptionPlan $plan, $discount, $pricing, $couponCode, float $finalPrice, string $currency): array
+    {
         $existing = $this->findPendingSubscription($userId, $planId);
         if ($existing && $existing->stripe_checkout_session_id) {
             $stripe = $this->getStripeClient();
@@ -53,15 +119,13 @@ class CheckoutService extends BaseService
                         'plan' => $plan,
                         'pricing' => $pricing ?? $this->buildPricingWithoutDiscount($plan),
                         'discount' => $discount,
+                        'payment_method' => 'stripe',
                     ];
                 }
             } catch (\Exception) {
                 // Session expired or invalid, create a new one
             }
         }
-
-        $finalPrice = $pricing ? $pricing['final_price'] : (float) $plan->price;
-        $currency = strtolower($plan->currency ?? 'usd');
 
         $stripe = $this->getStripeClient();
 
@@ -116,6 +180,7 @@ class CheckoutService extends BaseService
             'plan' => $plan,
             'pricing' => $pricing ?? $this->buildPricingWithoutDiscount($plan),
             'discount' => $discount,
+            'payment_method' => 'stripe',
         ];
     }
 
