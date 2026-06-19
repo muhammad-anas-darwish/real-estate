@@ -276,4 +276,81 @@ class ServiceRequestTest extends TestCase
             'status' => PropertyStatus::PENDING->value,
         ]);
     }
+
+    public function test_property_with_photographer_creates_draft_and_request()
+    {
+        $payload = [
+            'name' => 'Apartment for Photos',
+            'description' => 'Needs photography.',
+            'country_id' => $this->city->country_id,
+            'city_id' => $this->city->id,
+            'property_type' => 'apartment',
+            'type_of_contract' => 'sale',
+            'rooms' => 2,
+            'bathrooms' => 1,
+            'area' => 90.0,
+            'price' => 150000.00,
+            'currency' => 'USD',
+            'provider_id' => $this->providerProfile->id,
+            'scheduled_at' => now()->addDay()->toDateTimeString(),
+            'photographer_notes' => 'Call before arriving.',
+        ];
+
+        $response = $this->actingAs($this->client)
+            ->postJson('/api/dashboard/properties/with-photographer', $payload);
+
+        $response->assertStatus(201);
+        $response->assertJsonPath('data.property.status', PropertyStatus::DRAFT->value);
+        $response->assertJsonPath('data.service_request.service_type', 'photography');
+
+        $this->assertDatabaseHas('properties', [
+            'name' => 'Apartment for Photos',
+            'status' => PropertyStatus::DRAFT->value,
+        ]);
+
+        $this->assertDatabaseHas('service_requests', [
+            'client_id' => $this->client->id,
+            'service_type' => 'photography',
+        ]);
+    }
+
+    public function test_photographer_completion_transitions_draft_to_pending()
+    {
+        $payload = [
+            'name' => 'Penthouse',
+            'description' => 'Luxury penthouse.',
+            'country_id' => $this->city->country_id,
+            'city_id' => $this->city->id,
+            'property_type' => 'apartment',
+            'type_of_contract' => 'rent',
+            'rooms' => 3,
+            'bathrooms' => 2,
+            'area' => 180.0,
+            'price' => 3000.00,
+            'currency' => 'USD',
+            'provider_id' => $this->providerProfile->id,
+        ];
+
+        $res = $this->actingAs($this->client)
+            ->postJson('/api/dashboard/properties/with-photographer', $payload);
+
+        $this->assertDatabaseHas('properties', [
+            'name' => 'Penthouse',
+            'status' => PropertyStatus::DRAFT->value,
+        ]);
+
+        $serviceRequestId = $res->json('data.service_request.id');
+
+        $this->actingAs($this->providerUser)
+            ->postJson("/api/service-provider/service-requests/{$serviceRequestId}/accept");
+        $this->actingAs($this->providerUser)
+            ->postJson("/api/service-provider/service-requests/{$serviceRequestId}/start");
+        $this->actingAs($this->providerUser)
+            ->postJson("/api/service-provider/service-requests/{$serviceRequestId}/complete");
+
+        $this->assertDatabaseHas('properties', [
+            'name' => 'Penthouse',
+            'status' => PropertyStatus::PENDING->value,
+        ]);
+    }
 }

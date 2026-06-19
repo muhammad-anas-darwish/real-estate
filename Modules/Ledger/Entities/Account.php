@@ -18,6 +18,10 @@ class Account extends BaseModel
         'code',
         'name',
         'type',
+        'account_category',
+        'account_number',
+        'sort_order',
+        'description',
         'currency',
         'owner_type',
         'owner_id',
@@ -30,6 +34,7 @@ class Account extends BaseModel
 
     protected $casts = [
         'type' => \Modules\Ledger\Enums\AccountType::class,
+        'account_category' => \Modules\Ledger\Enums\AccountCategory::class,
         'current_balance' => 'decimal:2',
         'held_balance' => 'decimal:2',
         'is_active' => 'boolean',
@@ -38,14 +43,17 @@ class Account extends BaseModel
 
     protected static $filterableColumns = [
         'type',
+        'account_category',
         'currency',
         'is_active',
         'owner_type',
+        'parent_id',
     ];
 
     protected static $searchableColumns = [
         'code',
         'name',
+        'account_number',
     ];
 
     public function owner(): MorphTo

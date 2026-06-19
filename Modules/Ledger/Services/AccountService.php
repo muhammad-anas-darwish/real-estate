@@ -4,9 +4,11 @@ namespace Modules\Ledger\Services;
 
 use App\Services\BaseService;
 use Modules\Auth\Entities\User;
+use Modules\Ledger\DTOs\AccountDTO;
 use Modules\Ledger\Entities\Account;
 use Modules\Ledger\Entities\AccountEntry;
 use Modules\Ledger\Enums\AccountType;
+use Modules\Ledger\Http\Resources\AccountResource;
 
 class AccountService extends BaseService
 {
@@ -15,6 +17,86 @@ class AccountService extends BaseService
     public function __construct(
         private readonly LedgerService $ledgerService
     ) {}
+
+    public function getTree(?string $category = null): array
+    {
+        $query = Account::whereNull('parent_id')
+            ->where('is_active', true);
+
+        if ($category) {
+            $query->where('account_category', $category);
+        }
+
+        $roots = $query->with(['children' => function ($q) {
+            $q->orderBy('sort_order')->orderBy('account_number');
+        }, 'children.children' => function ($q) {
+            $q->orderBy('sort_order')->orderBy('account_number');
+        }])
+        ->orderBy('sort_order')
+        ->orderBy('account_number')
+        ->get();
+
+        return AccountResource::collection(
+            $roots->map(function ($account) {
+                $account->setRelation('children', $account->children);
+
+                return $account;
+            })
+        )->toArray(request());
+    }
+
+    public function list(): \Illuminate\Pagination\LengthAwarePaginator
+    {
+        return Account::query()
+            ->with('parent')
+            ->orderBy('account_number')
+            ->orderBy('sort_order')
+            ->filter()
+            ->paginate($this->getPerPage());
+    }
+
+    public function find(int $id): Account
+    {
+        return Account::with('parent', 'children')->findOrFail($id);
+    }
+
+    public function create(AccountDTO $dto): Account
+    {
+        $data = array_merge($dto->toArray(), [
+            'type' => AccountType::LIABILITY,
+            'currency' => $dto->currency ?? 'USD',
+            'current_balance' => 0,
+            'held_balance' => 0,
+            'is_active' => $dto->isActive ?? true,
+        ]);
+
+        $account = Account::create($data);
+        $this->clearCache();
+
+        return $account;
+    }
+
+    public function update(Account $account, AccountDTO $dto): Account
+    {
+        $account->update($dto->toArray());
+        $this->clearCache();
+
+        return $account;
+    }
+
+    public function delete(Account $account): void
+    {
+        if ($account->entries()->exists()) {
+            throw new \RuntimeException('Cannot delete account with existing entries. Deactivate it instead.');
+        }
+
+        if ($account->children()->exists()) {
+            throw new \RuntimeException('Cannot delete account with child accounts. Remove child accounts first.');
+        }
+
+        $account->delete();
+        $this->clearCache();
+    }
 
     /**
      * Get or create the user's balance account (wallet replacement).

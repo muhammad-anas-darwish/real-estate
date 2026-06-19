@@ -169,6 +169,13 @@ class ServiceRequestService extends BaseService
                 }
             }
 
+            if ($request->service_type === ServiceType::PHOTOGRAPHY && $request->property_id) {
+                $property = Property::find($request->property_id);
+                if ($property && $property->status === PropertyStatus::DRAFT) {
+                    $property->update(['status' => PropertyStatus::PENDING]);
+                }
+            }
+
             $this->updateProviderStats($providerId);
 
             return $request->load(['client:id,name,email,phone', 'tasks']);

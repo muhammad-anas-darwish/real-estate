@@ -121,20 +121,24 @@ class PropertyService extends BaseService
                 throw new \RuntimeException('User not authenticated');
             }
 
+            $isDraft = $dto->status === PropertyStatus::DRAFT->value;
+
             $access = app(SubscriptionAccess::class);
 
-            if (! $access->hasFeature($user, 'property_listing')) {
+            if (! $isDraft && ! $access->hasFeature($user, 'property_listing')) {
                 throw new \RuntimeException('Your subscription does not include the property listing feature.');
             }
 
-            $listingLimit = $access->getFeatureLimit($user, 'property_listing_limit');
-            if ($listingLimit !== null) {
-                $currentCount = Property::where('publisher_id', $user->id)
-                    ->whereIn('status', ['pending', 'approved'])
-                    ->count();
+            if (! $isDraft) {
+                $listingLimit = $access->getFeatureLimit($user, 'property_listing_limit');
+                if ($listingLimit !== null) {
+                    $currentCount = Property::where('publisher_id', $user->id)
+                        ->whereIn('status', ['pending', 'approved', 'under_inspection'])
+                        ->count();
 
-                if ($currentCount >= $listingLimit) {
-                    throw new \RuntimeException("You have reached the maximum number of active properties ({$listingLimit}).");
+                    if ($currentCount >= $listingLimit) {
+                        throw new \RuntimeException("You have reached the maximum number of active properties ({$listingLimit}).");
+                    }
                 }
             }
 
@@ -148,10 +152,14 @@ class PropertyService extends BaseService
                 'publisher_type' => $user->publisher_type?->value,
             ]);
 
-            if ($user->publisher_type === PublisherType::OFFICE && $user->is_verified) {
+            if (! $isDraft && $user->publisher_type === PublisherType::OFFICE && $user->is_verified) {
                 $propertyData['status'] = PropertyStatus::APPROVED->value;
                 $propertyData['approved_by'] = Auth::id();
                 $propertyData['approved_at'] = now();
+            }
+
+            if ($isDraft && ! isset($propertyData['status'])) {
+                $propertyData['status'] = PropertyStatus::DRAFT->value;
             }
 
             $property = Property::create($propertyData);

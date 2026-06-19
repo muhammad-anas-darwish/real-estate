@@ -14,12 +14,16 @@ use Modules\RealEstate\Http\Requests\UpdatePropertyStatusRequest;
 use Modules\RealEstate\Http\Resources\PropertyResource;
 use Modules\RealEstate\Services\PropertyService;
 use Modules\RealEstate\Services\PropertyStatusService;
+use Modules\ServiceProvider\DTOs\ServiceRequestDTO;
+use Modules\ServiceProvider\Http\Resources\ServiceRequestResource;
+use Modules\ServiceProvider\Services\ServiceRequestService;
 
 class PropertyController extends Controller
 {
     public function __construct(
         protected readonly PropertyService $propertyService,
-        protected readonly PropertyStatusService $statusService
+        protected readonly PropertyStatusService $statusService,
+        protected readonly ServiceRequestService $serviceRequestService
     ) {
         $this->applyPermissions(
             'properties',
@@ -135,5 +139,30 @@ class PropertyController extends Controller
             PropertyResource::make($property->fresh(['publisher', 'approver', 'media'])),
             __('messages.property_status_updated')
         );
+    }
+
+    public function storeWithPhotographer(StorePropertyRequest $request)
+    {
+        $propertyDto = PropertyDTO::fromRequest(
+            array_merge($request->validated(), ['status' => PropertyStatus::DRAFT->value])
+        );
+
+        $property = $this->propertyService->store($propertyDto);
+
+        $serviceDto = ServiceRequestDTO::fromRequest([
+            'service_type' => 'photography',
+            'property_id' => $property->id,
+            'provider_id' => request('provider_id'),
+            'scheduled_at' => request('scheduled_at'),
+            'client_notes' => request('photographer_notes'),
+            'price' => request('photographer_price'),
+        ]);
+
+        $serviceRequest = $this->serviceRequestService->create(Auth::id(), $serviceDto);
+
+        return $this->successResponse([
+            'property' => PropertyResource::make($property),
+            'service_request' => ServiceRequestResource::make($serviceRequest),
+        ], 'Property saved as draft and photographer requested')->created('property');
     }
 }

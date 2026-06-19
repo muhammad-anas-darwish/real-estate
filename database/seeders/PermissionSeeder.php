@@ -27,6 +27,10 @@ class PermissionSeeder extends Seeder
         'reviews' => ['list', 'show', 'delete'],
         'service_providers' => ['list', 'show', 'verify', 'unverify'],
         'service_requests' => ['list', 'show'],
+        'accounts' => ['list', 'show', 'create', 'edit', 'delete'],
+        'journal_entries' => ['list', 'show', 'create', 'edit', 'delete', 'post'],
+        'trial_balance' => ['view'],
+        'payroll' => ['list', 'manage', 'run'],
     ];
 
     public function run()

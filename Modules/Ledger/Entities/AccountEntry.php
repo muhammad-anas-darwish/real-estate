@@ -70,6 +70,8 @@ class AccountEntry extends BaseModel
         return match ($type) {
             'ad_payment', 'subscription_payment' => \Modules\RealEstate\Entities\Ad::class,
             'wallet_topup' => null,
+            'journal_entry' => \Modules\Ledger\Entities\JournalEntry::class,
+            'service_payment', 'service_earning', 'service_commission' => \Modules\ServiceProvider\Entities\ServiceRequest::class,
             default => null,
         };
     }
