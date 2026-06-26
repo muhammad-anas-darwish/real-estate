@@ -1,0 +1,82 @@
+# AI Prompts
+> مقتطفات جاهزة للنسخ. استبدل `@...` بالقيمة المطلوبة.
+
+---
+
+## Workflow
+
+### 1. Report Cleanup
+Follow the skill report-cleanup located within .opencode.
+Clean up report: @report-name.md
+
+### 2. Generate Plan
+Follow the skill plan-generator located within .opencode.
+Create plans for: @report-name.md
+
+### 3. Execute Plan
+Follow the skill plan-executor located within .opencode.
+Implement plan: @plan-number-or-path.md
+
+### 4. Review Plan
+Follow the skill plan-reviewer located within .opencode.
+Review plan: @plan-number-or-path.md
+
+### 5. Commit Changes
+Follow the skill commit-message located within .opencode.
+Commit all changes.
+
+---
+
+## Advisory
+
+### Tech Advisor
+Follow the skill tech-advisor located within .opencode.
+Review this and recommend: @question-or-file.md
+
+### PM Advisor
+Follow the skill pm-advisor located within .opencode.
+Advise on: @question
+
+---
+
+## Bug Tracking
+
+### Bug Report Formatter
+Follow the skill bug-report-formatter located within .opencode.
+Save this bug to docs/bugs/: @error-text
+
+### Bug Resolver
+Follow the skill bug-resolver located within .opencode.
+Investigate and fix: @bug-id-or-path.md
+
+---
+
+## Reports
+
+### Daily Report
+Follow the skill daily-report located within .opencode.
+Generate a daily report from: @file-name(s).md
+
+---
+
+## Audit
+
+### Query Reviewer
+Follow the skill query-reviewer located within .opencode.
+Review queries in: @path-or-feature
+
+### i18n Extractor
+Follow the skill i18n-extractor located within .opencode.
+Find hardcoded strings in: @path-or-scope
+
+### Test Case Generator
+Follow the skill test-case-generator located within .opencode.
+Generate tests for: @class-or-method
+
+### Flow Reviewer
+Follow the skill flow-reviewer located within .opencode.
+Explain the flow: @scenario
+
+### Launch Checklist
+Follow the skill launch-checklist located within .opencode.
+Generate a launch checklist for: @feature-or-scope

@@ -98,6 +98,13 @@ trait ApiResponses
         return $this->failedResponse(__($message), 422, $errors);
     }
 
+    protected function forbiddenResponse(
+        string $message = 'exceptions.forbidden',
+        array|JsonResource|Model|Collection|SupportCollection|null $data = null
+    ): JsonResponse {
+        return $this->failedResponse(__($message), 403, null, $data);
+    }
+
     protected function serverErrorResponse(): JsonResponse
     {
         return $this->failedResponse(__('exceptions.server_error'), 500);

@@ -8,6 +8,7 @@ use Modules\RealEstate\Http\Controllers\AdDisplayController;
 use Modules\RealEstate\Http\Controllers\AdGroupController;
 use Modules\RealEstate\Http\Controllers\AdTrackingController;
 use Modules\RealEstate\Http\Controllers\PropertyController;
+use Modules\RealEstate\Http\Controllers\PropertyViewingController;
 use Modules\RealEstate\Http\Controllers\ReviewController;
 use Modules\RealEstate\Http\Controllers\SponsoredAdController;
 
@@ -79,6 +80,32 @@ Route::prefix('api/dashboard')->middleware(['auth:sanctum'])->group(function () 
 
     Route::get('my-properties', [PropertyController::class, 'myProperties'])
         ->name('api.dashboard.my-properties');
+
+    // Property Viewings
+    Route::get('viewings', [PropertyViewingController::class, 'index'])
+        ->name('api.dashboard.viewings.index');
+    Route::post('viewings', [PropertyViewingController::class, 'store'])
+        ->name('api.dashboard.viewings.store');
+    Route::get('viewings/calendar', [PropertyViewingController::class, 'calendar'])
+        ->name('api.dashboard.viewings.calendar');
+    Route::get('viewings/my', [PropertyViewingController::class, 'myViewings'])
+        ->name('api.dashboard.viewings.my');
+    Route::get('viewings/schedule', [PropertyViewingController::class, 'agentSchedule'])
+        ->name('api.dashboard.viewings.schedule');
+    Route::get('viewings/{id}', [PropertyViewingController::class, 'show'])
+        ->name('api.dashboard.viewings.show');
+    Route::delete('viewings/{id}', [PropertyViewingController::class, 'destroy'])
+        ->name('api.dashboard.viewings.destroy');
+    Route::patch('viewings/{id}/confirm', [PropertyViewingController::class, 'confirm'])
+        ->name('api.dashboard.viewings.confirm');
+    Route::patch('viewings/{id}/reschedule', [PropertyViewingController::class, 'reschedule'])
+        ->name('api.dashboard.viewings.reschedule');
+    Route::patch('viewings/{id}/cancel', [PropertyViewingController::class, 'cancel'])
+        ->name('api.dashboard.viewings.cancel');
+    Route::patch('viewings/{id}/complete', [PropertyViewingController::class, 'complete'])
+        ->name('api.dashboard.viewings.complete');
+    Route::patch('viewings/{id}/no-show', [PropertyViewingController::class, 'markNoShow'])
+        ->name('api.dashboard.viewings.no-show');
 
     // Public publisher routes
     Route::get('publishers/offices', [PublisherController::class, 'listOffices'])

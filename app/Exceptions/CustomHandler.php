@@ -38,10 +38,13 @@ class CustomHandler // extends Handler
             return $this->notFoundResponse();
         }
 
-        if ($exception instanceof \Modules\Communication\Exceptions\ChatAuthorizationException) {
+        if ($exception instanceof \Modules\Communication\Exceptions\ChatAuthorizationException
+            || $exception instanceof \Illuminate\Auth\Access\AuthorizationException
+            || $exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException
+            || ($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException && $exception->getStatusCode() === 403)) {
             return response()->json([
                 'success' => false,
-                'message' => $exception->getMessage(),
+                'message' => $exception->getMessage() ?: __('exceptions.forbidden'),
                 'data' => null,
             ], 403);
         }
