@@ -5,23 +5,27 @@
 
 ## Workflow
 
-### 1. Report Cleanup
+### 1. Create Feature Report
+Follow the skill feature-report located within .opencode.
+Turn this idea into a non-technical report at docs/ideas/<slug>/report.md: @idea-description
+
+### 2. Report Cleanup
 Follow the skill report-cleanup located within .opencode.
 Clean up report: @report-name.md
 
-### 2. Generate Plan
+### 3. Generate Plan
 Follow the skill plan-generator located within .opencode.
 Create plans for: @report-name.md
 
-### 3. Execute Plan
+### 4. Execute Plan
 Follow the skill plan-executor located within .opencode.
 Implement plan: @plan-number-or-path.md
 
-### 4. Review Plan
+### 5. Review Plan
 Follow the skill plan-reviewer located within .opencode.
 Review plan: @plan-number-or-path.md
 
-### 5. Commit Changes
+### 6. Commit Changes
 Follow the skill commit-message located within .opencode.
 Commit all changes.
 

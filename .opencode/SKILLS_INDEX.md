@@ -37,6 +37,7 @@
 
 | Skill | الوظيفة | Trigger |
 |-------|---------|---------|
+| `feature-report` | يأخذ فكرة ميزة صغيرة وينتج تقرير أعمال non-technical في `docs/ideas/<slug>/report.md` (مراجعة قبل التخطيط) | `لدي فكرة`, `سجّل فكرة`, `feature report`, `عندي ميزة أريد إضافتها` |
 | `plan-generator` | يفكك التقرير لخطة منفصلة لكل مشكلة رئيسية (يعرض خطة التقسيم قبل الكتابة) | `اعمل plan لملف X`, `create plans for X`, `فكك تقرير X إلى خطط` |
 | `plan-executor` | ينفذ الخطة مرحلة بمرحلة، يعلّم ✅ ويحدّث README | `نفذ خطة 24`, `implement plan 24`, `ابنِ خطة X` |
 | `plan-reviewer` | يراجع التنفيذ: أخطاء؟ مطابقة للخطة؟ مشكلة التقرير الأصلية حُلّت؟ | `راجع خطة 24`, `review plan 24`, `هل تم بناء الخطة صح؟` |
@@ -56,8 +57,10 @@
 
 ### تطوير يومي (كامل):
 ```
-flow-reviewer → plan-generator → plan-executor → plan-reviewer → commit-message
+feature-report → plan-generator → plan-executor → plan-reviewer → commit-message
 ```
+
+> عند بدء ميزة جديدة من فكرة، ابدأ بـ `feature-report` لتوثيق الميزة (non-technical)، ثم `plan-generator` لتفكيكها لخطط.
 (بعد `plan-reviewer` إذا فيه أخطاء، عُد إلى `plan-executor` للتعديل)
 
 ### تطوير خفيف:
@@ -92,5 +95,5 @@ report-cleanup على docs/reports/*.md → report-cleanup مرة أخرى بع�
 
 ## 📊 إحصائيات
 
-- **عدد skills:** 15
-- **آخر تحديث:** 2026-06-25
+- **عدد skills:** 16
+- **آخر تحديث:** 2026-06-26
