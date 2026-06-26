@@ -2,7 +2,7 @@
 
 | الحقل | القيمة |
 |---|---|
-| **الحالة** | ❌ لم يبدأ |
+| **الحالة** | ✅ مكتمل |
 | **الأولوية** | 🔴 عالية (جوهر الـ CRM) |
 | **الجهد المقدّر** | 10–14 ساعة |
 | **الاعتمادية** | يجب أن يسبقها #10 (لدور trader) و #11 (لـ polymorphic appointments) |
@@ -18,7 +18,7 @@
 
 ## مراحل التنفيذ
 
-### المرحلة 1 — Migrations و Enums (1 ساعة)
+### المرحلة 1 — Migrations و Enums (1 ساعة) ✅
 
 **الملفات:**
 - `Modules/Crm/Enums/LeadStatus.php`:
@@ -84,7 +84,7 @@
 
 ---
 
-### المرحلة 2 — Entity و DTO (1.5 ساعة)
+### المرحلة 2 — Entity و DTO (1.5 ساعة) ✅
 
 **الملفات:**
 - `Modules/Crm/Entities/Lead.php`:
@@ -210,7 +210,7 @@
 
 ---
 
-### المرحلة 3 — Service (3 ساعات)
+### المرحلة 3 — Service (3 ساعات) ✅
 
 **الملف:** `Modules/Crm/Services/LeadService.php`:
 ```php
@@ -334,7 +334,7 @@ class LeadService extends BaseService
 
 ---
 
-### المرحلة 4 — FormRequests (1 ساعة)
+### المرحلة 4 — FormRequests (1 ساعة) ✅
 
 **الملفات:**
 - `Modules/Crm/Http/Requests/StoreLeadRequest.php`:
@@ -363,7 +363,7 @@ class LeadService extends BaseService
 
 ---
 
-### المرحلة 5 — Resource و Policy و Controller (2.5 ساعة)
+### المرحلة 5 — Resource و Policy و Controller (2.5 ساعة) ✅
 
 **الملفات:**
 - `Modules/Crm/Http/Resources/LeadResource.php`:
@@ -423,7 +423,7 @@ class LeadService extends BaseService
 
 ---
 
-### المرحلة 6 — Routes (1 ساعة)
+### المرحلة 6 — Routes (1 ساعة) ✅
 
 **الملف:** `Modules/Crm/Routes/api.php`:
 ```php
@@ -442,7 +442,7 @@ Route::prefix('api/dashboard/crm')->middleware(['auth:sanctum', 'trader'])->grou
 
 ---
 
-### المرحلة 7 — الاختبارات (2 ساعة)
+### المرحلة 7 — الاختبارات (2 ساعة) ✅
 **الملف:** `Modules/Crm/Tests/LeadTest.php` يغطي:
 1. إنشاء lead بحقول صحيحة → 201.
 2. إنشاء lead بـ phone مكرر (نفس التاجر) → 201 (مع تحذير) — يُختبر endpoint `check-duplicate` منفصلًا.
@@ -473,16 +473,16 @@ Route::prefix('api/dashboard/crm')->middleware(['auth:sanctum', 'trader'])->grou
 
 ## معايير القبول
 
-- [ ] `php artisan migrate` ينشئ جدول `leads` بكل الأعمدة والـ indexes.
-- [ ] `php artisan test --testsuite=Modules --filter=LeadTest` ينجح بكل السيناريوهات الـ 11.
-- [ ] تاجر `A` يستطيع إنشاء lead، وتاجر `B` لا يستطيع رؤيته.
-- [ ] تغيير الحالة إلى `lost` يطلب `lost_reason` إلزاميًا.
-- [ ] الأرشفة تخفي الـ lead من القوائم النشطة.
-- [ ] استرجاع الأرشيف يعمل خلال 30 يومًا فقط.
-- [ ] البحث بـ `?search=أحمد` يعيد نتائج مطابقة للاسم/الهاتف/البريد.
-- [ ] تصفية بـ `?status=new` و `?source=whatsapp` تعمل.
-- [ ] `last_activity_at` يُحدّث عند أي تعديل على الـ lead.
-- [ ] endpoint `GET /leads/check-duplicate?phone=...` يعيد `{"duplicate": true|false}`.
+- [x] `php artisan migrate` ينشئ جدول `leads` بكل الأعمدة والـ indexes.
+- [x] `php artisan test --testsuite=Modules --filter=LeadTest` ينجح بكل السيناريوهات الـ 11.
+- [x] تاجر `A` يستطيع إنشاء lead، وتاجر `B` لا يستطيع رؤيته.
+- [x] تغيير الحالة إلى `lost` يطلب `lost_reason` إلزاميًا.
+- [x] الأرشفة تخفي الـ lead من القوائم النشطة.
+- [x] استرجاع الأرشيف يعمل خلال 30 يومًا فقط.
+- [x] البحث بـ `?search=أحمد` يعيد نتائج مطابقة للاسم/الهاتف/البريد.
+- [x] تصفية بـ `?status=new` و `?source=whatsapp` تعمل.
+- [x] `last_activity_at` يُحدّث عند أي تعديل على الـ lead.
+- [x] endpoint `GET /leads/check-duplicate?phone=...` يعيد `{"duplicate": true|false}`.
 
 ---
 

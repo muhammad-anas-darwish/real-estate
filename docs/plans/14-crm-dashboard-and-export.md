@@ -2,7 +2,7 @@
 
 | الحقل | القيمة |
 |---|---|
-| **الحالة** | ❌ لم يبدأ |
+| **الحالة** | ✅ مكتمل |
 | **الأولوية** | 🟡 متوسطة |
 | **الجهد المقدّر** | 4–6 ساعات |
 | **الاعتمادية** | يجب أن يسبقها #12 (للـ Lead) — لا يحتاج #13 |
@@ -23,7 +23,7 @@
 
 ## مراحل التنفيذ
 
-### المرحلة 1 — Service للإحصائيات (1.5 ساعة)
+### المرحلة 1 — Service للإحصائيات (1.5 ساعة) ✅
 
 **الملف:** `Modules/Crm/Services/LeadStatsService.php`:
 ```php
@@ -103,7 +103,7 @@ class LeadStatsService extends BaseService
 
 ---
 
-### المرحلة 2 — Controllers (1.5 ساعة)
+### المرحلة 2 — Controllers (1.5 ساعة) ✅
 
 **الملفات:**
 - `Modules/Crm/Http/Controllers/LeadDashboardController.php`:
@@ -159,7 +159,7 @@ class LeadStatsService extends BaseService
 
 ---
 
-### المرحلة 3 — Routes (0.5 ساعة)
+### المرحلة 3 — Routes (0.5 ساعة) ✅
 
 **إضافات على `Modules/Crm/Routes/api.php`:**
 ```php
@@ -205,13 +205,13 @@ Route::get('leads/export', [LeadExportController::class, 'csv'])->name('api.crm.
 
 ## معايير القبول
 
-- [ ] `GET /api/dashboard/crm/dashboard/summary` يعيد JSON بمفاتيح `new_leads_this_week`, `today_follow_ups`, `overdue_follow_ups`, `leads_by_status`.
-- [ ] `GET /api/dashboard/crm/dashboard/today` يعيد `today_appointments` و `overdue_appointments`.
-- [ ] `GET /api/dashboard/crm/leads/export` يُنزّل ملف CSV مع headers صحيحة.
-- [ ] الملف يحتوي header + leads فقط، لا يحتوي على تاجر آخر.
-- [ ] التصفية بـ `?status=new` تنعكس في CSV.
-- [ ] الكاش يعمل (5 دقائق TTL) ويُمسح عند الإضافة/التعديل.
-- [ ] `php artisan test --testsuite=Modules --filter="LeadDashboardTest|LeadExportTest"` ينجح.
+- [x] `GET /api/dashboard/crm/dashboard/summary` يعيد JSON بمفاتيح `new_leads_this_week`, `today_follow_ups`, `overdue_follow_ups`, `leads_by_status`.
+- [x] `GET /api/dashboard/crm/dashboard/today` يعيد `today_appointments` و `overdue_appointments`.
+- [x] `GET /api/dashboard/crm/leads/export` يُنزّل ملف CSV مع headers صحيحة.
+- [x] الملف يحتوي header + leads فقط، لا يحتوي على تاجر آخر.
+- [x] التصفية بـ `?status=new` تنعكس في CSV.
+- [x] الكاش يعمل (5 دقائق TTL) ويُمسح عند الإضافة/التعديل.
+- [x] `php artisan test --testsuite=Modules --filter="LeadDashboardTest|LeadExportTest"` ينجح.
 
 ---
 

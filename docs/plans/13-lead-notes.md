@@ -2,7 +2,7 @@
 
 | الحقل | القيمة |
 |---|---|
-| **الحالة** | ❌ لم يبدأ |
+| **الحالة** | ✅ مكتمل |
 | **الأولوية** | 🟡 متوسطة |
 | **الجهد المقدّر** | 5–7 ساعات |
 | **الاعتمادية** | يجب أن يسبقها #12 (لـ Lead entity) |
@@ -18,7 +18,7 @@
 
 ## مراحل التنفيذ
 
-### المرحلة 1 — Migration و Entity (1 ساعة)
+### المرحلة 1 — Migration و Entity (1 ساعة) ✅
 
 **الملفات:**
 - `Modules/Crm/Database/Migrations/2026_06_28_000001_create_lead_notes_table.php`:
@@ -82,7 +82,7 @@
 
 ---
 
-### المرحلة 2 — DTO و Service (1.5 ساعة)
+### المرحلة 2 — DTO و Service (1.5 ساعة) ✅
 
 **الملفات:**
 - `Modules/Crm/DTOs/LeadNoteDTO.php`:
@@ -176,7 +176,7 @@
 
 ---
 
-### المرحلة 3 — FormRequests و Resource و Policy (1 ساعة)
+### المرحلة 3 — FormRequests و Resource و Policy (1 ساعة) ✅
 
 **الملفات:**
 - `Modules/Crm/Http/Requests/StoreLeadNoteRequest.php`:
@@ -227,7 +227,7 @@
 
 ---
 
-### المرحلة 4 — Controller و Routes (1 ساعة)
+### المرحلة 4 — Controller و Routes (1 ساعة) ✅
 
 **الملفات:**
 - `Modules/Crm/Http/Controllers/LeadNoteController.php`:
@@ -298,14 +298,14 @@
 
 ## معايير القبول
 
-- [ ] `php artisan migrate` ينشئ جدول `lead_notes` مع كل indexes.
-- [ ] `php artisan test --testsuite=Modules --filter=LeadNoteTest` ينجح بكل السيناريوهات الـ 10.
-- [ ] ملاحظة عمرها 25 ساعة لا يمكن تعديلها حتى لو كان المنشئ.
-- [ ] مستخدم آخر (حتى تاجر آخر) لا يستطيع تعديل ملاحظة.
-- [ ] المنشئ فقط يستطيع الحذف.
-- [ ] `is_editable` و `is_deletable` تُحسب بشكل صحيح في الـ Resource.
-- [ ] body فارغ يرفض الحفظ بـ 422.
-- [ ] ترتيب الملاحظات من الأحدث للأقدم.
+- [x] `php artisan migrate` ينشئ جدول `lead_notes` مع كل indexes.
+- [x] `php artisan test --testsuite=Modules --filter=LeadNoteTest` ينجح بكل السيناريوهات الـ 10.
+- [x] ملاحظة عمرها 25 ساعة لا يمكن تعديلها حتى لو كان المنشئ.
+- [x] مستخدم آخر (حتى تاجر آخر) لا يستطيع تعديل ملاحظة.
+- [x] المنشئ فقط يستطيع الحذف.
+- [x] `is_editable` و `is_deletable` تُحسب بشكل صحيح في الـ Resource.
+- [x] body فارغ يرفض الحفظ بـ 422.
+- [x] ترتيب الملاحظات من الأحدث للأقدم.
 
 ---
 

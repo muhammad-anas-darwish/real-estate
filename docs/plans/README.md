@@ -11,8 +11,8 @@
 | المؤشر | القيمة |
 |--------|--------|
 | إجمالي الخطط | **10 خطط** |
-| ✅ مكتمل | 1 |
-| ❌ لم يبدأ | 9 |
+| ✅ مكتمل | 5 |
+| ❌ لم يبدأ | 5 |
 | 🟡 جزئياً | 0 |
 
 ---
@@ -77,14 +77,14 @@
 
 ---
 
-## ❌ المهام المتبقية (9 خطط)
+## ❌ المهام المتبقية (5 خطط)
 
 ### mini-crm (تقرير: `docs/ideas/mini-crm/report.md`)
-* [plan10-crm-module-foundation-and-trader-role.md](10-crm-module-foundation-and-trader-role.md)... ❌
+* [plan10-crm-module-foundation-and-trader-role.md](10-crm-module-foundation-and-trader-role.md)... ✅
 * [plan11-generic-appointment-refactor.md](11-generic-appointment-refactor.md)... ✅
-* [plan12-leads-management.md](12-leads-management.md)... ❌
-* [plan13-lead-notes.md](13-lead-notes.md)... ❌
-* [plan14-crm-dashboard-and-export.md](14-crm-dashboard-and-export.md)... ❌
+* [plan12-leads-management.md](12-leads-management.md)... ✅
+* [plan13-lead-notes.md](13-lead-notes.md)... ✅
+* [plan14-crm-dashboard-and-export.md](14-crm-dashboard-and-export.md)... ✅
 
 ### rental-cards (تقرير: `docs/ideas/rental-cards/report.md`)
 * [plan15-rental-cards-data-foundation.md](15-rental-cards-data-foundation.md)... ❌

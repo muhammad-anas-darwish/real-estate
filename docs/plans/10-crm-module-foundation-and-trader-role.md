@@ -2,7 +2,7 @@
 
 | الحقل | القيمة |
 |---|---|
-| **الحالة** | ❌ لم يبدأ |
+| **الحالة** | ✅ مكتمل |
 | **الأولوية** | 🔴 عالية (أساس لكل ما بعده) |
 | **الجهد المقدّر** | 4–6 ساعات |
 | **الاعتمادية** | لا شيء (يُنفَّذ أولًا) |
@@ -23,7 +23,7 @@
 
 ## مراحل التنفيذ
 
-### المرحلة 1 — إنشاء هيكل الـ module وتسجيله (1 ساعة)
+### المرحلة 1 — إنشاء هيكل الـ module وتسجيله (1 ساعة) ✅
 **الهدف:** تجهيز `Modules/Crm` كوحدة مستقلة قابلة للتسجيل التلقائي.
 
 **الملفات:**
@@ -74,7 +74,7 @@
 
 ---
 
-### المرحلة 2 — إضافة مجموعة صلاحيات CRM ودور trader (2 ساعة)
+### المرحلة 2 — إضافة مجموعة صلاحيات CRM ودور trader (2 ساعة) ✅
 **الهدف:** تفعيل `crm.*` الصلاحيات ودور `trader` في الـ seeder.
 
 **الملفات:**
@@ -110,7 +110,7 @@
 
 ---
 
-### المرحلة 3 — تطبيق حماية صلاحية trader على routes (1 ساعة)
+### المرحلة 3 — تطبيق حماية صلاحية trader على routes (1 ساعة) ✅
 **الهدف:** منع أي مستخدم بغير دور `trader` من الوصول لـ routes الـ CRM في الخطط اللاحقة.
 
 **الملفات:**
@@ -152,7 +152,7 @@
 
 ---
 
-### المرحلة 4 — اختبارات الوحدة (1 ساعة)
+### المرحلة 4 — اختبارات الوحدة (1 ساعة) ✅
 **الملف:** `Modules/Crm/Tests/FoundationTest.php`
 
 **السيناريوهات:**
@@ -177,15 +177,15 @@
 
 ## معايير القبول
 
-- [ ] مجلد `Modules/Crm` موجود بـ `Providers/`، `Routes/`، `Tests/`.
-- [ ] `composer dump-autoload` يعمل بدون أخطاء.
-- [ ] `php artisan route:list` يعرض routes الـ CRM بعد اكتمال الخطط اللاحقة.
-- [ ] `php artisan db:seed` ينشئ دور `trader` و 21 صلاحية `crm.*`.
-- [ ] `User::factory()->create()->assignRole('trader')->hasPermissionTo('leads.create')` يعيد `true`.
-- [ ] مستخدم بغير دور `trader` يحصل على 403 عند طلب أي route محمي بـ `trader` middleware.
-- [ ] middleware `trader` مسجّل في `bootstrap/app.php`.
-- [ ] مفتاح `messages.unauthorized_trader_access` موجود.
-- [ ] جميع اختبارات `FoundationTest` تنجح.
+- [x] مجلد `Modules/Crm` موجود بـ `Providers/`، `Routes/`، `Tests/`.
+- [x] `composer dump-autoload` يعمل بدون أخطاء.
+- [x] `php artisan route:list` يعرض routes الـ CRM بعد اكتمال الخطط اللاحقة.
+- [x] `php artisan db:seed` ينشئ دور `trader` و 21 صلاحية `crm.*`.
+- [x] `User::factory()->create()->assignRole('trader')->hasPermissionTo('leads.create')` يعيد `true`.
+- [x] مستخدم بغير دور `trader` يحصل على 403 عند طلب أي route محمي بـ `trader` middleware.
+- [x] middleware `trader` مسجّل في `bootstrap/app.php`.
+- [x] مفتاح `messages.unauthorized_trader_access` موجود.
+- [x] جميع اختبارات `FoundationTest` تنجح.
 
 ---
 
