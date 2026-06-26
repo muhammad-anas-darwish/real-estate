@@ -15,6 +15,7 @@ class PermissionSeeder extends Seeder
         'health_warnings' => ['list', 'show', 'create', 'edit', 'delete'],
         'properties' => ['list', 'show', 'create', 'edit', 'delete'],
         'viewings' => ['list', 'show', 'create', 'edit', 'delete', 'confirm', 'cancel', 'reschedule', 'complete'],
+        'appointments' => ['list', 'show', 'create', 'edit', 'delete', 'confirm', 'cancel', 'reschedule', 'complete'],
         'ad_groups' => ['list', 'show', 'create', 'edit', 'delete', 'archive', 'restore', 'set-default'],
         'ads' => ['list', 'show', 'create', 'edit', 'delete', 'archive', 'restore', 'set-status', 'link-property', 'view-analytics', 'export'],
         'countries' => ['list', 'show', 'create', 'edit', 'delete'],
@@ -32,6 +33,10 @@ class PermissionSeeder extends Seeder
         'journal_entries' => ['list', 'show', 'create', 'edit', 'delete', 'post'],
         'trial_balance' => ['view'],
         'payroll' => ['list', 'manage', 'run'],
+        'leads' => ['list', 'show', 'create', 'edit', 'delete', 'change-status', 'archive', 'restore', 'export'],
+        'lead_notes' => ['list', 'show', 'create', 'edit', 'delete'],
+        'lead_follow_ups' => ['list', 'show', 'create', 'edit', 'delete', 'complete'],
+        'crm_dashboard' => ['view'],
     ];
 
     public function run()
@@ -65,5 +70,20 @@ class PermissionSeeder extends Seeder
         $superAdmin->givePermissionTo(
             SpatiePermission::all()
         );
+
+        // Trader - manages their own leads, notes, follow-ups, and CRM dashboard
+        $trader = SpatieRole::firstOrCreate([
+            'name' => 'trader',
+            'guard_name' => 'web',
+        ]);
+        $trader->givePermissionTo([
+            'leads.list', 'leads.show', 'leads.create', 'leads.edit',
+            'leads.change-status', 'leads.archive', 'leads.restore', 'leads.export',
+            'lead_notes.list', 'lead_notes.show', 'lead_notes.create',
+            'lead_notes.edit', 'lead_notes.delete',
+            'lead_follow_ups.list', 'lead_follow_ups.show', 'lead_follow_ups.create',
+            'lead_follow_ups.edit', 'lead_follow_ups.delete', 'lead_follow_ups.complete',
+            'crm_dashboard.view',
+        ]);
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Modules\RealEstate\Enums\ViewingStatus;
 
-class UpdateViewingStatusRequest extends FormRequest
+class UpdateAppointmentStatusRequest extends FormRequest
 {
     public function rules(): array
     {

@@ -4,23 +4,26 @@ namespace Modules\RealEstate\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Auth\Entities\User;
+use Modules\RealEstate\Entities\Appointment;
 use Modules\RealEstate\Entities\Property;
-use Modules\RealEstate\Entities\PropertyViewing;
+use Modules\RealEstate\Enums\AppointmentType;
+use Modules\RealEstate\Enums\ContactMethod;
 use Modules\RealEstate\Enums\ViewingStatus;
 use Modules\RealEstate\Enums\ViewingType;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\RealEstate\Entities\PropertyViewing>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Modules\RealEstate\Entities\Appointment>
  */
-class PropertyViewingFactory extends Factory
+class AppointmentFactory extends Factory
 {
-    protected $model = PropertyViewing::class;
+    protected $model = Appointment::class;
 
     public function definition(): array
     {
         $scheduledAt = fake()->dateTimeBetween('+1 hour', '+14 days');
 
         return [
+            'type' => AppointmentType::VIEWING->value,
             'property_id' => Property::factory(),
             'user_id' => User::factory(),
             'agent_id' => User::factory(),
@@ -29,6 +32,7 @@ class PropertyViewingFactory extends Factory
             'buffer_minutes' => fake()->randomElement([0, 15, 30]),
             'status' => fake()->randomElement(ViewingStatus::values()),
             'viewing_type' => fake()->randomElement(ViewingType::values()),
+            'contact_method' => fake()->optional()->randomElement(ContactMethod::values()),
             'contact_name' => fake()->name(),
             'contact_phone' => fake()->phoneNumber(),
             'notes' => fake()->optional()->sentence(),
@@ -70,6 +74,29 @@ class PropertyViewingFactory extends Factory
         ]);
     }
 
+    public function viewing(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'type' => AppointmentType::VIEWING->value,
+            'property_id' => Property::factory(),
+        ]);
+    }
+
+    public function followUp(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'type' => AppointmentType::FOLLOW_UP->value,
+        ]);
+    }
+
+    public function general(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'type' => AppointmentType::GENERAL->value,
+            'property_id' => null,
+        ]);
+    }
+
     public function forProperty(Property $property): static
     {
         return $this->state(fn (array $attributes) => [
@@ -88,6 +115,14 @@ class PropertyViewingFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'user_id' => $user->id,
+        ]);
+    }
+
+    public function forFollowable(mixed $followable): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'followable_id' => $followable->getKey(),
+            'followable_type' => $followable->getMorphClass(),
         ]);
     }
 }
