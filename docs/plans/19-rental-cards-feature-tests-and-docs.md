@@ -2,7 +2,7 @@
 
 > **التقرير المصدر:** `docs/ideas/rental-cards/report.md` (معايير القبول 1–23)
 > **الهدف:** اختبارات Feature شاملة تغطي كل معايير القبول الـ 23 + توثيق Scribe لـ API endpoints.
-> **الحالة:** ❌ لم يبدأ
+> **الحالة:** ✅ مكتمل
 > **الأولوية:** 🟠 عالية
 > **الجهد المقدّر:** 1.5 – 2 يوم
 > **الاعتمادية:** [#15](./15-rental-cards-data-foundation.md) + [#16](./16-rental-cards-service-and-status-integration.md) + [#17](./17-rental-cards-api-surface.md) + [#18](./18-rental-cards-pre-rental-photos.md) — يجب أن تكون كل الميزة جاهزة قبل بدء هذه الخطة.

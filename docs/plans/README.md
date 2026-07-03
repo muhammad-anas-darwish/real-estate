@@ -11,8 +11,8 @@
 | المؤشر | القيمة |
 |--------|--------|
 | إجمالي الخطط | **10 خطط** |
-| ✅ مكتمل | 5 |
-| ❌ لم يبدأ | 5 |
+| ✅ مكتمل | 10 |
+| ❌ لم يبدأ | 0 |
 | 🟡 جزئياً | 0 |
 
 ---
@@ -77,6 +77,12 @@
 
 ---
 
+## 🎉 رحلتي mini-crm + rental-cards مكتملتان (10/10)
+
+تم تنفيذ الخطتين بالكامل (mini-crm #10-#14 و rental-cards #15-#19). كل ميزة جاهزة للإنتاج مع اختبارات شاملة وتوثيق Scribe.
+
+---
+
 ## ❌ المهام المتبقية (5 خطط)
 
 ### mini-crm (تقرير: `docs/ideas/mini-crm/report.md`)
@@ -87,8 +93,8 @@
 * [plan14-crm-dashboard-and-export.md](14-crm-dashboard-and-export.md)... ✅
 
 ### rental-cards (تقرير: `docs/ideas/rental-cards/report.md`)
-* [plan15-rental-cards-data-foundation.md](15-rental-cards-data-foundation.md)... ❌
-* [plan16-rental-cards-service-and-status-integration.md](16-rental-cards-service-and-status-integration.md)... ❌
-* [plan17-rental-cards-api-surface.md](17-rental-cards-api-surface.md)... ❌
-* [plan18-rental-cards-pre-rental-photos.md](18-rental-cards-pre-rental-photos.md)... ❌
-* [plan19-rental-cards-feature-tests-and-docs.md](19-rental-cards-feature-tests-and-docs.md)... ❌
+* [plan15-rental-cards-data-foundation.md](15-rental-cards-data-foundation.md)... ✅
+* [plan16-rental-cards-service-and-status-integration.md](16-rental-cards-service-and-status-integration.md)... ✅
+* [plan17-rental-cards-api-surface.md](17-rental-cards-api-surface.md)... ✅
+* [plan18-rental-cards-pre-rental-photos.md](18-rental-cards-pre-rental-photos.md)... ✅
+* [plan19-rental-cards-feature-tests-and-docs.md](19-rental-cards-feature-tests-and-docs.md)... ✅

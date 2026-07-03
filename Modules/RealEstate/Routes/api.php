@@ -9,6 +9,7 @@ use Modules\RealEstate\Http\Controllers\AdGroupController;
 use Modules\RealEstate\Http\Controllers\AdTrackingController;
 use Modules\RealEstate\Http\Controllers\AppointmentController;
 use Modules\RealEstate\Http\Controllers\PropertyController;
+use Modules\RealEstate\Http\Controllers\RentalCardController;
 use Modules\RealEstate\Http\Controllers\ReviewController;
 use Modules\RealEstate\Http\Controllers\SponsoredAdController;
 
@@ -144,6 +145,27 @@ Route::prefix('api/dashboard')->middleware(['auth:sanctum'])->group(function () 
     // Public review routes
     Route::get('offices/{officeId}/reviews', [ReviewController::class, 'listForOffice'])
         ->name('api.offices.reviews.index');
+
+    // Rental Cards
+    Route::get('properties/{propertyId}/rental-cards/active', [RentalCardController::class, 'active'])
+        ->name('api.dashboard.rental-cards.active');
+    Route::get('properties/{propertyId}/rental-cards/history', [RentalCardController::class, 'history'])
+        ->name('api.dashboard.rental-cards.history');
+
+    Route::get('rental-cards', [RentalCardController::class, 'index'])
+        ->name('api.dashboard.rental-cards.index');
+    Route::post('rental-cards', [RentalCardController::class, 'store'])
+        ->name('api.dashboard.rental-cards.store');
+    Route::get('rental-cards/{id}', [RentalCardController::class, 'show'])
+        ->name('api.dashboard.rental-cards.show');
+    Route::patch('rental-cards/{id}', [RentalCardController::class, 'update'])
+        ->name('api.dashboard.rental-cards.update');
+    Route::delete('rental-cards/{id}', [RentalCardController::class, 'destroy'])
+        ->name('api.dashboard.rental-cards.destroy');
+    Route::patch('rental-cards/{id}/end', [RentalCardController::class, 'end'])
+        ->name('api.dashboard.rental-cards.end');
+    Route::patch('rental-cards/{id}/renew', [RentalCardController::class, 'renew'])
+        ->name('api.dashboard.rental-cards.renew');
 
     // Protected routes
     Route::middleware(['auth:sanctum'])->group(function () {

@@ -10,6 +10,7 @@ enum PropertyStatus: string
     case REJECTED = 'rejected';
     case SUSPENDED = 'suspended';
     case SOLD = 'sold';
+    case RENTED = 'rented';
     case ARCHIVED = 'archived';
     case DRAFT = 'draft';
 
@@ -22,6 +23,7 @@ enum PropertyStatus: string
             self::REJECTED => 'Rejected',
             self::SUSPENDED => 'Suspended',
             self::SOLD => 'Sold',
+            self::RENTED => 'Rented',
             self::ARCHIVED => 'Archived',
             self::DRAFT => 'Draft',
         };
