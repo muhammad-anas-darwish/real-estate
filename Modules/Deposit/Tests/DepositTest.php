@@ -21,10 +21,15 @@ class DepositTest extends TestCase
     use RefreshDatabase;
 
     private User $buyer;
+
     private User $seller;
+
     private User $otherUser;
+
     private User $admin;
+
     private Property $property;
+
     private Role $role;
 
     protected function setUp(): void
