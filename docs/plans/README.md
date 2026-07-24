@@ -6,12 +6,12 @@
 
 ---
 
-## 📊 ملخص الحالة الراهنة (2026-06-26)
+## 📊 ملخص الحالة الراهنة (2026-07-24)
 
 | المؤشر | القيمة |
 |--------|--------|
-| إجمالي الخطط | **15 خطة** |
-| ✅ مكتمل | 15 |
+| إجمالي الخطط | **29 خطة** |
+| ✅ مكتمل | 29 |
 | ❌ لم يبدأ | 0 |
 | 🟡 جزئياً | 0 |
 
@@ -97,6 +97,16 @@
                        #24 (Tests + Docs)
 ```
 
+### خريطة الإحصائيات (تقرير statistics-and-dashboards)
+
+```
+#25 (Foundation)  ──→  #26 (Trader)        ─┐
+        │                                    │
+        ├──→  #27 (Property & Market)        ├──→  #29 (Tests & Docs)
+        │                                    │
+        └──→  #28 (Admin)                    ─┘
+```
+
 ---
 
 ## 🎉 رحلتي mini-crm + rental-cards مكتملتان (10/10)
@@ -127,3 +137,20 @@
 * [plan22-per-user-file-system-property-integration.md](22-per-user-file-system-property-integration.md)... ✅
 * [plan23-per-user-file-system-storage-quota.md](23-per-user-file-system-storage-quota.md)... ✅
 * [plan24-per-user-file-system-tests-and-docs.md](24-per-user-file-system-tests-and-docs.md)... ✅
+
+### statistics-and-dashboards (تقرير: `docs/ideas/statistics-and-dashboards/report.md`)
+* [plan25-statistics-foundation.md](25-statistics-foundation.md)... ✅
+* [plan26-trader-dashboard.md](26-trader-dashboard.md)... ✅
+* [plan27-property-and-market-stats.md](27-property-and-market-stats.md)... ✅
+* [plan28-admin-dashboard.md](28-admin-dashboard.md)... ✅
+* [plan29-statistics-tests-and-docs.md](29-statistics-tests-and-docs.md)... ✅
+
+---
+
+## 📊 ملخص الحالة الراهنة (2026-07-24)
+
+| المؤشر | القيمة |
+|--------|--------|
+| إجمالي الخطط | **24 خطة** |
+| ✅ مكتمل | 24 |
+| ❌ لم يبدأ | 5 (الإحصائيات) |

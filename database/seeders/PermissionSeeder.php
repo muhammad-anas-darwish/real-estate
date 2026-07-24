@@ -40,6 +40,8 @@ class PermissionSeeder extends Seeder
         'rental_cards' => ['list', 'show', 'create', 'edit', 'delete', 'end', 'renew'],
         'files' => ['list', 'show', 'create', 'edit', 'delete', 'move', 'rename', 'quota'],
         'deposits' => ['list', 'show', 'create', 'edit', 'delete', 'release', 'refund'],
+        'statistics' => ['view', 'export'],
+        'admin_statistics' => ['view'],
     ];
 
     public function run()
@@ -87,6 +89,8 @@ class PermissionSeeder extends Seeder
             'lead_follow_ups.list', 'lead_follow_ups.show', 'lead_follow_ups.create',
             'lead_follow_ups.edit', 'lead_follow_ups.delete', 'lead_follow_ups.complete',
             'crm_dashboard.view',
+            'statistics.view',
+            'statistics.export',
         ]);
     }
 }

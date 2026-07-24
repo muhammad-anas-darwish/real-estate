@@ -3,11 +3,14 @@
 namespace Modules\RealEstate\Entities;
 
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Auth\Entities\User;
 
 class AdVisit extends BaseModel
 {
+    use HasFactory;
+
     protected $table = 'ad_visits';
 
     public $timestamps = false;
@@ -32,5 +35,10 @@ class AdVisit extends BaseModel
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    protected static function newFactory()
+    {
+        return \Modules\RealEstate\Database\Factories\AdVisitFactory::new();
     }
 }
