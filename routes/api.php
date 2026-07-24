@@ -15,6 +15,7 @@ use Laravel\Fortify\Http\Controllers\TwoFactorAuthenticationController;
 use Laravel\Fortify\Http\Controllers\TwoFactorQrCodeController;
 use Laravel\Fortify\Http\Controllers\TwoFactorSecretKeyController;
 use Laravel\Fortify\Http\Controllers\VerifyEmailController;
+use Modules\Auth\Http\Controllers\AuthController;
 use Modules\Core\Http\Controllers\SearchController;
 
 // Public routes (لا تحتاج authentication)
@@ -24,10 +25,15 @@ Route::prefix('auth')->group(function () {
         ->middleware(['guest'])
         ->name('register');
 
-    // Login
-    Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+    // Login (OTP-based)
+    Route::post('/login', [AuthController::class, 'sendOtp'])
         ->middleware(['guest'])
         ->name('login');
+
+    // Verify OTP
+    Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])
+        ->middleware(['guest', 'throttle:5,1'])
+        ->name('verify-otp');
 
     // Two Factor Challenge
     Route::post('/two-factor-challenge', [TwoFactorAuthenticatedSessionController::class, 'store'])

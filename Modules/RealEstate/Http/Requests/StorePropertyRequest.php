@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use Modules\Core\SubModules\Location\Entities\City;
 use Modules\Core\SubModules\Location\Entities\Country;
 use Modules\Core\TemporaryFile\Entities\TemporaryFile;
+use Modules\RealEstate\Enums\PropertyDirection;
 use Modules\RealEstate\Enums\PropertyType;
 use Modules\RealEstate\Enums\TypeOfContract;
 
@@ -32,6 +33,7 @@ class StorePropertyRequest extends FormRequest
             'rooms' => ['required', 'integer', 'min:0'],
             'bathrooms' => ['required', 'integer', 'min:0'],
             'area' => ['required', 'numeric', 'min:0'],
+            'home_directions' => ['nullable', Rule::enum(PropertyDirection::class)],
 
             // Detailed Information
             'detailed_info' => ['nullable', 'string'],

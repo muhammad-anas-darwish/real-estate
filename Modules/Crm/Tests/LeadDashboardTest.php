@@ -11,7 +11,6 @@ use Modules\Crm\Entities\Lead;
 use Modules\Crm\Enums\LeadSource;
 use Modules\Crm\Enums\LeadStatus;
 use Modules\RealEstate\Entities\Appointment;
-use Modules\RealEstate\Enums\AppointmentType;
 use Modules\RealEstate\Enums\ViewingStatus;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;

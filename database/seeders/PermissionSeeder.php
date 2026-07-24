@@ -38,6 +38,8 @@ class PermissionSeeder extends Seeder
         'lead_follow_ups' => ['list', 'show', 'create', 'edit', 'delete', 'complete'],
         'crm_dashboard' => ['view'],
         'rental_cards' => ['list', 'show', 'create', 'edit', 'delete', 'end', 'renew'],
+        'files' => ['list', 'show', 'create', 'edit', 'delete', 'move', 'rename', 'quota'],
+        'deposits' => ['list', 'show', 'create', 'edit', 'delete', 'release', 'refund'],
     ];
 
     public function run()

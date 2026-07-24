@@ -10,8 +10,6 @@ use Modules\RealEstate\Entities\Appointment;
 use Modules\RealEstate\Entities\Property;
 use Modules\RealEstate\Enums\AppointmentType;
 use Modules\RealEstate\Enums\PropertyStatus;
-use Modules\RealEstate\Enums\PropertyType;
-use Modules\RealEstate\Enums\TypeOfContract;
 use Modules\RealEstate\Enums\ViewingStatus;
 use Modules\RealEstate\Enums\ViewingType;
 use Spatie\Permission\Models\Permission;

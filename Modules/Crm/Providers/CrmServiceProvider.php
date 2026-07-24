@@ -22,4 +22,3 @@ class CrmServiceProvider extends ServiceProvider
         $this->registerPolicies();
     }
 }
-

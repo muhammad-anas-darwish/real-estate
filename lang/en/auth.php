@@ -26,4 +26,16 @@ return [
     'logout' => [
         'success' => 'Logout Successfully',
     ],
+    'otp' => [
+        'sent' => 'Verification code sent to your email',
+        'invalid_code' => 'Invalid verification code',
+        'expired' => 'Verification code has expired, please request a new one',
+        'too_many_attempts' => 'Too many requests, please try again later',
+        'wait_before_resend' => 'Please wait :seconds seconds before resending',
+        'mail_subject' => 'Login Verification Code',
+        'mail_greeting' => 'Hello :name',
+        'mail_line' => 'Your login verification code is:',
+        'mail_expiry' => 'This code will expire in :minutes minutes.',
+        'mail_salutation' => 'Thank you for using our application',
+    ],
 ];

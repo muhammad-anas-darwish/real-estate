@@ -4,7 +4,6 @@ namespace Modules\Crm\Services;
 
 use App\Services\BaseService;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Modules\Crm\DTOs\ChangeLeadStatusDTO;
 use Modules\Crm\DTOs\LeadDTO;

@@ -4,7 +4,7 @@ namespace Modules\Crm\DTOs;
 
 use App\Interfaces\DTOInterface;
 
-readonly final class LeadDTO implements DTOInterface
+final readonly class LeadDTO implements DTOInterface
 {
     public function __construct(
         public int $trader_id,

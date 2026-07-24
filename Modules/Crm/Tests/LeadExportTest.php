@@ -5,7 +5,6 @@ namespace Modules\Crm\Tests;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Modules\Auth\Entities\User;
 use Modules\Crm\Entities\Lead;
-use Modules\Crm\Enums\LeadSource;
 use Modules\Crm\Enums\LeadStatus;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;

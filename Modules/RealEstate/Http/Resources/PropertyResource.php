@@ -43,6 +43,7 @@ class PropertyResource extends BaseJsonResource
             'rooms' => $this->rooms,
             'bathrooms' => $this->bathrooms,
             'area' => $this->area,
+            'home_directions' => $this->home_directions,
 
             // Detailed Information
             'detailed_info' => $this->detailed_info,

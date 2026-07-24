@@ -4,7 +4,7 @@ namespace Modules\Crm\DTOs;
 
 use App\Interfaces\DTOInterface;
 
-readonly final class ChangeLeadStatusDTO implements DTOInterface
+final readonly class ChangeLeadStatusDTO implements DTOInterface
 {
     public function __construct(
         public string $status,
