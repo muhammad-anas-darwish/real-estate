@@ -39,5 +39,13 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('map', function (Request $request) {
             return Limit::perMinute(120)->by($request->ip());
         });
+
+        RateLimiter::for('ai-search', function (Request $request) {
+            return Limit::perHour(30)->by($request->ip());
+        });
+
+        RateLimiter::for('ai-description', function (Request $request) {
+            return Limit::perHour(20)->by($request->user()?->id ?? $request->ip());
+        });
     }
 }

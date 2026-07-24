@@ -18,4 +18,5 @@ return [
     Modules\Subscription\Providers\SubscriptionServiceProvider::class,
     Modules\Deposit\Providers\DepositServiceProvider::class,
     Modules\Statistics\Providers\StatisticsServiceProvider::class,
+    Modules\Ai\Providers\AiServiceProvider::class,
 ];

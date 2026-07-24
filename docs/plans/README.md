@@ -10,8 +10,8 @@
 
 | المؤشر | القيمة |
 |--------|--------|
-| إجمالي الخطط | **33 خطة** |
-| ✅ مكتمل | 33 |
+| إجمالي الخطط | **36 خطة** |
+| ✅ مكتمل | 36 |
 | ❌ لم يبدأ | 0 |
 | 🟡 جزئياً | 0 |
 
@@ -150,6 +150,11 @@
 * [plan31-public-map-explorer.md](31-public-map-explorer.md)... ✅
 * [plan32-advanced-filters-and-geolocation.md](32-advanced-filters-and-geolocation.md)... ✅
 * [plan33-mini-map-and-trader-competitive.md](33-mini-map-and-trader-competitive.md)... ✅
+
+### ai-smart-search-and-description (تقرير: `docs/reports/05-ai-smart-search-and-description.md`)
+* [plan34-ai-foundation-and-kimi-service.md](34-ai-foundation-and-kimi-service.md)... ✅
+* [plan35-ai-smart-search.md](35-ai-smart-search.md)... ✅
+* [plan36-ai-description-assistant.md](36-ai-description-assistant.md)... ✅
 
 ---
 
