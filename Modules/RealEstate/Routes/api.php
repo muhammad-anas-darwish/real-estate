@@ -8,6 +8,7 @@ use Modules\RealEstate\Http\Controllers\AdDisplayController;
 use Modules\RealEstate\Http\Controllers\AdGroupController;
 use Modules\RealEstate\Http\Controllers\AdTrackingController;
 use Modules\RealEstate\Http\Controllers\AppointmentController;
+use Modules\RealEstate\Http\Controllers\MapController;
 use Modules\RealEstate\Http\Controllers\PropertyController;
 use Modules\RealEstate\Http\Controllers\RentalCardController;
 use Modules\RealEstate\Http\Controllers\ReviewController;
@@ -53,6 +54,11 @@ Route::prefix('api')->group(function () {
         ->name('api.properties.random');
     Route::get('properties/{id}/details', [PropertyController::class, 'showPublic'])
         ->name('api.properties.public.show');
+
+    // Map (public)
+    Route::get('map/properties', [MapController::class, 'properties'])
+        ->middleware('throttle:map')
+        ->name('api.map.properties');
 });
 
 // ============================================================
@@ -257,5 +263,9 @@ Route::prefix('api/dashboard')->middleware(['auth:sanctum'])->group(function () 
             ->name('api.sponsored-ads.show');
         Route::post('sponsored-ads/{id}/cancel', [SponsoredAdController::class, 'cancel'])
             ->name('api.sponsored-ads.cancel');
+
+        // Trader competitive map
+        Route::get('trader/competitive-map', [MapController::class, 'traderCompetitiveMap'])
+            ->name('api.dashboard.trader.competitive-map');
     });
 });

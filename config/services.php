@@ -40,4 +40,9 @@ return [
         'country_cache_enabled' => env('LOCATION_COUNTRY_CACHE_ENABLED', false),
     ],
 
+    'google' => [
+        'maps_api_key' => env('GOOGLE_MAPS_API_KEY'),
+        'geocoding_api_key' => env('GOOGLE_MAPS_API_KEY'),
+    ],
+
 ];

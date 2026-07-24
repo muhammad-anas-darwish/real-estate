@@ -10,8 +10,8 @@
 
 | المؤشر | القيمة |
 |--------|--------|
-| إجمالي الخطط | **29 خطة** |
-| ✅ مكتمل | 29 |
+| إجمالي الخطط | **33 خطة** |
+| ✅ مكتمل | 33 |
 | ❌ لم يبدأ | 0 |
 | 🟡 جزئياً | 0 |
 
@@ -144,6 +144,12 @@
 * [plan27-property-and-market-stats.md](27-property-and-market-stats.md)... ✅
 * [plan28-admin-dashboard.md](28-admin-dashboard.md)... ✅
 * [plan29-statistics-tests-and-docs.md](29-statistics-tests-and-docs.md)... ✅
+
+### properties-map-view (تقرير: `docs/reports/04-properties-map-view.md`)
+* [plan30-geocoding-and-map-data-foundation.md](30-geocoding-and-map-data-foundation.md)... ✅
+* [plan31-public-map-explorer.md](31-public-map-explorer.md)... ✅
+* [plan32-advanced-filters-and-geolocation.md](32-advanced-filters-and-geolocation.md)... ✅
+* [plan33-mini-map-and-trader-competitive.md](33-mini-map-and-trader-competitive.md)... ✅
 
 ---
 
