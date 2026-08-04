@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'location' => [
+        'city_cache_enabled' => env('LOCATION_CITY_CACHE_ENABLED', false),
+        'country_cache_enabled' => env('LOCATION_COUNTRY_CACHE_ENABLED', false),
+    ],
+
 ];

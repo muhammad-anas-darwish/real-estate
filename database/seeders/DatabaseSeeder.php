@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Modules\Auth\Database\Seeders\UserSeeder;
+use Modules\Core\Database\Seeders\CountriesAndCitiesSeeder;
+use Modules\RealEstate\Database\Seeders\PropertySeeder;
+use Modules\Subscription\Database\Seeders\SubscriptionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +18,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            PermissionSeeder::class,
+            UserSeeder::class,
+            CountriesAndCitiesSeeder::class,
+            PropertySeeder::class,
+            SubscriptionSeeder::class,
         ]);
     }
 }

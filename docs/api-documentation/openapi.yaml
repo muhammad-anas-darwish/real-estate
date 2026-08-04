@@ -1,0 +1,4071 @@
+openapi: 3.0.3
+info:
+  title: Real Estate Platform API
+  description: |
+    Complete API specification for the Real Estate multi-module platform.
+    Includes Auth, Property Management, Advertising, Communication, Subscriptions,
+    Service Providers, and Ledger modules.
+  version: 1.0.0
+  contact:
+    name: API Support
+
+servers:
+  - url: http://localhost:8000
+    description: Local development server
+  - url: https://api.example.com
+    description: Production server
+
+security:
+  - bearerAuth: []
+
+paths:
+  # ============================================================================
+  # AUTH
+  # ============================================================================
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Register a new user
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, password, password_confirmation]
+              properties:
+                name:
+                  type: string
+                  maxLength: 255
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 8
+                password_confirmation:
+                  type: string
+      responses:
+        '201':
+          description: Registration successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login and receive Sanctum token
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                remember:
+                  type: boolean
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '422':
+          description: Validation error
+
+  /auth/logout:
+    post:
+      tags: [Auth]
+      summary: Logout (delete all tokens)
+      responses:
+        '200':
+          description: Logged out successfully
+
+  /auth/forgot-password:
+    post:
+      tags: [Auth]
+      summary: Send password reset email
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        '200':
+          description: Reset link sent
+
+  /auth/reset-password:
+    post:
+      tags: [Auth]
+      summary: Reset password with token
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password, password_confirmation, token]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 8
+                password_confirmation:
+                  type: string
+                token:
+                  type: string
+      responses:
+        '200':
+          description: Password reset successful
+
+  /auth/two-factor-challenge:
+    post:
+      tags: [Auth]
+      summary: Complete two-factor challenge
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: 2FA code from authenticator app
+                recovery_code:
+                  type: string
+                  description: Recovery code (alternative to code)
+      responses:
+        '200':
+          description: 2FA verified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+
+  /auth/email/verify/{id}/{hash}:
+    get:
+      tags: [Auth]
+      summary: Verify email address (signed URL from email)
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+        - name: hash
+          in: path
+          required: true
+          schema: { type: string }
+        - name: expires
+          in: query
+          schema: { type: string }
+        - name: signature
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Email verified
+
+  /auth/email/verification-notification:
+    post:
+      tags: [Auth]
+      summary: Resend email verification link
+      responses:
+        '200':
+          description: Verification email resent
+
+  /auth/user/profile-information:
+    put:
+      tags: [Auth]
+      summary: Update user profile information
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  maxLength: 255
+                email:
+                  type: string
+                  format: email
+      responses:
+        '200':
+          description: Profile updated
+
+  /auth/user/password:
+    put:
+      tags: [Auth]
+      summary: Change password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [current_password, password, password_confirmation]
+              properties:
+                current_password:
+                  type: string
+                password:
+                  type: string
+                  minLength: 8
+                password_confirmation:
+                  type: string
+      responses:
+        '200':
+          description: Password changed
+
+  /auth/user/confirm-password:
+    post:
+      tags: [Auth]
+      summary: Confirm password before sensitive action
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [password]
+              properties:
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Password confirmed
+
+  /auth/user/two-factor-authentication:
+    post:
+      tags: [Auth][2FA]
+      summary: Enable two-factor authentication
+      responses:
+        '200':
+          description: 2FA enabled (returns QR code & recovery codes via separate endpoints)
+    delete:
+      tags: [Auth][2FA]
+      summary: Disable two-factor authentication
+      responses:
+        '200':
+          description: 2FA disabled
+
+  /auth/user/confirmed-two-factor-authentication:
+    post:
+      tags: [Auth][2FA]
+      summary: Confirm 2FA enablement with code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code:
+                  type: string
+      responses:
+        '200':
+          description: 2FA confirmed
+
+  /auth/user/two-factor-qr-code:
+    get:
+      tags: [Auth][2FA]
+      summary: Get 2FA QR code (SVG)
+      responses:
+        '200':
+          description: QR code SVG
+
+  /auth/user/two-factor-secret-key:
+    get:
+      tags: [Auth][2FA]
+      summary: Get 2FA secret key
+      responses:
+        '200':
+          description: Secret key string
+
+  /auth/user/two-factor-recovery-codes:
+    get:
+      tags: [Auth][2FA]
+      summary: Get recovery codes
+      responses:
+        '200':
+          description: Array of recovery codes
+    post:
+      tags: [Auth][2FA]
+      summary: Regenerate recovery codes
+      responses:
+        '200':
+          description: New recovery codes
+
+  /user:
+    get:
+      tags: [Auth]
+      summary: Get authenticated user
+      responses:
+        '200':
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  # ============================================================================
+  # SEARCH
+  # ============================================================================
+  /search/{type}:
+    get:
+      tags: [Search]
+      summary: Global search across entities
+      security: []
+      parameters:
+        - name: type
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [properties, offices, ads, categories]
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: perPage
+          in: query
+          schema:
+            type: integer
+            default: 15
+      responses:
+        '200':
+          description: Search results
+
+  # ============================================================================
+  # CATEGORIES
+  # ============================================================================
+  /api/categories/public:
+    get:
+      tags: [Categories]
+      summary: List all categories (public)
+      security: []
+      responses:
+        '200':
+          description: Category list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Category'
+
+  /api/categories/public/{id}:
+    get:
+      tags: [Categories]
+      summary: Get a category (public)
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Category detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+
+  /api/categories:
+    get:
+      tags: [Categories]
+      summary: List all categories (admin)
+      responses:
+        '200':
+          description: Paginated categories
+    post:
+      tags: [Categories]
+      summary: Create a category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryInput'
+      responses:
+        '201':
+          description: Category created
+
+  /api/categories/{id}:
+    get:
+      tags: [Categories]
+      summary: Get a category (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Category detail
+    put:
+      tags: [Categories]
+      summary: Update a category
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryInput'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Categories]
+      summary: Delete a category
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  # ============================================================================
+  # LOCATION — COUNTRIES
+  # ============================================================================
+  /api/location/countries:
+    get:
+      tags: [Location]
+      summary: List all countries (public)
+      security: []
+      parameters:
+        - name: search
+          in: query
+          schema: { type: string }
+        - name: is_active
+          in: query
+          schema: { type: boolean }
+        - name: perPage
+          in: query
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Countries list
+    post:
+      tags: [Location]
+      summary: Create a country (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CountryInput'
+      responses:
+        '201':
+          description: Created
+
+  /api/location/countries/{id}:
+    get:
+      tags: [Location]
+      summary: Get a country
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Country detail
+    put:
+      tags: [Location]
+      summary: Update a country (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CountryInput'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Location]
+      summary: Delete a country (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  # ============================================================================
+  # LOCATION — CITIES
+  # ============================================================================
+  /api/location/cities:
+    get:
+      tags: [Location]
+      summary: List all cities (public)
+      security: []
+      parameters:
+        - name: country_id
+          in: query
+          schema: { type: integer }
+        - name: search
+          in: query
+          schema: { type: string }
+        - name: perPage
+          in: query
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Cities list
+    post:
+      tags: [Location]
+      summary: Create a city (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CityInput'
+      responses:
+        '201':
+          description: Created
+
+  /api/location/cities/{id}:
+    get:
+      tags: [Location]
+      summary: Get a city
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: City detail
+    put:
+      tags: [Location]
+      summary: Update a city (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CityInput'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Location]
+      summary: Delete a city (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  # ============================================================================
+  # USER MANAGEMENT (ADMIN)
+  # ============================================================================
+  /api/users:
+    get:
+      tags: [User Management]
+      summary: List all users (admin)
+      parameters:
+        - name: search
+          in: query
+          schema: { type: string }
+        - name: status
+          in: query
+          schema: { type: string, enum: [active, inactive] }
+        - name: perPage
+          in: query
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Paginated users
+    post:
+      tags: [User Management]
+      summary: Create a user (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: User created
+
+  /api/users/{id}:
+    get:
+      tags: [User Management]
+      summary: Get a user (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: User detail
+    put:
+      tags: [User Management]
+      summary: Update a user (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateInput'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [User Management]
+      summary: Delete a user (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  /api/users/{id}/toggle-status:
+    put:
+      tags: [User Management]
+      summary: Toggle user active/inactive status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Status toggled
+
+  # ============================================================================
+  # ROLE MANAGEMENT (ADMIN)
+  # ============================================================================
+  /api/roles:
+    get:
+      tags: [Role Management]
+      summary: List all roles
+      responses:
+        '200':
+          description: Roles with permissions
+    post:
+      tags: [Role Management]
+      summary: Create a role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  maxLength: 255
+      responses:
+        '201':
+          description: Role created
+
+  /api/roles/{id}:
+    get:
+      tags: [Role Management]
+      summary: Get a role with permissions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Role detail
+    put:
+      tags: [Role Management]
+      summary: Update a role name
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Role Management]
+      summary: Delete a role
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  /api/roles/{id}/permissions:
+    post:
+      tags: [Role Management]
+      summary: Assign permissions to a role
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [permissions]
+              properties:
+                permissions:
+                  type: array
+                  items:
+                    type: string
+                  description: Permission strings
+      responses:
+        '200':
+          description: Permissions assigned
+
+  /api/permissions:
+    get:
+      tags: [Role Management]
+      summary: Get all available permissions
+      responses:
+        '200':
+          description: List of all permission strings
+
+  # ============================================================================
+  # PUBLISHER PROFILE
+  # ============================================================================
+  /api/publisher/profile:
+    put:
+      tags: [Publisher]
+      summary: Update publisher profile (name, phone, website, description, etc.)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                phone:
+                  type: string
+                website_url:
+                  type: string
+                  format: uri
+                description:
+                  type: string
+                social_links:
+                  type: object
+                  description: Key-value social media links
+                avatar:
+                  type: string
+                  description: File ID/path for avatar
+      responses:
+        '200':
+          description: Profile updated
+
+  /api/publisher/contact-preference:
+    put:
+      tags: [Publisher]
+      summary: Update contact preference (chat vs external)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contact_preference:
+                  type: string
+                  enum: [chat, external]
+      responses:
+        '200':
+          description: Preference updated
+
+  /api/publisher/statistics:
+    get:
+      tags: [Publisher]
+      summary: Get publisher statistics (property counts, views, favorites)
+      responses:
+        '200':
+          description: Statistics data
+
+  /api/publisher/analytics:
+    get:
+      tags: [Publisher]
+      summary: Get publisher analytics (requires advanced_analytics feature)
+      responses:
+        '200':
+          description: Analytics data
+
+  /api/publisher/upgrade-request:
+    post:
+      tags: [Publisher]
+      summary: Request account upgrade (individual → office)
+      responses:
+        '201':
+          description: Upgrade request submitted
+
+  /api/publisher/upgrade-status:
+    get:
+      tags: [Publisher]
+      summary: Check upgrade request status
+      responses:
+        '200':
+          description: Upgrade status
+
+  # ============================================================================
+  # PUBLISHER OFFICES (PUBLIC)
+  # ============================================================================
+  /api/dashboard/publishers/offices:
+    get:
+      tags: [Offices]
+      summary: List publisher offices (public within dashboard)
+      parameters:
+        - name: search
+          in: query
+          schema: { type: string }
+        - name: perPage
+          in: query
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Offices list
+
+  /api/dashboard/publishers/offices/{id}:
+    get:
+      tags: [Offices]
+      summary: Get office profile detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Office detail
+
+  # ============================================================================
+  # ADMIN — OFFICES & UPGRADE REQUESTS
+  # ============================================================================
+  /api/admin/offices/{id}/verify:
+    post:
+      tags: [Admin Offices]
+      summary: Verify an office (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Office verified
+
+  /api/admin/offices/{id}/unverify:
+    post:
+      tags: [Admin Offices]
+      summary: Unverify an office (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Office unverified
+
+  /api/admin/office-upgrade-requests:
+    get:
+      tags: [Admin Offices]
+      summary: List pending upgrade requests (admin)
+      responses:
+        '200':
+          description: Upgrade requests list
+
+  /api/admin/upgrade-requests/{id}/approve:
+    post:
+      tags: [Admin Offices]
+      summary: Approve an upgrade request (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Approved
+
+  /api/admin/upgrade-requests/{id}/reject:
+    post:
+      tags: [Admin Offices]
+      summary: Reject an upgrade request (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rejection_reason:
+                  type: string
+      responses:
+        '200':
+          description: Rejected
+
+  # ============================================================================
+  # REVIEWS
+  # ============================================================================
+  /api/dashboard/offices/{officeId}/reviews:
+    get:
+      tags: [Reviews]
+      summary: List reviews for an office
+      parameters:
+        - name: officeId
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Reviews list
+
+  /api/reviews:
+    post:
+      tags: [Reviews]
+      summary: Submit a review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewInput'
+      responses:
+        '201':
+          description: Review submitted
+
+  /api/reviews/{id}:
+    delete:
+      tags: [Reviews]
+      summary: Delete a review (admin or owner)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  # ============================================================================
+  # PROPERTIES — PUBLIC
+  # ============================================================================
+  /api/properties/browse:
+    get:
+      tags: [Properties]
+      summary: Browse public properties with advanced filtering
+      security: []
+      parameters:
+        - name: property_type
+          in: query
+          schema:
+            type: string
+            enum: [apartment, house, villa, land, commercial, office, warehouse, other]
+        - name: type_of_contract
+          in: query
+          schema:
+            type: string
+            enum: [sale, rent]
+        - name: country_id
+          in: query
+          schema: { type: integer }
+        - name: city_id
+          in: query
+          schema: { type: integer }
+        - name: price_min
+          in: query
+          schema: { type: number, minimum: 0 }
+        - name: price_max
+          in: query
+          schema: { type: number, minimum: 0 }
+        - name: area_min
+          in: query
+          schema: { type: number, minimum: 0 }
+        - name: area_max
+          in: query
+          schema: { type: number, minimum: 0 }
+        - name: rooms_min
+          in: query
+          schema: { type: integer, minimum: 0 }
+        - name: rooms_max
+          in: query
+          schema: { type: integer, minimum: 0 }
+        - name: bathrooms_min
+          in: query
+          schema: { type: integer, minimum: 0 }
+        - name: bathrooms_max
+          in: query
+          schema: { type: integer, minimum: 0 }
+        - name: search
+          in: query
+          schema: { type: string }
+        - name: sort_by
+          in: query
+          schema:
+            type: string
+            enum: [price, area, rooms, bathrooms, created_at, views]
+        - name: sort_order
+          in: query
+          schema:
+            type: string
+            enum: [asc, desc]
+        - name: perPage
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 100 }
+        - name: page
+          in: query
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Paginated properties
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Property'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+
+  /api/properties/random:
+    get:
+      tags: [Properties]
+      summary: Get 10 random approved properties
+      security: []
+      responses:
+        '200':
+          description: Random properties
+
+  /api/properties/{id}/details:
+    get:
+      tags: [Properties]
+      summary: Get public property detail
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Property detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Property'
+
+  # ============================================================================
+  # PROPERTIES — DASHBOARD (AUTHENTICATED)
+  # ============================================================================
+  /api/dashboard/properties:
+    get:
+      tags: [Dashboard Properties]
+      summary: List user's properties (dashboard)
+      responses:
+        '200':
+          description: Paginated properties
+    post:
+      tags: [Dashboard Properties]
+      summary: Create a new property
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropertyInput'
+      responses:
+        '201':
+          description: Property created
+
+  /api/dashboard/properties/statistics:
+    get:
+      tags: [Dashboard Properties]
+      summary: Get property statistics for current user
+      responses:
+        '200':
+          description: Statistics
+
+  /api/dashboard/properties/with-photographer:
+    post:
+      tags: [Dashboard Properties]
+      summary: Create property as draft + request photographer service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/PropertyInput'
+                - type: object
+                  properties:
+                    provider_id:
+                      type: integer
+                    scheduled_at:
+                      type: string
+                      format: date-time
+                    photographer_notes:
+                      type: string
+                    photographer_price:
+                      type: number
+      responses:
+        '201':
+          description: Property draft + service request created
+
+  /api/dashboard/properties/{id}:
+    get:
+      tags: [Dashboard Properties]
+      summary: Get property detail (dashboard)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Property detail
+    patch:
+      tags: [Dashboard Properties]
+      summary: Update a property
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropertyInput'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Dashboard Properties]
+      summary: Delete a property
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  /api/dashboard/properties/{id}/status:
+    patch:
+      tags: [Dashboard Properties]
+      summary: Update property approval status (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status:
+                  type: string
+                  enum: [pending, under_inspection, approved, rejected, suspended, sold, archived, draft]
+                rejection_reason:
+                  type: string
+                  maxLength: 1000
+                  description: Required if status is 'rejected'
+      responses:
+        '200':
+          description: Status updated
+
+  /api/dashboard/properties/{id}/favorite:
+    post:
+      tags: [Dashboard Properties]
+      summary: Toggle favorite/love status for a property
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Favorite toggled
+
+  /api/dashboard/my-properties:
+    get:
+      tags: [Dashboard Properties]
+      summary: Get current user's own properties
+      responses:
+        '200':
+          description: My properties list
+
+  # ============================================================================
+  # PROPERTY VIEWINGS
+  # ============================================================================
+  /api/dashboard/viewings:
+    get:
+      tags: [Viewings]
+      summary: List all viewings (filterable)
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, confirmed, rescheduled, cancelled, completed, no_show]
+        - name: property_id
+          in: query
+          schema: { type: integer }
+        - name: scheduled_at
+          in: query
+          schema: { type: string, format: date }
+        - name: perPage
+          in: query
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Viewings list
+    post:
+      tags: [Viewings]
+      summary: Book a property viewing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewingInput'
+      responses:
+        '201':
+          description: Viewing booked
+
+  /api/dashboard/viewings/my:
+    get:
+      tags: [Viewings]
+      summary: List my (user's) viewings
+      responses:
+        '200':
+          description: My viewings
+
+  /api/dashboard/viewings/calendar:
+    get:
+      tags: [Viewings]
+      summary: Get viewings in calendar format
+      parameters:
+        - name: from
+          in: query
+          schema: { type: string, format: date }
+        - name: to
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: Calendar data
+
+  /api/dashboard/viewings/schedule:
+    get:
+      tags: [Viewings]
+      summary: Get agent's viewing schedule
+      responses:
+        '200':
+          description: Agent schedule
+
+  /api/dashboard/viewings/{id}:
+    get:
+      tags: [Viewings]
+      summary: Get viewing detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Viewing detail
+    delete:
+      tags: [Viewings]
+      summary: Delete a viewing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  /api/dashboard/viewings/{id}/confirm:
+    patch:
+      tags: [Viewings]
+      summary: Confirm a viewing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Confirmed
+
+  /api/dashboard/viewings/{id}/reschedule:
+    patch:
+      tags: [Viewings]
+      summary: Reschedule a viewing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scheduled_at:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: Rescheduled
+
+  /api/dashboard/viewings/{id}/cancel:
+    patch:
+      tags: [Viewings]
+      summary: Cancel a viewing
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cancellation_reason:
+                  type: string
+      responses:
+        '200':
+          description: Cancelled
+
+  /api/dashboard/viewings/{id}/complete:
+    patch:
+      tags: [Viewings]
+      summary: Mark viewing as completed
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Completed
+
+  /api/dashboard/viewings/{id}/no-show:
+    patch:
+      tags: [Viewings]
+      summary: Mark viewing as no-show
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Marked as no-show
+
+  # ============================================================================
+  # AD GROUPS
+  # ============================================================================
+  /api/dashboard/ad-groups:
+    get:
+      tags: [Ad Groups]
+      summary: List user's ad groups
+      responses:
+        '200':
+          description: Ad groups
+    post:
+      tags: [Ad Groups]
+      summary: Create an ad group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  maxLength: 255
+                  description: Must be unique
+                description:
+                  type: string
+                  maxLength: 1000
+      responses:
+        '201':
+          description: Created
+
+  /api/dashboard/ad-groups/{id}:
+    get:
+      tags: [Ad Groups]
+      summary: Get ad group detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Ad group detail
+    patch:
+      tags: [Ad Groups]
+      summary: Update an ad group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Ad Groups]
+      summary: Archive an ad group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Archived
+
+  /api/dashboard/ad-groups/{id}/restore:
+    post:
+      tags: [Ad Groups]
+      summary: Restore an archived ad group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Restored
+
+  /api/dashboard/ad-groups/{id}/set-default:
+    post:
+      tags: [Ad Groups]
+      summary: Set a default ad for a group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ad_group_id, ad_id]
+              properties:
+                ad_group_id:
+                  type: integer
+                ad_id:
+                  type: integer
+      responses:
+        '200':
+          description: Default set
+
+  /api/dashboard/ad-groups/{id}/default:
+    delete:
+      tags: [Ad Groups]
+      summary: Remove default ad from a group
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Default removed
+
+  # ============================================================================
+  # ADS
+  # ============================================================================
+  /api/dashboard/ads:
+    get:
+      tags: [Ads]
+      summary: List user's ads
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [draft, active, paused, archived]
+        - name: ad_group_id
+          in: query
+          schema: { type: integer }
+        - name: perPage
+          in: query
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Ads list
+    post:
+      tags: [Ads]
+      summary: Create an ad
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdInput'
+      responses:
+        '201':
+          description: Created
+
+  /api/dashboard/ads/{id}:
+    get:
+      tags: [Ads]
+      summary: Get ad detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Ad detail
+    patch:
+      tags: [Ads]
+      summary: Update an ad
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdInput'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Ads]
+      summary: Archive an ad
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Archived
+
+  /api/dashboard/ads/{id}/restore:
+    post:
+      tags: [Ads]
+      summary: Restore an archived ad
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Restored
+
+  /api/dashboard/ads/{id}/status:
+    post:
+      tags: [Ads]
+      summary: Set ad status (draft/active/paused)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [draft, active, paused]
+      responses:
+        '200':
+          description: Status updated
+
+  /api/dashboard/ads/{id}/link-property:
+    post:
+      tags: [Ads]
+      summary: Link an ad to a property
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                property_id:
+                  type: integer
+      responses:
+        '200':
+          description: Linked
+
+  /api/dashboard/ads/{id}/property:
+    delete:
+      tags: [Ads]
+      summary: Unlink ad from property
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Unlinked
+
+  # ============================================================================
+  # AD TRACKING (PUBLIC)
+  # ============================================================================
+  /api/ads/{id}/track/view:
+    post:
+      tags: [Ad Tracking]
+      summary: Record an ad view
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: View recorded
+
+  /api/ads/{id}/track/visit:
+    post:
+      tags: [Ad Tracking]
+      summary: Record an ad visit (click-through)
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Visit recorded
+
+  # ============================================================================
+  # AD DISPLAY (PUBLIC)
+  # ============================================================================
+  /api/public/ads/display:
+    get:
+      tags: [Ad Display]
+      summary: Get all active display ads
+      security: []
+      responses:
+        '200':
+          description: Display ads
+
+  /api/public/ads/display/standalone:
+    get:
+      tags: [Ad Display]
+      summary: Get standalone display ads (not in any group)
+      security: []
+      responses:
+        '200':
+          description: Standalone ads
+
+  /api/public/ads/display/{groupId}:
+    get:
+      tags: [Ad Display]
+      summary: Get display ads for a specific group
+      security: []
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Group display ads
+
+  /api/ads/display:
+    get:
+      tags: [Ad Display]
+      summary: Get all active display ads (alternate path)
+      security: []
+      responses:
+        '200':
+          description: Display ads
+
+  # ============================================================================
+  # AD ANALYTICS
+  # ============================================================================
+  /api/dashboard/analytics/dashboard:
+    get:
+      tags: [Ad Analytics]
+      summary: Get ad analytics dashboard overview
+      parameters:
+        - name: from
+          in: query
+          schema: { type: string, format: date }
+        - name: to
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: Dashboard analytics
+
+  /api/dashboard/analytics/groups/{groupId}:
+    get:
+      tags: [Ad Analytics]
+      summary: Get analytics for a specific ad group
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema: { type: integer }
+        - name: from
+          in: query
+          schema: { type: string, format: date }
+        - name: to
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: Group analytics
+
+  /api/dashboard/analytics/ads/{adId}:
+    get:
+      tags: [Ad Analytics]
+      summary: Get analytics for a specific ad
+      parameters:
+        - name: adId
+          in: path
+          required: true
+          schema: { type: integer }
+        - name: from
+          in: query
+          schema: { type: string, format: date }
+        - name: to
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: Ad analytics
+
+  /api/dashboard/analytics/export:
+    get:
+      tags: [Ad Analytics]
+      summary: Export ad analytics data
+      parameters:
+        - name: from
+          in: query
+          schema: { type: string, format: date }
+        - name: to
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: Exported data
+
+  # ============================================================================
+  # SPONSORED ADS
+  # ============================================================================
+  /api/sponsored-ads/pricing:
+    get:
+      tags: [Sponsored Ads]
+      summary: Get sponsored ad pricing tiers (public)
+      security: []
+      responses:
+        '200':
+          description: Pricing tiers
+
+  /api/sponsored-ads/active:
+    get:
+      tags: [Sponsored Ads]
+      summary: Get currently active sponsored ads (public)
+      security: []
+      responses:
+        '200':
+          description: Active sponsored ads
+
+  /api/dashboard/sponsored-ads:
+    get:
+      tags: [Sponsored Ads]
+      summary: List user's sponsored ads
+      responses:
+        '200':
+          description: Sponsored ads list
+    post:
+      tags: [Sponsored Ads]
+      summary: Create a sponsored ad (charges balance or Stripe)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SponsoredAdInput'
+      responses:
+        '201':
+          description: Created
+
+  /api/dashboard/sponsored-ads/{id}:
+    get:
+      tags: [Sponsored Ads]
+      summary: Get sponsored ad detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Sponsored ad detail
+
+  /api/dashboard/sponsored-ads/{id}/cancel:
+    post:
+      tags: [Sponsored Ads]
+      summary: Cancel a sponsored ad (partial refund)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Cancelled
+
+  # ============================================================================
+  # CHAT
+  # ============================================================================
+  /api/chat/rooms:
+    get:
+      tags: [Chat]
+      summary: List user's chat rooms
+      responses:
+        '200':
+          description: Chat rooms
+    post:
+      tags: [Chat]
+      summary: Start a new chat room (private or property inquiry)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipient_id:
+                  type: integer
+                  description: For private chat
+                property_id:
+                  type: integer
+                  description: For property inquiry chat
+                type:
+                  type: string
+                  enum: [private, group]
+      responses:
+        '201':
+          description: Room created
+
+  /api/chat/rooms/{roomId}:
+    get:
+      tags: [Chat]
+      summary: Get chat room detail with participants
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Room detail
+
+  /api/chat/rooms/{roomId}/messages:
+    get:
+      tags: [Chat]
+      summary: Get messages in a chat room (paginated)
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema: { type: integer }
+        - name: perPage
+          in: query
+          schema: { type: integer }
+        - name: page
+          in: query
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Messages
+    post:
+      tags: [Chat]
+      summary: Send a message to a chat room
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [body]
+              properties:
+                body:
+                  type: string
+                type:
+                  type: string
+                  enum: [text, image, file]
+                  default: text
+                parent_id:
+                  type: integer
+                  description: Reply to a message
+      responses:
+        '201':
+          description: Message sent
+
+  /api/chat/rooms/{roomId}/messages/{messageId}:
+    delete:
+      tags: [Chat]
+      summary: Delete a message
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema: { type: integer }
+        - name: messageId
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  /api/chat/rooms/{roomId}/typing:
+    post:
+      tags: [Chat]
+      summary: Broadcast typing indicator
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Typing event broadcast
+
+  # ============================================================================
+  # NOTIFICATIONS
+  # ============================================================================
+  /api/notifications:
+    get:
+      tags: [Notifications]
+      summary: List user's notifications (paginated)
+      responses:
+        '200':
+          description: Notifications
+
+  /api/notifications/unread-count:
+    get:
+      tags: [Notifications]
+      summary: Get unread notification count
+      responses:
+        '200':
+          description: Unread count
+
+  /api/notifications/{id}/read:
+    patch:
+      tags: [Notifications]
+      summary: Mark a notification as read
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Marked as read
+
+  /api/notifications/read-all:
+    patch:
+      tags: [Notifications]
+      summary: Mark all notifications as read
+      responses:
+        '200':
+          description: All marked as read
+
+  /api/notifications/{id}:
+    delete:
+      tags: [Notifications]
+      summary: Delete a notification
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Deleted
+
+  # ============================================================================
+  # FCM (PUSH NOTIFICATIONS)
+  # ============================================================================
+  /api/fcm/register:
+    post:
+      tags: [FCM]
+      summary: Register FCM device token for push notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, device_type]
+              properties:
+                token:
+                  type: string
+                  description: FCM device registration token
+                device_type:
+                  type: string
+                  enum: [android, ios, web]
+      responses:
+        '200':
+          description: Token registered
+
+  /api/fcm/revoke:
+    delete:
+      tags: [FCM]
+      summary: Revoke FCM device token
+      responses:
+        '200':
+          description: Token revoked
+
+  # ============================================================================
+  # SUBSCRIPTION PLANS (PUBLIC)
+  # ============================================================================
+  /api/plans:
+    get:
+      tags: [Subscriptions]
+      summary: List available subscription plans (public)
+      security: []
+      responses:
+        '200':
+          description: Plans list
+
+  /api/plans/{id}:
+    get:
+      tags: [Subscriptions]
+      summary: Get plan detail with features (public)
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Plan detail
+
+  /api/coupons/validate:
+    post:
+      tags: [Subscriptions]
+      summary: Validate a coupon/discount code
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code:
+                  type: string
+                plan_id:
+                  type: integer
+      responses:
+        '200':
+          description: Coupon validation result
+
+  # ============================================================================
+  # SUBSCRIPTIONS (AUTHENTICATED)
+  # ============================================================================
+  /api/checkout:
+    post:
+      tags: [Subscriptions]
+      summary: Create Stripe checkout session for a plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [plan_id]
+              properties:
+                plan_id:
+                  type: integer
+                discount_code:
+                  type: string
+                success_url:
+                  type: string
+                  format: uri
+                cancel_url:
+                  type: string
+                  format: uri
+      responses:
+        '200':
+          description: Checkout URL
+
+  /api/subscription/current:
+    get:
+      tags: [Subscriptions]
+      summary: Get current active subscription
+      responses:
+        '200':
+          description: Current subscription
+
+  /api/subscription/history:
+    get:
+      tags: [Subscriptions]
+      summary: Get subscription history
+      responses:
+        '200':
+          description: Subscription history
+
+  /api/subscription/cancel:
+    post:
+      tags: [Subscriptions]
+      summary: Cancel current subscription
+      responses:
+        '200':
+          description: Cancelled
+
+  /api/subscription/features:
+    get:
+      tags: [Subscriptions]
+      summary: Get all subscription features with current limits
+      responses:
+        '200':
+          description: Feature access list
+
+  /api/subscription/features/{slug}:
+    get:
+      tags: [Subscriptions]
+      summary: Check access to a specific feature
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Feature access status
+
+  /api/subscription/{id}/status-logs:
+    get:
+      tags: [Subscriptions]
+      summary: Get status change logs for a subscription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Status logs
+
+  # ============================================================================
+  # STRIPE WEBHOOK
+  # ============================================================================
+  /api/stripe/webhook:
+    post:
+      tags: [Subscriptions]
+      summary: Stripe webhook endpoint (internal)
+      security: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Processed
+
+  # ============================================================================
+  # ADMIN SUBSCRIPTION MANAGEMENT
+  # ============================================================================
+  /api/admin/subscription/plans:
+    get:
+      tags: [Admin Subscriptions]
+      summary: List all plans (admin)
+      responses:
+        '200':
+          description: Plans list
+    post:
+      tags: [Admin Subscriptions]
+      summary: Create a subscription plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanInput'
+      responses:
+        '201':
+          description: Created
+
+  /api/admin/subscription/plans/{id}:
+    get:
+      tags: [Admin Subscriptions]
+      summary: Get plan detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Plan detail
+    patch:
+      tags: [Admin Subscriptions]
+      summary: Update a plan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanInput'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin Subscriptions]
+      summary: Delete a plan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/subscription/plans/{id}/features:
+    post:
+      tags: [Admin Subscriptions]
+      summary: Sync features to a plan
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                features:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      feature_id:
+                        type: integer
+                      is_enabled:
+                        type: boolean
+                      limit_value:
+                        type: integer
+      responses:
+        '200':
+          description: Features synced
+
+  /api/admin/subscription/features:
+    get:
+      tags: [Admin Subscriptions]
+      summary: List all features
+      responses:
+        '200':
+          description: Features list
+    post:
+      tags: [Admin Subscriptions]
+      summary: Create a feature
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, slug, type]
+              properties:
+                name:
+                  type: string
+                slug:
+                  type: string
+                type:
+                  type: string
+                  enum: [toggle, limit]
+                description:
+                  type: string
+      responses:
+        '201':
+          description: Created
+
+  /api/admin/subscription/features/{id}:
+    get:
+      tags: [Admin Subscriptions]
+      summary: Get feature detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Feature detail
+    patch:
+      tags: [Admin Subscriptions]
+      summary: Update a feature
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                slug: { type: string }
+                type: { type: string, enum: [toggle, limit] }
+                description: { type: string }
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin Subscriptions]
+      summary: Delete a feature
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/subscription/plan-features:
+    post:
+      tags: [Admin Subscriptions]
+      summary: Link a feature to a plan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [plan_id, feature_id]
+              properties:
+                plan_id:
+                  type: integer
+                feature_id:
+                  type: integer
+                is_enabled:
+                  type: boolean
+                  default: true
+                limit_value:
+                  type: integer
+                  nullable: true
+      responses:
+        '201':
+          description: Linked
+
+  /api/admin/subscription/plan-features/{id}:
+    patch:
+      tags: [Admin Subscriptions]
+      summary: Update plan-feature link
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                is_enabled: { type: boolean }
+                limit_value: { type: integer }
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin Subscriptions]
+      summary: Delete plan-feature link
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  /api/admin/subscription/discounts:
+    get:
+      tags: [Admin Subscriptions]
+      summary: List all discounts
+      responses:
+        '200':
+          description: Discounts list
+    post:
+      tags: [Admin Subscriptions]
+      summary: Create a discount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code, type, value]
+              properties:
+                code:
+                  type: string
+                type:
+                  type: string
+                  enum: [percentage, fixed]
+                value:
+                  type: number
+                plan_id:
+                  type: integer
+                max_uses:
+                  type: integer
+                expires_at:
+                  type: string
+                  format: date-time
+      responses:
+        '201':
+          description: Created
+
+  /api/admin/subscription/discounts/{id}:
+    get:
+      tags: [Admin Subscriptions]
+      summary: Get discount detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Discount detail
+    patch:
+      tags: [Admin Subscriptions]
+      summary: Update a discount
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code: { type: string }
+                type: { type: string, enum: [percentage, fixed] }
+                value: { type: number }
+                plan_id: { type: integer }
+                max_uses: { type: integer }
+                expires_at: { type: string, format: date-time }
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Admin Subscriptions]
+      summary: Delete a discount
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  # ============================================================================
+  # SERVICE PROVIDERS — PUBLIC
+  # ============================================================================
+  /api/public/service-providers:
+    get:
+      tags: [Service Providers]
+      summary: List public service providers
+      security: []
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [photographer, lawyer, inspector, marketer, other]
+        - name: city_id
+          in: query
+          schema: { type: integer }
+        - name: search
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Service providers list
+
+  /api/public/service-providers/{id}:
+    get:
+      tags: [Service Providers]
+      summary: Get service provider public profile
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Service provider detail
+
+  # ============================================================================
+  # SERVICE PROVIDERS — PROVIDER PORTAL
+  # ============================================================================
+  /api/service-provider/register:
+    post:
+      tags: [Provider Portal]
+      summary: Register as a service provider
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [type]
+              properties:
+                type:
+                  type: string
+                  enum: [photographer, lawyer, inspector, marketer, other]
+                bio:
+                  type: string
+                experience_years:
+                  type: integer
+                license_number:
+                  type: string
+                price_type:
+                  type: string
+                  enum: [fixed, hourly, negotiable]
+                price_per_task:
+                  type: number
+                coverage_city_ids:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        '201':
+          description: Registered
+
+  /api/service-provider/profile:
+    get:
+      tags: [Provider Portal]
+      summary: Get my service provider profile
+      responses:
+        '200':
+          description: Provider profile
+    put:
+      tags: [Provider Portal]
+      summary: Update my service provider profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bio: { type: string }
+                experience_years: { type: integer }
+                license_number: { type: string }
+                price_type: { type: string, enum: [fixed, hourly, negotiable] }
+                price_per_task: { type: number }
+                coverage_city_ids: { type: array, items: { type: integer } }
+      responses:
+        '200':
+          description: Updated
+
+  /api/service-provider/availability:
+    post:
+      tags: [Provider Portal]
+      summary: Toggle availability status
+      responses:
+        '200':
+          description: Availability toggled
+
+  # ============================================================================
+  # SERVICE PROVIDERS — PROVIDER SERVICE REQUESTS
+  # ============================================================================
+  /api/service-provider/service-requests:
+    get:
+      tags: [Provider Portal]
+      summary: List service requests assigned to me (provider view)
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, accepted, in_progress, completed, cancelled, rejected]
+      responses:
+        '200':
+          description: Service requests
+
+  /api/service-provider/service-requests/{id}:
+    get:
+      tags: [Provider Portal]
+      summary: Get service request detail (provider)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Request detail
+
+  /api/service-provider/service-requests/{id}/accept:
+    post:
+      tags: [Provider Portal]
+      summary: Accept a service request
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Accepted
+
+  /api/service-provider/service-requests/{id}/reject:
+    post:
+      tags: [Provider Portal]
+      summary: Reject a service request
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Rejected
+
+  /api/service-provider/service-requests/{id}/start:
+    post:
+      tags: [Provider Portal]
+      summary: Start work on a service request (status → in_progress)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Started
+
+  /api/service-provider/service-requests/{id}/complete:
+    post:
+      tags: [Provider Portal]
+      summary: Mark service request as completed
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Completed
+
+  /api/service-provider/service-request-tasks/{taskId}/complete:
+    post:
+      tags: [Provider Portal]
+      summary: Mark a specific task as completed
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Task completed
+
+  # ============================================================================
+  # SERVICE PROVIDERS — PROVIDER BILLING
+  # ============================================================================
+  /api/service-provider/balance:
+    get:
+      tags: [Provider Portal]
+      summary: Get provider wallet balance
+      responses:
+        '200':
+          description: Balance info
+
+  /api/service-provider/earnings:
+    get:
+      tags: [Provider Portal]
+      summary: Get provider earnings history
+      responses:
+        '200':
+          description: Earnings
+
+  /api/service-provider/withdraw:
+    post:
+      tags: [Provider Portal]
+      summary: Request withdrawal of earnings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+      responses:
+        '200':
+          description: Withdrawal requested
+
+  # ============================================================================
+  # SERVICE PROVIDERS — CLIENT SERVICE REQUESTS
+  # ============================================================================
+  /api/service-requests:
+    get:
+      tags: [Service Requests]
+      summary: List my service requests (client view)
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, accepted, in_progress, completed, cancelled, rejected]
+      responses:
+        '200':
+          description: My requests
+    post:
+      tags: [Service Requests]
+      summary: Create a new service request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [service_type, property_id]
+              properties:
+                service_type:
+                  type: string
+                  enum: [photography, inspection, legal, marketing]
+                property_id:
+                  type: integer
+                provider_id:
+                  type: integer
+                scheduled_at:
+                  type: string
+                  format: date-time
+                client_notes:
+                  type: string
+                price:
+                  type: number
+      responses:
+        '201':
+          description: Request created
+
+  /api/service-requests/{id}:
+    get:
+      tags: [Service Requests]
+      summary: Get service request detail (client)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Request detail
+
+  /api/service-requests/{id}/cancel:
+    post:
+      tags: [Service Requests]
+      summary: Cancel a service request (client)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Cancelled
+
+  # ============================================================================
+  # ADMIN — SERVICE PROVIDERS
+  # ============================================================================
+  /api/admin/service-providers:
+    get:
+      tags: [Admin Service Providers]
+      summary: List all service providers (admin)
+      responses:
+        '200':
+          description: Providers list
+
+  /api/admin/service-providers/{id}/verify:
+    post:
+      tags: [Admin Service Providers]
+      summary: Verify a service provider
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Verified
+
+  /api/admin/service-providers/{id}/unverify:
+    post:
+      tags: [Admin Service Providers]
+      summary: Unverify a service provider
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Unverified
+
+  /api/admin/service-requests:
+    get:
+      tags: [Admin Service Providers]
+      summary: List all service requests (admin)
+      responses:
+        '200':
+          description: Requests list
+
+  /api/admin/service-requests/{id}:
+    get:
+      tags: [Admin Service Providers]
+      summary: Get service request detail (admin)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Request detail
+
+  # ============================================================================
+  # LEDGER
+  # ============================================================================
+  /api/ledger/balance:
+    get:
+      tags: [Ledger]
+      summary: Get current user's ledger balance
+      responses:
+        '200':
+          description: Balance
+
+  /api/ledger/statement:
+    get:
+      tags: [Ledger]
+      summary: Get ledger transaction statement
+      parameters:
+        - name: from
+          in: query
+          schema: { type: string, format: date }
+        - name: to
+          in: query
+          schema: { type: string, format: date }
+        - name: perPage
+          in: query
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Statement
+
+  # ============================================================================
+  # ACCOUNTS (LEDGER)
+  # ============================================================================
+  /api/accounts/tree:
+    get:
+      tags: [Ledger]
+      summary: Get chart of accounts as a tree hierarchy
+      responses:
+        '200':
+          description: Account tree
+
+  /api/accounts:
+    get:
+      tags: [Ledger]
+      summary: List all accounts
+      responses:
+        '200':
+          description: Accounts
+    post:
+      tags: [Ledger]
+      summary: Create an account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountInput'
+      responses:
+        '201':
+          description: Created
+
+  /api/accounts/{id}:
+    get:
+      tags: [Ledger]
+      summary: Get an account
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Account detail
+    put:
+      tags: [Ledger]
+      summary: Update an account
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountInput'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Ledger]
+      summary: Delete an account
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  # ============================================================================
+  # JOURNAL ENTRIES
+  # ============================================================================
+  /api/journal-entries:
+    get:
+      tags: [Ledger]
+      summary: List journal entries
+      responses:
+        '200':
+          description: Journal entries
+    post:
+      tags: [Ledger]
+      summary: Create a journal entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [entry_date, lines]
+              properties:
+                entry_date:
+                  type: string
+                  format: date
+                description:
+                  type: string
+                reference:
+                  type: string
+                lines:
+                  type: array
+                  items:
+                    type: object
+                    required: [account_id, debit_amount, credit_amount]
+                    properties:
+                      account_id:
+                        type: integer
+                      description:
+                        type: string
+                      debit_amount:
+                        type: number
+                      credit_amount:
+                        type: number
+      responses:
+        '201':
+          description: Created
+
+  /api/journal-entries/{id}:
+    get:
+      tags: [Ledger]
+      summary: Get journal entry detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Entry detail
+    put:
+      tags: [Ledger]
+      summary: Update a draft journal entry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entry_date: { type: string, format: date }
+                description: { type: string }
+                reference: { type: string }
+                lines:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      account_id: { type: integer }
+                      description: { type: string }
+                      debit_amount: { type: number }
+                      credit_amount: { type: number }
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags: [Ledger]
+      summary: Delete a draft journal entry
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Deleted
+
+  /api/journal-entries/{journalEntry}/post:
+    post:
+      tags: [Ledger]
+      summary: Post a journal entry (finalize)
+      parameters:
+        - name: journalEntry
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Posted
+
+  /api/trial-balance:
+    get:
+      tags: [Ledger]
+      summary: Get trial balance report
+      parameters:
+        - name: as_of
+          in: query
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: Trial balance
+
+  # ============================================================================
+  # PAYROLL
+  # ============================================================================
+  /api/payroll/providers:
+    get:
+      tags: [Ledger]
+      summary: List service providers eligible for payroll
+      responses:
+        '200':
+          description: Providers
+
+  /api/payroll/setup:
+    post:
+      tags: [Ledger]
+      summary: Setup payroll for a service provider
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [service_provider_profile_id, type]
+              properties:
+                service_provider_profile_id:
+                  type: integer
+                type:
+                  type: string
+                  enum: [monthly, per_task, both]
+                base_salary:
+                  type: number
+                per_task_rate:
+                  type: number
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+      responses:
+        '201':
+          description: Payroll setup
+
+  /api/payroll/run:
+    post:
+      tags: [Ledger]
+      summary: Run payroll processing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                period_start:
+                  type: string
+                  format: date
+                period_end:
+                  type: string
+                  format: date
+      responses:
+        '200':
+          description: Payroll processed
+
+  /api/payroll/payments:
+    get:
+      tags: [Ledger]
+      summary: List payroll payments
+      responses:
+        '200':
+          description: Payments
+
+  /api/payroll/{payroll}:
+    get:
+      tags: [Ledger]
+      summary: Get payroll detail
+      parameters:
+        - name: payroll
+          in: path
+          required: true
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Payroll detail
+    put:
+      tags: [Ledger]
+      summary: Update payroll setup
+      parameters:
+        - name: payroll
+          in: path
+          required: true
+          schema: { type: integer }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                base_salary: { type: number }
+                per_task_rate: { type: number }
+                is_active: { type: boolean }
+      responses:
+        '200':
+          description: Updated
+
+  # ============================================================================
+  # FILE UPLOAD (TEMPORARY FILES)
+  # ============================================================================
+  /api/upload:
+    post:
+      tags: [Files]
+      summary: Upload a temporary file (image/video) — returns file IDs for use in property/ad creation
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [type]
+              properties:
+                type:
+                  type: string
+                  enum: [property]
+                file:
+                  type: string
+                  format: binary
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: Files uploaded — returns temporary file IDs/URLs
+
+# ============================================================================
+# COMPONENTS — SCHEMAS
+# ============================================================================
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Sanctum Token
+
+  schemas:
+    # ----- AUTH -----
+    AuthResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            user:
+              $ref: '#/components/schemas/User'
+            token:
+              type: string
+              description: Sanctum plain-text API token
+
+    # ----- USER -----
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        status:
+          type: string
+          enum: [active, inactive]
+        publisher_type:
+          type: string
+          enum: [individual, office]
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        website_url:
+          type: string
+          nullable: true
+        social_links:
+          type: object
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        is_verified:
+          type: boolean
+        employees_count:
+          type: integer
+          nullable: true
+        contact_preference:
+          type: string
+          enum: [chat, external]
+          nullable: true
+        average_rating:
+          type: number
+          format: decimal
+          nullable: true
+        avatar_url:
+          type: string
+          nullable: true
+        reviews_count:
+          type: integer
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Role'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    UserInput:
+      type: object
+      required: [name, email, password]
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+        status:
+          type: string
+          enum: [active, inactive]
+        role_ids:
+          type: array
+          items:
+            type: integer
+
+    UserUpdateInput:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+        status:
+          type: string
+          enum: [active, inactive]
+        role_ids:
+          type: array
+          items:
+            type: integer
+
+    # ----- ROLE -----
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        guard_name:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: object
+            properties:
+              id: { type: integer }
+              name: { type: string }
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    # ----- CATEGORY -----
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    CategoryInput:
+      type: object
+      required: [name, type]
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+
+    # ----- COUNTRY -----
+    CountryInput:
+      type: object
+      required: [name, code]
+      properties:
+        name:
+          type: string
+        code:
+          type: string
+          maxLength: 3
+          description: ISO country code (e.g. US, UK)
+        phone_code:
+          type: string
+        is_active:
+          type: boolean
+
+    # ----- CITY -----
+    CityInput:
+      type: object
+      required: [name, country_id]
+      properties:
+        name:
+          type: string
+        country_id:
+          type: integer
+        state_province:
+          type: string
+        postal_code:
+          type: string
+        is_active:
+          type: boolean
+
+    # ----- PROPERTY -----
+    Property:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        country_id:
+          type: integer
+        city_id:
+          type: integer
+        longitude:
+          type: number
+          format: double
+          nullable: true
+        latitude:
+          type: number
+          format: double
+          nullable: true
+        country:
+          $ref: '#/components/schemas/Country'
+        city:
+          $ref: '#/components/schemas/City'
+        type_of_contract:
+          type: string
+          enum: [sale, rent]
+        property_type:
+          type: string
+          enum: [apartment, house, villa, land, commercial, office, warehouse, other]
+        rooms:
+          type: integer
+        bathrooms:
+          type: integer
+        area:
+          type: number
+        detailed_info:
+          type: string
+          nullable: true
+        price:
+          type: number
+        currency:
+          type: string
+          maxLength: 3
+        formatted_price:
+          type: string
+          description: e.g. "USD 1,234.56"
+        status:
+          type: string
+          enum: [pending, under_inspection, approved, rejected, suspended, sold, archived, draft]
+        rejection_reason:
+          type: string
+          nullable: true
+        is_loved:
+          type: boolean
+          description: Whether current user has favorited this property
+        views:
+          type: integer
+        main_image:
+          type: string
+          nullable: true
+          description: Full image URL
+        main_image_thumb:
+          type: string
+          nullable: true
+        gallery:
+          type: array
+          nullable: true
+          items:
+            type: object
+            properties:
+              id: { type: integer }
+              url: { type: string }
+              thumb: { type: string }
+              medium: { type: string }
+        publisher:
+          $ref: '#/components/schemas/User'
+        publisher_id:
+          type: integer
+        publisher_type:
+          type: string
+        publisher_is_verified:
+          type: boolean
+        approved_by:
+          type: integer
+          nullable: true
+        approved_at:
+          type: string
+          format: date-time
+          nullable: true
+        is_physically_verified:
+          type: boolean
+        inspection_requested_at:
+          type: string
+          format: date-time
+          nullable: true
+        inspection_completed_at:
+          type: string
+          format: date-time
+          nullable: true
+        inspection_score:
+          type: number
+          nullable: true
+        inspection_report:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    PropertyInput:
+      type: object
+      required:
+        - name
+        - description
+        - country_id
+        - city_id
+        - property_type
+        - type_of_contract
+        - rooms
+        - bathrooms
+        - area
+        - price
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        country_id:
+          type: integer
+        city_id:
+          type: integer
+        longitude:
+          type: number
+          format: double
+          minimum: -180
+          maximum: 180
+        latitude:
+          type: number
+          format: double
+          minimum: -90
+          maximum: 90
+        property_type:
+          type: string
+          enum: [apartment, house, villa, land, commercial, office, warehouse, other]
+        type_of_contract:
+          type: string
+          enum: [sale, rent]
+        rooms:
+          type: integer
+          minimum: 0
+        bathrooms:
+          type: integer
+          minimum: 0
+        area:
+          type: number
+          minimum: 0
+        detailed_info:
+          type: string
+        price:
+          type: number
+          minimum: 0
+        currency:
+          type: string
+          maxLength: 3
+          default: USD
+        main_image:
+          type: object
+          properties:
+            id:
+              type: integer
+            temporary_folder:
+              type: string
+        gallery:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              temporary_folder:
+                type: string
+
+    # ----- COUNTRY (RESPONSE) -----
+    Country:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        code:
+          type: string
+        phone_code:
+          type: string
+        is_active:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    # ----- CITY (RESPONSE) -----
+    City:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        country_id:
+          type: integer
+        state_province:
+          type: string
+          nullable: true
+        postal_code:
+          type: string
+          nullable: true
+        is_active:
+          type: boolean
+        country:
+          $ref: '#/components/schemas/Country'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    # ----- VIEWING -----
+    ViewingInput:
+      type: object
+      required: [property_id, scheduled_at]
+      properties:
+        property_id:
+          type: integer
+        scheduled_at:
+          type: string
+          format: date-time
+        duration_minutes:
+          type: integer
+          minimum: 15
+          maximum: 240
+          default: 60
+        buffer_minutes:
+          type: integer
+          minimum: 0
+          maximum: 60
+        viewing_type:
+          type: string
+          enum: [in_person, virtual, open_house]
+        contact_name:
+          type: string
+          maxLength: 255
+        contact_phone:
+          type: string
+          maxLength: 30
+        notes:
+          type: string
+          maxLength: 1000
+        max_attendees:
+          type: integer
+          minimum: 1
+          maximum: 50
+
+    # ----- AD -----
+    AdInput:
+      type: object
+      required: [title, media_type]
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 2000
+        ad_group_id:
+          type: integer
+        media_type:
+          type: string
+          enum: [video, image]
+        external_url:
+          type: string
+          format: uri
+        property_id:
+          type: integer
+        status:
+          type: string
+          enum: [draft, active, paused]
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        media:
+          type: array
+          items:
+            type: object
+            properties:
+              file_path:
+                type: string
+              media_type:
+                type: string
+
+    # ----- SPONSORED AD -----
+    SponsoredAdInput:
+      type: object
+      required:
+        - title
+        - media_type
+        - pricing_tier
+        - sponsor_duration
+        - payment_method
+        - currency
+      properties:
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          maxLength: 2000
+        media_type:
+          type: string
+          enum: [video, image]
+        external_url:
+          type: string
+          format: uri
+          maxLength: 2048
+        property_id:
+          type: integer
+        pricing_tier:
+          type: string
+          enum: [basic, standard, premium]
+        sponsor_duration:
+          type: string
+          enum: [days_7, days_14, days_30]
+        payment_method:
+          type: string
+          enum: [stripe, balance]
+        currency:
+          type: string
+          enum: [usd, sar, aed]
+        idempotency_key:
+          type: string
+          maxLength: 255
+        media:
+          type: array
+          items:
+            type: string
+            format: binary
+
+    # ----- REVIEW -----
+    ReviewInput:
+      type: object
+      required: [reviewed_id, rating]
+      properties:
+        reviewed_id:
+          type: integer
+          description: ID of the office/publisher being reviewed
+        property_id:
+          type: integer
+          nullable: true
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comment:
+          type: string
+
+    # ----- PLAN -----
+    PlanInput:
+      type: object
+      required: [name, slug, price, duration_days]
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        currency:
+          type: string
+          default: usd
+        duration_days:
+          type: integer
+          description: Subscription duration in days (e.g. 30)
+        is_active:
+          type: boolean
+          default: true
+        sort_order:
+          type: integer
+        publisher_type:
+          type: string
+          enum: [individual, office]
+
+    # ----- ACCOUNT (LEDGER) -----
+    AccountInput:
+      type: object
+      required: [code, name, type, account_category]
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [user_balance, revenue, clearing, platform_fee, liability, expense]
+        account_category:
+          type: string
+          enum: [asset, liability, equity, revenue, expense]
+        parent_id:
+          type: integer
+          nullable: true
+        description:
+          type: string
+        currency:
+          type: string
+        is_active:
+          type: boolean
+        sort_order:
+          type: integer
+
+    # ----- PAGINATION -----
+    Pagination:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        last_page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+        from:
+          type: integer
+        to:
+          type: integer
+
+    # ----- ERROR -----
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+    # ----- SUCCESS -----
+    SuccessResponse:
+      type: object
+      properties:
+        data:
+          nullable: true
+        message:
+          type: string
+
+tags:
+  - name: Auth
+    description: Registration, login, logout, password reset, email verification, 2FA
+  - name: Categories
+    description: Property categories CRUD
+  - name: Location
+    description: Countries and cities
+  - name: Search
+    description: Global search across entities
+  - name: User Management
+    description: Admin user CRUD and status management
+  - name: Role Management
+    description: Role and permission management (admin)
+  - name: Publisher
+    description: Publisher profile, statistics, analytics, upgrade requests
+  - name: Offices
+    description: Public office listings and profiles
+  - name: Admin Offices
+    description: Office verification and upgrade request management
+  - name: Reviews
+    description: Publisher/office reviews
+  - name: Properties
+    description: Public property browsing with advanced filters
+  - name: Dashboard Properties
+    description: Authenticated property CRUD (dashboard)
+  - name: Viewings
+    description: Property viewing scheduling and lifecycle
+  - name: Ad Groups
+    description: Ad group management
+  - name: Ads
+    description: Advertisement CRUD and management
+  - name: Ad Tracking
+    description: Public ad view/visit tracking
+  - name: Ad Display
+    description: Public ad display API
+  - name: Ad Analytics
+    description: Ad performance analytics and export
+  - name: Sponsored Ads
+    description: Paid sponsored ad creation and management
+  - name: Chat
+    description: Real-time chat (rooms, messages, typing indicators)
+  - name: Notifications
+    description: User notification management
+  - name: FCM
+    description: Firebase Cloud Messaging device token registration
+  - name: Subscriptions
+    description: Subscription plans, checkout, current subscription
+  - name: Admin Subscriptions
+    description: Admin management of plans, features, discounts
+  - name: Service Providers
+    description: Public service provider listing
+  - name: Provider Portal
+    description: Service provider registration, profile, service requests, billing
+  - name: Service Requests
+    description: Client-side service request management
+  - name: Admin Service Providers
+    description: Admin service provider verification and request oversight
+  - name: Ledger
+    description: Double-entry accounting, accounts, journal entries, payroll
+  - name: Files
+    description: Temporary file uploads for properties/ads

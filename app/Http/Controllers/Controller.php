@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-abstract class Controller
+use App\Traits\ApiResponses;
+use App\Traits\ApplyPermissions;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+
+class Controller extends \Illuminate\Routing\Controller
 {
-    //
+    use ApiResponses, ApplyPermissions, ValidatesRequests;
 }

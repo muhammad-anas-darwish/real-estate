@@ -1,0 +1,75 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Services\BaseService;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use {{ modelNamespace }};
+use {{ dtoNamespace }};
+
+class {{ class }} extends BaseService
+{
+    public const CACHE_TAG = '{{ cachePrefix }}';
+    private const CACHE_TTL = 86400; // 1 day
+
+    public function all(): LengthAwarePaginator
+    {
+        $cacheKey = $this->generateCacheKey(request()->query(), 'list');
+
+        return Cache::tags(self::CACHE_TAG)->remember($cacheKey, self::CACHE_TTL, function () {
+            return {{ model }}::query()->filter()->paginate($this->getPerPage());
+        });
+    }
+
+    public function find(int $id): {{ model }}
+    {
+        $cacheKey = $this->generateCacheKey(['id' => $id], 'item');
+
+        return Cache::tags(self::CACHE_TAG)->remember($cacheKey, self::CACHE_TTL, function () use ($id) {
+            return {{ model }}::findOrFail($id);
+        });
+    }
+
+    public function findWithoutRelations(int $id): {{ model }}
+    {
+        $cacheKey = $this->generateCacheKey(['id' => $id], 'item-without-relations');
+
+        return Cache::tags(self::CACHE_TAG)->remember($cacheKey, self::CACHE_TTL, fn() => {{ model }}::findOrFail($id));
+    }
+
+    public function store({{ model }}DTO $dto): {{ model }}
+    {
+        return DB::transaction(function () use ($dto): {{ model }} {
+            ${{ modelVariable }} = {{ model }}::create([
+                'name' => $dto->name,
+                'type' => $dto->type,
+            ]);
+
+            $this->clearCache();
+            return ${{ modelVariable }};
+        });
+    }
+
+    public function update({{ model }} ${{ modelVariable }}, {{ model }}DTO $dto): {{ model }}
+    {
+        return DB::transaction(function () use (${{ modelVariable }}, $dto): {{ model }} {
+            ${{ modelVariable }}->update([
+                'name' => $dto->name,
+                'type' => $dto->type,
+            ]);
+
+            $this->clearCache();
+            return ${{ modelVariable }}->fresh();
+        });
+    }
+
+    public function destroy({{ model }} ${{ modelVariable }}): void
+    {
+        DB::transaction(function () use (${{ modelVariable }}): void {
+            ${{ modelVariable }}->delete();
+            $this->clearCache();
+        });
+    }
+}

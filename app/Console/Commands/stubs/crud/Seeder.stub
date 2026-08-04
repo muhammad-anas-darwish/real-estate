@@ -1,0 +1,34 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Seeder;
+use {{ modelNamespace }};
+
+class {{ class }} extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        // Create records using the factory
+        {{ model }}::factory()
+            ->count(10)
+            ->create();
+
+        $this->command->info('{{ class }} completed: 10 {{ model }} records created successfully!');
+
+        // You can also create specific records:
+        // {{ model }}::factory()->create([
+        //     'name' => 'Specific Name',
+        //     'status' => 'active',
+        // ]);
+
+        // Or create with relations:
+        // {{ model }}::factory()
+        //     ->count(5)
+        //     ->has(RelatedModel::factory()->count(3))
+        //     ->create();
+    }
+}

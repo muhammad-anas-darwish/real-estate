@@ -1,0 +1,22 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Http\Resources\BaseJsonResource;
+
+class {{ class }} extends BaseJsonResource
+{
+    protected function getRelationMap(): array
+    {
+        return [
+            // Add relations here 
+        ];
+    }
+
+    protected function getCustomData(): array
+    {
+        return [
+            // Add fields here 
+        ];
+    }
+}

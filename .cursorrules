@@ -1,0 +1,78 @@
+# Cursor Rules for Real Estate API Project
+
+## Project Overview
+- **Type**: Laravel 12 REST API
+- **Architecture**: Modular (Modules/*)
+- **Stack**: PHP 8.2+, Laravel 12, MySQL
+
+## Tech Stack
+- Laravel 12 with Fortify (auth)
+- Laravel Sanctum (API tokens)
+- Spatie Permission (roles/permissions)
+- Spatie Media Library (file uploads)
+- Scribe (API documentation)
+- Telescope (debugging)
+
+## Conventions
+
+### Code Style
+- Use **Pint** for formatting: `composer pint`
+- PSR-4 autoloading: `App\` and `Modules\`
+- Type hints required on all parameters/returns
+
+### Module Structure
+```
+Modules/
+├── ModuleName/
+│   ├── Config/
+│   ├── Console/
+│   ├── Database/
+│   │   ├── Migrations/
+│   │   ├── Seeders/
+│   │   └── Factories/
+│   ├── DTOs/
+│   ├── Entities/
+│   ├── Enums/
+│   ├── Events/
+│   ├── Exceptions/
+│   ├── Helpers/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   ├── Middleware/
+│   │   ├── Requests/
+│   │   └── Resources/
+│   ├── Jobs/
+│   ├── Listeners/
+│   ├── Mail/
+│   ├── Notifications/
+│   ├── Providers/
+│   ├── Routes/
+│   ├── Services/
+│   └── Tests/
+```
+
+### API Patterns
+- Resource classes for JSON responses (extends `BaseJsonResource`)
+- Service classes for business logic
+- DTOs for data transfer
+- Enums for constants
+
+### Database
+- Use migrations in `Modules/ModuleName/Database/Migrations/`
+- UUIDs for primary keys
+- Soft deletes enabled
+
+### Routes
+- API routes in `Modules/ModuleName/Routes/api.php`
+- Register in service provider
+
+## Commands
+- `composer setup` - Initial setup
+- `composer test` - Run tests
+- `composer pint` - Format code
+- `php artisan make:module ModuleName` - Create module
+- `php artisan make:crud ModuleName` - Create CRUD
+
+## Testing
+- PHPUnit tests in `Modules/ModuleName/Tests/`
+- Feature tests in `Modules/ModuleName/Tests/Feature/`
