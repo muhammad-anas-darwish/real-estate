@@ -156,12 +156,21 @@
 * [plan35-ai-smart-search.md](35-ai-smart-search.md)... ✅
 * [plan36-ai-description-assistant.md](36-ai-description-assistant.md)... ✅
 
+### test-coverage-gaps (تقرير: `docs/tests/gap-analysis.md`)
+* [plan37-test-coverage-auth.md](37-test-coverage-auth.md)... ❌
+* [plan38-test-coverage-communication.md](38-test-coverage-communication.md)... ❌
+* [plan39-test-coverage-core.md](39-test-coverage-core.md)... ❌
+* [plan40-test-coverage-ledger.md](40-test-coverage-ledger.md)... ❌
+* [plan41-test-coverage-subscription.md](41-test-coverage-subscription.md)... ❌
+* [plan42-test-coverage-realestate.md](42-test-coverage-realestate.md)... ❌
+* [plan43-test-coverage-serviceprovider.md](43-test-coverage-serviceprovider.md)... ❌
+
 ---
 
-## 📊 ملخص الحالة الراهنة (2026-07-24)
+## 📊 ملخص الحالة الراهنة (2026-07-25)
 
 | المؤشر | القيمة |
 |--------|--------|
-| إجمالي الخطط | **24 خطة** |
-| ✅ مكتمل | 24 |
-| ❌ لم يبدأ | 5 (الإحصائيات) |
+| إجمالي الخطط | **43 خطة** |
+| ✅ مكتمل | 36 |
+| ❌ لم يبدأ | 7 (تغطية الاختبارات الناقصة) |

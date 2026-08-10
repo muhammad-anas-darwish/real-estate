@@ -1,0 +1,138 @@
+%% ==================================================
+%% Sequence Diagrams - Real Estate Platform
+%% Mermaid format - paste into https://mermaid.live
+%% NOTE: paste ONE diagram at a time (each is a full sequenceDiagram block)
+%% ==================================================
+
+%% --------------------------------------------------
+%% Diagram 1: User Login (Sanctum token)
+%% --------------------------------------------------
+sequenceDiagram
+    autonumber
+    participant C as Mobile/Web Client
+    participant API as Laravel API (Fortify)
+    participant DB as Database
+
+    C->>API: POST /api/auth/login (email/phone + password)
+    API->>API: Validate credentials (Fortify)
+    API->>DB: SELECT user WHERE email = ?
+    alt Invalid credentials
+        API-->>C: 401 Unauthorized
+    else Valid credentials
+        API->>DB: CREATE personal_access_token
+        API-->>C: 200 { user, roles, access_token }
+        C->>API: GET /api/user (Bearer token)
+        API->>DB: Verify token (Sanctum)
+        API-->>C: 200 { authenticated user }
+    end
+
+%% --------------------------------------------------
+%% Diagram 2: Publish Property & Admin Approval
+%% --------------------------------------------------
+sequenceDiagram
+    autonumber
+    participant P as Publisher
+    participant API as Laravel API
+    participant SVC as PropertyService
+    participant DB as Database
+    participant A as Admin
+
+    P->>API: POST /api/dashboard/properties (JSON + images)
+    API->>API: Authorize: properties.create
+    API->>SVC: store(request)
+    SVC->>DB: INSERT properties (status=pending)
+    SVC->>DB: Upload media (Media Library)
+    API-->>P: 201 { property: pending }
+    Note over API,A: Notification to admin (DB + FCM)
+    A->>API: PATCH /api/dashboard/properties/{id}/status
+    API->>SVC: updateStatus({status: approved})
+    SVC->>DB: UPDATE properties SET status=approved, approved_by, approved_at
+    API->>DB: INSERT notification
+    API-->>A: 200 { property: approved }
+    API-->>P: FCM push: "تمت الموافقة على إعلانك"
+
+%% --------------------------------------------------
+%% Diagram 3: Book a Property Viewing Appointment
+%% --------------------------------------------------
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant API as Laravel API
+    participant DB as Database
+    participant Agent as Agent/Office
+
+    U->>API: POST /api/dashboard/appointments (property_id, scheduled_at)
+    API->>API: Authorize + validate slot
+    API->>DB: INSERT appointments (status=pending)
+    API-->>U: 201 { appointment: pending }
+    Agent->>API: GET /api/dashboard/appointments/schedule
+    API->>DB: SELECT appointments (agent_id=me)
+    API-->>Agent: 200 { list }
+    Agent->>API: PATCH /api/dashboard/appointments/{id}/confirm
+    API->>DB: UPDATE appointments SET status=confirmed
+    API-->>Agent: 200 { appointment: confirmed }
+    API-->>U: FCM push: "تم تأكيد موعد المعاينة"
+
+%% --------------------------------------------------
+%% Diagram 4: Subscription Payment via Stripe
+%% --------------------------------------------------
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant API as Laravel API
+    participant STRIPE as Stripe
+    participant WH as Stripe Webhook
+    participant DB as Database
+
+    U->>API: POST /api/subscriptions (plan_id)
+    API->>DB: SELECT plan, price
+    API->>STRIPE: Create Checkout/Subscription Session
+    STRIPE-->>U: Redirect to hosted payment page
+    U->>STRIPE: Complete payment (card)
+    STRIPE->>WH: Send webhook (invoice.paid)
+    WH->>API: POST /webhooks/stripe (event payload)
+    API->>DB: INSERT stripe_events (processed=false)
+    API->>DB: INSERT subscriptions (status=active, ends_at)
+    API->>DB: INSERT subscription_status_logs
+    API-->>U: FCM push: "تم تفعيل اشتراكك بنجاح"
+
+%% --------------------------------------------------
+%% Diagram 5: Direct Chat (Conversation / Messages)
+%% --------------------------------------------------
+sequenceDiagram
+    autonumber
+    participant U1 as Buyer
+    participant U2 as Publisher
+    participant API as Laravel API
+    participant DB as Database
+    participant PUSHER as Pusher (WebSocket)
+
+    U1->>API: POST /api/conversations (property_id)
+    API->>DB: INSERT conversations (initiator=U1, recipient=U2)
+    API-->>U1: 201 { conversation }
+    U1->>API: POST /api/messages (conversation_id, body)
+    API->>DB: INSERT messages (sender=U1)
+    API->>PUSHER: Broadcast message.sent
+    PUSHER-->>U2: Realtime event (message received)
+    U2->>API: GET /api/messages?conversation_id=...
+    API->>DB: SELECT messages
+    API-->>U2: 200 { messages[] }
+
+%% --------------------------------------------------
+%% Diagram 6: Deposit Escrow on Property Deal
+%% --------------------------------------------------
+sequenceDiagram
+    autonumber
+    participant B as Buyer
+    participant API as Laravel API
+    participant DB as Database
+    participant S as Seller
+
+    B->>API: POST /api/deposits (property_id, amount)
+    API->>API: Authorize + validate funds
+    API->>DB: INSERT deposits (status=held)
+    API-->>B: 201 { deposit: held }
+    API-->>S: FCM push: "تم إيداع مبلغ الضمان"
+    B->>API: POST /api/deposits/{id}/release
+    API->>DB: UPDATE deposits SET status=released, released_by
+    API-->>S: FCM push: "تم إخلاء الضمان لحسابك"

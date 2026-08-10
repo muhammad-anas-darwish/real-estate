@@ -32,7 +32,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -43,7 +43,7 @@ endpoints:
         name: guard_name
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -55,17 +55,17 @@ endpoints:
         description: 'The <code>name</code> of an existing record in the permissions table.'
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      guard_name: consequatur
+      name: b
+      guard_name: architecto
       permissions:
-        - consequatur
+        - architecto
     fileParameters: []
     responses: []
     responseFields: []
@@ -101,14 +101,14 @@ endpoints:
         name: id
         description: 'The ID of the role.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -117,7 +117,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -128,7 +128,7 @@ endpoints:
         name: guard_name
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -140,17 +140,17 @@ endpoints:
         description: 'The <code>name</code> of an existing record in the permissions table.'
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      guard_name: consequatur
+      name: b
+      guard_name: architecto
       permissions:
-        - consequatur
+        - architecto
     fileParameters: []
     responses: []
     responseFields: []
@@ -186,14 +186,14 @@ endpoints:
         name: id
         description: 'The ID of the role.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -233,14 +233,14 @@ endpoints:
         name: id
         description: 'The ID of the role.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -250,7 +250,7 @@ endpoints:
         description: 'The <code>name</code> of an existing record in the permissions table.'
         required: false
         example:
-          - consequatur
+          - architecto
         type: 'string[]'
         enumValues: []
         exampleWasSpecified: false
@@ -258,7 +258,7 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       permissions:
-        - consequatur
+        - architecto
     fileParameters: []
     responses: []
     responseFields: []
@@ -298,7 +298,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -309,7 +309,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: kunde.eloisa@example.com
+        example: zbailey@example.net
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -320,7 +320,7 @@ endpoints:
         name: password
         description: 'Must be at least 8 characters.'
         required: true
-        example: '4[*UyPJ"}6'
+        example: '-0pBNvYgxw'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -345,19 +345,19 @@ endpoints:
         description: 'The <code>id</code> of an existing record in the roles table.'
         required: false
         example:
-          - 17
+          - 16
         type: 'integer[]'
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      email: kunde.eloisa@example.com
-      password: '4[*UyPJ"}6'
+      name: b
+      email: zbailey@example.net
+      password: '-0pBNvYgxw'
       status: active
       role_ids:
-        - 17
+        - 16
     fileParameters: []
     responses: []
     responseFields: []
@@ -393,14 +393,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -409,7 +409,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -420,7 +420,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address.'
         required: false
-        example: kunde.eloisa@example.com
+        example: zbailey@example.net
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -431,7 +431,7 @@ endpoints:
         name: password
         description: 'Must be at least 8 characters.'
         required: false
-        example: '4[*UyPJ"}6'
+        example: '-0pBNvYgxw'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -456,19 +456,19 @@ endpoints:
         description: 'The <code>id</code> of an existing record in the roles table.'
         required: false
         example:
-          - 17
+          - 16
         type: 'integer[]'
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      email: kunde.eloisa@example.com
-      password: '4[*UyPJ"}6'
+      name: b
+      email: zbailey@example.net
+      password: '-0pBNvYgxw'
       status: inactive
       role_ids:
-        - 17
+        - 16
     fileParameters: []
     responses: []
     responseFields: []
@@ -504,14 +504,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -551,14 +551,14 @@ endpoints:
         name: id
         description: 'The ID of the user.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -738,14 +738,14 @@ endpoints:
         name: id
         description: 'The ID of the review.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -785,14 +785,14 @@ endpoints:
         name: id
         description: 'The ID of the office.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -832,14 +832,14 @@ endpoints:
         name: id
         description: 'The ID of the office.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -879,14 +879,14 @@ endpoints:
         name: id
         description: 'The ID of the upgrade request.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -926,14 +926,14 @@ endpoints:
         name: id
         description: 'The ID of the upgrade request.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -977,7 +977,7 @@ endpoints:
         name: type
         description: 'Type: "private" or "property"'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -988,7 +988,7 @@ endpoints:
         name: recipient_id
         description: 'if type=private - User ID to chat with'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -999,16 +999,16 @@ endpoints:
         name: property_id
         description: 'if type=property - Property ID'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      type: consequatur
-      recipient_id: 17
-      property_id: 17
+      type: architecto
+      recipient_id: 16
+      property_id: 16
     fileParameters: []
     responses:
       -
@@ -1050,14 +1050,14 @@ endpoints:
         name: roomId
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      roomId: consequatur
+      roomId: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1066,7 +1066,7 @@ endpoints:
         name: body
         description: 'Message text content'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1077,7 +1077,7 @@ endpoints:
         name: type
         description: 'optional Message type: "text", "image", "file"'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1088,7 +1088,7 @@ endpoints:
         name: parent_id
         description: 'optional ID of message being replied to'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -1106,9 +1106,9 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      body: consequatur
-      type: consequatur
-      parent_id: 17
+      body: architecto
+      type: architecto
+      parent_id: 16
     fileParameters:
       attachment: null
     responses:
@@ -1151,7 +1151,7 @@ endpoints:
         name: roomId
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1162,15 +1162,15 @@ endpoints:
         name: messageId
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      roomId: consequatur
-      messageId: consequatur
+      roomId: architecto
+      messageId: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1210,14 +1210,14 @@ endpoints:
         name: roomId
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      roomId: consequatur
+      roomId: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1298,14 +1298,14 @@ endpoints:
         name: id
         description: 'The ID of the notification.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1380,14 +1380,14 @@ endpoints:
         name: id
         description: 'The ID of the notification.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1431,7 +1431,7 @@ endpoints:
         name: token
         description: 'Firebase device token'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1442,15 +1442,15 @@ endpoints:
         name: device_type
         description: '"android", "ios", or "web"'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      token: consequatur
-      device_type: consequatur
+      token: architecto
+      device_type: architecto
     fileParameters: []
     responses:
       -
@@ -1496,7 +1496,7 @@ endpoints:
         name: token
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1507,7 +1507,7 @@ endpoints:
         name: device_type
         description: ''
         required: false
-        example: ios
+        example: android
         type: string
         enumValues:
           - android
@@ -1517,8 +1517,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      token: consequatur
-      device_type: ios
+      token: architecto
+      device_type: android
     fileParameters: []
     responses: []
     responseFields: []
@@ -1558,7 +1558,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1569,7 +1569,7 @@ endpoints:
         name: type
         description: ''
         required: true
-        example: car
+        example: property
         type: string
         enumValues:
           - property
@@ -1578,8 +1578,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      type: car
+      name: b
+      type: property
     fileParameters: []
     responses: []
     responseFields: []
@@ -1616,14 +1616,14 @@ endpoints:
         name: id
         description: 'The ID of the category.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1632,7 +1632,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1643,7 +1643,7 @@ endpoints:
         name: type
         description: ''
         required: false
-        example: car
+        example: property
         type: string
         enumValues:
           - property
@@ -1652,8 +1652,8 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      type: car
+      name: b
+      type: property
     fileParameters: []
     responses: []
     responseFields: []
@@ -1689,14 +1689,14 @@ endpoints:
         name: id
         description: 'The ID of the category.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1740,7 +1740,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 128 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1751,7 +1751,7 @@ endpoints:
         name: country_id
         description: 'The <code>id</code> of an existing record in the countries table.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1762,7 +1762,7 @@ endpoints:
         name: state_provianc
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1773,7 +1773,7 @@ endpoints:
         name: postal_code
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1784,18 +1784,18 @@ endpoints:
         name: is_active
         description: ''
         required: false
-        example: true
+        example: false
         type: boolean
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      country_id: consequatur
-      state_provianc: consequatur
-      postal_code: consequatur
-      is_active: true
+      name: b
+      country_id: architecto
+      state_provianc: architecto
+      postal_code: architecto
+      is_active: false
     fileParameters: []
     responses: []
     responseFields: []
@@ -1832,14 +1832,14 @@ endpoints:
         name: id
         description: 'The ID of the city.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1848,7 +1848,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 128 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1859,7 +1859,7 @@ endpoints:
         name: country_id
         description: 'The <code>id</code> of an existing record in the countries table.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1870,7 +1870,7 @@ endpoints:
         name: state_provianc
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1881,7 +1881,7 @@ endpoints:
         name: postal_code
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1892,18 +1892,18 @@ endpoints:
         name: is_active
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      country_id: consequatur
-      state_provianc: consequatur
-      postal_code: consequatur
-      is_active: false
+      name: b
+      country_id: architecto
+      state_provianc: architecto
+      postal_code: architecto
+      is_active: true
     fileParameters: []
     responses: []
     responseFields: []
@@ -1939,14 +1939,14 @@ endpoints:
         name: id
         description: 'The ID of the city.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1990,7 +1990,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 128 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2001,7 +2001,7 @@ endpoints:
         name: code
         description: 'Must not be greater than 3 characters.'
         required: false
-        example: amn
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2012,7 +2012,7 @@ endpoints:
         name: phone_code
         description: 'Must not be greater than 4 characters.'
         required: false
-        example: iihf
+        example: gzmi
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2030,9 +2030,9 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      code: amn
-      phone_code: iihf
+      name: b
+      code: 'n'
+      phone_code: gzmi
       is_active: false
     fileParameters: []
     responses: []
@@ -2070,14 +2070,14 @@ endpoints:
         name: id
         description: 'The ID of the country.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -2086,7 +2086,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 128 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2097,7 +2097,7 @@ endpoints:
         name: code
         description: 'Must not be greater than 3 characters.'
         required: false
-        example: amn
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2108,7 +2108,7 @@ endpoints:
         name: phone_code
         description: 'Must not be greater than 4 characters.'
         required: false
-        example: iihf
+        example: gzmi
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2119,17 +2119,17 @@ endpoints:
         name: is_active
         description: ''
         required: true
-        example: true
+        example: false
         type: boolean
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      code: amn
-      phone_code: iihf
-      is_active: true
+      name: b
+      code: 'n'
+      phone_code: gzmi
+      is_active: false
     fileParameters: []
     responses: []
     responseFields: []
@@ -2165,14 +2165,14 @@ endpoints:
         name: id
         description: 'The ID of the country.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2216,7 +2216,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 120 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2227,7 +2227,7 @@ endpoints:
         name: phone
         description: 'Must not be greater than 32 characters.'
         required: true
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2238,7 +2238,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address. Must not be greater than 120 characters.'
         required: false
-        example: andreanne00@example.org
+        example: ashly64@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2249,7 +2249,7 @@ endpoints:
         name: source
         description: ''
         required: true
-        example: whatsapp
+        example: phone
         type: string
         enumValues:
           - website
@@ -2262,10 +2262,10 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      phone: amniihfqcoynlazghdtqt
-      email: andreanne00@example.org
-      source: whatsapp
+      name: b
+      phone: 'n'
+      email: ashly64@example.com
+      source: phone
     fileParameters: []
     responses: []
     responseFields: []
@@ -2301,14 +2301,14 @@ endpoints:
         name: id
         description: 'The ID of the lead.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -2317,7 +2317,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 120 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2328,7 +2328,7 @@ endpoints:
         name: phone
         description: 'Must not be greater than 32 characters.'
         required: false
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2339,7 +2339,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address. Must not be greater than 120 characters.'
         required: false
-        example: andreanne00@example.org
+        example: ashly64@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2350,7 +2350,7 @@ endpoints:
         name: source
         description: ''
         required: false
-        example: phone
+        example: referral
         type: string
         enumValues:
           - website
@@ -2363,10 +2363,10 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      phone: amniihfqcoynlazghdtqt
-      email: andreanne00@example.org
-      source: phone
+      name: b
+      phone: 'n'
+      email: ashly64@example.com
+      source: referral
     fileParameters: []
     responses: []
     responseFields: []
@@ -2402,14 +2402,14 @@ endpoints:
         name: id
         description: 'The ID of the lead.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -2434,7 +2434,7 @@ endpoints:
         name: lost_reason
         description: 'This field is required when <code>status</code> is <code>lost</code>. Must not be greater than 500 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2442,7 +2442,7 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       status: won
-      lost_reason: vmqeopfuudtdsufvyvddq
+      lost_reason: b
     fileParameters: []
     responses: []
     responseFields: []
@@ -2478,14 +2478,14 @@ endpoints:
         name: id
         description: 'The ID of the lead.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2525,14 +2525,14 @@ endpoints:
         name: id
         description: 'The ID of the lead.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2572,14 +2572,14 @@ endpoints:
         name: leadId
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      leadId: consequatur
+      leadId: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -2588,14 +2588,14 @@ endpoints:
         name: body
         description: 'Must be at least 1 character. Must not be greater than 5000 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      body: vmqeopfuudtdsufvyvddq
+      body: b
     fileParameters: []
     responses: []
     responseFields: []
@@ -2631,14 +2631,14 @@ endpoints:
         name: noteId
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      noteId: consequatur
+      noteId: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -2647,14 +2647,14 @@ endpoints:
         name: body
         description: 'Must be at least 1 character. Must not be greater than 5000 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      body: vmqeopfuudtdsufvyvddq
+      body: b
     fileParameters: []
     responses: []
     responseFields: []
@@ -2690,14 +2690,14 @@ endpoints:
         name: noteId
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      noteId: consequatur
+      noteId: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2741,7 +2741,7 @@ endpoints:
         name: code
         description: 'Must not be greater than 100 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2752,7 +2752,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2763,7 +2763,7 @@ endpoints:
         name: account_number
         description: 'Must not be greater than 50 characters.'
         required: false
-        example: qxbajwbpilpmufinllwlo
+        example: g
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2774,7 +2774,7 @@ endpoints:
         name: account_category
         description: ''
         required: true
-        example: expense
+        example: liability
         type: string
         enumValues:
           - asset
@@ -2790,7 +2790,7 @@ endpoints:
         name: description
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: 'Et a qui ducimus.'
+        example: 'Quos velit et fugiat sunt nihil accusantium harum.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2801,7 +2801,7 @@ endpoints:
         name: currency
         description: 'Must not be greater than 3 characters.'
         required: false
-        example: sms
+        example: i
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2812,7 +2812,7 @@ endpoints:
         name: parent_id
         description: 'The <code>id</code> of an existing record in the ledger_accounts table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -2823,7 +2823,7 @@ endpoints:
         name: sort_order
         description: 'Must be at least 0.'
         required: false
-        example: 45
+        example: 39
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -2834,22 +2834,22 @@ endpoints:
         name: is_active
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      code: vmqeopfuudtdsufvyvddq
-      name: amniihfqcoynlazghdtqt
-      account_number: qxbajwbpilpmufinllwlo
-      account_category: expense
-      description: 'Et a qui ducimus.'
-      currency: sms
-      parent_id: 17
-      sort_order: 45
-      is_active: false
+      code: b
+      name: 'n'
+      account_number: g
+      account_category: liability
+      description: 'Quos velit et fugiat sunt nihil accusantium harum.'
+      currency: i
+      parent_id: 16
+      sort_order: 39
+      is_active: true
     fileParameters: []
     responses: []
     responseFields: []
@@ -2886,14 +2886,14 @@ endpoints:
         name: id
         description: 'The ID of the account.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 17
+      id: 16
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -2902,7 +2902,7 @@ endpoints:
         name: code
         description: 'Must not be greater than 100 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2913,7 +2913,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2924,7 +2924,7 @@ endpoints:
         name: account_number
         description: 'Must not be greater than 50 characters.'
         required: false
-        example: qxbajwbpilpmufinllwlo
+        example: g
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2951,7 +2951,7 @@ endpoints:
         name: description
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: 'Et a qui ducimus.'
+        example: 'Quos velit et fugiat sunt nihil accusantium harum.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2962,7 +2962,7 @@ endpoints:
         name: currency
         description: 'Must not be greater than 3 characters.'
         required: false
-        example: sms
+        example: i
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -2973,7 +2973,7 @@ endpoints:
         name: parent_id
         description: 'The <code>id</code> of an existing record in the ledger_accounts table. Must not be one of <code></code>.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -2984,7 +2984,7 @@ endpoints:
         name: sort_order
         description: 'Must be at least 0.'
         required: false
-        example: 45
+        example: 39
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -3002,14 +3002,14 @@ endpoints:
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      code: vmqeopfuudtdsufvyvddq
-      name: amniihfqcoynlazghdtqt
-      account_number: qxbajwbpilpmufinllwlo
+      code: b
+      name: 'n'
+      account_number: g
       account_category: expense
-      description: 'Et a qui ducimus.'
-      currency: sms
-      parent_id: 17
-      sort_order: 45
+      description: 'Quos velit et fugiat sunt nihil accusantium harum.'
+      currency: i
+      parent_id: 16
+      sort_order: 39
       is_active: true
     fileParameters: []
     responses: []
@@ -3046,14 +3046,14 @@ endpoints:
         name: id
         description: 'The ID of the account.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 17
+      id: 16
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3093,14 +3093,14 @@ endpoints:
         name: journalEntry_id
         description: 'The ID of the journalEntry.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      journalEntry_id: 17
+      journalEntry_id: 16
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3144,7 +3144,7 @@ endpoints:
         name: entry_date
         description: 'Must be a valid date.'
         required: true
-        example: '2026-06-26T18:09:50'
+        example: '2026-08-09T17:25:49'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3155,7 +3155,7 @@ endpoints:
         name: description
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: 'Dolores dolorum amet iste laborum eius est dolor.'
+        example: 'Eius et animi quos velit et.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3166,7 +3166,7 @@ endpoints:
         name: reference
         description: 'Must not be greater than 100 characters.'
         required: false
-        example: dtdsufvyvddqamniihfqc
+        example: v
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3177,7 +3177,7 @@ endpoints:
         name: notes
         description: 'Must not be greater than 2000 characters.'
         required: false
-        example: oynlazghdtqtqxbajwbpi
+        example: d
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3200,7 +3200,7 @@ endpoints:
         name: 'lines[].account_id'
         description: 'The <code>id</code> of an existing record in the ledger_accounts table.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -3211,7 +3211,7 @@ endpoints:
         name: 'lines[].debit_amount'
         description: 'Must be at least 0.'
         required: false
-        example: 45
+        example: 39
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3222,7 +3222,7 @@ endpoints:
         name: 'lines[].credit_amount'
         description: 'Must be at least 0.'
         required: false
-        example: 56
+        example: 84
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3233,23 +3233,23 @@ endpoints:
         name: 'lines[].description'
         description: 'Must not be greater than 500 characters.'
         required: false
-        example: 'Iste laborum eius est dolor.'
+        example: 'Quos velit et fugiat sunt nihil accusantium harum.'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      entry_date: '2026-06-26T18:09:50'
-      description: 'Dolores dolorum amet iste laborum eius est dolor.'
-      reference: dtdsufvyvddqamniihfqc
-      notes: oynlazghdtqtqxbajwbpi
+      entry_date: '2026-08-09T17:25:49'
+      description: 'Eius et animi quos velit et.'
+      reference: v
+      notes: d
       lines:
         -
-          account_id: 17
-          debit_amount: 45
-          credit_amount: 56
-          description: 'Iste laborum eius est dolor.'
+          account_id: 16
+          debit_amount: 39
+          credit_amount: 84
+          description: 'Quos velit et fugiat sunt nihil accusantium harum.'
     fileParameters: []
     responses: []
     responseFields: []
@@ -3286,14 +3286,14 @@ endpoints:
         name: id
         description: 'The ID of the journal entry.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 17
+      id: 16
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -3302,7 +3302,7 @@ endpoints:
         name: entry_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-06-26T18:09:50'
+        example: '2026-08-09T17:25:49'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3313,7 +3313,7 @@ endpoints:
         name: description
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: 'Dolores dolorum amet iste laborum eius est dolor.'
+        example: 'Eius et animi quos velit et.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3324,7 +3324,7 @@ endpoints:
         name: reference
         description: 'Must not be greater than 100 characters.'
         required: false
-        example: dtdsufvyvddqamniihfqc
+        example: v
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3335,7 +3335,7 @@ endpoints:
         name: notes
         description: 'Must not be greater than 2000 characters.'
         required: false
-        example: oynlazghdtqtqxbajwbpi
+        example: d
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3357,7 +3357,7 @@ endpoints:
         name: 'lines[].id'
         description: 'The <code>id</code> of an existing record in the journal_entry_lines table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -3368,7 +3368,7 @@ endpoints:
         name: 'lines[].account_id'
         description: 'The <code>id</code> of an existing record in the ledger_accounts table.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -3379,7 +3379,7 @@ endpoints:
         name: 'lines[].debit_amount'
         description: 'Must be at least 0.'
         required: false
-        example: 45
+        example: 39
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3390,7 +3390,7 @@ endpoints:
         name: 'lines[].credit_amount'
         description: 'Must be at least 0.'
         required: false
-        example: 56
+        example: 84
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3401,24 +3401,24 @@ endpoints:
         name: 'lines[].description'
         description: 'Must not be greater than 500 characters.'
         required: false
-        example: 'Iste laborum eius est dolor.'
+        example: 'Quos velit et fugiat sunt nihil accusantium harum.'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      entry_date: '2026-06-26T18:09:50'
-      description: 'Dolores dolorum amet iste laborum eius est dolor.'
-      reference: dtdsufvyvddqamniihfqc
-      notes: oynlazghdtqtqxbajwbpi
+      entry_date: '2026-08-09T17:25:49'
+      description: 'Eius et animi quos velit et.'
+      reference: v
+      notes: d
       lines:
         -
-          id: 17
-          account_id: 17
-          debit_amount: 45
-          credit_amount: 56
-          description: 'Iste laborum eius est dolor.'
+          id: 16
+          account_id: 16
+          debit_amount: 39
+          credit_amount: 84
+          description: 'Quos velit et fugiat sunt nihil accusantium harum.'
     fileParameters: []
     responses: []
     responseFields: []
@@ -3454,14 +3454,14 @@ endpoints:
         name: id
         description: 'The ID of the journal entry.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 17
+      id: 16
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3505,7 +3505,7 @@ endpoints:
         name: service_provider_profile_id
         description: 'The <code>id</code> of an existing record in the service_provider_profiles table.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -3516,7 +3516,7 @@ endpoints:
         name: type
         description: ''
         required: true
-        example: both
+        example: per_task
         type: string
         enumValues:
           - monthly
@@ -3530,7 +3530,7 @@ endpoints:
         name: base_salary
         description: 'Must be at least 0.'
         required: false
-        example: 45
+        example: 39
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3541,7 +3541,7 @@ endpoints:
         name: per_task_rate
         description: 'Must be at least 0.'
         required: false
-        example: 56
+        example: 84
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3563,7 +3563,7 @@ endpoints:
         name: start_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-06-26T18:09:50'
+        example: '2026-08-09T17:25:49'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3574,7 +3574,7 @@ endpoints:
         name: end_date
         description: 'Must be a valid date. Must be a date after <code>start_date</code>.'
         required: false
-        example: '2107-07-26'
+        example: '2052-09-01'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3585,21 +3585,21 @@ endpoints:
         name: notes
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: mqeopfuudtdsufvyvddqa
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      service_provider_profile_id: 17
-      type: both
-      base_salary: 45
-      per_task_rate: 56
+      service_provider_profile_id: 16
+      type: per_task
+      base_salary: 39
+      per_task_rate: 84
       is_active: true
-      start_date: '2026-06-26T18:09:50'
-      end_date: '2107-07-26'
-      notes: mqeopfuudtdsufvyvddqa
+      start_date: '2026-08-09T17:25:49'
+      end_date: '2052-09-01'
+      notes: 'n'
     fileParameters: []
     responses: []
     responseFields: []
@@ -3670,14 +3670,14 @@ endpoints:
         name: id
         description: 'The ID of the payroll.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 17
+      id: 16
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -3700,7 +3700,7 @@ endpoints:
         name: base_salary
         description: 'Must be at least 0.'
         required: false
-        example: 73
+        example: 27
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3711,7 +3711,7 @@ endpoints:
         name: per_task_rate
         description: 'Must be at least 0.'
         required: false
-        example: 45
+        example: 39
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3722,7 +3722,7 @@ endpoints:
         name: is_active
         description: ''
         required: false
-        example: true
+        example: false
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -3733,7 +3733,7 @@ endpoints:
         name: start_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-06-26T18:09:50'
+        example: '2026-08-09T17:25:49'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3744,7 +3744,7 @@ endpoints:
         name: end_date
         description: 'Must be a valid date. Must be a date after <code>start_date</code>.'
         required: false
-        example: '2107-07-26'
+        example: '2052-09-01'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3755,7 +3755,7 @@ endpoints:
         name: notes
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: mqeopfuudtdsufvyvddqa
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3763,12 +3763,12 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       type: monthly
-      base_salary: 73
-      per_task_rate: 45
-      is_active: true
-      start_date: '2026-06-26T18:09:50'
-      end_date: '2107-07-26'
-      notes: mqeopfuudtdsufvyvddqa
+      base_salary: 27
+      per_task_rate: 39
+      is_active: false
+      start_date: '2026-08-09T17:25:49'
+      end_date: '2052-09-01'
+      notes: 'n'
     fileParameters: []
     responses: []
     responseFields: []
@@ -3804,14 +3804,14 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3851,14 +3851,14 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3902,7 +3902,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3913,7 +3913,7 @@ endpoints:
         name: description
         description: ''
         required: true
-        example: 'Dolores dolorum amet iste laborum eius est dolor.'
+        example: 'Eius et animi quos velit et.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3924,7 +3924,7 @@ endpoints:
         name: country_id
         description: 'The <code>id</code> of an existing record in the countries table.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3935,7 +3935,7 @@ endpoints:
         name: city_id
         description: 'The <code>id</code> of an existing record in the cities table.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -3946,7 +3946,7 @@ endpoints:
         name: longitude
         description: 'Must be between -180 and 180.'
         required: false
-        example: -180
+        example: -179
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -3957,7 +3957,7 @@ endpoints:
         name: latitude
         description: 'Must be between -90 and 90.'
         required: false
-        example: -89
+        example: -90
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -4000,7 +4000,7 @@ endpoints:
         name: rooms
         description: 'Must be at least 0.'
         required: true
-        example: 16
+        example: 12
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4011,7 +4011,7 @@ endpoints:
         name: bathrooms
         description: 'Must be at least 0.'
         required: true
-        example: 50
+        example: 77
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4022,18 +4022,37 @@ endpoints:
         name: area
         description: 'Must be at least 0.'
         required: true
-        example: 55
+        example: 8
         type: number
         enumValues: []
         exampleWasSpecified: false
         nullable: false
+        deprecated: false
+      home_directions:
+        custom: []
+        name: home_directions
+        description: ''
+        required: false
+        example: southeast
+        type: string
+        enumValues:
+          - north
+          - south
+          - east
+          - west
+          - northeast
+          - northwest
+          - southeast
+          - southwest
+        exampleWasSpecified: false
+        nullable: true
         deprecated: false
       detailed_info:
         custom: []
         name: detailed_info
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4044,7 +4063,7 @@ endpoints:
         name: price
         description: 'Must be at least 0.'
         required: true
-        example: 45
+        example: 39
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -4055,7 +4074,7 @@ endpoints:
         name: currency
         description: 'Must be 3 characters.'
         required: false
-        example: qeo
+        example: gzm
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4077,7 +4096,7 @@ endpoints:
         name: main_image.id
         description: ''
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4088,7 +4107,7 @@ endpoints:
         name: main_image.temporary_folder
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4110,7 +4129,7 @@ endpoints:
         name: 'gallery[].id'
         description: ''
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4121,34 +4140,35 @@ endpoints:
         name: 'gallery[].temporary_folder'
         description: 'The <code>folder</code> of an existing record in the temporary_files table.'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      description: 'Dolores dolorum amet iste laborum eius est dolor.'
-      country_id: consequatur
-      city_id: consequatur
-      longitude: -180
-      latitude: -89
+      name: b
+      description: 'Eius et animi quos velit et.'
+      country_id: architecto
+      city_id: architecto
+      longitude: -179
+      latitude: -90
       property_type: other
       type_of_contract: rent
-      rooms: 16
-      bathrooms: 50
-      area: 55
-      detailed_info: consequatur
-      price: 45
-      currency: qeo
+      rooms: 12
+      bathrooms: 77
+      area: 8
+      home_directions: southeast
+      detailed_info: architecto
+      price: 39
+      currency: gzm
       main_image:
-        id: 17
-        temporary_folder: consequatur
+        id: 16
+        temporary_folder: architecto
       gallery:
         -
-          id: 17
-          temporary_folder: consequatur
+          id: 16
+          temporary_folder: architecto
     fileParameters: []
     responses: []
     responseFields: []
@@ -4188,7 +4208,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4199,7 +4219,7 @@ endpoints:
         name: description
         description: ''
         required: true
-        example: 'Dolores dolorum amet iste laborum eius est dolor.'
+        example: 'Eius et animi quos velit et.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4210,7 +4230,7 @@ endpoints:
         name: country_id
         description: 'The <code>id</code> of an existing record in the countries table.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4221,7 +4241,7 @@ endpoints:
         name: city_id
         description: 'The <code>id</code> of an existing record in the cities table.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4232,7 +4252,7 @@ endpoints:
         name: longitude
         description: 'Must be between -180 and 180.'
         required: false
-        example: -180
+        example: -179
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -4243,7 +4263,7 @@ endpoints:
         name: latitude
         description: 'Must be between -90 and 90.'
         required: false
-        example: -89
+        example: -90
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -4254,7 +4274,7 @@ endpoints:
         name: property_type
         description: ''
         required: true
-        example: land
+        example: villa
         type: string
         enumValues:
           - apartment
@@ -4273,7 +4293,7 @@ endpoints:
         name: type_of_contract
         description: ''
         required: true
-        example: rent
+        example: sale
         type: string
         enumValues:
           - sale
@@ -4286,7 +4306,7 @@ endpoints:
         name: rooms
         description: 'Must be at least 0.'
         required: true
-        example: 16
+        example: 12
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4297,7 +4317,7 @@ endpoints:
         name: bathrooms
         description: 'Must be at least 0.'
         required: true
-        example: 50
+        example: 77
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4308,18 +4328,37 @@ endpoints:
         name: area
         description: 'Must be at least 0.'
         required: true
-        example: 55
+        example: 8
         type: number
         enumValues: []
         exampleWasSpecified: false
         nullable: false
+        deprecated: false
+      home_directions:
+        custom: []
+        name: home_directions
+        description: ''
+        required: false
+        example: northeast
+        type: string
+        enumValues:
+          - north
+          - south
+          - east
+          - west
+          - northeast
+          - northwest
+          - southeast
+          - southwest
+        exampleWasSpecified: false
+        nullable: true
         deprecated: false
       detailed_info:
         custom: []
         name: detailed_info
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4330,7 +4369,7 @@ endpoints:
         name: price
         description: 'Must be at least 0.'
         required: true
-        example: 45
+        example: 39
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -4341,7 +4380,7 @@ endpoints:
         name: currency
         description: 'Must be 3 characters.'
         required: false
-        example: qeo
+        example: gzm
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4363,7 +4402,7 @@ endpoints:
         name: main_image.id
         description: ''
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4374,7 +4413,7 @@ endpoints:
         name: main_image.temporary_folder
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4396,7 +4435,7 @@ endpoints:
         name: 'gallery[].id'
         description: ''
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4407,34 +4446,35 @@ endpoints:
         name: 'gallery[].temporary_folder'
         description: 'The <code>folder</code> of an existing record in the temporary_files table.'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      description: 'Dolores dolorum amet iste laborum eius est dolor.'
-      country_id: consequatur
-      city_id: consequatur
-      longitude: -180
-      latitude: -89
-      property_type: land
-      type_of_contract: rent
-      rooms: 16
-      bathrooms: 50
-      area: 55
-      detailed_info: consequatur
-      price: 45
-      currency: qeo
+      name: b
+      description: 'Eius et animi quos velit et.'
+      country_id: architecto
+      city_id: architecto
+      longitude: -179
+      latitude: -90
+      property_type: villa
+      type_of_contract: sale
+      rooms: 12
+      bathrooms: 77
+      area: 8
+      home_directions: northeast
+      detailed_info: architecto
+      price: 39
+      currency: gzm
       main_image:
-        id: 17
-        temporary_folder: consequatur
+        id: 16
+        temporary_folder: architecto
       gallery:
         -
-          id: 17
-          temporary_folder: consequatur
+          id: 16
+          temporary_folder: architecto
     fileParameters: []
     responses: []
     responseFields: []
@@ -4470,14 +4510,14 @@ endpoints:
         name: id
         description: 'The ID of the property.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -4486,7 +4526,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4497,7 +4537,7 @@ endpoints:
         name: description
         description: ''
         required: false
-        example: 'Dolores dolorum amet iste laborum eius est dolor.'
+        example: 'Eius et animi quos velit et.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4530,7 +4570,7 @@ endpoints:
         name: longitude
         description: 'Must be between -180 and 180.'
         required: false
-        example: -180
+        example: -179
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -4552,7 +4592,7 @@ endpoints:
         name: property_type
         description: ''
         required: true
-        example: house
+        example: office
         type: string
         enumValues:
           - apartment
@@ -4584,7 +4624,7 @@ endpoints:
         name: rooms
         description: 'Must be at least 0.'
         required: false
-        example: 13
+        example: 37
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4595,7 +4635,7 @@ endpoints:
         name: bathrooms
         description: 'Must be at least 0.'
         required: false
-        example: 65
+        example: 9
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4606,18 +4646,37 @@ endpoints:
         name: area
         description: 'Must be at least 0.'
         required: false
-        example: 72
+        example: 52
         type: number
         enumValues: []
         exampleWasSpecified: false
         nullable: false
+        deprecated: false
+      home_directions:
+        custom: []
+        name: home_directions
+        description: ''
+        required: false
+        example: west
+        type: string
+        enumValues:
+          - north
+          - south
+          - east
+          - west
+          - northeast
+          - northwest
+          - southeast
+          - southwest
+        exampleWasSpecified: false
+        nullable: true
         deprecated: false
       detailed_info:
         custom: []
         name: detailed_info
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4628,7 +4687,7 @@ endpoints:
         name: price
         description: 'Must be at least 0.'
         required: false
-        example: 45
+        example: 39
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -4639,7 +4698,7 @@ endpoints:
         name: currency
         description: 'Must be 3 characters.'
         required: false
-        example: qeo
+        example: gzm
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4650,7 +4709,7 @@ endpoints:
         name: status
         description: ''
         required: false
-        example: under_inspection
+        example: approved
         type: string
         enumValues:
           - pending
@@ -4681,7 +4740,7 @@ endpoints:
         name: main_image.id
         description: ''
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4692,7 +4751,7 @@ endpoints:
         name: main_image.temporary_folder
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -4714,7 +4773,7 @@ endpoints:
         name: 'gallery[].id'
         description: ''
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -4725,33 +4784,34 @@ endpoints:
         name: 'gallery[].temporary_folder'
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      description: 'Dolores dolorum amet iste laborum eius est dolor.'
-      longitude: -180
+      name: b
+      description: 'Eius et animi quos velit et.'
+      longitude: -179
       latitude: -89
-      property_type: house
+      property_type: office
       type_of_contract: sale
-      rooms: 13
-      bathrooms: 65
-      area: 72
-      detailed_info: consequatur
-      price: 45
-      currency: qeo
-      status: under_inspection
+      rooms: 37
+      bathrooms: 9
+      area: 52
+      home_directions: west
+      detailed_info: architecto
+      price: 39
+      currency: gzm
+      status: approved
       main_image:
-        id: 17
-        temporary_folder: consequatur
+        id: 16
+        temporary_folder: architecto
       gallery:
         -
-          id: 17
-          temporary_folder: consequatur
+          id: 16
+          temporary_folder: architecto
     fileParameters: []
     responses: []
     responseFields: []
@@ -4787,14 +4847,14 @@ endpoints:
         name: id
         description: 'The ID of the property.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4834,14 +4894,14 @@ endpoints:
         name: id
         description: 'The ID of the property.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -4850,7 +4910,7 @@ endpoints:
         name: status
         description: ''
         required: true
-        example: sold
+        example: under_inspection
         type: string
         enumValues:
           - pending
@@ -4870,15 +4930,15 @@ endpoints:
         name: rejection_reason
         description: 'This field is required when <code>status</code> is <code>rejected</code>. Must not be greater than 1000 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      status: sold
-      rejection_reason: vmqeopfuudtdsufvyvddq
+      status: under_inspection
+      rejection_reason: b
     fileParameters: []
     responses: []
     responseFields: []
@@ -4914,14 +4974,14 @@ endpoints:
         name: id
         description: 'The ID of the property.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -4990,7 +5050,7 @@ endpoints:
         name: scheduled_at
         description: 'Must be a valid date. Must be a date after <code>now</code>.'
         required: true
-        example: '2107-07-26'
+        example: '2052-09-02'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5001,7 +5061,7 @@ endpoints:
         name: duration_minutes
         description: 'Must be at least 15. Must not be greater than 240.'
         required: false
-        example: 13
+        example: 22
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5012,7 +5072,7 @@ endpoints:
         name: buffer_minutes
         description: 'Must be at least 0. Must not be greater than 60.'
         required: false
-        example: 16
+        example: 7
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5023,7 +5083,7 @@ endpoints:
         name: viewing_type
         description: ''
         required: false
-        example: open_house
+        example: in_person
         type: string
         enumValues:
           - in_person
@@ -5052,7 +5112,7 @@ endpoints:
         name: contact_name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: eopfuudtdsufvyvddqamn
+        example: z
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5063,7 +5123,7 @@ endpoints:
         name: contact_phone
         description: 'Must not be greater than 30 characters.'
         required: false
-        example: iihfqcoynlazghdtqtqxb
+        example: m
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5074,7 +5134,7 @@ endpoints:
         name: notes
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: ajwbpilpmufinllwloauy
+        example: i
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5085,7 +5145,7 @@ endpoints:
         name: max_attendees
         description: 'Must be at least 1. Must not be greater than 50.'
         required: false
-        example: 4
+        example: 8
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5096,7 +5156,7 @@ endpoints:
         name: followable_id
         description: 'This field is required when <code>type</code> is <code>follow_up</code>.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5107,7 +5167,7 @@ endpoints:
         name: followable_type
         description: 'This field is required when <code>type</code> is <code>follow_up</code>.'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5115,17 +5175,17 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       type: viewing
-      scheduled_at: '2107-07-26'
-      duration_minutes: 13
-      buffer_minutes: 16
-      viewing_type: open_house
+      scheduled_at: '2052-09-02'
+      duration_minutes: 22
+      buffer_minutes: 7
+      viewing_type: in_person
       contact_method: email
-      contact_name: eopfuudtdsufvyvddqamn
-      contact_phone: iihfqcoynlazghdtqtqxb
-      notes: ajwbpilpmufinllwloauy
-      max_attendees: 4
-      followable_id: 17
-      followable_type: consequatur
+      contact_name: z
+      contact_phone: m
+      notes: i
+      max_attendees: 8
+      followable_id: 16
+      followable_type: architecto
     fileParameters: []
     responses: []
     responseFields: []
@@ -5165,7 +5225,7 @@ endpoints:
         name: followable_id
         description: ''
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5176,7 +5236,7 @@ endpoints:
         name: followable_type
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: mqeopfuudtdsufvyvddqa
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5187,7 +5247,7 @@ endpoints:
         name: agent_id
         description: 'The <code>id</code> of an existing record in the users table.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5198,7 +5258,7 @@ endpoints:
         name: scheduled_at
         description: 'Must be a valid date. Must be a date after <code>now</code>.'
         required: true
-        example: '2107-07-26'
+        example: '2052-09-02'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5209,7 +5269,7 @@ endpoints:
         name: contact_method
         description: ''
         required: false
-        example: call
+        example: visit
         type: string
         enumValues:
           - call
@@ -5224,7 +5284,7 @@ endpoints:
         name: duration_minutes
         description: 'Must be at least 15. Must not be greater than 240.'
         required: false
-        example: 13
+        example: 22
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5235,7 +5295,7 @@ endpoints:
         name: buffer_minutes
         description: 'Must be at least 0. Must not be greater than 60.'
         required: false
-        example: 16
+        example: 7
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5246,7 +5306,7 @@ endpoints:
         name: notes
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: eopfuudtdsufvyvddqamn
+        example: z
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5257,7 +5317,7 @@ endpoints:
         name: contact_name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: iihfqcoynlazghdtqtqxb
+        example: m
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5268,23 +5328,23 @@ endpoints:
         name: contact_phone
         description: 'Must not be greater than 30 characters.'
         required: false
-        example: ajwbpilpmufinllwloauy
+        example: i
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      followable_id: 17
-      followable_type: mqeopfuudtdsufvyvddqa
-      agent_id: 17
-      scheduled_at: '2107-07-26'
-      contact_method: call
-      duration_minutes: 13
-      buffer_minutes: 16
-      notes: eopfuudtdsufvyvddqamn
-      contact_name: iihfqcoynlazghdtqtqxb
-      contact_phone: ajwbpilpmufinllwloauy
+      followable_id: 16
+      followable_type: 'n'
+      agent_id: 16
+      scheduled_at: '2052-09-02'
+      contact_method: visit
+      duration_minutes: 22
+      buffer_minutes: 7
+      notes: z
+      contact_name: m
+      contact_phone: i
     fileParameters: []
     responses: []
     responseFields: []
@@ -5320,14 +5380,14 @@ endpoints:
         name: id
         description: 'The ID of the appointment.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -5367,14 +5427,14 @@ endpoints:
         name: id
         description: 'The ID of the appointment.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -5414,14 +5474,14 @@ endpoints:
         name: id
         description: 'The ID of the appointment.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -5430,7 +5490,7 @@ endpoints:
         name: status
         description: ''
         required: true
-        example: cancelled
+        example: pending
         type: string
         enumValues:
           - pending
@@ -5447,7 +5507,7 @@ endpoints:
         name: cancellation_reason
         description: 'This field is required when <code>status</code> is <code>cancelled</code>. Must not be greater than 500 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5458,7 +5518,7 @@ endpoints:
         name: agent_notes
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5469,17 +5529,17 @@ endpoints:
         name: scheduled_at
         description: 'This field is required when <code>status</code> is <code>rescheduled</code>. Must be a valid date. Must be a date after <code>now</code>.'
         required: false
-        example: '2107-07-26'
+        example: '2052-09-02'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      status: cancelled
-      cancellation_reason: vmqeopfuudtdsufvyvddq
-      agent_notes: amniihfqcoynlazghdtqt
-      scheduled_at: '2107-07-26'
+      status: pending
+      cancellation_reason: b
+      agent_notes: 'n'
+      scheduled_at: '2052-09-02'
     fileParameters: []
     responses: []
     responseFields: []
@@ -5515,14 +5575,14 @@ endpoints:
         name: id
         description: 'The ID of the appointment.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -5548,7 +5608,7 @@ endpoints:
         name: cancellation_reason
         description: 'This field is required when <code>status</code> is <code>cancelled</code>. Must not be greater than 500 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5559,7 +5619,7 @@ endpoints:
         name: agent_notes
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5570,7 +5630,7 @@ endpoints:
         name: scheduled_at
         description: 'This field is required when <code>status</code> is <code>rescheduled</code>. Must be a valid date. Must be a date after <code>now</code>.'
         required: false
-        example: '2107-07-26'
+        example: '2052-09-02'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5578,9 +5638,9 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       status: cancelled
-      cancellation_reason: vmqeopfuudtdsufvyvddq
-      agent_notes: amniihfqcoynlazghdtqt
-      scheduled_at: '2107-07-26'
+      cancellation_reason: b
+      agent_notes: 'n'
+      scheduled_at: '2052-09-02'
     fileParameters: []
     responses: []
     responseFields: []
@@ -5616,14 +5676,14 @@ endpoints:
         name: id
         description: 'The ID of the appointment.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -5663,14 +5723,14 @@ endpoints:
         name: id
         description: 'The ID of the appointment.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -5714,7 +5774,7 @@ endpoints:
         name: type
         description: ''
         required: false
-        example: follow_up
+        example: viewing
         type: string
         enumValues:
           - viewing
@@ -5739,7 +5799,7 @@ endpoints:
         name: scheduled_at
         description: 'Must be a valid date. Must be a date after <code>now</code>.'
         required: true
-        example: '2107-07-26'
+        example: '2052-09-02'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5750,7 +5810,7 @@ endpoints:
         name: duration_minutes
         description: 'Must be at least 15. Must not be greater than 240.'
         required: false
-        example: 13
+        example: 22
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5761,7 +5821,7 @@ endpoints:
         name: buffer_minutes
         description: 'Must be at least 0. Must not be greater than 60.'
         required: false
-        example: 16
+        example: 7
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5786,7 +5846,7 @@ endpoints:
         name: contact_method
         description: ''
         required: false
-        example: call
+        example: whatsapp
         type: string
         enumValues:
           - call
@@ -5801,7 +5861,7 @@ endpoints:
         name: contact_name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: eopfuudtdsufvyvddqamn
+        example: z
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5812,7 +5872,7 @@ endpoints:
         name: contact_phone
         description: 'Must not be greater than 30 characters.'
         required: false
-        example: iihfqcoynlazghdtqtqxb
+        example: m
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5823,7 +5883,7 @@ endpoints:
         name: notes
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: ajwbpilpmufinllwloauy
+        example: i
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -5834,7 +5894,7 @@ endpoints:
         name: max_attendees
         description: 'Must be at least 1. Must not be greater than 50.'
         required: false
-        example: 4
+        example: 8
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5845,7 +5905,7 @@ endpoints:
         name: followable_id
         description: 'This field is required when <code>type</code> is <code>follow_up</code>.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -5856,25 +5916,25 @@ endpoints:
         name: followable_type
         description: 'This field is required when <code>type</code> is <code>follow_up</code>.'
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      type: follow_up
-      scheduled_at: '2107-07-26'
-      duration_minutes: 13
-      buffer_minutes: 16
+      type: viewing
+      scheduled_at: '2052-09-02'
+      duration_minutes: 22
+      buffer_minutes: 7
       viewing_type: in_person
-      contact_method: call
-      contact_name: eopfuudtdsufvyvddqamn
-      contact_phone: iihfqcoynlazghdtqtqxb
-      notes: ajwbpilpmufinllwloauy
-      max_attendees: 4
-      followable_id: 17
-      followable_type: consequatur
+      contact_method: whatsapp
+      contact_name: z
+      contact_phone: m
+      notes: i
+      max_attendees: 8
+      followable_id: 16
+      followable_type: architecto
     fileParameters: []
     responses: []
     responseFields: []
@@ -5910,14 +5970,14 @@ endpoints:
         name: id
         description: 'The ID of the viewing.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -5957,14 +6017,14 @@ endpoints:
         name: id
         description: 'The ID of the viewing.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -6004,14 +6064,14 @@ endpoints:
         name: id
         description: 'The ID of the viewing.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -6020,7 +6080,7 @@ endpoints:
         name: status
         description: ''
         required: true
-        example: completed
+        example: pending
         type: string
         enumValues:
           - pending
@@ -6037,7 +6097,7 @@ endpoints:
         name: cancellation_reason
         description: 'This field is required when <code>status</code> is <code>cancelled</code>. Must not be greater than 500 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6048,7 +6108,7 @@ endpoints:
         name: agent_notes
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6059,17 +6119,17 @@ endpoints:
         name: scheduled_at
         description: 'This field is required when <code>status</code> is <code>rescheduled</code>. Must be a valid date. Must be a date after <code>now</code>.'
         required: false
-        example: '2107-07-26'
+        example: '2052-09-02'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      status: completed
-      cancellation_reason: vmqeopfuudtdsufvyvddq
-      agent_notes: amniihfqcoynlazghdtqt
-      scheduled_at: '2107-07-26'
+      status: pending
+      cancellation_reason: b
+      agent_notes: 'n'
+      scheduled_at: '2052-09-02'
     fileParameters: []
     responses: []
     responseFields: []
@@ -6105,14 +6165,14 @@ endpoints:
         name: id
         description: 'The ID of the viewing.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -6121,7 +6181,7 @@ endpoints:
         name: status
         description: ''
         required: true
-        example: confirmed
+        example: cancelled
         type: string
         enumValues:
           - pending
@@ -6138,7 +6198,7 @@ endpoints:
         name: cancellation_reason
         description: 'This field is required when <code>status</code> is <code>cancelled</code>. Must not be greater than 500 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6149,7 +6209,7 @@ endpoints:
         name: agent_notes
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6160,17 +6220,17 @@ endpoints:
         name: scheduled_at
         description: 'This field is required when <code>status</code> is <code>rescheduled</code>. Must be a valid date. Must be a date after <code>now</code>.'
         required: false
-        example: '2107-07-26'
+        example: '2052-09-02'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      status: confirmed
-      cancellation_reason: vmqeopfuudtdsufvyvddq
-      agent_notes: amniihfqcoynlazghdtqt
-      scheduled_at: '2107-07-26'
+      status: cancelled
+      cancellation_reason: b
+      agent_notes: 'n'
+      scheduled_at: '2052-09-02'
     fileParameters: []
     responses: []
     responseFields: []
@@ -6206,14 +6266,14 @@ endpoints:
         name: id
         description: 'The ID of the viewing.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -6253,14 +6313,14 @@ endpoints:
         name: id
         description: 'The ID of the viewing.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -6304,7 +6364,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6315,15 +6375,15 @@ endpoints:
         name: description
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: 'Dolores molestias ipsam sit.'
+        example: 'Et animi quos velit et fugiat.'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      description: 'Dolores molestias ipsam sit.'
+      name: b
+      description: 'Et animi quos velit et fugiat.'
     fileParameters: []
     responses: []
     responseFields: []
@@ -6359,14 +6419,14 @@ endpoints:
         name: id
         description: 'The ID of the ad group.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -6375,7 +6435,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6406,7 +6466,7 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
+      name: b
       status: active
       is_archived: false
     fileParameters: []
@@ -6444,14 +6504,14 @@ endpoints:
         name: id
         description: 'The ID of the ad group.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -6491,14 +6551,14 @@ endpoints:
         name: id
         description: 'The ID of the ad group.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -6538,14 +6598,14 @@ endpoints:
         name: id
         description: 'The ID of the ad group.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -6554,7 +6614,7 @@ endpoints:
         name: ad_id
         description: 'The <code>id</code> of an existing record in the ads table.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6565,15 +6625,15 @@ endpoints:
         name: ad_group_id
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      ad_id: consequatur
-      ad_group_id: consequatur
+      ad_id: architecto
+      ad_group_id: architecto
     fileParameters: []
     responses: []
     responseFields: []
@@ -6609,14 +6669,14 @@ endpoints:
         name: id
         description: 'The ID of the ad group.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -6660,7 +6720,7 @@ endpoints:
         name: title
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6671,7 +6731,7 @@ endpoints:
         name: description
         description: 'Must not be greater than 2000 characters.'
         required: false
-        example: 'Dolores molestias ipsam sit.'
+        example: 'Et animi quos velit et fugiat.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6693,7 +6753,7 @@ endpoints:
         name: media_type
         description: ''
         required: true
-        example: video
+        example: image
         type: string
         enumValues:
           - video
@@ -6706,7 +6766,7 @@ endpoints:
         name: external_url
         description: 'Must be a valid URL.'
         required: false
-        example: 'http://www.douglas.biz/natus-earum-quas-dignissimos-perferendis'
+        example: 'http://www.dach.com/mollitia-modi-deserunt-aut-ab-provident-perspiciatis-quo.html'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6728,7 +6788,7 @@ endpoints:
         name: status
         description: ''
         required: false
-        example: active
+        example: draft
         type: string
         enumValues:
           - draft
@@ -6742,7 +6802,7 @@ endpoints:
         name: start_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-06-26T18:09:51'
+        example: '2026-08-09T17:25:49'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6753,7 +6813,7 @@ endpoints:
         name: end_date
         description: 'Must be a valid date. Must be a date after or equal to <code>start_date</code>.'
         required: false
-        example: '2107-07-26'
+        example: '2052-09-01'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6771,13 +6831,13 @@ endpoints:
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      title: vmqeopfuudtdsufvyvddq
-      description: 'Dolores molestias ipsam sit.'
-      media_type: video
-      external_url: 'http://www.douglas.biz/natus-earum-quas-dignissimos-perferendis'
-      status: active
-      start_date: '2026-06-26T18:09:51'
-      end_date: '2107-07-26'
+      title: b
+      description: 'Et animi quos velit et fugiat.'
+      media_type: image
+      external_url: 'http://www.dach.com/mollitia-modi-deserunt-aut-ab-provident-perspiciatis-quo.html'
+      status: draft
+      start_date: '2026-08-09T17:25:49'
+      end_date: '2052-09-01'
     fileParameters: []
     responses: []
     responseFields: []
@@ -6813,14 +6873,14 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -6829,7 +6889,7 @@ endpoints:
         name: title
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6840,7 +6900,7 @@ endpoints:
         name: description
         description: 'Must not be greater than 2000 characters.'
         required: false
-        example: 'Dolores molestias ipsam sit.'
+        example: 'Et animi quos velit et fugiat.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6862,7 +6922,7 @@ endpoints:
         name: media_type
         description: ''
         required: false
-        example: video
+        example: image
         type: string
         enumValues:
           - video
@@ -6875,7 +6935,7 @@ endpoints:
         name: external_url
         description: 'Must be a valid URL.'
         required: false
-        example: 'http://www.douglas.biz/natus-earum-quas-dignissimos-perferendis'
+        example: 'http://www.dach.com/mollitia-modi-deserunt-aut-ab-provident-perspiciatis-quo.html'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6897,7 +6957,7 @@ endpoints:
         name: status
         description: ''
         required: false
-        example: paused
+        example: draft
         type: string
         enumValues:
           - draft
@@ -6911,7 +6971,7 @@ endpoints:
         name: start_date
         description: 'Must be a valid date.'
         required: false
-        example: '2026-06-26T18:09:51'
+        example: '2026-08-09T17:25:49'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6922,7 +6982,7 @@ endpoints:
         name: end_date
         description: 'Must be a valid date. Must be a date after or equal to <code>start_date</code>.'
         required: false
-        example: '2107-07-26'
+        example: '2052-09-01'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -6940,13 +7000,13 @@ endpoints:
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      title: vmqeopfuudtdsufvyvddq
-      description: 'Dolores molestias ipsam sit.'
-      media_type: video
-      external_url: 'http://www.douglas.biz/natus-earum-quas-dignissimos-perferendis'
-      status: paused
-      start_date: '2026-06-26T18:09:51'
-      end_date: '2107-07-26'
+      title: b
+      description: 'Et animi quos velit et fugiat.'
+      media_type: image
+      external_url: 'http://www.dach.com/mollitia-modi-deserunt-aut-ab-provident-perspiciatis-quo.html'
+      status: draft
+      start_date: '2026-08-09T17:25:49'
+      end_date: '2052-09-01'
     fileParameters: []
     responses: []
     responseFields: []
@@ -6982,14 +7042,14 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -7029,14 +7089,14 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -7076,14 +7136,14 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -7123,14 +7183,14 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -7170,14 +7230,14 @@ endpoints:
         name: id
         description: 'The ID of the ad.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -7221,7 +7281,7 @@ endpoints:
         name: title
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -7232,7 +7292,7 @@ endpoints:
         name: description
         description: 'Must not be greater than 2000 characters.'
         required: false
-        example: 'Dolores molestias ipsam sit.'
+        example: 'Et animi quos velit et fugiat.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -7243,7 +7303,7 @@ endpoints:
         name: media_type
         description: ''
         required: true
-        example: video
+        example: image
         type: string
         enumValues:
           - video
@@ -7256,7 +7316,7 @@ endpoints:
         name: external_url
         description: 'Must be a valid URL. Must not be greater than 2048 characters.'
         required: false
-        example: 'http://www.douglas.biz/natus-earum-quas-dignissimos-perferendis'
+        example: 'http://www.dach.com/mollitia-modi-deserunt-aut-ab-provident-perspiciatis-quo.html'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -7278,7 +7338,7 @@ endpoints:
         name: pricing_tier
         description: ''
         required: true
-        example: premium
+        example: standard
         type: string
         enumValues:
           - basic
@@ -7333,7 +7393,7 @@ endpoints:
         name: idempotency_key
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: zghdtqtqxbajwbpilpmuf
+        example: m
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -7352,15 +7412,15 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      title: vmqeopfuudtdsufvyvddq
-      description: 'Dolores molestias ipsam sit.'
-      media_type: video
-      external_url: 'http://www.douglas.biz/natus-earum-quas-dignissimos-perferendis'
-      pricing_tier: premium
+      title: b
+      description: 'Et animi quos velit et fugiat.'
+      media_type: image
+      external_url: 'http://www.dach.com/mollitia-modi-deserunt-aut-ab-provident-perspiciatis-quo.html'
+      pricing_tier: standard
       sponsor_duration: 30_days
       payment_method: balance
       currency: usd
-      idempotency_key: zghdtqtqxbajwbpilpmuf
+      idempotency_key: m
     fileParameters:
       media:
         - null
@@ -7398,14 +7458,14 @@ endpoints:
         name: id
         description: 'The ID of the sponsored ad.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -7449,7 +7509,7 @@ endpoints:
         name: type
         description: ''
         required: true
-        example: other
+        example: inspector
         type: string
         enumValues:
           - photographer
@@ -7465,7 +7525,7 @@ endpoints:
         name: bio
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -7476,7 +7536,7 @@ endpoints:
         name: experience_years
         description: 'Must be at least 0. Must not be greater than 50.'
         required: false
-        example: 1
+        example: 22
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -7487,7 +7547,7 @@ endpoints:
         name: license_number
         description: 'Must not be greater than 100 characters.'
         required: false
-        example: mniihfqcoynlazghdtqtq
+        example: g
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -7498,7 +7558,7 @@ endpoints:
         name: price_type
         description: ''
         required: false
-        example: negotiable
+        example: hourly
         type: string
         enumValues:
           - fixed
@@ -7512,7 +7572,7 @@ endpoints:
         name: price_per_task
         description: 'Must be at least 0.'
         required: false
-        example: 80
+        example: 12
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -7524,7 +7584,7 @@ endpoints:
         description: 'The <code>id</code> of an existing record in the cities table.'
         required: false
         example:
-          - 17
+          - 16
         type: 'integer[]'
         enumValues: []
         exampleWasSpecified: false
@@ -7553,14 +7613,14 @@ endpoints:
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      type: other
-      bio: vmqeopfuudtdsufvyvddq
-      experience_years: 1
-      license_number: mniihfqcoynlazghdtqtq
-      price_type: negotiable
-      price_per_task: 80
+      type: inspector
+      bio: b
+      experience_years: 22
+      license_number: g
+      price_type: hourly
+      price_per_task: 12
       coverage_city_ids:
-        - 17
+        - 16
     fileParameters: []
     responses: []
     responseFields: []
@@ -7600,7 +7660,7 @@ endpoints:
         name: type
         description: ''
         required: false
-        example: inspector
+        example: other
         type: string
         enumValues:
           - photographer
@@ -7616,7 +7676,7 @@ endpoints:
         name: bio
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -7627,7 +7687,7 @@ endpoints:
         name: experience_years
         description: 'Must be at least 0. Must not be greater than 50.'
         required: false
-        example: 1
+        example: 22
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -7638,7 +7698,7 @@ endpoints:
         name: license_number
         description: 'Must not be greater than 100 characters.'
         required: false
-        example: mniihfqcoynlazghdtqtq
+        example: g
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -7649,7 +7709,7 @@ endpoints:
         name: price_type
         description: ''
         required: false
-        example: hourly
+        example: negotiable
         type: string
         enumValues:
           - fixed
@@ -7663,7 +7723,7 @@ endpoints:
         name: price_per_task
         description: 'Must be at least 0.'
         required: false
-        example: 80
+        example: 12
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -7675,7 +7735,7 @@ endpoints:
         description: 'The <code>id</code> of an existing record in the cities table.'
         required: false
         example:
-          - 17
+          - 16
         type: 'integer[]'
         enumValues: []
         exampleWasSpecified: false
@@ -7704,14 +7764,14 @@ endpoints:
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      type: inspector
-      bio: vmqeopfuudtdsufvyvddq
-      experience_years: 1
-      license_number: mniihfqcoynlazghdtqtq
-      price_type: hourly
-      price_per_task: 80
+      type: other
+      bio: b
+      experience_years: 22
+      license_number: g
+      price_type: negotiable
+      price_per_task: 12
       coverage_city_ids:
-        - 17
+        - 16
     fileParameters: []
     responses: []
     responseFields: []
@@ -7782,14 +7842,14 @@ endpoints:
         name: id
         description: 'The ID of the service request.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -7829,14 +7889,14 @@ endpoints:
         name: id
         description: 'The ID of the service request.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -7876,14 +7936,14 @@ endpoints:
         name: id
         description: 'The ID of the service request.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -7923,14 +7983,14 @@ endpoints:
         name: id
         description: 'The ID of the service request.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -7970,14 +8030,14 @@ endpoints:
         name: taskId
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      taskId: consequatur
+      taskId: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -8067,7 +8127,7 @@ endpoints:
         name: service_type
         description: ''
         required: true
-        example: legal
+        example: inspection
         type: string
         enumValues:
           - photography
@@ -8082,7 +8142,7 @@ endpoints:
         name: provider_id
         description: 'The <code>id</code> of an existing record in the service_provider_profiles table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -8093,7 +8153,7 @@ endpoints:
         name: property_id
         description: 'The <code>id</code> of an existing record in the properties table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -8104,7 +8164,7 @@ endpoints:
         name: scheduled_at
         description: 'Must be a valid date.'
         required: false
-        example: '2026-06-26T18:09:51'
+        example: '2026-08-09T17:25:49'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8115,7 +8175,7 @@ endpoints:
         name: client_notes
         description: 'Must not be greater than 2000 characters.'
         required: false
-        example: mqeopfuudtdsufvyvddqa
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8126,19 +8186,19 @@ endpoints:
         name: price
         description: 'Must be at least 0.'
         required: false
-        example: 45
+        example: 84
         type: number
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      service_type: legal
-      provider_id: 17
-      property_id: 17
-      scheduled_at: '2026-06-26T18:09:51'
-      client_notes: mqeopfuudtdsufvyvddqa
-      price: 45
+      service_type: inspection
+      provider_id: 16
+      property_id: 16
+      scheduled_at: '2026-08-09T17:25:49'
+      client_notes: 'n'
+      price: 84
     fileParameters: []
     responses: []
     responseFields: []
@@ -8174,14 +8234,14 @@ endpoints:
         name: id
         description: 'The ID of the service request.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -8221,14 +8281,14 @@ endpoints:
         name: id
         description: 'The ID of the service provider.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -8268,14 +8328,14 @@ endpoints:
         name: id
         description: 'The ID of the service provider.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -8354,7 +8414,7 @@ endpoints:
         name: code
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8365,15 +8425,15 @@ endpoints:
         name: plan_id
         description: 'The <code>id</code> of an existing record in the subscription_plans table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      code: vmqeopfuudtdsufvyvddq
-      plan_id: 17
+      code: b
+      plan_id: 16
     fileParameters: []
     responses: []
     responseFields: []
@@ -8413,7 +8473,7 @@ endpoints:
         name: plan_id
         description: 'The <code>id</code> of an existing record in the subscription_plans table.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -8424,7 +8484,7 @@ endpoints:
         name: coupon_code
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: mqeopfuudtdsufvyvddqa
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8435,7 +8495,7 @@ endpoints:
         name: payment_method
         description: ''
         required: false
-        example: stripe
+        example: balance
         type: string
         enumValues:
           - stripe
@@ -8444,9 +8504,9 @@ endpoints:
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      plan_id: 17
-      coupon_code: mqeopfuudtdsufvyvddqa
-      payment_method: stripe
+      plan_id: 16
+      coupon_code: 'n'
+      payment_method: balance
     fileParameters: []
     responses: []
     responseFields: []
@@ -8521,7 +8581,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8532,7 +8592,7 @@ endpoints:
         name: slug
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8543,7 +8603,7 @@ endpoints:
         name: description
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: 'Necessitatibus architecto aut consequatur debitis et id.'
+        example: 'Animi quos velit et fugiat.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8554,7 +8614,7 @@ endpoints:
         name: price
         description: 'Must be at least 0.'
         required: true
-        example: 31
+        example: 42
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -8565,7 +8625,7 @@ endpoints:
         name: currency
         description: 'Must not be greater than 3 characters.'
         required: false
-        example: lpm
+        example: l
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8576,7 +8636,7 @@ endpoints:
         name: duration_days
         description: 'Must be at least 1.'
         required: true
-        example: 71
+        example: 4
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -8587,7 +8647,7 @@ endpoints:
         name: is_active
         description: ''
         required: false
-        example: true
+        example: false
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -8598,21 +8658,21 @@ endpoints:
         name: sort_order
         description: 'Must be at least 0.'
         required: false
-        example: 18
+        example: 52
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      slug: amniihfqcoynlazghdtqt
-      description: 'Necessitatibus architecto aut consequatur debitis et id.'
-      price: 31
-      currency: lpm
-      duration_days: 71
-      is_active: true
-      sort_order: 18
+      name: b
+      slug: 'n'
+      description: 'Animi quos velit et fugiat.'
+      price: 42
+      currency: l
+      duration_days: 4
+      is_active: false
+      sort_order: 52
     fileParameters: []
     responses: []
     responseFields: []
@@ -8648,14 +8708,14 @@ endpoints:
         name: id
         description: 'The ID of the plan.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -8664,7 +8724,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8675,7 +8735,7 @@ endpoints:
         name: slug
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8686,7 +8746,7 @@ endpoints:
         name: description
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: 'Necessitatibus architecto aut consequatur debitis et id.'
+        example: 'Animi quos velit et fugiat.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8697,7 +8757,7 @@ endpoints:
         name: price
         description: 'Must be at least 0.'
         required: false
-        example: 31
+        example: 42
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -8708,7 +8768,7 @@ endpoints:
         name: currency
         description: 'Must not be greater than 3 characters.'
         required: false
-        example: lpm
+        example: l
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8719,7 +8779,7 @@ endpoints:
         name: duration_days
         description: 'Must be at least 1.'
         required: false
-        example: 71
+        example: 4
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -8730,7 +8790,7 @@ endpoints:
         name: is_active
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -8741,21 +8801,21 @@ endpoints:
         name: sort_order
         description: 'Must be at least 0.'
         required: false
-        example: 18
+        example: 52
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      slug: amniihfqcoynlazghdtqt
-      description: 'Necessitatibus architecto aut consequatur debitis et id.'
-      price: 31
-      currency: lpm
-      duration_days: 71
-      is_active: false
-      sort_order: 18
+      name: b
+      slug: 'n'
+      description: 'Animi quos velit et fugiat.'
+      price: 42
+      currency: l
+      duration_days: 4
+      is_active: true
+      sort_order: 52
     fileParameters: []
     responses: []
     responseFields: []
@@ -8791,14 +8851,14 @@ endpoints:
         name: id
         description: 'The ID of the plan.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -8838,14 +8898,14 @@ endpoints:
         name: id
         description: 'The ID of the plan.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -8866,7 +8926,7 @@ endpoints:
         name: 'features[].feature_id'
         description: 'The <code>id</code> of an existing record in the subscription_features table.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -8888,7 +8948,7 @@ endpoints:
         name: 'features[].limit_value'
         description: 'Must be at least 0.'
         required: false
-        example: 45
+        example: 39
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -8897,9 +8957,9 @@ endpoints:
     cleanBodyParameters:
       features:
         -
-          feature_id: 17
+          feature_id: 16
           is_enabled: true
-          limit_value: 45
+          limit_value: 39
     fileParameters: []
     responses: []
     responseFields: []
@@ -8939,7 +8999,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8950,7 +9010,7 @@ endpoints:
         name: slug
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -8974,17 +9034,17 @@ endpoints:
         name: description
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: 'Necessitatibus architecto aut consequatur debitis et id.'
+        example: 'Animi quos velit et fugiat.'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      slug: amniihfqcoynlazghdtqt
+      name: b
+      slug: 'n'
       type: limit
-      description: 'Necessitatibus architecto aut consequatur debitis et id.'
+      description: 'Animi quos velit et fugiat.'
     fileParameters: []
     responses: []
     responseFields: []
@@ -9020,14 +9080,14 @@ endpoints:
         name: id
         description: 'The ID of the feature.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -9036,7 +9096,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -9047,7 +9107,7 @@ endpoints:
         name: slug
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: amniihfqcoynlazghdtqt
+        example: 'n'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -9058,7 +9118,7 @@ endpoints:
         name: type
         description: ''
         required: false
-        example: limit
+        example: toggle
         type: string
         enumValues:
           - toggle
@@ -9071,17 +9131,17 @@ endpoints:
         name: description
         description: 'Must not be greater than 1000 characters.'
         required: false
-        example: 'Necessitatibus architecto aut consequatur debitis et id.'
+        example: 'Animi quos velit et fugiat.'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      name: vmqeopfuudtdsufvyvddq
-      slug: amniihfqcoynlazghdtqt
-      type: limit
-      description: 'Necessitatibus architecto aut consequatur debitis et id.'
+      name: b
+      slug: 'n'
+      type: toggle
+      description: 'Animi quos velit et fugiat.'
     fileParameters: []
     responses: []
     responseFields: []
@@ -9117,14 +9177,14 @@ endpoints:
         name: id
         description: 'The ID of the feature.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -9168,7 +9228,7 @@ endpoints:
         name: plan_id
         description: 'The <code>id</code> of an existing record in the subscription_plans table.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -9179,7 +9239,7 @@ endpoints:
         name: feature_id
         description: 'The <code>id</code> of an existing record in the subscription_features table.'
         required: true
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -9201,17 +9261,17 @@ endpoints:
         name: limit_value
         description: 'Must be at least 0.'
         required: false
-        example: 45
+        example: 39
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      plan_id: 17
-      feature_id: 17
+      plan_id: 16
+      feature_id: 16
       is_enabled: true
-      limit_value: 45
+      limit_value: 39
     fileParameters: []
     responses: []
     responseFields: []
@@ -9247,14 +9307,14 @@ endpoints:
         name: id
         description: 'The ID of the plan feature.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -9263,7 +9323,7 @@ endpoints:
         name: is_enabled
         description: ''
         required: false
-        example: false
+        example: true
         type: boolean
         enumValues: []
         exampleWasSpecified: false
@@ -9274,15 +9334,15 @@ endpoints:
         name: limit_value
         description: 'Must be at least 0.'
         required: false
-        example: 73
+        example: 27
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      is_enabled: false
-      limit_value: 73
+      is_enabled: true
+      limit_value: 27
     fileParameters: []
     responses: []
     responseFields: []
@@ -9318,14 +9378,14 @@ endpoints:
         name: id
         description: 'The ID of the plan feature.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -9369,7 +9429,7 @@ endpoints:
         name: code
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -9380,7 +9440,7 @@ endpoints:
         name: type
         description: ''
         required: true
-        example: fixed
+        example: percentage
         type: string
         enumValues:
           - percentage
@@ -9393,7 +9453,7 @@ endpoints:
         name: value
         description: 'Must be at least 0.'
         required: true
-        example: 1
+        example: 39
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -9404,7 +9464,7 @@ endpoints:
         name: plan_id
         description: 'The <code>id</code> of an existing record in the subscription_plans table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -9415,7 +9475,7 @@ endpoints:
         name: max_uses
         description: 'Must be at least 1.'
         required: false
-        example: 45
+        example: 22
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -9426,7 +9486,7 @@ endpoints:
         name: expires_at
         description: 'Must be a valid date. Must be a date after <code>now</code>.'
         required: false
-        example: '2107-07-26'
+        example: '2052-09-02'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -9444,12 +9504,12 @@ endpoints:
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      code: vmqeopfuudtdsufvyvddq
-      type: fixed
-      value: 1
-      plan_id: 17
-      max_uses: 45
-      expires_at: '2107-07-26'
+      code: b
+      type: percentage
+      value: 39
+      plan_id: 16
+      max_uses: 22
+      expires_at: '2052-09-02'
       is_active: true
     fileParameters: []
     responses: []
@@ -9486,14 +9546,14 @@ endpoints:
         name: id
         description: 'The ID of the discount.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -9502,7 +9562,7 @@ endpoints:
         name: code
         description: 'Must not be greater than 255 characters.'
         required: false
-        example: vmqeopfuudtdsufvyvddq
+        example: b
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -9513,7 +9573,7 @@ endpoints:
         name: type
         description: ''
         required: false
-        example: fixed
+        example: percentage
         type: string
         enumValues:
           - percentage
@@ -9526,7 +9586,7 @@ endpoints:
         name: value
         description: 'Must be at least 0.'
         required: false
-        example: 1
+        example: 39
         type: number
         enumValues: []
         exampleWasSpecified: false
@@ -9537,7 +9597,7 @@ endpoints:
         name: plan_id
         description: 'The <code>id</code> of an existing record in the subscription_plans table.'
         required: false
-        example: 17
+        example: 16
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -9548,7 +9608,7 @@ endpoints:
         name: max_uses
         description: 'Must be at least 1.'
         required: false
-        example: 45
+        example: 22
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -9559,7 +9619,7 @@ endpoints:
         name: expires_at
         description: 'Must be a valid date.'
         required: false
-        example: '2026-06-26T18:09:51'
+        example: '2026-08-09T17:25:49'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -9577,12 +9637,12 @@ endpoints:
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      code: vmqeopfuudtdsufvyvddq
-      type: fixed
-      value: 1
-      plan_id: 17
-      max_uses: 45
-      expires_at: '2026-06-26T18:09:51'
+      code: b
+      type: percentage
+      value: 39
+      plan_id: 16
+      max_uses: 22
+      expires_at: '2026-08-09T17:25:49'
       is_active: true
     fileParameters: []
     responses: []
@@ -9619,18 +9679,231 @@ endpoints:
         name: id
         description: 'The ID of the discount.'
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: consequatur
+      id: architecto
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
     cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/ai/search
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      query:
+        custom: []
+        name: query
+        description: 'Must be at least 5 characters. Must not be greater than 500 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      query: b
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/ai/description/generate
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/ai/description/improve
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/ai/description/suggest-title
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/ai/description/suggest-features
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      property_type:
+        custom: []
+        name: property_type
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      language:
+        custom: []
+        name: language
+        description: ''
+        required: false
+        example: ar
+        type: string
+        enumValues:
+          - ar
+          - en
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      property_type: architecto
+      language: ar
     fileParameters: []
     responses: []
     responseFields: []
@@ -9687,7 +9960,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Attempt to authenticate a new session.'
+      title: ''
       description: ''
       authenticated: true
       deprecated: false
@@ -9703,9 +9976,9 @@ endpoints:
       email:
         custom: []
         name: email
-        description: ''
+        description: 'Must be a valid email address.'
         required: true
-        example: qkunze@example.com
+        example: gbailey@example.net
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -9716,15 +9989,74 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: 'O[2UZ5ij-e/dl4m{o,'
+        example: '|]|{+-'
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      email: qkunze@example.com
-      password: 'O[2UZ5ij-e/dl4m{o,'
+      email: gbailey@example.net
+      password: '|]|{+-'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/auth/verify-otp
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer 14|gLxqLsZPXA3iPR6M5GGWMqoNZn494yCoti2IqnKs971c1382'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        custom: []
+        name: user_id
+        description: 'The <code>id</code> of an existing record in the users table.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      code:
+        custom: []
+        name: code
+        description: 'Must be at least 6 characters. Must not be greater than 6 characters.'
+        required: true
+        example: ngzm
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      user_id: 16
+      code: ngzm
     fileParameters: []
     responses: []
     responseFields: []
@@ -9764,7 +10096,7 @@ endpoints:
         name: code
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -9775,15 +10107,15 @@ endpoints:
         name: recovery_code
         description: ''
         required: false
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: true
         deprecated: false
     cleanBodyParameters:
-      code: consequatur
-      recovery_code: consequatur
+      code: architecto
+      recovery_code: architecto
     fileParameters: []
     responses: []
     responseFields: []
@@ -9823,14 +10155,14 @@ endpoints:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: qkunze@example.com
+        example: gbailey@example.net
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      email: qkunze@example.com
+      email: gbailey@example.net
     fileParameters: []
     responses: []
     responseFields: []
@@ -9870,7 +10202,7 @@ endpoints:
         name: token
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -9881,15 +10213,15 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: consequatur
+        example: architecto
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanBodyParameters:
-      token: consequatur
-      password: consequatur
+      token: architecto
+      password: architecto
     fileParameters: []
     responses: []
     responseFields: []
