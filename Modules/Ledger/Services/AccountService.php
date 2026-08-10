@@ -32,9 +32,9 @@ class AccountService extends BaseService
         }, 'children.children' => function ($q) {
             $q->orderBy('sort_order')->orderBy('account_number');
         }])
-        ->orderBy('sort_order')
-        ->orderBy('account_number')
-        ->get();
+            ->orderBy('sort_order')
+            ->orderBy('account_number')
+            ->get();
 
         return AccountResource::collection(
             $roots->map(function ($account) {

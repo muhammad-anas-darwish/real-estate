@@ -40,4 +40,17 @@ return [
         'country_cache_enabled' => env('LOCATION_COUNTRY_CACHE_ENABLED', false),
     ],
 
+    'google' => [
+        'maps_api_key' => env('GOOGLE_MAPS_API_KEY'),
+        'geocoding_api_key' => env('GOOGLE_MAPS_API_KEY'),
+    ],
+
+    'kimi' => [
+        'api_key' => env('KIMI_API_KEY'),
+        'base_url' => env('KIMI_API_BASE_URL', 'https://api.moonshot.cn/v1'),
+        'model' => env('KIMI_MODEL', 'moonshot-v1-8k'),
+        'timeout' => env('KIMI_TIMEOUT', 30),
+        'max_retries' => env('KIMI_MAX_RETRIES', 2),
+    ],
+
 ];

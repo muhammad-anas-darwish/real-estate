@@ -1,6 +1,6 @@
 # Entity Relationship Overview
 
-Text-based ERD describing all models and their relationships.
+Text-based ERD describing all models and their relationships across the 13 modules of the platform. Based on the actual entities and migrations in the current codebase.
 
 ---
 
@@ -9,18 +9,26 @@ Text-based ERD describing all models and their relationships.
 ```
 User
   ├── belongsToMany → Role (Spatie, via model_has_roles)
-  ├── hasMany → PublisherUpgradeRequest (user_id)
-  ├── hasMany → Review (reviewer_id, reviewed_id)
+  ├── belongsToMany → Property (lovedProperties, via property_user pivot)
   ├── hasMany → Property (publisher_id, polymorphic publisher_type)
-  ├── hasMany → ChatRoom (via chat_room_user pivot)
+  ├── hasMany → PropertyView (user_id)
+  ├── hasMany → Review (reviewer_id, reviewed_id)
+  ├── hasMany → Conversation (initiator_id / recipient_id)
   ├── hasMany → Message (sender_id)
-  ├── hasMany → PropertyViewing (user_id, agent_id)
+  ├── hasMany → Appointment (user_id / agent_id / cancelled_by)
   ├── hasMany → Subscription (user_id)
+  ├── hasMany → PublisherUpgradeRequest (user_id / reviewed_by)
+  ├── hasMany → OtpCode (user_id)
+  ├── hasMany → UserFcmToken (user_id)
+  ├── hasMany → UserNotificationPreference (user_id)
+  ├── hasMany → RentalCard (owner_id / tenant_user_id / ended_by)
+  ├── hasMany → Lead (trader_id / assigned_to)
+  ├── hasMany → LeadNote (author_id)
   ├── hasOne  → ServiceProviderProfile (user_id)
-  ├── hasMany → FcmToken (user_id)
-  ├── belongsToMany → Property (lovedProperties pivot)
+  ├── hasOne  → StorageLimit (user_id)
+  ├── hasMany → UserFolder / UserFile (user_id)
   ├── morphOne → Account (owner, ledger)
-  └── hasMany → Ad (created_by/user_id)
+  └── morphMany → Media (Spatie Media Library)
 
 Role (Spatie)
   ├── belongsToMany → User
@@ -29,6 +37,9 @@ Role (Spatie)
 PublisherUpgradeRequest
   ├── belongsTo → User (user_id)
   └── belongsTo → User (reviewed_by)
+
+OtpCode
+  └── belongsTo → User (user_id)
 ```
 
 ---
@@ -37,16 +48,42 @@ PublisherUpgradeRequest
 
 ```
 Property
-  ├── belongsTo → User (publisher, polymorphic)
+  ├── belongsTo → User (publisher, publisher_id)
+  ├── belongsTo → User (approver, approved_by)
   ├── belongsTo → Country (country_id)
   ├── belongsTo → City (city_id)
-  ├── belongsTo → User (approver, approved_by)
-  ├── belongsToMany → User (favoritedBy pivot)
-  ├── hasMany → Ad (property_id)
+  ├── belongsTo → Category (category_id)
+  ├── belongsToMany → User (favoritedBy, property_user pivot)
   ├── hasMany → PropertyView (property_id)
-  ├── hasMany → PropertyViewing (property_id)
+  ├── hasMany → Appointment (property_id)
+  ├── hasMany → RentalCard (property_id)
+  ├── hasOne  → RentalCard (activeRentalCard)
+  ├── hasMany → Ad (property_id)
   ├── hasMany → ServiceRequest (property_id)
+  ├── hasMany → Deposit (property_id)
   └── morphMany → Media (Spatie Media Library)
+
+Appointment  (replaces the old PropertyViewing; includes viewings + follow-ups + general)
+  ├── belongsTo → Property (property_id)
+  ├── belongsTo → User (user_id, requester)
+  ├── belongsTo → User (agent_id, agent)
+  ├── belongsTo → User (cancelled_by, nullable)
+  └── morphTo   → followable (Lead, Property, etc.)
+
+RentalCard
+  ├── belongsTo → Property (property_id)
+  ├── belongsTo → User (owner_id, owner)
+  ├── belongsTo → User (tenant_user_id, tenant)
+  └── belongsTo → User (ended_by, nullable)
+
+PropertyView
+  ├── belongsTo → Property (property_id)
+  └── belongsTo → User (user_id, nullable)
+
+Review
+  ├── belongsTo → User (reviewer, reviewer_id)
+  ├── belongsTo → User (reviewed, reviewed_id)
+  └── belongsTo → Property (property_id, nullable)
 
 Ad
   ├── belongsTo → AdGroup (ad_group_id)
@@ -61,29 +98,9 @@ AdGroup
   ├── hasMany → Ad (ad_group_id)
   └── belongsTo → User (creator, created_by)
 
-AdMedia
-  └── belongsTo → Ad (ad_id)
-
-AdView
-  ├── belongsTo → Ad (ad_id)
-  └── belongsTo → User (user_id, nullable)
-
-AdVisit (same as AdView)
-
-PropertyView
-  ├── belongsTo → Property (property_id)
-  └── belongsTo → User (user_id, nullable)
-
-PropertyViewing
-  ├── belongsTo → Property (property_id)
-  ├── belongsTo → User (user_id, viewer)
-  ├── belongsTo → User (agent_id, agent)
-  └── belongsTo → User (cancelled_by, nullable)
-
-Review
-  ├── belongsTo → User (reviewer, reviewer_id)
-  ├── belongsTo → User (reviewed, reviewed_id)
-  └── belongsTo → Property (property_id, nullable)
+AdMedia   → belongsTo → Ad (ad_id)
+AdView    → belongsTo → Ad + belongsTo → User (nullable)
+AdVisit   → belongsTo → Ad + belongsTo → User (nullable)
 ```
 
 ---
@@ -92,10 +109,9 @@ Review
 
 ```
 ChatRoom
-  ├── belongsToMany → User (participants, with pivot)
-  ├── hasMany → Message (room_id)
-  ├── hasOne  → Message (lastMessage, via latest)
-  └── belongsTo → Property (property_id, nullable)
+  ├── belongsTo → Property (property_id, nullable)
+  ├── belongsToMany → User (participants, via chat_room_participants pivot)
+  └── hasMany → Message (room_id)
 
 Message
   ├── belongsTo → ChatRoom (room_id)
@@ -103,12 +119,12 @@ Message
   ├── belongsTo → Message (parent, parent_id, nullable)
   └── hasMany → Message (replies, parent_id)
 
-Conversation
+Conversation  (direct 1-1 chat between two users about a property)
   ├── belongsTo → Property (property_id)
   ├── belongsTo → User (initiator, initiator_id)
   ├── belongsTo → User (recipient, recipient_id)
-  ├── hasMany → Message (via morph?)
-  └── hasOne  → Message (lastMessage)
+  ├── hasMany → Message (via conversation)
+  └── hasMany → Message (lastMessage, via latest)
 
 UserFcmToken
   └── belongsTo → User (user_id)
@@ -129,14 +145,14 @@ Subscription
   └── hasMany → SubscriptionStatusLog (subscription_id)
 
 SubscriptionPlan
-  ├── belongsToMany → SubscriptionFeature (via plan_features pivot)
+  ├── belongsToMany → SubscriptionFeature (via subscription_plan_features pivot)
   ├── hasMany → SubscriptionPlanFeature (plan_id)
   ├── hasMany → Subscription (plan_id)
   └── hasMany → SubscriptionDiscount (plan_id)
 
 SubscriptionFeature
   ├── belongsToMany → SubscriptionPlan (via plan_features pivot)
-  ├── hasMany → SubscriptionPlanFeature (feature_id)
+  └── hasMany → SubscriptionPlanFeature (feature_id)
 
 SubscriptionPlanFeature (pivot extension)
   ├── belongsTo → SubscriptionPlan (plan_id)
@@ -166,7 +182,7 @@ ServiceProviderProfile
 
 ServiceRequest
   ├── belongsTo → User (client, client_id)
-  ├── belongsTo → ServiceProviderProfile (provider, provider_id, nullable)
+  ├── belongsTo → User (provider, provider_id)
   ├── belongsTo → Property (property_id)
   └── hasMany → ServiceRequestTask (service_request_id)
 
@@ -194,12 +210,11 @@ Account
 
 AccountEntry
   └── belongsTo → Account (account_id)
-  (manual morph via reference_type/reference_id)
 
 JournalEntry
   ├── hasMany → JournalEntryLine (journal_entry_id)
-  ├── belongsTo → User (created_by, created_by_id)
-  └── belongsTo → User (posted_by, posted_by_id)
+  ├── belongsTo → User (created_by)
+  └── belongsTo → User (posted_by)
 
 JournalEntryLine
   ├── belongsTo → JournalEntry (journal_entry_id)
@@ -217,17 +232,68 @@ PayrollPayment
 
 ---
 
+## Deposit Module (Escrow)
+
+```
+Deposit
+  ├── belongsTo → Property (property_id)
+  ├── belongsTo → User (buyer, buyer_id)
+  ├── belongsTo → User (seller, seller_id)
+  ├── belongsTo → User (cancelled_by, nullable)
+  ├── belongsTo → User (released_by, nullable)
+  └── belongsTo → User (refunded_by, nullable)
+```
+
+---
+
+## CRM Module
+
+```
+Lead
+  ├── belongsTo → User (trader, trader_id)
+  ├── belongsTo → User (assigned_to, nullable)
+  ├── hasMany → LeadNote (lead_id)
+  └── morphMany → Appointment (followUps)
+
+LeadNote
+  ├── belongsTo → Lead (lead_id)
+  └── belongsTo → User (author, author_id)
+```
+
+---
+
+## FileSystem Module
+
+```
+UserFolder
+  ├── belongsTo → User (user_id)
+  ├── belongsTo → UserFolder (parent, parent_id, nullable)
+  ├── hasMany → UserFolder (children, parent_id)
+  └── hasMany → UserFile (folder_id)
+
+UserFile
+  ├── belongsTo → User (user_id)
+  └── belongsTo → UserFolder (folder_id, nullable)
+
+StorageLimit
+  └── belongsTo → User (user_id)
+```
+
+---
+
 ## Core Module
 
 ```
 Category
-  (standalone — lookup table)
+  ├── belongsTo → Category (parent, self-referencing)
+  └── hasMany → Category (children)
 
 Country
   └── hasMany → City (country_id)
 
 City
   ├── belongsTo → Country (country_id)
+  ├── hasMany → Property (city_id)
   └── hasMany → ServiceProviderCoverageArea (city_id)
 
 TemporaryFile
@@ -243,7 +309,8 @@ TemporaryFile
 | User (ledger) | `owner` | Account |
 | Property | (Spatie) | Media |
 | TemporaryFile | (Spatie) | Media |
-| AccountEntry | `reference` | JournalEntry, PayrollPayment, etc. |
+| Appointment | `followable` | Lead, Property, ... |
+| Notification | `notifiable` | User, ... |
 
 ---
 
@@ -252,6 +319,8 @@ TemporaryFile
 | Pivot | Table | Columns |
 |-------|-------|---------|
 | User ↔ Role | `model_has_roles` | role_id, model_type, model_id |
-| User ↔ Property (loved) | `property_user` (or similar) | user_id, property_id |
-| User ↔ ChatRoom | `chat_room_user` | room_id, user_id, (timestamps) |
-| Plan ↔ Feature | `subscription_plan_features` | plan_id, feature_id, is_enabled, limit_value |
+| User ↔ Permission | `model_has_permissions` | permission_id, model_type, model_id |
+| Role ↔ Permission | `role_has_permissions` | role_id, permission_id |
+| User ↔ Property (loved) | `property_user` | user_id, property_id |
+| User ↔ ChatRoom | `chat_room_participants` | chat_room_id, user_id |
+| Plan ↔ Feature | `subscription_plan_features` | plan_id, feature_id, value |

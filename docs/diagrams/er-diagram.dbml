@@ -1,0 +1,577 @@
+// ============================================================
+// Real Estate Platform — ER Diagram (dbdiagram.io format)
+// Paste into https://dbdiagram.io  ->  New -> paste this code
+// ============================================================
+
+// ================= AUTH & USERS =================
+Table users {
+  id bigint [pk, increment]
+  name varchar
+  email varchar [unique]
+  phone varchar [unique]
+  email_verified_at timestamp
+  password varchar
+  two_factor_secret text
+  two_factor_recovery_codes text
+  status enum [note: 'active, suspended, banned']
+  avatar varchar
+  is_publisher boolean [default: false]
+  is_verified_publisher boolean [default: false]
+  publisher_license_no varchar
+  service_provider_type varchar [note: 'individual, company']
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table roles {
+  id bigint [pk, increment]
+  name varchar [unique]
+  guard_name varchar
+  created_at timestamp
+}
+
+Table permissions {
+  id bigint [pk, increment]
+  name varchar [unique]
+  guard_name varchar
+  created_at timestamp
+}
+
+Table model_has_roles {
+  role_id bigint
+  model_type varchar
+  model_id bigint
+}
+
+Table model_has_permissions {
+  permission_id bigint
+  model_type varchar
+  model_id bigint
+}
+
+Table role_has_permissions {
+  role_id bigint
+  permission_id bigint
+}
+
+Table personal_access_tokens {
+  id bigint [pk, increment]
+  tokenable_type varchar
+  tokenable_id bigint
+  name varchar
+  token varchar
+  abilities text
+  last_used_at timestamp
+  expires_at timestamp
+}
+
+Table otp_codes {
+  id bigint [pk, increment]
+  user_id bigint
+  code varchar
+  purpose varchar [note: 'login, verification']
+  expires_at timestamp
+  used_at timestamp
+  created_at timestamp
+}
+
+Table publisher_upgrade_requests {
+  id bigint [pk, increment]
+  user_id bigint
+  reviewed_by bigint [null]
+  status enum [note: 'pending, approved, rejected']
+  documents json
+  reason text
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table media {
+  id bigint [pk, increment]
+  model_type varchar
+  model_id bigint
+  collection_name varchar
+  name varchar
+  file_name varchar
+  mime_type varchar
+  disk varchar
+  size bigint
+  manipulations json
+  custom_properties json
+  responsive_images json
+  order_column int
+  created_at timestamp
+}
+
+// ================= CORE (LOCATION & CATEGORY) =================
+Table countries {
+  id bigint [pk, increment]
+  name varchar
+  code varchar
+  created_at timestamp
+}
+
+Table cities {
+  id bigint [pk, increment]
+  country_id bigint
+  name varchar
+  created_at timestamp
+}
+
+Table categories {
+  id bigint [pk, increment]
+  parent_id bigint [null, ref: > categories.id]
+  name varchar
+  slug varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ================= REAL ESTATE =================
+Table properties {
+  id bigint [pk, increment]
+  publisher_id bigint [ref: > users.id]
+  approved_by bigint [null, ref: > users.id]
+  country_id bigint [ref: > countries.id]
+  city_id bigint [ref: > cities.id]
+  category_id bigint [ref: > categories.id]
+  name varchar
+  description text
+  detailed_info text
+  longitude decimal
+  latitude decimal
+  rooms int
+  bathrooms int
+  area decimal
+  price decimal
+  currency varchar
+  status enum [note: 'pending, approved, rejected, sold']
+  approved_at timestamp
+  rejection_reason text
+  views_count int [default: 0]
+  home_directions varchar [null]
+  inspection_notes text
+  created_at timestamp
+  updated_at timestamp
+  deleted_at timestamp
+}
+
+Table property_user {
+  property_id bigint [ref: > properties.id]
+  user_id bigint [ref: > users.id]
+  created_at timestamp
+}
+
+Table property_views {
+  id bigint [pk, increment]
+  property_id bigint [ref: > properties.id]
+  user_id bigint [null, ref: > users.id]
+  ip_address varchar
+  viewed_at timestamp
+  created_at timestamp
+}
+
+Table reviews {
+  id bigint [pk, increment]
+  reviewer_id bigint [ref: > users.id]
+  reviewed_id bigint [ref: > users.id]
+  property_id bigint [ref: > properties.id]
+  rating tinyint
+  comment text
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table appointments {
+  id bigint [pk, increment]
+  property_id bigint [ref: > properties.id]
+  user_id bigint [ref: > users.id]
+  agent_id bigint [ref: > users.id]
+  cancelled_by bigint [null, ref: > users.id]
+  scheduled_at datetime
+  status enum [note: 'pending, confirmed, completed, cancelled, no_show, rescheduled']
+  type enum [note: 'viewing, follow_up']
+  notes text
+  followable_type varchar
+  followable_id bigint
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table rental_cards {
+  id bigint [pk, increment]
+  property_id bigint [ref: > properties.id]
+  owner_id bigint [ref: > users.id]
+  tenant_user_id bigint [ref: > users.id]
+  ended_by bigint [null, ref: > users.id]
+  start_date date
+  end_date date
+  rent_amount decimal
+  status enum [note: 'active, ended']
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ================= ADS & MARKETING =================
+Table ad_groups {
+  id bigint [pk, increment]
+  creator_id bigint [ref: > users.id]
+  name varchar
+  description text
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table ads {
+  id bigint [pk, increment]
+  ad_group_id bigint [ref: > ad_groups.id]
+  property_id bigint [ref: > properties.id]
+  creator_id bigint [ref: > users.id]
+  type enum [note: 'banner, sponsored']
+  is_sponsored boolean [default: false]
+  budget decimal [null]
+  status enum [note: 'draft, active, paused, expired']
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table ad_media {
+  id bigint [pk, increment]
+  ad_id bigint [ref: > ads.id]
+  media_type varchar
+  url varchar
+  created_at timestamp
+}
+
+Table ad_views {
+  id bigint [pk, increment]
+  ad_id bigint [ref: > ads.id]
+  user_id bigint [null, ref: > users.id]
+  viewed_at timestamp
+}
+
+Table ad_visits {
+  id bigint [pk, increment]
+  ad_id bigint [ref: > ads.id]
+  user_id bigint [null, ref: > users.id]
+  visited_at timestamp
+}
+
+// ================= COMMUNICATION =================
+Table conversations {
+  id bigint [pk, increment]
+  property_id bigint [ref: > properties.id]
+  initiator_id bigint [ref: > users.id]
+  recipient_id bigint [ref: > users.id]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table messages {
+  id bigint [pk, increment]
+  conversation_id bigint [ref: > conversations.id]
+  sender_id bigint [ref: > users.id]
+  parent_id bigint [null, ref: > messages.id]
+  body text
+  attachment_path varchar [null]
+  deleted_at timestamp
+  created_at timestamp
+}
+
+Table chat_rooms {
+  id bigint [pk, increment]
+  property_id bigint [ref: > properties.id]
+  name varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table chat_room_participants {
+  chat_room_id bigint [ref: > chat_rooms.id]
+  user_id bigint [ref: > users.id]
+  joined_at timestamp
+}
+
+Table user_fcm_tokens {
+  id bigint [pk, increment]
+  user_id bigint [ref: > users.id]
+  token varchar
+  device_name varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table notifications {
+  id bigint [pk, increment]
+  type varchar
+  notifiable_type varchar
+  notifiable_id bigint
+  data json
+  read_at timestamp
+  created_at timestamp
+}
+
+Table user_notification_preferences {
+  id bigint [pk, increment]
+  user_id bigint [ref: > users.id]
+  preferences json
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ================= SUBSCRIPTION & PAYMENTS =================
+Table subscription_plans {
+  id bigint [pk, increment]
+  name varchar
+  slug varchar
+  price decimal
+  billing_cycle enum [note: 'monthly, yearly']
+  publisher_type enum [note: 'publisher, service_provider']
+  is_active boolean [default: true]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table subscription_features {
+  id bigint [pk, increment]
+  name varchar
+  code varchar
+  description text
+  created_at timestamp
+}
+
+Table subscription_plan_features {
+  id bigint [pk, increment]
+  plan_id bigint [ref: > subscription_plans.id]
+  feature_id bigint [ref: > subscription_features.id]
+  value varchar
+  created_at timestamp
+}
+
+Table subscriptions {
+  id bigint [pk, increment]
+  user_id bigint [ref: > users.id]
+  plan_id bigint [ref: > subscription_plans.id]
+  discount_id bigint [null, ref: > subscription_discounts.id]
+  status enum [note: 'active, cancelled, expired, past_due']
+  starts_at timestamp
+  ends_at timestamp
+  stripe_subscription_id varchar [null]
+  payment_reference varchar [null]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table subscription_discounts {
+  id bigint [pk, increment]
+  plan_id bigint [ref: > subscription_plans.id]
+  code varchar [unique]
+  percentage decimal
+  expires_at timestamp
+  created_at timestamp
+}
+
+Table subscription_status_logs {
+  id bigint [pk, increment]
+  subscription_id bigint [ref: > subscriptions.id]
+  old_status varchar
+  new_status varchar
+  reason text
+  created_at timestamp
+}
+
+Table stripe_events {
+  id bigint [pk, increment]
+  stripe_event_id varchar [unique]
+  type varchar
+  payload json
+  processed boolean [default: false]
+  created_at timestamp
+}
+
+// ================= ESCROW DEPOSIT =================
+Table deposits {
+  id bigint [pk, increment]
+  property_id bigint [ref: > properties.id]
+  buyer_id bigint [ref: > users.id]
+  seller_id bigint [ref: > users.id]
+  cancelled_by bigint [null, ref: > users.id]
+  released_by bigint [null, ref: > users.id]
+  refunded_by bigint [null, ref: > users.id]
+  amount decimal
+  status enum [note: 'pending, held, released, refunded, cancelled']
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ================= CRM =================
+Table leads {
+  id bigint [pk, increment]
+  trader_id bigint [ref: > users.id]
+  name varchar
+  phone varchar
+  email varchar
+  source varchar
+  status enum [note: 'new, contacted, qualified, lost, won']
+  notes text
+  assigned_to bigint [null, ref: > users.id]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table lead_notes {
+  id bigint [pk, increment]
+  lead_id bigint [ref: > leads.id]
+  author_id bigint [ref: > users.id]
+  body text
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ================= FILE SYSTEM =================
+Table user_folders {
+  id bigint [pk, increment]
+  user_id bigint [ref: > users.id]
+  parent_id bigint [null, ref: > user_folders.id]
+  name varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table user_files {
+  id bigint [pk, increment]
+  user_id bigint [ref: > users.id]
+  folder_id bigint [null, ref: > user_folders.id]
+  name varchar
+  path varchar
+  mime_type varchar
+  size bigint
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table storage_limits {
+  id bigint [pk, increment]
+  user_id bigint [ref: > users.id]
+  max_bytes bigint
+  used_bytes bigint [default: 0]
+  created_at timestamp
+  updated_at timestamp
+}
+
+// ================= SERVICE PROVIDER =================
+Table service_provider_profiles {
+  id bigint [pk, increment]
+  user_id bigint [ref: > users.id]
+  company_name varchar
+  description text
+  type enum [note: 'individual, company']
+  license_no varchar
+  is_verified boolean [default: false]
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table service_provider_coverage_areas {
+  id bigint [pk, increment]
+  profile_id bigint [ref: > service_provider_profiles.id]
+  city_id bigint [ref: > cities.id]
+  created_at timestamp
+}
+
+Table service_requests {
+  id bigint [pk, increment]
+  client_id bigint [ref: > users.id]
+  provider_id bigint [ref: > users.id]
+  property_id bigint [ref: > properties.id]
+  status enum [note: 'pending, accepted, in_progress, completed, cancelled']
+  requested_at timestamp
+  completed_at timestamp
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table service_request_tasks {
+  id bigint [pk, increment]
+  service_request_id bigint [ref: > service_requests.id]
+  title varchar
+  status enum [note: 'pending, done']
+  completed_at timestamp
+  created_at timestamp
+}
+
+Table service_commission_configs {
+  id bigint [pk, increment]
+  provider_id bigint [null, ref: > users.id]
+  percentage decimal
+  is_active boolean [default: true]
+  created_at timestamp
+}
+
+// ================= LEDGER / ACCOUNTING =================
+Table ledger_accounts {
+  id bigint [pk, increment]
+  owner_type varchar
+  owner_id bigint
+  parent_id bigint [null, ref: > ledger_accounts.id]
+  account_type enum [note: 'asset, liability, equity, revenue, expense']
+  name varchar
+  currency varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table ledger_account_entries {
+  id bigint [pk, increment]
+  account_id bigint [ref: > ledger_accounts.id]
+  debit decimal
+  credit decimal
+  memo varchar
+  created_at timestamp
+}
+
+Table journal_entries {
+  id bigint [pk, increment]
+  created_by bigint [ref: > users.id]
+  posted_by bigint [null, ref: > users.id]
+  entry_date date
+  status enum [note: 'draft, posted']
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table journal_entry_lines {
+  id bigint [pk, increment]
+  journal_entry_id bigint [ref: > journal_entries.id]
+  account_id bigint [ref: > ledger_accounts.id]
+  debit decimal
+  credit decimal
+  created_at timestamp
+}
+
+Table payrolls {
+  id bigint [pk, increment]
+  service_provider_profile_id bigint [ref: > service_provider_profiles.id]
+  period_start date
+  period_end date
+  total_amount decimal
+  status enum [note: 'draft, paid']
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table payroll_payments {
+  id bigint [pk, increment]
+  payroll_id bigint [ref: > payrolls.id]
+  service_provider_profile_id bigint [ref: > service_provider_profiles.id]
+  journal_entry_id bigint [null, ref: > journal_entries.id]
+  amount decimal
+  paid_at timestamp
+  created_at timestamp
+}
+
+// ================= RELATIONSHIPS =================
+Ref: cities.country_id > countries.id
+Ref: properties.publisher_id > users.id
+Ref: properties.approved_by > users.id
+Ref: subscriptions.discount_id > subscription_discounts.id

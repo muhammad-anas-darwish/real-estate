@@ -6,6 +6,7 @@
 - **Token Type**: Laravel Sanctum API tokens (not SPA/cookie auth)
 - **Guard**: `auth:sanctum` on protected routes
 - **Token Expiry**: Never expires (standard Sanctum API tokens)
+- **Login**: OTP-based (`/auth/login` sends code → `/auth/verify-otp` returns token)
 - **Two-Factor**: Supported via Fortify 2FA (Google Authenticator etc.)
 - **Password Reset**: Built-in Fortify flow
 - **Email Verification**: Built-in Fortify (signed URL verification)
@@ -30,7 +31,8 @@ Content-Type: application/json
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/auth/register` | Register new user |
-| POST | `/auth/login` | Login, receive token |
+| POST | `/auth/login` | Send OTP to phone/email (`AuthController::sendOtp`) |
+| POST | `/auth/verify-otp` | Verify OTP code, receive token |
 | POST | `/auth/two-factor-challenge` | Complete 2FA after login |
 | POST | `/auth/forgot-password` | Request password reset email |
 | POST | `/auth/reset-password` | Reset password with token |
@@ -90,13 +92,29 @@ POST /auth/register
 }
 ```
 
-### Login
-**Request:**
+### Login (OTP-based)
+**Step 1 — Send OTP:**
 ```json
 POST /auth/login
 {
-  "email": "john@example.com",
-  "password": "password123"
+  "phone": "+971501234567"   // or "email": "john@example.com"
+}
+```
+
+**Response (200):**
+```json
+{
+  "success": true,
+  "message": "OTP sent successfully"
+}
+```
+
+**Step 2 — Verify OTP:**
+```json
+POST /auth/verify-otp
+{
+  "phone": "+971501234567",
+  "code": "123456"
 }
 ```
 
@@ -113,15 +131,15 @@ POST /auth/login
 **Error Response (422):**
 ```json
 {
-  "message": "The provided credentials are incorrect.",
+  "message": "Invalid or expired OTP code.",
   "errors": {
-    "email": ["The provided credentials are incorrect."]
+    "code": ["Invalid or expired OTP code."]
   }
 }
 ```
 
 ### Login with 2FA Enabled
-1. POST `/auth/login` → returns 2FA required response
+1. POST `/auth/login` → sends OTP, response indicates 2FA is required
 2. POST `/auth/two-factor-challenge` with `code` from authenticator app
 3. → returns `{ user, token }`
 
@@ -145,6 +163,7 @@ POST /auth/login
 | Endpoint | Limit |
 |----------|-------|
 | `/auth/login` | 5 attempts per minute |
+| `/auth/verify-otp` | 5 attempts per minute |
 | `/auth/email/verify/{id}/{hash}` | 6 per minute |
 | `/auth/email/verification-notification` | 6 per minute |
 

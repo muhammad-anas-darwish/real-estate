@@ -1,0 +1,220 @@
+classDiagram
+    %% Class Diagram - Real Estate Platform (Laravel 12)
+    %% Paste into https://mermaid.live
+
+    direction LR
+
+    %% ================= API LAYER =================
+    class Controller {
+        <<abstract>>
+        +ApiResponses api
+        +ApplyPermissions permissions
+        +ValidatesRequests validation
+        +successResponse(data, msg) ResponseBuilder
+        +paginatedResponse(paginator, msg) JsonResponse
+        +failedResponse(msg, code) JsonResponse
+        +validationErrorResponse(errors) JsonResponse
+    }
+
+    class ApiResponses {
+        <<trait>>
+        +successResponse() JsonResponse
+        +paginatedResponse() JsonResponse
+        +failedResponse() JsonResponse
+        +validationErrorResponse() JsonResponse
+    }
+
+    class ApplyPermissions {
+        <<trait>>
+        +mapping() array
+        +permission strings
+    }
+
+    class BaseService {
+        <<abstract>>
+        #CACHE_TAG const
+        +with()
+        +getCached()
+        +clearCache()
+    }
+
+    class PropertyController {
+        +indexPublic() JsonResponse
+        +showPublic(id) JsonResponse
+        +store(request) JsonResponse
+        +update(request, id) JsonResponse
+        +destroy(id) JsonResponse
+        +updateStatus(id) JsonResponse
+        +toggleFavorite(id) JsonResponse
+        +statistics() JsonResponse
+        +myProperties() JsonResponse
+    }
+
+    class AppointmentController {
+        +index() JsonResponse
+        +store() JsonResponse
+        +confirm(id) JsonResponse
+        +reschedule(id) JsonResponse
+        +cancel(id) JsonResponse
+        +complete(id) JsonResponse
+        +markNoShow(id) JsonResponse
+        +calendar() JsonResponse
+    }
+
+    class SubscriptionController {
+        +index() JsonResponse
+        +subscribe(request) JsonResponse
+        +cancel() JsonResponse
+    }
+
+    class ChatController {
+        +conversations() JsonResponse
+        +sendMessage() JsonResponse
+        +messages() JsonResponse
+    }
+
+    %% ================= DTO LAYER =================
+    class DTOInterface {
+        <<interface>>
+        +fromRequest(array) DTOInterface
+        +toArray() array
+    }
+
+    class PropertyDTO {
+        <<final readonly>>
+        +string name
+        +string description
+        +decimal price
+        +int rooms
+        +int bathrooms
+        +fromRequest(array) PropertyDTO
+        +toArray() array
+    }
+
+    class AppointmentDTO {
+        <<final readonly>>
+        +fromRequest(array) AppointmentDTO
+        +toArray() array
+    }
+
+    %% ================= ENTITY LAYER =================
+    class BaseModel {
+        <<abstract extends Eloquent>>
+        +Filterable trait
+        +$filterableColumns
+        +$multiFilterableColumns
+        +$searchableColumns
+        +$dateFilterableColumns
+        +scopeFilter(builder) Builder
+    }
+
+    class User {
+        +HasApiTokens
+        +HasRoles
+        +lovedProperties() BelongsToMany
+        +subscriptions() HasMany
+        +reviewsReceived() HasMany
+        +reviewsGiven() HasMany
+        +serviceProviderProfile() HasOne
+    }
+
+    class Property {
+        +$fillable
+        +$casts
+        +publisher() BelongsTo
+        +country() BelongsTo
+        +city() BelongsTo
+        +approver() BelongsTo
+        +rentalCards() HasMany
+        +activeRentalCard() HasOne
+    }
+
+    class Subscription {
+        +user() BelongsTo
+        +plan() BelongsTo
+        +discount() BelongsTo
+        +statusLogs() HasMany
+    }
+
+    class Appointment {
+        +property() BelongsTo
+        +user() BelongsTo
+        +agent() BelongsTo
+        +followable() MorphTo
+    }
+
+    class Conversation {
+        +property() BelongsTo
+        +initiator() BelongsTo
+        +recipient() BelongsTo
+        +messages() HasMany
+    }
+
+    class Message {
+        +conversation() BelongsTo
+        +sender() BelongsTo
+        +parent() BelongsTo
+        +replies() HasMany
+    }
+
+    class SubscriptionPlan {
+        +features() BelongsToMany
+        +subscriptions() HasMany
+        +discounts() HasMany
+    }
+
+    %% ================= RESOURCE LAYER =================
+    class BaseJsonResource {
+        <<abstract>>
+        +getCustomData() array
+        +getRelationMap() array
+        +toArray() array
+    }
+
+    class PropertyResource {
+        +getCustomData() array
+        +getRelationMap() array
+    }
+
+    class AppointmentResource {
+        +getCustomData() array
+        +getRelationMap() array
+    }
+
+    %% ================= RELATIONSHIPS =================
+    Controller <|-- PropertyController
+    Controller <|-- AppointmentController
+    Controller <|-- SubscriptionController
+    Controller <|-- ChatController
+
+    Controller *-- ApiResponses
+    Controller *-- ApplyPermissions
+
+    BaseService <|-- PropertyService
+    BaseService <|-- AppointmentService
+    BaseService <|-- SubscriptionService
+
+    PropertyController --> BaseService : uses
+    AppointmentController --> BaseService : uses
+    SubscriptionController --> BaseService : uses
+
+    BaseService ..> PropertyDTO : builds
+    BaseService ..> AppointmentDTO : builds
+    PropertyDTO ..|> DTOInterface
+    AppointmentDTO ..|> DTOInterface
+
+    BaseModel <|-- User
+    BaseModel <|-- Property
+    BaseModel <|-- Subscription
+    BaseModel <|-- Appointment
+    BaseModel <|-- Conversation
+    BaseModel <|-- Message
+    BaseModel <|-- SubscriptionPlan
+
+    BaseJsonResource <|-- PropertyResource
+    BaseJsonResource <|-- AppointmentResource
+
+    PropertyService ..> PropertyResource : returns
+    AppointmentService ..> AppointmentResource : returns
+    PropertyService ..> Property : queries
+    AppointmentService ..> Appointment : queries

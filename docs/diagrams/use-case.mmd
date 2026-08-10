@@ -1,0 +1,66 @@
+flowchart TB
+    %% Use Case Diagram - Mermaid alternative
+    %% Paste into https://mermaid.live
+
+    subgraph System["Real Estate Platform"]
+        direction TB
+
+        subgraph Auth["Authentication & Browsing"]
+            UC1["Register"]
+            UC2["Login (Email/Phone/OTP)"]
+            UC3["Browse & Search Properties"]
+            UC4["View Property Details"]
+            UC5["View Map Properties"]
+            UC6["View Ads"]
+        end
+
+        subgraph User["User Features"]
+            UC7["Manage Profile"]
+            UC8["Favorite Properties"]
+            UC9["Book Appointment/Viewing"]
+            UC10["Chat (Direct & Rooms)"]
+            UC11["Reviews"]
+            UC12["Subscribe to Plan"]
+            UC13["Personal File Storage"]
+        end
+
+        subgraph Publisher["Publisher Features"]
+            UC14["Publish Property"]
+            UC15["Edit / Delete Property"]
+            UC16["Property Statistics"]
+            UC17["Create Ads & Ad Groups"]
+            UC18["Ad Performance"]
+            UC19["Rental Cards"]
+            UC20["Upgrade Request"]
+        end
+
+        subgraph Provider["Service Provider Features"]
+            UC21["Provider Profile"]
+            UC22["Accept Service Requests"]
+            UC23["Manage Tasks"]
+            UC24["Payroll & Earnings"]
+        end
+
+        subgraph Admin["Admin Features"]
+            UC25["Users, Roles & Permissions"]
+            UC26["Approve / Reject Properties"]
+            UC27["Verify Offices & Providers"]
+            UC28["Manage Subscription Plans"]
+            UC29["Review Upgrade Requests"]
+            UC30["Statistics Dashboard"]
+            UC31["Leads (CRM)"]
+        end
+    end
+
+    G[("Guest")] --- UC1 & UC2 & UC3 & UC4 & UC5 & UC6
+    U[("User")] --- UC7 & UC8 & UC9 & UC10 & UC11 & UC12 & UC13
+    P[("Publisher")] --- UC14 & UC15 & UC16 & UC17 & UC18 & UC19 & UC20
+    SP[("Service Provider")] --- UC21 & UC22 & UC23 & UC24
+    A[("Admin")] --- UC25 & UC26 & UC27 & UC28 & UC29 & UC30 & UC31
+
+    St[("Stripe")] --> UC12
+    Push[("FCM / Pusher")] --> UC10
+
+    U -. inherits .-> G
+    P -. inherits .-> U
+    SP -. inherits .-> U

@@ -12,6 +12,8 @@ use Modules\Core\TemporaryFile\Services\MediaSyncService;
 use Modules\RealEstate\DTOs\PropertyDTO;
 use Modules\RealEstate\Entities\Property;
 use Modules\RealEstate\Enums\PropertyStatus;
+use Modules\RealEstate\Events\PropertyCreated;
+use Modules\RealEstate\Events\PropertyDeleting;
 use Modules\Subscription\Services\SubscriptionAccess;
 
 class PropertyService extends BaseService
@@ -184,6 +186,8 @@ class PropertyService extends BaseService
                 );
             }
 
+            event(new PropertyCreated($property));
+
             return $property->fresh(['publisher', 'approver', 'media' => fn ($query) => $query->where('collection_name', 'main_image')]);
         });
     }
@@ -222,6 +226,9 @@ class PropertyService extends BaseService
     {
         DB::transaction(function () use ($id): void {
             $property = Property::findOrFail($id);
+
+            event(new PropertyDeleting($property));
+
             $property->clearMediaCollection('main_image');
             $property->clearMediaCollection('gallery');
             $property->delete();

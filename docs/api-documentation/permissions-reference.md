@@ -2,90 +2,105 @@
 
 All permissions use the format: `{resource}.{action}`. Permissions are managed via Spatie Permission package with `web` guard. The `super-admin` role has ALL permissions.
 
+> Generated from `database/seeders/PermissionSeeder.php` in the current codebase.
+
 ---
 
 ## Roles
 ```
-roles.list             — List all roles
-roles.show             — View a role
-roles.create           — Create a role
-roles.edit             — Update a role
-roles.delete           — Delete a role
-roles.get-all-permissions — Get complete permissions list
+roles.list                 — List all roles
+roles.show                 — View a role
+roles.create               — Create a role
+roles.edit                 — Update a role
+roles.delete               — Delete a role
+roles.get-all-permissions  — Get complete permissions list
 ```
 
 ## Users
 ```
-users.list             — List all users
-users.show             — View a user
-users.create           — Create a user
-users.edit             — Update a user
-users.delete           — Delete a user
-users.toggle-status    — Activate/deactivate a user
+users.list                 — List all users
+users.show                 — View a user
+users.create               — Create a user
+users.edit                 — Update a user
+users.delete               — Delete a user
+users.toggle-status        — Activate/deactivate a user
 ```
 
 ## Properties
 ```
-properties.list        — List properties (dashboard)
-properties.show        — View property detail (dashboard)
-properties.create      — Create a property
-properties.edit        — Update a property
-properties.delete      — Delete a property
+properties.list            — List properties (dashboard)
+properties.show            — View property detail (dashboard)
+properties.create          — Create a property
+properties.edit            — Update a property
+properties.delete          — Delete a property
 ```
 
-## Property Viewings
+## Viewings (legacy alias → Appointments)
 ```
-viewings.list          — List viewings
-viewings.show          — View viewing detail
-viewings.create        — Book a viewing
-viewings.edit          — Edit a viewing
-viewings.delete        — Delete a viewing
-viewings.confirm       — Confirm a viewing
-viewings.cancel        — Cancel a viewing
-viewings.reschedule    — Reschedule a viewing
-viewings.complete      — Mark viewing as completed
+viewings.list              — List viewings
+viewings.show              — View viewing detail
+viewings.create            — Book a viewing
+viewings.edit              — Edit a viewing
+viewings.delete            — Delete a viewing
+viewings.confirm           — Confirm a viewing
+viewings.cancel            — Cancel a viewing
+viewings.reschedule        — Reschedule a viewing
+viewings.complete          — Mark viewing as completed
+```
+
+## Appointments (generalized viewings: viewing / follow-up / general)
+```
+appointments.list          — List appointments
+appointments.show          — View appointment detail
+appointments.create        — Book an appointment
+appointments.edit          — Update an appointment
+appointments.delete        — Delete an appointment
+appointments.confirm       — Confirm an appointment
+appointments.cancel        — Cancel an appointment
+appointments.reschedule    — Reschedule an appointment
+appointments.complete      — Mark appointment as completed
 ```
 
 ## Ad Groups
 ```
-ad_groups.list         — List ad groups
-ad_groups.show         — View ad group
-ad_groups.create       — Create ad group
-ad_groups.edit         — Update ad group
-ad_groups.delete       — Delete ad group
-ad_groups.archive      — Archive ad group
-ad_groups.restore      — Restore archived ad group
-ad_groups.set-default  — Set default ad for group
+ad_groups.list             — List ad groups
+ad_groups.show             — View ad group
+ad_groups.create           — Create ad group
+ad_groups.edit             — Update ad group
+ad_groups.delete           — Delete ad group
+ad_groups.archive          — Archive ad group
+ad_groups.restore          — Restore archived ad group
+ad_groups.set-default      — Set default ad for group
 ```
 
 ## Ads
 ```
-ads.list               — List ads
-ads.show               — View ad
-ads.create             — Create ad
-ads.edit               — Update ad
-ads.delete             — Delete ad
-ads.archive            — Archive ad
-ads.restore            — Restore archived ad
-ads.set-status         — Change ad status
-ads.link-property      — Link ad to property
-ads.view-analytics     — View ad analytics
-ads.export             — Export analytics data
+ads.list                   — List ads
+ads.show                   — View ad
+ads.create                 — Create ad
+ads.edit                   — Update ad
+ads.delete                 — Delete ad
+ads.archive                — Archive ad
+ads.restore                — Restore archived ad
+ads.set-status             — Change ad status
+ads.link-property          — Link ad to property
+ads.view-analytics         — View ad analytics
+ads.export                 — Export analytics data
 ```
 
 ## Countries & Cities
 ```
-countries.list         — List countries
-countries.show         — View country
-countries.create       — Create country
-countries.edit         — Update country
-countries.delete       — Delete country
+countries.list             — List countries
+countries.show             — View country
+countries.create           — Create country
+countries.edit             — Update country
+countries.delete           — Delete country
 
-cities.list            — List cities
-cities.show            — View city
-cities.create          — Create city
-cities.edit            — Update city
-cities.delete          — Delete city
+cities.list                — List cities
+cities.show                — View city
+cities.create              — Create city
+cities.edit                — Update city
+cities.delete              — Delete city
 ```
 
 ## Subscription Plans
@@ -159,6 +174,84 @@ service_requests.list     — List service requests (admin)
 service_requests.show     — View service request (admin)
 ```
 
+## Rental Cards
+```
+rental_cards.list         — List rental cards
+rental_cards.show         — View rental card
+rental_cards.create       — Create rental card
+rental_cards.edit         — Update rental card
+rental_cards.delete       — Delete rental card
+rental_cards.end          — End a rental card
+rental_cards.renew        — Renew a rental card
+```
+
+## CRM — Leads
+```
+leads.list                — List leads
+leads.show                — View lead
+leads.create              — Create lead
+leads.edit                — Update lead
+leads.delete              — Delete lead
+leads.change-status       — Change lead status
+leads.archive             — Archive lead
+leads.restore             — Restore archived lead
+leads.export              — Export leads
+```
+
+## CRM — Lead Notes
+```
+lead_notes.list           — List lead notes
+lead_notes.show           — View lead note
+lead_notes.create         — Create lead note
+lead_notes.edit           — Update lead note
+lead_notes.delete         — Delete lead note
+```
+
+## CRM — Lead Follow-ups
+```
+lead_follow_ups.list      — List follow-ups
+lead_follow_ups.show      — View follow-up
+lead_follow_ups.create    — Create follow-up
+lead_follow_ups.edit      — Update follow-up
+lead_follow_ups.delete    — Delete follow-up
+lead_follow_ups.complete  — Complete a follow-up
+```
+
+## CRM — Dashboard
+```
+crm_dashboard.view        — View CRM dashboard
+```
+
+## Deposits (Escrow)
+```
+deposits.list             — List deposits
+deposits.show             — View deposit
+deposits.create           — Create deposit
+deposits.edit             — Update deposit
+deposits.delete           — Delete deposit
+deposits.release          — Release deposit to seller
+deposits.refund           — Refund deposit to buyer
+```
+
+## FileSystem
+```
+files.list                — List user files
+files.show                — View file
+files.create              — Create/upload file
+files.edit                — Update file
+files.delete              — Delete file
+files.move                — Move file to folder
+files.rename              — Rename file
+files.quota               — View/manage storage quota
+```
+
+## Statistics
+```
+statistics.view           — View statistics dashboards
+statistics.export         — Export statistics data
+admin_statistics.view     — View admin statistics dashboards
+```
+
 ## Ledger — Accounts
 ```
 accounts.list          — List accounts
@@ -192,8 +285,9 @@ payroll.run            — Run payroll processing
 
 | Role | Permissions |
 |------|------------|
-| **super-admin** | ALL permissions |
-| *(other roles created by admin as needed)* | Assigned via POST `/api/roles/{id}/permissions` |
+| **super-admin** | ALL permissions (from the seeder) |
+| **trader** | `leads.*`, `lead_notes.*`, `lead_follow_ups.*`, `crm_dashboard.view`, `statistics.view`, `statistics.export` |
+| *(other roles created by admin as needed)* | Assigned via `POST /api/roles/{id}/permissions` |
 
 ---
 
@@ -215,3 +309,5 @@ $this->applyPermissions('resource_name', ['store', 'update', 'destroy'], [
     'customMethod' => 'permission_suffix',
 ]);
 ```
+
+> Note: `training_categories` and `health_warnings` groups exist in the seeder for backward compatibility but are not used by any current module.

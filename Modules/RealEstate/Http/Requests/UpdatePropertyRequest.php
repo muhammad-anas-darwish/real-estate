@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Modules\Core\SubModules\Location\Entities\City;
 use Modules\Core\SubModules\Location\Entities\Country;
+use Modules\RealEstate\Enums\PropertyDirection;
 use Modules\RealEstate\Enums\PropertyStatus;
 use Modules\RealEstate\Enums\PropertyType;
 use Modules\RealEstate\Enums\TypeOfContract;
@@ -32,6 +33,7 @@ class UpdatePropertyRequest extends FormRequest
             'rooms' => ['sometimes', 'integer', 'min:0'],
             'bathrooms' => ['sometimes', 'integer', 'min:0'],
             'area' => ['sometimes', 'numeric', 'min:0'],
+            'home_directions' => ['nullable', Rule::enum(PropertyDirection::class)],
 
             // Detailed Information
             'detailed_info' => ['nullable', 'string'],

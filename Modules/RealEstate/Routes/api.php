@@ -7,8 +7,10 @@ use Modules\RealEstate\Http\Controllers\AdController;
 use Modules\RealEstate\Http\Controllers\AdDisplayController;
 use Modules\RealEstate\Http\Controllers\AdGroupController;
 use Modules\RealEstate\Http\Controllers\AdTrackingController;
+use Modules\RealEstate\Http\Controllers\AppointmentController;
+use Modules\RealEstate\Http\Controllers\MapController;
 use Modules\RealEstate\Http\Controllers\PropertyController;
-use Modules\RealEstate\Http\Controllers\PropertyViewingController;
+use Modules\RealEstate\Http\Controllers\RentalCardController;
 use Modules\RealEstate\Http\Controllers\ReviewController;
 use Modules\RealEstate\Http\Controllers\SponsoredAdController;
 
@@ -52,6 +54,11 @@ Route::prefix('api')->group(function () {
         ->name('api.properties.random');
     Route::get('properties/{id}/details', [PropertyController::class, 'showPublic'])
         ->name('api.properties.public.show');
+
+    // Map (public)
+    Route::get('map/properties', [MapController::class, 'properties'])
+        ->middleware('throttle:map')
+        ->name('api.map.properties');
 });
 
 // ============================================================
@@ -81,30 +88,58 @@ Route::prefix('api/dashboard')->middleware(['auth:sanctum'])->group(function () 
     Route::get('my-properties', [PropertyController::class, 'myProperties'])
         ->name('api.dashboard.my-properties');
 
-    // Property Viewings
-    Route::get('viewings', [PropertyViewingController::class, 'index'])
+    // Appointments (generic) + Viewings alias (backward compat)
+    Route::get('appointments', [AppointmentController::class, 'index'])
+        ->name('api.dashboard.appointments.index');
+    Route::post('appointments', [AppointmentController::class, 'store'])
+        ->name('api.dashboard.appointments.store');
+    Route::post('appointments/follow-ups', [AppointmentController::class, 'storeFollowUp'])
+        ->name('api.dashboard.appointments.follow-ups.store');
+    Route::get('appointments/calendar', [AppointmentController::class, 'calendar'])
+        ->name('api.dashboard.appointments.calendar');
+    Route::get('appointments/my', [AppointmentController::class, 'myAppointments'])
+        ->name('api.dashboard.appointments.my');
+    Route::get('appointments/schedule', [AppointmentController::class, 'agentSchedule'])
+        ->name('api.dashboard.appointments.schedule');
+    Route::get('appointments/{id}', [AppointmentController::class, 'show'])
+        ->name('api.dashboard.appointments.show');
+    Route::delete('appointments/{id}', [AppointmentController::class, 'destroy'])
+        ->name('api.dashboard.appointments.destroy');
+    Route::patch('appointments/{id}/confirm', [AppointmentController::class, 'confirm'])
+        ->name('api.dashboard.appointments.confirm');
+    Route::patch('appointments/{id}/reschedule', [AppointmentController::class, 'reschedule'])
+        ->name('api.dashboard.appointments.reschedule');
+    Route::patch('appointments/{id}/cancel', [AppointmentController::class, 'cancel'])
+        ->name('api.dashboard.appointments.cancel');
+    Route::patch('appointments/{id}/complete', [AppointmentController::class, 'complete'])
+        ->name('api.dashboard.appointments.complete');
+    Route::patch('appointments/{id}/no-show', [AppointmentController::class, 'markNoShow'])
+        ->name('api.dashboard.appointments.no-show');
+
+    // Backward-compatible aliases for /viewings/* routes
+    Route::get('viewings', [AppointmentController::class, 'index'])
         ->name('api.dashboard.viewings.index');
-    Route::post('viewings', [PropertyViewingController::class, 'store'])
+    Route::post('viewings', [AppointmentController::class, 'store'])
         ->name('api.dashboard.viewings.store');
-    Route::get('viewings/calendar', [PropertyViewingController::class, 'calendar'])
+    Route::get('viewings/calendar', [AppointmentController::class, 'calendar'])
         ->name('api.dashboard.viewings.calendar');
-    Route::get('viewings/my', [PropertyViewingController::class, 'myViewings'])
+    Route::get('viewings/my', [AppointmentController::class, 'myAppointments'])
         ->name('api.dashboard.viewings.my');
-    Route::get('viewings/schedule', [PropertyViewingController::class, 'agentSchedule'])
+    Route::get('viewings/schedule', [AppointmentController::class, 'agentSchedule'])
         ->name('api.dashboard.viewings.schedule');
-    Route::get('viewings/{id}', [PropertyViewingController::class, 'show'])
+    Route::get('viewings/{id}', [AppointmentController::class, 'show'])
         ->name('api.dashboard.viewings.show');
-    Route::delete('viewings/{id}', [PropertyViewingController::class, 'destroy'])
+    Route::delete('viewings/{id}', [AppointmentController::class, 'destroy'])
         ->name('api.dashboard.viewings.destroy');
-    Route::patch('viewings/{id}/confirm', [PropertyViewingController::class, 'confirm'])
+    Route::patch('viewings/{id}/confirm', [AppointmentController::class, 'confirm'])
         ->name('api.dashboard.viewings.confirm');
-    Route::patch('viewings/{id}/reschedule', [PropertyViewingController::class, 'reschedule'])
+    Route::patch('viewings/{id}/reschedule', [AppointmentController::class, 'reschedule'])
         ->name('api.dashboard.viewings.reschedule');
-    Route::patch('viewings/{id}/cancel', [PropertyViewingController::class, 'cancel'])
+    Route::patch('viewings/{id}/cancel', [AppointmentController::class, 'cancel'])
         ->name('api.dashboard.viewings.cancel');
-    Route::patch('viewings/{id}/complete', [PropertyViewingController::class, 'complete'])
+    Route::patch('viewings/{id}/complete', [AppointmentController::class, 'complete'])
         ->name('api.dashboard.viewings.complete');
-    Route::patch('viewings/{id}/no-show', [PropertyViewingController::class, 'markNoShow'])
+    Route::patch('viewings/{id}/no-show', [AppointmentController::class, 'markNoShow'])
         ->name('api.dashboard.viewings.no-show');
 
     // Public publisher routes
@@ -116,6 +151,27 @@ Route::prefix('api/dashboard')->middleware(['auth:sanctum'])->group(function () 
     // Public review routes
     Route::get('offices/{officeId}/reviews', [ReviewController::class, 'listForOffice'])
         ->name('api.offices.reviews.index');
+
+    // Rental Cards
+    Route::get('properties/{propertyId}/rental-cards/active', [RentalCardController::class, 'active'])
+        ->name('api.dashboard.rental-cards.active');
+    Route::get('properties/{propertyId}/rental-cards/history', [RentalCardController::class, 'history'])
+        ->name('api.dashboard.rental-cards.history');
+
+    Route::get('rental-cards', [RentalCardController::class, 'index'])
+        ->name('api.dashboard.rental-cards.index');
+    Route::post('rental-cards', [RentalCardController::class, 'store'])
+        ->name('api.dashboard.rental-cards.store');
+    Route::get('rental-cards/{id}', [RentalCardController::class, 'show'])
+        ->name('api.dashboard.rental-cards.show');
+    Route::patch('rental-cards/{id}', [RentalCardController::class, 'update'])
+        ->name('api.dashboard.rental-cards.update');
+    Route::delete('rental-cards/{id}', [RentalCardController::class, 'destroy'])
+        ->name('api.dashboard.rental-cards.destroy');
+    Route::patch('rental-cards/{id}/end', [RentalCardController::class, 'end'])
+        ->name('api.dashboard.rental-cards.end');
+    Route::patch('rental-cards/{id}/renew', [RentalCardController::class, 'renew'])
+        ->name('api.dashboard.rental-cards.renew');
 
     // Protected routes
     Route::middleware(['auth:sanctum'])->group(function () {
@@ -207,5 +263,9 @@ Route::prefix('api/dashboard')->middleware(['auth:sanctum'])->group(function () 
             ->name('api.sponsored-ads.show');
         Route::post('sponsored-ads/{id}/cancel', [SponsoredAdController::class, 'cancel'])
             ->name('api.sponsored-ads.cancel');
+
+        // Trader competitive map
+        Route::get('trader/competitive-map', [MapController::class, 'traderCompetitiveMap'])
+            ->name('api.dashboard.trader.competitive-map');
     });
 });

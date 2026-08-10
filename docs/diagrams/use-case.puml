@@ -1,0 +1,135 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam usecase {
+  BackgroundColor #EAF2FA
+  BorderColor #2E6DA4
+}
+skinparam actor {
+  BackgroundColor #FFF3E0
+  BorderColor #E65100
+}
+
+title Use Case Diagram - Real Estate Platform (Graduation Project)
+
+' ================= ACTORS =================
+actor Guest as G
+actor User as U
+actor Publisher as P
+actor "Service Provider" as SP
+actor Admin as A
+actor "Stripe (Payment Gateway)" as PG
+actor "FCM / Pusher (Notification)" as NP
+
+' inheritances
+P --|> U
+SP --|> U
+U --|> G
+
+' ================= GUEST =================
+rectangle "Authentication & Browsing" {
+  usecase "Register" as UC_Register
+  usecase "Login (Email/Phone/OTP)" as UC_Login
+  usecase "Browse/Public Listings" as UC_Browse
+  usecase "Search & Filter Properties" as UC_Search
+  usecase "View Property Details" as UC_ViewProp
+  usecase "View Map Properties" as UC_Map
+  usecase "View Ads / Sponsored Ads" as UC_Ads
+}
+
+G --> UC_Register
+G --> UC_Login
+G --> UC_Browse
+G --> UC_Search
+G --> UC_ViewProp
+G --> UC_Map
+G --> UC_Ads
+
+' ================= USER (general) =================
+rectangle "User Features" {
+  usecase "Manage Profile & Preferences" as UC_Profile
+  usecase "Favorite Properties" as UC_Favorite
+  usecase "Book Property Viewing/Appointment" as UC_Appointment
+  usecase "Chat (Direct & Chat Rooms)" as UC_Chat
+  usecase "Send / Receive Notifications" as UC_Notify
+  usecase "Review Offices & Users" as UC_Review
+  usecase "Subscribe to a Plan" as UC_Subscribe
+  usecase "Manage Personal File Storage" as UC_Files
+}
+
+U --> UC_Profile
+U --> UC_Favorite
+U --> UC_Appointment
+U --> UC_Chat
+U --> UC_Notify
+U --> UC_Review
+U --> UC_Subscribe
+U --> UC_Files
+
+' ================= PUBLISHER =================
+rectangle "Publisher Features" {
+  usecase "Publish Property Listing" as UC_PublishProp
+  usecase "Edit / Delete Own Property" as UC_EditProp
+  usecase "Track Property Statistics" as UC_PropStats
+  usecase "Create Ad Groups & Ads" as UC_CreateAds
+  usecase "Track Ad Performance" as UC_AdStats
+  usecase "Request Publisher Upgrade" as UC_Upgrade
+  usecase "Manage Rental Cards" as UC_Rental
+  usecase "Receive / Manage Inquiries" as UC_Inquiries
+}
+
+P --> UC_PublishProp
+P --> UC_EditProp
+P --> UC_PropStats
+P --> UC_CreateAds
+P --> UC_AdStats
+P --> UC_Upgrade
+P --> UC_Rental
+P --> UC_Inquiries
+
+' ================= SERVICE PROVIDER =================
+rectangle "Service Provider Features" {
+  usecase "Create Provider Profile" as UC_ProviderProfile
+  usecase "Receive Service Requests" as UC_ServiceRequests
+  usecase "Manage Service Tasks" as UC_Tasks
+  usecase "Track Earnings / Payroll" as UC_Payroll
+}
+
+SP --> UC_ProviderProfile
+SP --> UC_ServiceRequests
+SP --> UC_Tasks
+SP --> UC_Payroll
+
+' ================= ADMIN =================
+rectangle "Admin Features" {
+  usecase "Manage Users & Roles/Permissions" as UC_AdminUsers
+  usecase "Approve / Reject Properties" as UC_ApproveProp
+  usecase "Verify Offices & Providers" as UC_Verify
+  usecase "Manage Subscription Plans" as UC_AdminPlans
+  usecase "Review Upgrade Requests" as UC_AdminUpgrade
+  usecase "View Statistics & Dashboards" as UC_Dashboard
+  usecase "Manage Leads (CRM)" as UC_Crm
+}
+
+A --> UC_AdminUsers
+A --> UC_ApproveProp
+A --> UC_Verify
+A --> UC_AdminPlans
+A --> UC_AdminUpgrade
+A --> UC_Dashboard
+A --> UC_Crm
+
+' ================= EXTERNAL SYSTEMS =================
+PG --> UC_Subscribe : "processes payment webhooks"
+NP --> UC_Notify : "delivers pushes"
+
+' ================= INCLUDE RELATIONSHIPS =================
+UC_PublishProp ..> UC_Login : <<include>>
+UC_Favorite ..> UC_Login : <<include>>
+UC_Appointment ..> UC_Login : <<include>>
+UC_Chat ..> UC_Login : <<include>>
+UC_Subscribe ..> UC_Login : <<include>>
+UC_ApproveProp ..> UC_Login : <<include>>
+
+@enduml

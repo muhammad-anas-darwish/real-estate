@@ -6,9 +6,11 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Modules\RealEstate\Entities\Ad;
 use Modules\RealEstate\Entities\AdGroup;
 use Modules\RealEstate\Entities\Property;
+use Modules\RealEstate\Entities\RentalCard;
 use Modules\RealEstate\Policies\AdGroupPolicy;
 use Modules\RealEstate\Policies\AdPolicy;
 use Modules\RealEstate\Policies\PropertyPolicy;
+use Modules\RealEstate\Policies\RentalCardPolicy;
 
 class RealEstateServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,7 @@ class RealEstateServiceProvider extends ServiceProvider
             Property::class => PropertyPolicy::class,
             AdGroup::class => AdGroupPolicy::class,
             Ad::class => AdPolicy::class,
+            RentalCard::class => RentalCardPolicy::class,
         ]);
     }
 }

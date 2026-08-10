@@ -10,7 +10,6 @@ use Modules\Ledger\DTOs\PayrollDTO;
 use Modules\Ledger\Entities\Account;
 use Modules\Ledger\Entities\Payroll;
 use Modules\Ledger\Entities\PayrollPayment;
-use Modules\Ledger\Enums\AccountCategory;
 use Modules\Ledger\Enums\PayrollPaymentStatus;
 use Modules\Ledger\Enums\PayrollType;
 use Modules\ServiceProvider\Entities\ServiceProviderProfile;
@@ -82,6 +81,7 @@ class PayrollService extends BaseService
                     'status' => 'skipped',
                     'reason' => 'Provider not verified or not found',
                 ];
+
                 continue;
             }
 
@@ -95,6 +95,7 @@ class PayrollService extends BaseService
                     'status' => 'skipped',
                     'reason' => 'Period has not started yet',
                 ];
+
                 continue;
             }
 
@@ -128,6 +129,7 @@ class PayrollService extends BaseService
                     'status' => 'skipped',
                     'reason' => 'No amount to pay (zero earnings in period)',
                 ];
+
                 continue;
             }
 

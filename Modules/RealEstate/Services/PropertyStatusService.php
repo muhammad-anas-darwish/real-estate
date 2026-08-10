@@ -24,6 +24,7 @@ class PropertyStatusService
             PropertyStatus::REJECTED => $this->handleRejected($property, $oldStatus, $rejectionReason),
             PropertyStatus::SUSPENDED => $this->handleSuspended($property, $oldStatus),
             PropertyStatus::SOLD => $this->handleSold($property, $oldStatus),
+            PropertyStatus::RENTED => null,
             PropertyStatus::ARCHIVED => $this->handleArchived($property, $oldStatus),
             PropertyStatus::PENDING => $this->handlePending($property, $oldStatus),
             PropertyStatus::UNDER_INSPECTION => $this->handleUnderInspection($property, $oldStatus),

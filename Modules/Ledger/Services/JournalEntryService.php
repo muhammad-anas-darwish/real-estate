@@ -3,7 +3,6 @@
 namespace Modules\Ledger\Services;
 
 use App\Services\BaseService;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Modules\Auth\Entities\User;
 use Modules\Ledger\DTOs\JournalEntryDTO;

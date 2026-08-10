@@ -5,11 +5,15 @@ namespace Modules\RealEstate\Entities;
 use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Request;
 use Modules\Auth\Entities\User;
+use Modules\RealEstate\Enums\PropertyDirection;
 use Modules\RealEstate\Enums\PropertyStatus;
 use Modules\RealEstate\Enums\PropertyType;
+use Modules\RealEstate\Enums\RentalCardStatus;
 use Modules\RealEstate\Enums\TypeOfContract;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -35,6 +39,7 @@ class Property extends BaseModel implements HasMedia
         'rooms',
         'bathrooms',
         'area',
+        'home_directions',
         'detailed_info',
         'price',
         'currency',
@@ -61,6 +66,7 @@ class Property extends BaseModel implements HasMedia
         'rooms' => 'integer',
         'bathrooms' => 'integer',
         'area' => 'decimal:2',
+        'home_directions' => PropertyDirection::class,
         'price' => 'decimal:2',
         'views' => 'integer',
         'approved_at' => 'datetime',
@@ -308,6 +314,29 @@ class Property extends BaseModel implements HasMedia
     public function serviceRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\Modules\ServiceProvider\Entities\ServiceRequest::class, 'property_id');
+    }
+
+    public function rentalCards(): HasMany
+    {
+        return $this->hasMany(RentalCard::class);
+    }
+
+    public function activeRentalCard(): HasOne
+    {
+        return $this->hasOne(RentalCard::class)->where('status', RentalCardStatus::ACTIVE);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function (Property $property) {
+            if ($property->isForceDeleting()) {
+                return;
+            }
+
+            $property->rentalCards()->delete();
+        });
     }
 
     protected static function newFactory()

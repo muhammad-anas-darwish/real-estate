@@ -21,7 +21,7 @@ This package contains everything frontend and mobile developers need to build th
 ## Quick Start
 
 1. **Import OpenAPI spec**: Load `openapi.yaml` into Postman, Insomnia, or any OpenAPI-compatible tool
-2. **Auth first**: Implement `POST /auth/register` and `POST /auth/login` — all protected endpoints need `Authorization: Bearer {token}`
+2. **Auth first**: Implement `POST /auth/register`, then login via `POST /auth/login` → `POST /auth/verify-otp` — all protected endpoints need `Authorization: Bearer {token}`
 3. **Read scenarios**: `application-scenarios.md` explains every flow and when to call which endpoint
 4. **Check enums**: `enums-reference.md` has all valid values for every enum field
 
@@ -30,10 +30,11 @@ This package contains everything frontend and mobile developers need to build th
 ## Auth Flow Summary
 
 1. `POST /auth/register` → `{ user, token }`
-2. Store token, add header: `Authorization: Bearer {token}`
-3. `GET /user` → verify token works
-4. Token never expires, but logout deletes all tokens
-5. Support 2FA flow if returned by login
+2. **Login**: `POST /auth/login` sends OTP → `POST /auth/verify-otp` → `{ user, token }`
+3. Store token, add header: `Authorization: Bearer {token}`
+4. `GET /user` → verify token works
+5. Token never expires, but logout deletes all tokens
+6. Support 2FA flow if returned by login
 
 ---
 
@@ -54,11 +55,11 @@ This package contains everything frontend and mobile developers need to build th
 
 ## Key Facts
 
-- **150+ endpoints** across 7 modules
-- **36 models/entities**
-- **33 enums**
-- **120+ permission strings**
-- Auth: Sanctum API tokens (Bearer)
+- **260+ endpoints** across 13 modules (Auth, Core, RealEstate, Communication, Subscription, ServiceProvider, Ledger, Deposit, Crm, FileSystem, Statistics, Ai, Map)
+- **60+ entities/models**
+- **43 enums**
+- **150+ permission strings**
+- Auth: Sanctum API tokens (Bearer) via OTP login
 - Payments: Stripe
 - Media: Spatie Media Library
 - Accounting: Double-entry ledger

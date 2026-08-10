@@ -20,6 +20,13 @@
 17. [Notification Scenarios](#17-notification-scenarios)
 18. [Permission Matrix](#18-permission-matrix)
 19. [State Machines](#19-state-machines)
+20. [Map Scenarios](#20-map-scenarios)
+21. [Rental Card Scenarios](#21-rental-card-scenarios)
+22. [Deposit (Escrow) Scenarios](#22-deposit-escrow-scenarios)
+23. [CRM (Leads) Scenarios](#23-crm-leads-scenarios)
+24. [File System Scenarios](#24-file-system-scenarios)
+25. [Statistics & Dashboards Scenarios](#25-statistics--dashboards-scenarios)
+26. [AI Scenarios](#26-ai-scenarios)
 
 ---
 
@@ -45,11 +52,14 @@
 4. Guest clicks link: GET `/auth/email/verify/{id}/{hash}` → email verified
 5. If expired/missing: POST `/auth/email/verification-notification` to resend
 
-### 2.2 Login Flow
-1. User submits email + password → POST `/auth/login`
-2. Response: `{ user: {...}, token: "1|abc123..." }`
-3. All subsequent requests include header `Authorization: Bearer 1|abc123...`
-4. Token never expires (Sanctum API token)
+### 2.2 Login Flow (OTP)
+1. User submits phone/email → POST `/auth/login` (AuthController `sendOtp`)
+2. System generates a 6-digit OTP (`OtpPurpose::LOGIN`) and stores it (expiry ~5 min)
+3. OTP delivered via notification (SMS/email/notification)
+4. User submits `phone/email + code` → POST `/auth/verify-otp`
+5. Response: `{ user: {...}, token: "1|abc123..." }`
+6. All subsequent requests include header `Authorization: Bearer 1|abc123...`
+7. Token never expires (Sanctum API token)
 
 ### 2.3 Two-Factor Authentication Flow
 1. POST `/auth/user/two-factor-authentication` → enables 2FA
@@ -82,16 +92,15 @@
 ## 3. Property Lifecycle Scenarios
 
 ### 3.1 Property Creation (Publisher)
-1. Publisher uploads images: POST `/api/upload` (multipart, type=property) → gets file IDs
-2. POST `/api/dashboard/properties` with:
+1. POST `/api/dashboard/properties` with:
    - name, description, property_type (apartment/house/villa/land/commercial/office/warehouse/other)
    - type_of_contract (sale/rent)
    - country_id, city_id, longitude, latitude
    - rooms, bathrooms, area
    - detailed_info (optional JSON/markdown)
    - price, currency (default: USD)
-   - main_image: {id, temporary_folder}, gallery: [{id, temporary_folder}]
-3. Property created with status `pending` → triggers admin review notification
+   - main_image, gallery (uploaded via Spatie Media Library)
+2. Property created with status `pending` → triggers admin review notification
 
 ### 3.2 Property with Photographer (Publisher)
 1. POST `/api/dashboard/properties/with-photographer` — same as property creation plus:
@@ -717,11 +726,150 @@ PENDING ──→ PAID
 
 ---
 
+## 20. Map Scenarios
+
+### 20.1 Properties on Map (Public)
+1. GET `/api/map/properties?bounds=...&city_id=...&property_type=...&min_price=...&max_price=...`
+2. Returns properties with lat/lng within the requested bounds, optionally filtered
+3. Used for the map explorer view with geocoding and clustering
+
+### 20.2 Trader Competitive Map
+1. GET `/api/dashboard/trader/competitive-map`
+2. Returns competitor density & market positioning around the trader's own listings
+
+---
+
+## 21. Rental Card Scenarios
+
+### 21.1 Create Rental Card
+1. POST `/api/dashboard/rental-cards` with `property_id`, `tenant_user_id`, `start_date`, `end_date`, `rent_amount`
+2. Card created with status `active`; property marked as rented
+3. Only one active rental card per property
+
+### 21.2 View Active & History
+- GET `/api/dashboard/properties/{propertyId}/rental-cards/active`
+- GET `/api/dashboard/properties/{propertyId}/rental-cards/history`
+
+### 21.3 End / Renew
+- PATCH `/api/dashboard/rental-cards/{id}/end` — closes the card (status `ended`), frees the property
+- PATCH `/api/dashboard/rental-cards/{id}/renew` — extends `end_date` (status `renewed`)
+
+---
+
+## 22. Deposit (Escrow) Scenarios
+
+### 22.1 Create Deposit
+1. POST `/api/dashboard/deposits` with `property_id`, `amount`
+2. System identifies buyer (requester) & seller (property publisher)
+3. Deposit created with status `pending`
+
+### 22.2 Pay / Hold
+1. POST `/api/dashboard/deposits/{id}/pay` → status becomes `held`
+2. Buyer is charged; funds held in escrow
+
+### 22.3 Release / Refund / Cancel
+- POST `/api/dashboard/deposits/{id}/release` → released to seller (`released_by` recorded)
+- POST `/api/dashboard/deposits/{id}/refund` → returned to buyer (`refunded_by` recorded)
+- POST `/api/dashboard/deposits/{id}/cancel` → cancelled before hold
+- If buyer/seller disagree → status `disputed`
+
+### 22.4 My Deposits / My Sales
+- GET `/api/dashboard/my-deposits` — deposits where I'm buyer
+- GET `/api/dashboard/my-sales` — deposits where I'm seller
+
+---
+
+## 23. CRM (Leads) Scenarios
+
+### 23.1 Create Lead
+1. POST `/api/dashboard/crm/leads` with `name`, `phone`, `email`, `source`, `status`
+2. Trader role only (`EnsureUserIsTrader` middleware)
+3. Duplicate detection available: GET `/api/dashboard/crm/leads/check-duplicate?phone=&email=`
+
+### 23.2 Lead Lifecycle
+1. Lead status: `new → contacted → qualified → won | lost`
+2. PATCH `/api/dashboard/crm/leads/{id}/status` — move between states
+3. POST `/api/dashboard/crm/leads/{id}/archive` / `restore` — archive soft
+4. GET `/api/dashboard/crm/leads/export` — CSV export
+
+### 23.3 Lead Notes & Follow-ups
+1. Notes: POST `/api/dashboard/crm/leads/{leadId}/notes`, PATCH/DELETE `/api/dashboard/crm/notes/{noteId}`
+2. Follow-ups: POST `/api/dashboard/appointments/follow-ups` (morphTo `followable` → lead)
+
+### 23.4 CRM Dashboard
+- GET `/api/dashboard/crm/dashboard/summary` — KPIs
+- GET `/api/dashboard/crm/dashboard/today` — today snapshot
+
+---
+
+## 24. File System Scenarios
+
+### 24.1 Folders
+1. POST `/api/folders` → create folder (root or under `parent_id`)
+2. GET `/api/folders` → tree of user folders (auto-created General + per-property folders)
+3. POST `/api/folders/{id}/move` / `rename` — reorganize
+4. DELETE `/api/folders/{id}` — recursive delete
+
+### 24.2 Files
+- POST `/api/files/text` — create text file (content)
+- POST `/api/files/image` — upload image (multipart)
+- PUT `/api/files/{id}/text` — edit text file
+- POST `/api/files/{id}/move` / `rename` / DELETE `/api/files/{id}`
+- GET `/api/properties/{propertyId}/files` — property folder contents
+
+### 24.3 Storage Quota
+- GET `/api/storage/status` — used/max bytes
+- GET `/api/storage/packages` — available upgrade packages
+- POST `/api/storage/upgrade` — upgrade to a package
+
+---
+
+## 25. Statistics & Dashboards Scenarios
+
+### 25.1 Trader Dashboard
+- GET `/api/dashboard/trader/summary` — KPIs (listings, views, leads, appointments, rentals, ads)
+- GET `/api/dashboard/trader/views-trend` — time series of property views
+- GET `/api/dashboard/trader/leads-by-status` / `properties-by-status` — distributions
+- GET `/api/dashboard/trader/top-properties` — best performers
+- GET `/api/dashboard/trader/recent-leads` / `upcoming-appointments` / `expiring-rentals` / `sponsored-ads-summary`
+- GET `/api/dashboard/trader/export/properties` — CSV export
+
+### 25.2 Property Stats
+- GET `/api/dashboard/properties/{property}/stats` — views, favorites, leads per property
+
+### 25.3 Market Stats (Public)
+- GET `/api/market/overview` — market KPIs
+- GET `/api/market/by-city` / `by-category` / `by-price-range` — distributions
+- GET `/api/market/top-viewed` / `top-saved` — trending properties
+- GET `/api/market/listings-trend` — listings over time
+
+### 25.4 Admin Dashboard
+- GET `/api/admin/statistics/overview` — platform KPIs
+- GET `/api/admin/statistics/properties` / `crm` / `ads` / `subscriptions` / `moderation` / `communication`
+
+---
+
+## 26. AI Scenarios
+
+### 26.1 Smart Search
+1. POST `/api/ai/search` with natural-language query (e.g., "شقة إيجار في دبي بميزانية 5000")
+2. `SmartSearchService` extracts requirements → queries properties → returns ranked `SearchResult`s
+3. Rate limited via `throttle:ai-search`
+
+### 26.2 Description Assistant
+- POST `/api/ai/description/generate` — draft property description from structured inputs
+- POST `/api/ai/description/improve` — improve an existing description
+- POST `/api/ai/description/suggest-title` — title suggestions
+- POST `/api/ai/description/suggest-features` — feature bullets
+- Powered by Kimi API via `AiService`; rate limited via `throttle:ai-description`
+
+---
+
 ## End of Document
 
-**Total Endpoints**: ~150+
-**Total Models**: 36
-**Total Enums**: 33
+**Total Endpoints**: 260+
+**Total Models**: 60+ (across 13 modules)
+**Total Enums**: 43
 **Real-Time Channels**: user.{id}, chat.{roomId}, property.{propertyId}
-**Auth Method**: Bearer token (Sanctum)
+**Auth Method**: Bearer token (Sanctum) via OTP login
 **API Docs**: Available at `/docs` (Scribe auto-generated)

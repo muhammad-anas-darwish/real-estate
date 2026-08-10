@@ -6,16 +6,171 @@
 
 ---
 
-## 📊 ملخص الحالة الراهنة (2026-06-26)
+## 📊 ملخص الحالة الراهنة (2026-07-24)
 
 | المؤشر | القيمة |
 |--------|--------|
-| إجمالي الخطط | **29 خطة** |
-| ✅ مكتمل |  |
-| ❌ لم يبدأ | |
-| 🟡 جزئياً ||
-| الجهد المتبقي ||
+| إجمالي الخطط | **36 خطة** |
+| ✅ مكتمل | 36 |
+| ❌ لم يبدأ | 0 |
+| 🟡 جزئياً | 0 |
 
 ---
 
-## ❌ المهام المتبقية (0 خطط)
+## 🗺️ خريطة التبعيات والتنفيذ بالتوازي
+
+### خريطة الـ CRM (تقارير mini-crm)
+
+```
+#10 (CRM Foundation)  ──→  #12 (Leads)  ──→  #13 (Notes)
+        │                    │
+        │                    └──────────→  #14 (Dashboard)
+        │
+#11 (Appointment)  ──────────────────────→ (يُستهلك في #12 polymorphic)
+```
+
+### خريطة بطاقات التأجير (تقرير rental-cards)
+
+```
+#15 (Data Foundation)  ──→  #16 (Service + Status)  ──→  #17 (API Surface)  ──→  #19 (Tests)
+                                  │                          │
+                                  │                          └──────────→  #18 (Pre-Rental Photos)
+                                  │                                     │
+                                  └─────────────────────────────────────┘
+                                            (تعمل بالتوازي)
+```
+
+---
+
+## 🌊 موجات التنفيذ المقترحة
+
+### الموجة 1 — يمكن البدء فورًا (لا تبعيات)
+- **#10** تأسيس وحدة CRM + دور trader + صلاحيات crm.*
+- **#11** إعادة هيكلة PropertyViewing → Appointment (polymorphic)
+- **#15** تأسيس بيانات بطاقات التأجير (Migration + Model + Enum + DTO + Permissions)
+- **#20** تأسيس بيانات نظام الملفات (Migration + Models + Enums + DTOs + Permissions)
+
+### الموجة 2 — تعتمد على اكتمال الموجة 1
+- **#12** إدارة العملاء المحتملين (Leads) — تعتمد على #10 و #11
+- **#16** خدمة بطاقات التأجير + ربط حالة العقار — تعتمد على #15
+- **#21** الخدمة الأساسية وسطح API لنظام الملفات — تعتمد على #20
+
+### الموجة 3 — تعتمد على اكتمال الموجة 2
+- **#13** ملاحظات العملاء (تعمل بالتوازي مع #14) — تعتمد على #12
+- **#14** لوحة اليوم + تصدير CSV (تعمل بالتوازي مع #13) — تعتمد على #12
+- **#17** سطح API لبطاقات التأجير — تعتمد على #15 و #16
+- **#22** دمج مجلدات العقارات + **#23** نظام حصة التخزين — تعتمدان على #21 (بالتوازي)
+
+### الموجة 4 — تعتمد على اكتمال الموجة 3
+- **#18** صور "قبل التأجير" عبر نظام الملفات — تعتمد على #15، #17، وميزة `per-user-file-system`
+- **#19** اختبارات قبول شاملة + توثيق Scribe — تعتمد على #15، #16، #17، #18
+- **#24** اختبارات قبول شاملة + توثيق Scribe لنظام الملفات — تعتمد على #20، #21، #22، #23
+
+---
+
+## 📅 جدول التنفيذ المقترح (6 أسابيع بثلاثة مسارات متوازية)
+
+| الأسبوع | المسار A (CRM) | المسار B (Rental Cards) | المسار C (File System) |
+|---------|----------------|-------------------------|-------------------------|
+| الأسبوع 1 | #10 كل المراحل (4–6h) | #15 كل المراحل (5–8h) | #20 كل المراحل (4–6h) |
+| الأسبوع 2 | #11 كل المراحل (4–6h) | #16 كل المراحل (12–16h) | #21 كل المراحل (12–16h) |
+| الأسبوع 3 | #12 كل المراحل (10–14h) | #17 كل المراحل (12–16h) | — |
+| الأسبوع 4 | #13 (5h) + #14 (4h) بالتوازي | #18 (8–12h) + #19 (12–16h) بالتوازي | #22 (6h) + #23 (6h) بالتوازي |
+| الأسبوع 5 | — | — | #22 + #23 (تابع) |
+| الأسبوع 6 | — | — | #24 (8–12h) |
+
+**إجمالي الجهد:** ~29 ساعة (CRM) + ~50 ساعة (Rental Cards) + ~36 ساعة (File System) موزعة على 6 أسابيع بثلاثة مسارات متوازية.
+
+---
+
+### خريطة نظام الملفات (تقرير per-user-file-system)
+
+```
+#20 (Data Foundation)  ──→  #21 (Core Service + API)
+                                   │
+                       ┌───────────┼───────────┐
+                       ▼           ▼           ▼
+                 #22 (Property)  #23 (Quota)  (بالتوازي)
+                       │           │
+                       └─────┬─────┘
+                             ▼
+                       #24 (Tests + Docs)
+```
+
+### خريطة الإحصائيات (تقرير statistics-and-dashboards)
+
+```
+#25 (Foundation)  ──→  #26 (Trader)        ─┐
+        │                                    │
+        ├──→  #27 (Property & Market)        ├──→  #29 (Tests & Docs)
+        │                                    │
+        └──→  #28 (Admin)                    ─┘
+```
+
+---
+
+## 🎉 رحلتي mini-crm + rental-cards مكتملتان (10/10)
+
+تم تنفيذ الخطتين بالكامل (mini-crm #10-#14 و rental-cards #15-#19). كل ميزة جاهزة للإنتاج مع اختبارات شاملة وتوثيق Scribe.
+
+---
+
+## 🎉 جميع المهام مكتملة (15/15)
+
+### mini-crm (تقرير: `docs/ideas/mini-crm/report.md`)
+* [plan10-crm-module-foundation-and-trader-role.md](10-crm-module-foundation-and-trader-role.md)... ✅
+* [plan11-generic-appointment-refactor.md](11-generic-appointment-refactor.md)... ✅
+* [plan12-leads-management.md](12-leads-management.md)... ✅
+* [plan13-lead-notes.md](13-lead-notes.md)... ✅
+* [plan14-crm-dashboard-and-export.md](14-crm-dashboard-and-export.md)... ✅
+
+### rental-cards (تقرير: `docs/ideas/rental-cards/report.md`)
+* [plan15-rental-cards-data-foundation.md](15-rental-cards-data-foundation.md)... ✅
+* [plan16-rental-cards-service-and-status-integration.md](16-rental-cards-service-and-status-integration.md)... ✅
+* [plan17-rental-cards-api-surface.md](17-rental-cards-api-surface.md)... ✅
+* [plan18-rental-cards-pre-rental-photos.md](18-rental-cards-pre-rental-photos.md)... ✅
+* [plan19-rental-cards-feature-tests-and-docs.md](19-rental-cards-feature-tests-and-docs.md)... ✅
+
+### per-user-file-system (تقرير: `docs/ideas/per-user-file-system/report.md`)
+* [plan20-per-user-file-system-data-foundation.md](20-per-user-file-system-data-foundation.md)... ✅
+* [plan21-per-user-file-system-core-service-and-api.md](21-per-user-file-system-core-service-and-api.md)... ✅
+* [plan22-per-user-file-system-property-integration.md](22-per-user-file-system-property-integration.md)... ✅
+* [plan23-per-user-file-system-storage-quota.md](23-per-user-file-system-storage-quota.md)... ✅
+* [plan24-per-user-file-system-tests-and-docs.md](24-per-user-file-system-tests-and-docs.md)... ✅
+
+### statistics-and-dashboards (تقرير: `docs/ideas/statistics-and-dashboards/report.md`)
+* [plan25-statistics-foundation.md](25-statistics-foundation.md)... ✅
+* [plan26-trader-dashboard.md](26-trader-dashboard.md)... ✅
+* [plan27-property-and-market-stats.md](27-property-and-market-stats.md)... ✅
+* [plan28-admin-dashboard.md](28-admin-dashboard.md)... ✅
+* [plan29-statistics-tests-and-docs.md](29-statistics-tests-and-docs.md)... ✅
+
+### properties-map-view (تقرير: `docs/reports/04-properties-map-view.md`)
+* [plan30-geocoding-and-map-data-foundation.md](30-geocoding-and-map-data-foundation.md)... ✅
+* [plan31-public-map-explorer.md](31-public-map-explorer.md)... ✅
+* [plan32-advanced-filters-and-geolocation.md](32-advanced-filters-and-geolocation.md)... ✅
+* [plan33-mini-map-and-trader-competitive.md](33-mini-map-and-trader-competitive.md)... ✅
+
+### ai-smart-search-and-description (تقرير: `docs/reports/05-ai-smart-search-and-description.md`)
+* [plan34-ai-foundation-and-kimi-service.md](34-ai-foundation-and-kimi-service.md)... ✅
+* [plan35-ai-smart-search.md](35-ai-smart-search.md)... ✅
+* [plan36-ai-description-assistant.md](36-ai-description-assistant.md)... ✅
+
+### test-coverage-gaps (تقرير: `docs/tests/gap-analysis.md`)
+* [plan37-test-coverage-auth.md](37-test-coverage-auth.md)... ❌
+* [plan38-test-coverage-communication.md](38-test-coverage-communication.md)... ❌
+* [plan39-test-coverage-core.md](39-test-coverage-core.md)... ❌
+* [plan40-test-coverage-ledger.md](40-test-coverage-ledger.md)... ❌
+* [plan41-test-coverage-subscription.md](41-test-coverage-subscription.md)... ❌
+* [plan42-test-coverage-realestate.md](42-test-coverage-realestate.md)... ❌
+* [plan43-test-coverage-serviceprovider.md](43-test-coverage-serviceprovider.md)... ❌
+
+---
+
+## 📊 ملخص الحالة الراهنة (2026-07-25)
+
+| المؤشر | القيمة |
+|--------|--------|
+| إجمالي الخطط | **43 خطة** |
+| ✅ مكتمل | 36 |
+| ❌ لم يبدأ | 7 (تغطية الاختبارات الناقصة) |

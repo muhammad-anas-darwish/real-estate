@@ -3,11 +3,14 @@
 namespace Modules\RealEstate\Entities;
 
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Auth\Entities\User;
 
 class PropertyView extends BaseModel
 {
+    use HasFactory;
+
     protected $table = 'property_views';
 
     public $timestamps = false;
@@ -31,5 +34,10 @@ class PropertyView extends BaseModel
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    protected static function newFactory()
+    {
+        return \Modules\RealEstate\Database\Factories\PropertyViewFactory::new();
     }
 }

@@ -18,6 +18,18 @@ All enums are native PHP 8.1+ string-backed enums. Every field sent/received via
 ### ViewingStatus
 `pending` | `confirmed` | `rescheduled` | `cancelled` | `completed` | `no_show`
 
+### AppointmentType
+`viewing` | `follow_up` | `general`
+
+### PropertyDirection
+`north` | `south` | `east` | `west` | `northeast` | `northwest` | `southeast` | `southwest`
+
+### RentalCardStatus
+`active` | `ended` | `cancelled` | `renewed`
+
+### ContactMethod
+`call` | `whatsapp` | `visit` | `email`
+
 ### ViewingType
 `in_person` | `virtual` | `open_house`
 
@@ -56,6 +68,9 @@ All enums are native PHP 8.1+ string-backed enums. Every field sent/received via
 
 ### ContactPreference
 `chat` (Internal Chat) | `external` (External Contact — show phone/email)
+
+### OtpPurpose
+`login` (one-time password for login)
 
 ---
 
@@ -145,3 +160,62 @@ REJECTED     → (terminal)
 
 ### PayrollType
 `monthly` | `per_task` | `both`
+
+---
+
+## Deposit Module (Escrow)
+
+### DepositStatus
+`pending` | `held` | `released` | `refunded` | `disputed` | `cancelled`
+
+**State machine:**
+```
+PENDING   → HELD | CANCELLED
+HELD      → RELEASED | REFUNDED | DISPUTED
+RELEASED  → (terminal)
+REFUNDED  → (terminal)
+DISPUTED  → RELEASED | REFUNDED
+CANCELLED → (terminal)
+```
+
+---
+
+## CRM Module
+
+### LeadStatus
+`new` | `contacted` | `qualified` | `won` | `lost`
+
+**State machine:**
+```
+NEW        → CONTACTED | LOST
+CONTACTED  → QUALIFIED | LOST
+QUALIFIED  → WON | LOST
+WON        → (terminal)
+LOST       → (terminal)
+```
+
+### LeadSource
+`website` | `whatsapp` | `referral` | `walk_in` | `phone` | `other`
+
+---
+
+## FileSystem Module
+
+### FileType
+`text` | `image`
+
+### StoragePackageType
+| Value | Size |
+|-------|------|
+| `free` | Default quota |
+| `small` | Small package |
+| `medium` | Medium package |
+| `large` | Large package |
+| `max` | Maximum package |
+
+---
+
+## Statistics Module
+
+### StatsPeriod
+`today` | `yesterday` | `last_7_days` | `last_30_days` | `this_week` | `last_week` | `this_month` | `last_month` | `this_year` | `custom`

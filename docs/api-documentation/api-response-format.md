@@ -8,6 +8,7 @@ All API endpoints follow a consistent response format.
 
 ```json
 {
+  "success": true,
   "data": { ... },
   "message": "Operation successful"
 }
@@ -16,6 +17,7 @@ All API endpoints follow a consistent response format.
 For creation/update/deletion, the message is localized:
 ```json
 {
+  "success": true,
   "data": { ... },
   "message": "Property created successfully."
 }
@@ -32,6 +34,7 @@ HTTP status codes are used correctly:
 
 ```json
 {
+  "success": true,
   "data": [
     { ... },
     { ... }
@@ -54,6 +57,7 @@ HTTP status codes are used correctly:
 ### Validation Error (422)
 ```json
 {
+  "success": false,
   "message": "The given data was invalid.",
   "errors": {
     "name": ["The name field is required."],
@@ -66,6 +70,7 @@ HTTP status codes are used correctly:
 ### Authentication Error (401)
 ```json
 {
+  "success": false,
   "message": "Unauthenticated."
 }
 ```
@@ -73,6 +78,7 @@ HTTP status codes are used correctly:
 ### Forbidden (403)
 ```json
 {
+  "success": false,
   "message": "You are not authorized to perform this action."
 }
 ```
@@ -80,6 +86,7 @@ HTTP status codes are used correctly:
 ### Not Found (404)
 ```json
 {
+  "success": false,
   "message": "Resource not found."
 }
 ```
@@ -87,6 +94,7 @@ HTTP status codes are used correctly:
 ### Server Error (500)
 ```json
 {
+  "success": false,
   "message": "An unexpected error occurred."
 }
 ```
@@ -141,11 +149,10 @@ Broadcast channels (private, authenticated):
 - `property.{propertyId}` — Property-related events
 
 Events broadcast:
-- `new-message` — New chat message
-- `typing` — User is typing
-- `message-deleted` — Message removed
-- `new-notification` — New notification
-- `viewing-updated` — Viewing status changed
+- `message.sent` — New chat message (MessageSentEvent)
+- `user.typing` — User is typing (UserTypingEvent)
+- `notification.received` — New notification (NotificationReceivedEvent)
+- `subscription.status.changed` — Subscription status change (SubscriptionStatusChangedEvent)
 
 ---
 
