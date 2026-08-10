@@ -61,14 +61,15 @@ classDiagram
         +calendar() JsonResponse
     }
 
-    class SubscriptionController {
-        +index() JsonResponse
-        +subscribe(request) JsonResponse
+    class CheckoutController {
+        +checkout() JsonResponse
+        +current() JsonResponse
         +cancel() JsonResponse
+        +features() JsonResponse
     }
 
-    class ChatController {
-        +conversations() JsonResponse
+    class ChatRoomController {
+        +rooms() JsonResponse
         +sendMessage() JsonResponse
         +messages() JsonResponse
     }
@@ -184,8 +185,8 @@ classDiagram
     %% ================= RELATIONSHIPS =================
     Controller <|-- PropertyController
     Controller <|-- AppointmentController
-    Controller <|-- SubscriptionController
-    Controller <|-- ChatController
+    Controller <|-- CheckoutController
+    Controller <|-- ChatRoomController
 
     Controller *-- ApiResponses
     Controller *-- ApplyPermissions
@@ -196,7 +197,7 @@ classDiagram
 
     PropertyController --> BaseService : uses
     AppointmentController --> BaseService : uses
-    SubscriptionController --> BaseService : uses
+    CheckoutController --> BaseService : uses
 
     BaseService ..> PropertyDTO : builds
     BaseService ..> AppointmentDTO : builds

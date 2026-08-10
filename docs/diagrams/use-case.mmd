@@ -7,7 +7,7 @@ flowchart TB
 
         subgraph Auth["Authentication & Browsing"]
             UC1["Register"]
-            UC2["Login (Email/Phone/OTP)"]
+            UC2["Login (OTP / Verify)"]
             UC3["Browse & Search Properties"]
             UC4["View Property Details"]
             UC5["View Map Properties"]
@@ -22,6 +22,9 @@ flowchart TB
             UC11["Reviews"]
             UC12["Subscribe to Plan"]
             UC13["Personal File Storage"]
+            UC13a["Deposit Escrow (Buy/Sell)"]
+            UC13b["AI Smart Search"]
+            UC13c["View Market Statistics"]
         end
 
         subgraph Publisher["Publisher Features"]
@@ -32,6 +35,9 @@ flowchart TB
             UC18["Ad Performance"]
             UC19["Rental Cards"]
             UC20["Upgrade Request"]
+            UC20a["AI Description Assistant"]
+            UC20b["Trader Dashboard"]
+            UC20c["Competitive Map"]
         end
 
         subgraph Provider["Service Provider Features"]
@@ -49,16 +55,19 @@ flowchart TB
             UC29["Review Upgrade Requests"]
             UC30["Statistics Dashboard"]
             UC31["Leads (CRM)"]
+            UC31a["Admin Statistics"]
         end
     end
 
     G[("Guest")] --- UC1 & UC2 & UC3 & UC4 & UC5 & UC6
-    U[("User")] --- UC7 & UC8 & UC9 & UC10 & UC11 & UC12 & UC13
-    P[("Publisher")] --- UC14 & UC15 & UC16 & UC17 & UC18 & UC19 & UC20
+    U[("User")] --- UC7 & UC8 & UC9 & UC10 & UC11 & UC12 & UC13 & UC13a & UC13b & UC13c
+    P[("Publisher")] --- UC14 & UC15 & UC16 & UC17 & UC18 & UC19 & UC20 & UC20a & UC20b & UC20c
     SP[("Service Provider")] --- UC21 & UC22 & UC23 & UC24
-    A[("Admin")] --- UC25 & UC26 & UC27 & UC28 & UC29 & UC30 & UC31
+    A[("Admin")] --- UC25 & UC26 & UC27 & UC28 & UC29 & UC30 & UC31 & UC31a
 
     St[("Stripe")] --> UC12
+    Kimi[("Kimi AI")] --> UC13b
+    Kimi --> UC20a
     Push[("FCM / Pusher")] --> UC10
 
     U -. inherits .-> G

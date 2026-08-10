@@ -4,7 +4,7 @@ info:
   description: 'Complete OpenAPI specification for the Real Estate Platform (Laravel 12 modular monolith).
 
 
-    Covers 13 modules: Auth, Core, RealEstate, Communication, Subscription, ServiceProvider, Ledger, Deposit, Crm, FileSystem, Statistics, Ai, Map.
+    Covers 12 modules: Auth, Core, RealEstate, Communication, Subscription, ServiceProvider, Ledger, Deposit, Crm, FileSystem, Statistics, Ai.
 
 
     All protected endpoints require `Authorization: Bearer {token}`.'

@@ -55,7 +55,7 @@ This package contains everything frontend and mobile developers need to build th
 
 ## Key Facts
 
-- **260+ endpoints** across 13 modules (Auth, Core, RealEstate, Communication, Subscription, ServiceProvider, Ledger, Deposit, Crm, FileSystem, Statistics, Ai, Map)
+- **260+ endpoints** across 12 modules (Auth, Core, RealEstate, Communication, Subscription, ServiceProvider, Ledger, Deposit, Crm, FileSystem, Statistics, Ai)
 - **60+ entities/models**
 - **43 enums**
 - **150+ permission strings**

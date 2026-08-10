@@ -1,28 +1,51 @@
 # Graduation Project — Diagrams & Reports
 
-هذه الملفات جاهزة للاستيراد داخل المواقع لعرض المخططات. كل ملف مكتوب بلغة نصية (code) تدعمها مواقع العرض، فقط انسخ المحتوى أو ارفعه حسب الخطوات بالأسفل.
+كل المخططات في هذا المجلد مبنية على **الكود الفعلي الحالي للمشروع** (بعد دمج `develop` في `main`): 12 وحدة، 55 جدولاً، 43 enum، و262 endpoint.
 
-## أفضل المواقع والطريقة (ملخص)
+كل ملف نصي (code) جاهز للاستيراد داخل برنامج/موقع عرض. اختر من الجدول أدناه.
 
-| المخطط | أفضل موقع | الملف | طريقة الاستيراد |
-|---|---|---|---|
-| **ER Diagram** | [dbdiagram.io](https://dbdiagram.io) (الأفضل للعرض) | `er-diagram.dbml` | افتح الموقع → New → الصق الكود |
-| ER Diagram (بديل) | [mermaid.live](https://mermaid.live) | `er-diagram.mmd` | الصق الكود في محرر Mermaid |
-| **Use Case** | [PlantUML](https://www.plantuml.com/plantuml) | `use-case.puml` | الصق الكود في مربع PlantUML |
-| Use Case (بديل) | [mermaid.live](https://mermaid.live) | `use-case.mmd` | الصق الكود في محرر Mermaid |
-| **Sequence** | [mermaid.live](https://mermaid.live) | `sequence-diagrams.mmd` | الصق الكود في محرر Mermaid |
-| **Class** | [mermaid.live](https://mermaid.live) | `class-diagram.mmd` | الصق الكود في محرر Mermaid |
-| **Tech Stack** | أي محرر Markdown (Notion / GitHub / Typora) | `tech-stack.md` | افتح/اعرض الملف مباشرة |
+## 📋 دليل البرامج لكل ملف
 
-## خطوات عامة
+| الملف | ما يعرضه | البرنامج/الموقع الأفضل | طرق بديلة | طريقة الاستيراد |
+|---|---|---|---|---|
+| `er-diagram.dbml` | مخطط ER (55 جدول) | **dbdiagram.io** | QuickDBD، dbdocs.io | New → الصق الكود |
+| `er-diagram.mmd` | مخطط ER (بديل) | **mermaid.live** | GitHub، Notion، draw.io | الصق الكود في المحرر |
+| `use-case.puml` | مخطط Use Case | **PlantUML** (plantuml.com) | draw.io، VS Code extension | الصق الكود → Submit |
+| `use-case.mmd` | مخطط Use Case (بديل) | **mermaid.live** | GitHub، Notion | الصق الكود في المحرر |
+| `sequence-diagrams.mmd` | 8 مخططات Sequence | **mermaid.live** | GitHub، Notion | الصق مخطط واحد في كل مرة |
+| `class-diagram.mmd` | مخطط Class (الطبقات) | **mermaid.live** | GitHub، Notion | الصق الكود في المحرر |
+| `tech-stack.md` | التقنيات والاعتماديات | **Notion / GitHub / Typora** | أي محرر Markdown | افتح الملف مباشرة |
 
-1. **mermaid.live** → افتح الموقع → احذف المثال الافتراضي → الصق محتوى ملف `.mmd` → سيُعرض الرسم فورًا → زر **Download SVG/PNG** للتصدير.
-2. **dbdiagram.io** → سجّل (مجاني) → New Diagram → الصق محتوى `.dbml` → تُحفظ تلقائيًا وتُصدّر PNG/SQL.
-3. **PlantUML** → افتح [plantuml.com](https://www.plantuml.com/plantuml) → الصق الكود → **Submit** → تظهر الصورة.
-4. **draw.io / diagrams.net** (اختياري): يدعم `Arrange → Insert → Advanced → PlantUML` و `Mermaid`.
+## 🖥️ خطوات الاستيراد لكل برنامج
 
-## نصيحة للعرض في التقرير
+### 1) mermaid.live (الأكثر استخداماً — يغطي 4 مخططات)
+1. افتح [mermaid.live](https://mermaid.live)
+2. احذف المثال الافتراضي
+3. الصق محتوى ملف `.mmd` المطلوب
+4. الرسم يظهر فوراً → زر **Download SVG/PNG** للتصدير
 
-- صدّر كل مخطط بصيغة **PNG/SVG عالية الجودة** من الموقع، ثم أضفها لملف التقرير.
-- عند عمل Use Case احرص على ذكر الـ Actors الأساسية: **Guest، User، Publisher (ناشر)، Service Provider (مقدم خدمة)، Admin**.
-- كل مخطط في هذا المجلد مبنى على الكود الفعلي للمشروع (الجداول، الـ Routes، الـ Entities).
+### 2) dbdiagram.io (الأفضل لمخطط ER)
+1. سجّل مجاناً في [dbdiagram.io](https://dbdiagram.io)
+2. اضغط **New Diagram**
+3. الصق محتوى `er-diagram.dbml`
+4. المخطط يُرسم تلقائياً → زر **Export PNG** و **Export SQL**
+
+### 3) PlantUML (الأفضل لـ Use Case)
+1. افتح [plantuml.com](https://www.plantuml.com/plantuml)
+2. الصق محتوى `use-case.puml`
+3. اضغط **Submit** → تظهر الصورة → احفظها PNG/SVG
+
+### 4) draw.io / diagrams.net (بديل جامعي)
+- **PlantUML**: قائمة `Arrange → Insert → Advanced → PlantUML` ثم الصق كود `use-case.puml`
+- **Mermaid**: قائمة `Arrange → Insert → Advanced → Mermaid` ثم الصق أي ملف `.mmd`
+
+### 5) GitHub / Notion (عرض مباشر بدون مواقع خارجية)
+- ارفع ملفات `.mmd` لمستودع GitHub — يتحول لمخططات تلقائياً
+- أو أنشئ كتلة **Code → mermaid** في Notion والصق الكود
+
+## 📌 ملاحظات هامة
+
+- **Sequence Diagrams**: ملف `sequence-diagrams.mmd` يحتوي 8 مخططات منفصلة — الصق **مخططاً واحداً فقط** في كل مرة (اختر الجزء بين `%% Diagram N` والتعليق التالي).
+- **التصدير للتقرير**: بعد العرض، استخدم **Export PNG** أو **Download SVG** بجودة عالية وأدرجها في ملف التقرير النهائي.
+- **مصدر المخططات**: كلها مولّدة من الكود الفعلي — ER من الـ Migrations، Use Case من الـ Routes، Class من الـ Controllers/Services/Entities.
+- **المشهد الحالي**: 12 وحدة (Ai, Auth, Core, RealEstate, Communication, Subscription, Deposit, ServiceProvider, Crm, FileSystem, Ledger, Statistics) + Map ضمن RealEstate.

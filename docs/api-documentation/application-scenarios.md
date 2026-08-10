@@ -868,7 +868,7 @@ PENDING ──→ PAID
 ## End of Document
 
 **Total Endpoints**: 260+
-**Total Models**: 60+ (across 13 modules)
+**Total Models**: 60+ (across 12 modules)
 **Total Enums**: 43
 **Real-Time Channels**: user.{id}, chat.{roomId}, property.{propertyId}
 **Auth Method**: Bearer token (Sanctum) via OTP login

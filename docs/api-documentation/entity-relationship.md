@@ -1,6 +1,6 @@
 # Entity Relationship Overview
 
-Text-based ERD describing all models and their relationships across the 13 modules of the platform. Based on the actual entities and migrations in the current codebase.
+Text-based ERD describing all models and their relationships across the 12 modules of the platform. Based on the actual entities and migrations in the current codebase.
 
 ---
 

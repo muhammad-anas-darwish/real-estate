@@ -21,6 +21,7 @@ actor "Service Provider" as SP
 actor Admin as A
 actor "Stripe (Payment Gateway)" as PG
 actor "FCM / Pusher (Notification)" as NP
+actor "Kimi AI" as Kimi
 
 ' inheritances
 P --|> U
@@ -56,6 +57,9 @@ rectangle "User Features" {
   usecase "Review Offices & Users" as UC_Review
   usecase "Subscribe to a Plan" as UC_Subscribe
   usecase "Manage Personal File Storage" as UC_Files
+  usecase "Deposit Escrow (Buy / Sell)" as UC_Deposit
+  usecase "AI Smart Search" as UC_AiSearch
+  usecase "View Market Statistics" as UC_MarketStats
 }
 
 U --> UC_Profile
@@ -66,6 +70,9 @@ U --> UC_Notify
 U --> UC_Review
 U --> UC_Subscribe
 U --> UC_Files
+U --> UC_Deposit
+U --> UC_AiSearch
+U --> UC_MarketStats
 
 ' ================= PUBLISHER =================
 rectangle "Publisher Features" {
@@ -77,6 +84,9 @@ rectangle "Publisher Features" {
   usecase "Request Publisher Upgrade" as UC_Upgrade
   usecase "Manage Rental Cards" as UC_Rental
   usecase "Receive / Manage Inquiries" as UC_Inquiries
+  usecase "AI Description Assistant" as UC_AiDesc
+  usecase "Trader Dashboard" as UC_TraderStats
+  usecase "Competitive Map Analysis" as UC_CompetitiveMap
 }
 
 P --> UC_PublishProp
@@ -87,6 +97,9 @@ P --> UC_AdStats
 P --> UC_Upgrade
 P --> UC_Rental
 P --> UC_Inquiries
+P --> UC_AiDesc
+P --> UC_TraderStats
+P --> UC_CompetitiveMap
 
 ' ================= SERVICE PROVIDER =================
 rectangle "Service Provider Features" {
@@ -110,6 +123,7 @@ rectangle "Admin Features" {
   usecase "Review Upgrade Requests" as UC_AdminUpgrade
   usecase "View Statistics & Dashboards" as UC_Dashboard
   usecase "Manage Leads (CRM)" as UC_Crm
+  usecase "View Admin Statistics" as UC_AdminStats
 }
 
 A --> UC_AdminUsers
@@ -119,10 +133,13 @@ A --> UC_AdminPlans
 A --> UC_AdminUpgrade
 A --> UC_Dashboard
 A --> UC_Crm
+A --> UC_AdminStats
 
 ' ================= EXTERNAL SYSTEMS =================
 PG --> UC_Subscribe : "processes payment webhooks"
 NP --> UC_Notify : "delivers pushes"
+Kimi --> UC_AiSearch : "smart search"
+Kimi --> UC_AiDesc : "description generation"
 
 ' ================= INCLUDE RELATIONSHIPS =================
 UC_PublishProp ..> UC_Login : <<include>>

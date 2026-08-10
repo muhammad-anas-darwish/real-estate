@@ -5,21 +5,25 @@
 %% ==================================================
 
 %% --------------------------------------------------
-%% Diagram 1: User Login (Sanctum token)
+%% Diagram 1: User Login via OTP (Sanctum token)
 %% --------------------------------------------------
 sequenceDiagram
     autonumber
     participant C as Mobile/Web Client
-    participant API as Laravel API (Fortify)
+    participant API as Laravel API (Auth)
     participant DB as Database
 
-    C->>API: POST /api/auth/login (email/phone + password)
-    API->>API: Validate credentials (Fortify)
-    API->>DB: SELECT user WHERE email = ?
-    alt Invalid credentials
-        API-->>C: 401 Unauthorized
-    else Valid credentials
-        API->>DB: CREATE personal_access_token
+    C->>API: POST /api/auth/login (phone/email)
+    API->>API: Generate 6-digit OTP (OtpPurpose::LOGIN)
+    API->>DB: INSERT otp_codes (expires ~5 min)
+    API-->>C: 200 { message: "OTP sent" }
+    Note over C,API: OTP delivered via SMS/email/notification
+    C->>API: POST /api/auth/verify-otp (phone/email + code)
+    API->>DB: Verify code (valid + not expired + unused)
+    alt Invalid or expired code
+        API-->>C: 422 Validation error
+    else Valid code
+        API->>DB: Mark OTP used + CREATE personal_access_token
         API-->>C: 200 { user, roles, access_token }
         C->>API: GET /api/user (Bearer token)
         API->>DB: Verify token (Sanctum)
@@ -136,3 +140,42 @@ sequenceDiagram
     B->>API: POST /api/deposits/{id}/release
     API->>DB: UPDATE deposits SET status=released, released_by
     API-->>S: FCM push: "تم إخلاء الضمان لحسابك"
+
+%% --------------------------------------------------
+%% Diagram 7: AI Smart Search
+%% --------------------------------------------------
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant API as Laravel API
+    participant AI as Kimi AI Service
+    participant DB as Database
+
+    U->>API: POST /api/ai/search (natural-language query)
+    API->>API: Rate limit (throttle:ai-search)
+    API->>AI: Extract requirements (ExtractedRequirements DTO)
+    AI-->>API: Structured filters (type, price, city...)
+    API->>DB: Query properties with filters
+    DB-->>API: Matching properties
+    API->>AI: Rank + summarize results
+    AI-->>API: Ranked SearchResult list
+    API-->>U: 200 { results[] }
+
+%% --------------------------------------------------
+%% Diagram 8: Trader Statistics Dashboard
+%% --------------------------------------------------
+sequenceDiagram
+    autonumber
+    participant T as Trader
+    participant API as Laravel API
+    participant SVC as StatsService
+    participant DB as Database
+
+    T->>API: GET /api/dashboard/trader/summary
+    API->>API: Authorize: role=trader + statistics.view
+    API->>SVC: summary(request)
+    SVC->>DB: Aggregate KPIs (listings, views, leads, rentals, ads)
+    DB-->>SVC: Aggregated data
+    SVC->>DB: Cache results (Cache::tags statistics)
+    SVC-->>API: KpiCard[] + distributions
+    API-->>T: 200 { summary }

@@ -15,8 +15,22 @@ class CategoryController extends Controller
     {
         $this->applyPermissions(
             'categories',
-            ['index', 'show', 'store', 'update', 'destroy']
+            ['store', 'update', 'destroy']
         );
+    }
+
+    public function indexPublic()
+    {
+        $categories = $this->categoryService->all();
+
+        return $this->paginatedResponse(CategoryResource::collection($categories));
+    }
+
+    public function showPublic($id)
+    {
+        $category = $this->categoryService->find($id);
+
+        return $this->successResponse(CategoryResource::make($category));
     }
 
     public function index()
