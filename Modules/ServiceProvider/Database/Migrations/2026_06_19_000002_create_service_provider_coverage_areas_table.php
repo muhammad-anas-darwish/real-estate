@@ -10,11 +10,16 @@ return new class extends Migration
     {
         Schema::create('service_provider_coverage_areas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('service_provider_profile_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('city_id')->constrained()->cascadeOnDelete();
+            $table->unsignedBigInteger('service_provider_profile_id');
+            $table->foreignId('city_id')->constrained();
+
+            $table->foreign('service_provider_profile_id', 'spca_profile_fk')
+                ->references('id')->on('service_provider_profiles')
+                ->cascadeOnDelete();
+
             $table->timestamps();
 
-            $table->unique(['service_provider_profile_id', 'city_id'], 'sp_city_unique');
+            $table->unique(['service_provider_profile_id', 'city_id'], 'spca_profile_city_uniq');
         });
     }
 

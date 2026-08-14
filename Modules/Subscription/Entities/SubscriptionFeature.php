@@ -51,12 +51,12 @@ class SubscriptionFeature extends BaseModel
         return $this->hasMany(SubscriptionPlanFeature::class, 'feature_id');
     }
 
-    public function scopeToggle($query)
+    public function scopeOfToggleType($query)
     {
         return $query->where('type', FeatureType::TOGGLE);
     }
 
-    public function scopeLimit($query)
+    public function scopeOfLimitType($query)
     {
         return $query->where('type', FeatureType::LIMIT);
     }

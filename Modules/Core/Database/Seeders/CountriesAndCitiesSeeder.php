@@ -90,10 +90,13 @@ class CountriesAndCitiesSeeder extends Seeder
             $cities = $countryData['cities'];
             unset($countryData['cities']);
 
-            $country = Country::create($countryData);
+            $country = Country::firstOrCreate(['code' => $countryData['code']], $countryData);
 
             foreach ($cities as $cityData) {
-                $country->cities()->create($cityData);
+                $country->cities()->firstOrCreate(
+                    ['country_id' => $country->id, 'name' => $cityData['name']],
+                    $cityData
+                );
             }
         }
 

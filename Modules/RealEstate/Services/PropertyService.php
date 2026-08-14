@@ -14,7 +14,6 @@ use Modules\RealEstate\Entities\Property;
 use Modules\RealEstate\Enums\PropertyStatus;
 use Modules\RealEstate\Events\PropertyCreated;
 use Modules\RealEstate\Events\PropertyDeleting;
-use Modules\Subscription\Services\SubscriptionAccess;
 
 class PropertyService extends BaseService
 {
@@ -124,30 +123,6 @@ class PropertyService extends BaseService
             }
 
             $isDraft = $dto->status === PropertyStatus::DRAFT->value;
-
-            $access = app(SubscriptionAccess::class);
-
-            if (! $isDraft && ! $access->hasFeature($user, 'property_listing')) {
-                throw new \RuntimeException('Your subscription does not include the property listing feature.');
-            }
-
-            if (! $isDraft) {
-                $listingLimit = $access->getFeatureLimit($user, 'property_listing_limit');
-                if ($listingLimit !== null) {
-                    $currentCount = Property::where('publisher_id', $user->id)
-                        ->whereIn('status', ['pending', 'approved', 'under_inspection'])
-                        ->count();
-
-                    if ($currentCount >= $listingLimit) {
-                        throw new \RuntimeException("You have reached the maximum number of active properties ({$listingLimit}).");
-                    }
-                }
-            }
-
-            $imageLimit = $access->getFeatureLimit($user, 'property_images');
-            if ($imageLimit !== null && $dto->gallery && count($dto->gallery) > $imageLimit) {
-                throw new \RuntimeException("You can only upload {$imageLimit} images per property.");
-            }
 
             $propertyData = array_merge($dto->toArray(), [
                 'publisher_id' => Auth::id(),

@@ -110,17 +110,7 @@ class User extends Authenticatable implements HasMedia
 
     public function hasVerifiedBadge(): bool
     {
-        if (! $this->is_verified) {
-            return false;
-        }
-
-        $subscription = $this->activeSubscription();
-        if (! $subscription) {
-            return false;
-        }
-
-        return app(\Modules\Subscription\Services\SubscriptionAccess::class)
-            ->hasFeature($this, 'verified_badge');
+        return (bool) $this->is_verified;
     }
 
     public function reviewsReceived(): \Illuminate\Database\Eloquent\Relations\HasMany

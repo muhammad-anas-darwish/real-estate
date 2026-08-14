@@ -13,7 +13,6 @@ use Modules\Auth\Http\Resources\UserResource;
 use Modules\Auth\Services\PublisherService;
 use Modules\Auth\Services\UpgradeRequestService;
 use Modules\RealEstate\Services\AnalyticsService;
-use Modules\Subscription\Services\SubscriptionAccess;
 
 class PublisherController extends Controller
 {
@@ -74,12 +73,6 @@ class PublisherController extends Controller
 
     public function analytics()
     {
-        $access = app(SubscriptionAccess::class);
-
-        if (! $access->hasFeature(Auth::user(), 'advanced_analytics')) {
-            return $this->failedResponse('Advanced analytics requires a subscription with this feature.', 403);
-        }
-
         $overview = $this->analyticsService->getDashboardOverview(Auth::id());
 
         return $this->successResponse($overview);
